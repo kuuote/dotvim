@@ -1,0 +1,14 @@
+\(\S\+\)\.panic$
+	if {{$1}} != nil {
+		panic({{$1}})
+	}
+	{{_cursor_}}
+
+\(\S.\+\)\.err$
+	if {{$1}}; err != nil {
+		return err
+	}
+	{{_cursor_}}
+
+p\.\(\S\+\)$
+	fmt.Println({{$1}}){{_cursor_}}

@@ -1,0 +1,8 @@
+call minpac#add('tennashi/trunner.vim')
+call minpac#add('thinca/vim-ambicmd')
+call minpac#add('thinca/vim-localrc')
+call minpac#add('thinca/vim-themis')
+call minpac#add('tweekmonster/helpful.vim')
+call minpac#add('tyru/capture.vim')
+call minpac#add('tyru/sync-term-cwd.vim')
+call minpac#add('vim-jp/vital.vim')

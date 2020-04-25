@@ -1,0 +1,11 @@
+/backup
+/bookmark.lst
+/nvim
+/pack
+/plugins
+/quickmemo.txt
+/scripts/config/colors_tmp.vim
+/scripts/config/tmp
+/tmp
+/undo
+/viminfo*
