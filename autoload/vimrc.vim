@@ -15,7 +15,7 @@ endfunction
 
 "キーバインドを入れ替えるやつ
 function! vimrc#swapkey(mode, a, b)
-  for mode in empty(a:mode) ? [''] : split(a:mode, '\zs')
+  for mode in split(a:mode, '\zs', 1)
     exe printf("%snoremap %s %s", mode, a:a, a:b)
     exe printf("%snoremap %s %s", mode, a:b, a:a)
   endfor
