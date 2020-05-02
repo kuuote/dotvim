@@ -52,7 +52,7 @@ function! s:preview_change() abort
       try
         " エスケープシーケンスを利用して切り出し
         let line = substitute(line, "\\v.*\<Esc>\\[\\d+m(.*)\<Esc>.*", "\\1", "")
-        if line =~ "/$"
+        if line =~# "/$"
           let res = readdir(line)
         else
           let res = readfile(line)

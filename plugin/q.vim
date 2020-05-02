@@ -10,14 +10,14 @@ function! s:lift(direction) abort
   let cline = line(".")
   let sline = cline
   while sline > 0
-    if getline(sline) =~ s:re
+    if getline(sline) =~# s:re
       break
     endif
     let sline -= 1
   endwhile
   let eline = sline + 1
   while eline <= line("$")
-    if getline(eline) =~ s:re
+    if getline(eline) =~# s:re
       break
     endif
     let eline += 1
@@ -44,7 +44,7 @@ function! s:mark() abort
       call setline(cline, "*" .. t[1:])
       call s:lift(0)
       break
-    elseif t[0] == "*"
+    elseif t[0] ==# "*"
       call setline(cline, "-" .. t[1:])
       call s:lift(1)
       break
@@ -58,13 +58,13 @@ endfunction
 function! s:sweep() abort
   let ps = []
   for l in range(1, line("$"))
-    if getline(l) =~ s:re
+    if getline(l) =~# s:re
       call insert(ps, l)
     endif
   endfor
   let last = line("$")
   for p in ps
-    if getline(p)[0] == "-"
+    if getline(p)[0] ==# "-"
       call deletebufline("%", p, last)
     endif
     let last = p - 1
@@ -73,7 +73,7 @@ function! s:sweep() abort
 endfunction
 
 function! QMIndent() abort
-  return getline(v:lnum) =~ '\v^\s*(-|\*)' ? 0 : 2
+  return getline(v:lnum) =~# '\v^\s*(-|\*)' ? 0 : 2
 endfunction
 
 function! OpenQuickMemo() abort
@@ -93,7 +93,6 @@ function! OpenQuickMemo() abort
   let s:bufnr = bufnr("%")
   autocmd CursorMoved,CursorMovedI <buffer> checktime %
   autocmd TextChanged,TextChangedI <buffer> checktime %
-  autocmd InsertLeave <buffer> write
 endfunction
 
 function! s:argc() abort
@@ -105,7 +104,7 @@ function! s:empty_buffer() abort
   elseif filereadable("/proc/self/cmdline")
     return len(split(readfile("/proc/self/cmdline")[0])) == 1
   else 
-    return bufname("%") == "" && argc() == 0 && wordcount().bytes == 0
+    return bufname("%") ==# "" && argc() == 0 && wordcount().bytes == 0
   endif
 endfunction
 

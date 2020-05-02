@@ -4,7 +4,7 @@ let s:mru = []
 let s:mrw = []
 
 let g:mru_file = get(g:, "mru_file", "")
-let g:mrw_file = get(g:, "mrw_file", $HOME .. "/.mrw")
+let g:mrw_file = get(g:, "mrw_file", expand("<sfile>:p:h:h") .. "/.mrw")
 
 function! s:init() abort
   let s:mru = filter(copy(v:oldfiles), "filereadable(v:val)")
@@ -38,6 +38,7 @@ function! s:add(type) abort
   let v = s:read(a:type)
   let v = filter(v, "v:val != path")
   let v = insert(v, path)
+  let v = v[:100]
   let s:[a:type] = v
   call s:write(a:type)
 endfunction

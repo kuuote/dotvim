@@ -19,8 +19,8 @@ function! s:readdir(dir) abort
 endfunction
 
 function! s:comp(a, b) abort
-  let a = a:a[-1:] == "/" ? -1 : 1
-  let b = a:b[-1:] == "/" ? -1 : 1
+  let a = a:a[-1:] ==# "/" ? -1 : 1
+  let b = a:b[-1:] ==# "/" ? -1 : 1
   let c = a - b
   return c != 0 ? c :
   \      a:a < a:b ? -1 :
@@ -68,7 +68,7 @@ endfunction
 
 function! s:down() abort
   let name = getline(".")
-  if name[-1:] == '/'
+  if name[-1:] ==# '/'
     call s:chdir(s:pwd .. "/" .. name)
   else
     call s:open(name)

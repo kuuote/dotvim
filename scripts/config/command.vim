@@ -1,6 +1,6 @@
 " QuickRun用に雑バッファ作るやつ
 function! s:scratch(filetype, usethis, mods) abort
-  execute a:usethis == "!" ? "enew" : a:mods .. " new"
+  execute a:usethis ==# "!" ? "enew" : a:mods .. " new"
   setlocal buftype=nofile bufhidden=hide noswapfile
   let &filetype = a:filetype
 endfunction

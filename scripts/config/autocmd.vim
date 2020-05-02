@@ -15,7 +15,7 @@ function! s:chmod(file) abort
 endfunction
 
 " シバン付いてるファイルに実行権限を与える
-autocmd vimrc BufWritePost * if getline(1) =~ "^#!" | call s:chmod(expand("<afile>")) | endif
+autocmd vimrc BufWritePost * if getline(1) =~# "^#!" | call s:chmod(expand("<afile>")) | endif
 
 " Automatically create missing directories {{{
 " copied from https://github.com/lambdalisue/dotfiles/blob/master/nvim/init.vim

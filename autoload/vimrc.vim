@@ -24,7 +24,7 @@ endfunction
 "Quickfixウィンドウをトグルする
 function! vimrc#qftoggle()
   for b in tabpagebuflist()
-    if getbufvar(b, "&buftype") == "quickfix"
+    if getbufvar(b, "&buftype") ==# "quickfix"
       cclose
       return
     endif
@@ -89,7 +89,7 @@ function! vimrc#autoloadname() abort
   let acc = [fnamemodify(cfile, ":t:r")]
   while v:true
     let pfile = fnamemodify(cfile, ":h")
-    if pfile =~ "autoload$" || cfile == pfile
+    if pfile =~# "autoload$" || cfile ==# pfile
       break
     endif
     call insert(acc, fnamemodify(pfile, ":t"))

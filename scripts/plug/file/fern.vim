@@ -20,11 +20,11 @@ endfunction
 
 function s:close_fern()
   "コマンドラインウィンドウでこれ走ると厄介なことになる
-  if &filetype == "fern" || !empty(getcmdwintype())
+  if &filetype ==# "fern" || !empty(getcmdwintype())
     return
   endif
   for b in tabpagebuflist()
-    if getbufvar(b, "&filetype") == "fern"
+    if getbufvar(b, "&filetype") ==# "fern"
       execute "bdelete " .. b
     endif
   endfor
