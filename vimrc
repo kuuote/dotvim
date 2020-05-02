@@ -11,6 +11,7 @@ let mapleader = ","
 " Delete autocommands
 augroup vimrc
   autocmd!
+augroup END
 augroup vimrc_sound
   autocmd!
 augroup END
