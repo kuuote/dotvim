@@ -36,6 +36,23 @@ command! -nargs=* Catch call s:catch("<args>")
 
 " Plugin {{{
 
+function! s:set_rtp_cwd() abort
+  " 現在のディレクトリがプラグインであればrtpに加える
+  for dir in [
+  \ "./autoload",
+  \ "./colors",
+  \ "./ftplugin",
+  \ "./indent",
+  \ "./plugin",
+  \ "./syntax",
+  \ ]
+    if isdirectory(dir)
+      set rtp^=.
+      break
+    endif
+  endfor
+endfunction
+
 if !v:vim_did_enter
   let s:minpac = fnamemodify("~/.vim/pack/minpac/opt/minpac", ":p")
 
@@ -56,22 +73,9 @@ if !v:vim_did_enter
       call vimrc#loadscripts("~/.vim/scripts/plug.vim/**/*.vim")
     endif
   endif
-
-  " 現在のディレクトリがプラグインであればrtpに加える
-  for dir in [
-  \ "./autoload",
-  \ "./colors",
-  \ "./ftplugin",
-  \ "./indent",
-  \ "./plugin",
-  \ "./syntax",
-  \ ]
-    if isdirectory(dir)
-      set rtp^=.
-      break
-    endif
-  endfor
 endif
+
+call s:set_rtp_cwd()
 
 " }}}
 
