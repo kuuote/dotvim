@@ -12,6 +12,6 @@ function! s:savefont() abort
   call writefile(["if has('gui_running')", "let &guifont = " .. string(f), "endif"], s:savefile)
 endfunction
 
-autocmd OptionSet guifont call s:savefont()
+autocmd vimrc OptionSet guifont call s:savefont()
 
 command! Jiskan set guifont=JF\ Dot\ jiskan16s-2000\ 12
