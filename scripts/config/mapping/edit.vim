@@ -3,10 +3,6 @@ nnoremap Y y$
 
 nnoremap Q @@
 
-" Reselect visual block after adjusting indentation
-xnoremap < <gv
-xnoremap > >gv
-
 " Useful substitute pattern from https://github.com/tlhunter/vimrc
 nnoremap S :<C-u>%s/\v/g<Left><Left>
 vnoremap S :s/\v/g<Left><Left>
