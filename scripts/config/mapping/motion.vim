@@ -15,6 +15,11 @@ nnoremap k gk
 nnoremap n nzz
 nnoremap N Nzz
 
+" (と)を押しづらい^と$に割り振り(両キーは変換無変換に割り振ってるため便利可能)
+" 元マップの文は多分全く使わんのでおk
+nnoremap ( ^
+nnoremap ) $
+
 " Pseudo page down by mouse click
 nnoremap <RightMouse> z<CR>
 
