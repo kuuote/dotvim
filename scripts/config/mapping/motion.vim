@@ -47,8 +47,8 @@ nnoremap <Tab> :<C-u>tabnext<CR>
 nnoremap <Space>th :<C-u>tabprevious<CR>
 nnoremap <Space>tl :<C-u>tabnext<CR>
 nnoremap <Space>tn :<C-u>tabnew<CR>
-nnoremap <Space>tc :<C-u>tabclose<CR>
-nnoremap <Space>tC :<C-u>tabclose!<CR>
+nnoremap <Space>tq :<C-u>tabclose<CR>
+nnoremap <Space>tQ :<C-u>tabclose!<CR>
 nnoremap <C-f> :<C-u>tabnext<CR>
 nnoremap <C-b> :<C-u>tabprevious<CR>
 
