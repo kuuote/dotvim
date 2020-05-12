@@ -14,10 +14,19 @@ function! s:load_lsp() abort
   packadd asyncomplete.vim
   packadd asyncomplete-lsp.vim
   packadd vim-lsp
-  execute "doau FileType" expand("<amatch>")
+  if v:vim_did_enter
+    " 本来はVimEnterで呼ばれてる
+    call lsp#enable()
+  endif
+  if filereadable(expand("%:p"))
+    edit
+  else
+    execute "doautocmd BufNewFile " .. fnamemodify(bufname("%"), ":p")
+    execute "doautocmd FileType " .. &l:ft
+  endif
 endfunction
 
-autocmd FileType go,python,rust ++once call s:load_lsp()
+autocmd FileType go,python,rust ++once ++nested call s:load_lsp()
 
 " see https://mattn.kaoriya.net/software/vim/20191231213507.htm
 " とりあえずログ吐いておく
