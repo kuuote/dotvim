@@ -14,7 +14,7 @@ function! s:read() abort
   endtry
 endfunction
 
-function! s:add() abort
+function! bookmark#add() abort
   " ファイル名はフルパスに
   " シンボリックリンクを展開してほしければresolve()で囲えばOK
   let path = expand("%:p")
@@ -32,7 +32,7 @@ function! s:add() abort
   echo printf("Added %s", pathshorten(path))
 endfunction
 
-function! s:open() abort
+function! bookmark#open() abort
   " addで更新されていてもeditした時点で開き直される
   " 拡張子によってはfiletype設定されちゃうのでnoautocmd付きで開く
   noautocmd edit `=g:bookmark_file`
@@ -44,5 +44,5 @@ function! s:open() abort
   nnoremap <buffer> <nowait> <silent> <CR> :<C-u>move 0<CR>:update<CR>gf
 endfunction
 
-nnoremap <silent> <Space>a :<C-u>call <SID>add()<CR>
-nnoremap <silent> <Space>m :<C-u>call <SID>open()<CR>
+nnoremap <silent> <Space>a :<C-u>call bookmark#add()<CR>
+nnoremap <silent> <Space>m :<C-u>call bookmark#open()<CR>
