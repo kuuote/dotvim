@@ -10,5 +10,10 @@
 	}
 	{{_cursor_}}
 
+errn$
+	if err != nil {
+		{{_cursor_}}
+	}
+
 p\.\(\S\+\)$
 	fmt.Println({{$1}}){{_cursor_}}
