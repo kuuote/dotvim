@@ -8,9 +8,6 @@ nnoremap <Space>w <C-w>
 " Tab movement by <Tab>
 nnoremap <Tab> :<C-u>tabnext<CR>
 
-nnoremap j gj
-nnoremap k gk
-
 " Scroll to cursor line at center of window when searching
 nnoremap n nzz
 nnoremap N Nzz
