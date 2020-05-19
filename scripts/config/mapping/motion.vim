@@ -5,9 +5,6 @@ noremap <Space>k <C-b>
 " Ctrlキーは人間にやさしくない
 nnoremap <Space>w <C-w>
 
-" Tab movement by <Tab>
-nnoremap <Tab> :<C-u>tabnext<CR>
-
 " Scroll to cursor line at center of window when searching
 nnoremap n nzz
 nnoremap N Nzz
@@ -51,6 +48,7 @@ nnoremap <Space>tl :<C-u>tabnext<CR>
 nnoremap <Space>tn :<C-u>tabnew<CR>
 nnoremap <Space>tq :<C-u>tabclose<CR>
 nnoremap <Space>tQ :<C-u>tabclose!<CR>
+nnoremap <Space>ts :<C-u>tab split<CR>
 nnoremap <C-f> :<C-u>tabnext<CR>
 nnoremap <C-b> :<C-u>tabprevious<CR>
 
