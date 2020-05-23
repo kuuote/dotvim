@@ -21,7 +21,7 @@ function! s:load_lsp() abort
   if filereadable(expand("%:p"))
     edit
   else
-    execute "doautocmd BufNewFile " .. fnamemodify(bufname("%"), ":p")
+    execute "doautocmd BufNewFile " .. fnamemodify(@%, ":p")
     execute "doautocmd FileType " .. &l:ft
   endif
 endfunction
@@ -48,8 +48,8 @@ function! s:on_lsp() abort
   " グローバルで切ったのでここで代わりに
   setlocal completeopt=menuone,noinsert,noselect
   inoremap <expr> <CR> pumvisible() ? "\<c-y>\<CR>" : "\<CR>"
-  nmap <buffer> gd <Plug>(lsp-definition)
-  nmap <buffer> e <Plug>(lsp-hover)
+  noremap <buffer> gd :<C-u>tab LspDefinition<CR>
+  nmap <buffer> K <Plug>(lsp-hover)
 endfunction
 
 autocmd vimrc User lsp_buffer_enabled call s:on_lsp()

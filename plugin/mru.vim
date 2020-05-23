@@ -30,7 +30,7 @@ function! s:write(type) abort
 endfunction
 
 function! s:add(type) abort
-  if !empty(&buftype) || empty(bufname("%"))
+  if !empty(&buftype) || empty(@%)
     return
   endif
   call s:read(a:type)

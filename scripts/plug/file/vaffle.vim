@@ -10,8 +10,8 @@ function! s:customize_vaffle_mappings() abort
   nmap <buffer> <Bslash> <Plug>(vaffle-open-root)
   nmap <buffer> K        <Plug>(vaffle-mkdir)
   nmap <buffer> N        <Plug>(vaffle-new-file)
-  nor  <buffer> <silent> <Space>cd :silent :execute printf('lcd %s', fnameescape(vaffle#buffer#extract_path_from_bufname(bufname("%"))))<CR>:echo "change directory"<CR>
-  nor  <buffer> <expr> y setreg(v:register, strpart(expand("%"), 11) . "/" . expand("<cfile>"))
+  nor  <buffer> <silent> <Space>cd :silent :execute printf('lcd %s', fnameescape(vaffle#buffer#extract_path_from_bufname(@%)))<CR>:echo "change directory"<CR>
+  nor  <buffer> <expr> y setreg(v:register, strpart(@%, 11) . "/" . expand("<cfile>"))
 endfunction
 
 augroup vimrc
