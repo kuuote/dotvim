@@ -38,25 +38,16 @@ function! s:eskkmap(mode, seq)
 endfunction
 
 function! s:my_eskk_func()
-  "オリジナルのSKK-i-searchモードみたいな感じで
-  nmap <buffer> <silent> <Space>s :<C-u>set nohlsearch<CR>/jf
-  nmap <buffer> <silent> <Space>r :<C-u>set nohlsearch<CR>?jf
-  "よく使うモーションと同時にeskkを起動
-  call s:eskkmap('n', 'A')
-  call s:eskkmap('n', 'C')
-  call s:eskkmap('n', 'I')
-  call s:eskkmap('n', 'O')
-  call s:eskkmap('n', 'a')
-  call s:eskkmap('n', 'cG')
-  call s:eskkmap('n', 'cc')
-  call s:eskkmap('n', 'i')
-  call s:eskkmap('n', 'o')
-  call s:eskkmap('v', 'I')
-  call s:eskkmap('v', 'c')
-  "個人的によく使うやつ、wipeout
+  " 挿入モードでとりあえずeskkを有効化する
+  autocmd InsertEnter <buffer> call eskk#enable()
+  " 個人的によく使うやつ、wipeout
   nnoremap <buffer> <silent> w :<C-u>call <SID>eskkfunc('ggcG')<CR>
-  "基本的にs使わないので押しづらいCの代わり
-  nnoremap <buffer> <silent> s :<C-u>call <SID>eskkfunc('C')<CR>
+
+  " 入力を前方検索してそこから後方全削除し挿入モードに入る
+  nnoremap <expr> <SID>hatena "?" .. input("") .. "<CR>:nohlsearch<CR>C"
+  nnoremap <nowait> <script> s :<C-u>call eskk#enable()<CR><SID>hatena
+  " 逆三角はあると便利
+  nnoremap <nowait> S :<C-u>call eskk#enable()<CR>?▽<CR>:nohlsearch<CR>C
 endfunction
 
 command! MyEskk :call <SID>my_eskk_func()
