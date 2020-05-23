@@ -1,11 +1,20 @@
 " QuickRun用に雑バッファ作るやつ
-function! s:scratch(filetype, usethis, mods) abort
-  execute a:usethis ==# "!" ? "enew" : a:mods .. " new"
+function! s:scratch(mods, usethis, range) abort
+  let text = []
+  if a:range[0]
+    let text = getline(a:range[1], a:range[2])
+  endif
+
+  " カレントバッファのファイルタイプをそのまま適用させる
+  let filetype = &filetype
+
+  execute a:usethis ? "enew" : a:mods .. " new"
   setlocal buftype=nofile bufhidden=hide noswapfile
-  let &filetype = a:filetype
+  let &filetype = filetype
+  call setline(1, text)
 endfunction
 
-command! -bang -nargs=1 Scratch call s:scratch(<q-args>, "<bang>", "<mods>")
+command! -bang -nargs=? -range Scratch call s:scratch(<q-args>, <bang>0, [<range>, <line1>, <line2>])
 
 " うるさい黙れ
 command! ShutUp autocmd! vimrc_sound
