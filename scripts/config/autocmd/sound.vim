@@ -12,6 +12,11 @@ augroup vimrc_sound
   autocmd CursorMoved * call s:keysound()
   autocmd CursorMovedI * call s:keysound()
 
+  for f in glob("~/.vim/wav/autocmd/*.wav", v:true, v:true)
+    let e = matchstr(f, "[^/]*\\ze\\.wav")
+    execute "autocmd vimrc_sound" e "*" printf("call vimrc#play('%s')", f)
+  endfor
+
   let s:del_sounds = glob("~/.vim/wav/delete/*.wav", v:true, v:true)
 
   function! s:delsound() abort
