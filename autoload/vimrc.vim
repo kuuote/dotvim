@@ -17,8 +17,8 @@ endfunction
 "キーバインドを入れ替えるやつ
 function! vimrc#swapkey(mode, a, b)
   for mode in split(a:mode, '\zs', 1)
-    exe printf("%snoremap %s %s", mode, a:a, a:b)
-    exe printf("%snoremap %s %s", mode, a:b, a:a)
+    execute printf("%snoremap %s %s", mode, a:a, a:b)
+    execute printf("%snoremap %s %s", mode, a:b, a:a)
   endfor
 endfunction
 
@@ -30,7 +30,7 @@ function! vimrc#qftoggle()
       return
     endif
     copen
-    exe "normal! " .. "\<C-w>p"
+    execute "normal! " .. "\<C-w>p"
   endfor
 endfunction
 

@@ -34,7 +34,7 @@ function! s:eskkfunc(seq)
 endfunction
 
 function! s:eskkmap(mode, seq)
-  exe a:mode .. 'noremap <buffer> <silent> ' .. a:seq .. ' :<C-u>call <SID>eskkfunc("' .. a:seq ..  '")<CR>'
+  execute a:mode .. 'noremap <buffer> <silent> ' .. a:seq .. ' :<C-u>call <SID>eskkfunc("' .. a:seq ..  '")<CR>'
 endfunction
 
 function! s:my_eskk_func()

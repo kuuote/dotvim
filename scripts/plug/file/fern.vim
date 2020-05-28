@@ -4,7 +4,7 @@ nnoremap <Space>f :<C-u>Fern . -drawer -toggle -reveal=%<CR>
 
 function s:ask_path()
   let path = input("Path:", expand("%:p:h"))
-  exe printf("Fern %s -drawer -toggle -reveal=%%", path)
+  execute printf("Fern %s -drawer -toggle -reveal=%%", path)
 endfunction
 
 nnoremap <Space>F :<C-u>call <SID>ask_path()<CR>
