@@ -13,5 +13,4 @@ inoremap <C-l> <del>
 inoremap jk <Esc>
 
 " ISO8601スタイルで日付挿入
-cnoremap <C-r><C-d> _<C-r>=strftime("%Y%m%dT%H%M%S")<CR>
-inoremap <C-r><C-d> _<C-r>=strftime("%Y%m%dT%H%M%S")<CR>
+noremap! <C-r><C-d> _<C-r>=strftime("%Y%m%dT%H%M%S")<CR>
