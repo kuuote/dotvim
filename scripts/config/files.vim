@@ -23,7 +23,7 @@ set viminfo+=n~/.vim/viminfo
 
 "undo
 call mkdir(s:udir, "p")
-exec 'set undodir=' .. s:udir
+let &undodir = s:udir
 set undofile
 
 "!が必要なコマンドを実行した時に確認をとってくれる
