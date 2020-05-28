@@ -21,7 +21,6 @@ augroup END
 " Error catcher {{{
 " silent!したいけどエラーは見たいので
 
-let g:vimrc_errors = []
 function! s:catch(args) abort
   try
     execute a:args
