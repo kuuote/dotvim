@@ -1,6 +1,6 @@
 call minpac#add('easymotion/vim-easymotion', {'type': 'opt'})
 
-let g:EasyMotion_leader_key = ','
+let g:EasyMotion_leader_key = '<Leader>s'
 let g:EasyMotion_keys = 'asdfjkl;zxcvm,./'
 
 nmap <SID>s2. <Plug>(easymotion-s2)
