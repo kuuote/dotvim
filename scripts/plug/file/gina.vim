@@ -90,6 +90,6 @@ function! s:preview_open() abort
 endfunction
 
 augroup vimrc
-  autocmd vimrc FileType gina-status nnoremap <buffer> pr :<C-u>call <SID>preview_open()<CR>
-  autocmd vimrc FileType gina-status setlocal number relativenumber
+  autocmd FileType gina-status nnoremap <buffer> pr :<C-u>call <SID>preview_open()<CR>
+  autocmd FileType gina-status setlocal number relativenumber
 augroup END
