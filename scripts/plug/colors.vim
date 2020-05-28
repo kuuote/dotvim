@@ -1,4 +1,5 @@
 " :colorschemeはoptを見てくれるので便利
+call minpac#add('Rigellute/rigel', {'type': 'opt'})
 call minpac#add('aereal/vim-colors-japanesque', {'type': 'opt'})
 call minpac#add('ajgrf/parchment', {'type': 'opt'})
 call minpac#add('caksoylar/vim-mysticaltutor', {'type': 'opt'})
