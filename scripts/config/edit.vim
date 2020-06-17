@@ -18,6 +18,7 @@ set pumheight=5
 set hidden
 set virtualedit=block
 set nrformats-=octal
+set nrformats+=unsigned
 
 " シェルの変数のファイル名補完をするときに不便なので
 set isfname-==
