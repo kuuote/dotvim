@@ -1,4 +1,6 @@
+call minpac#add('junegunn/fzf')
 call minpac#add('yuki-ycino/fzf-preview.vim', {'type': 'opt'})
+packadd fzf
 packadd fzf-preview.vim
 packadd gina.vim
 try
