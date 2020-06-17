@@ -14,7 +14,7 @@ let g:bluenote_rainbow_level = get(g:, "bluenote_rainbow_level", 1)
 hi Comment ctermfg=147 ctermbg=NONE guifg=#a0a0ff guibg=NONE cterm=NONE gui=NONE
 hi Constant ctermfg=210 ctermbg=NONE guifg=#ff8080 guibg=NONE cterm=NONE gui=NONE
 hi Cursor ctermfg=120 ctermbg=205 guifg=#80ff80 guibg=#ff60c0 cterm=NONE gui=NONE
-hi CursorLineNr ctermfg=120 ctermbg=246 guifg=#80ff80 guibg=#a0a0a0 cterm=NONE gui=NONE
+hi CursorLineNr ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE
 hi DiffAdd ctermfg=NONE ctermbg=157 guifg=NONE guibg=#a0ffa0 cterm=NONE gui=NONE
 hi DiffChange ctermfg=NONE ctermbg=159 guifg=NONE guibg=#a0ffff cterm=NONE gui=NONE
 hi DiffDelete ctermfg=NONE ctermbg=217 guifg=NONE guibg=#ffc0c0 cterm=NONE gui=NONE
@@ -29,7 +29,7 @@ hi Folded ctermfg=123 ctermbg=239 guifg=#80ffff guibg=#555555 cterm=NONE gui=NON
 hi Identifier ctermfg=213 ctermbg=NONE guifg=#ff80ff guibg=NONE cterm=NONE gui=NONE
 hi Ignore ctermfg=239 ctermbg=NONE guifg=#555555 guibg=NONE cterm=NONE gui=NONE
 hi IncSearch ctermfg=120 ctermbg=63 guifg=#80ff80 guibg=#6060ff cterm=NONE gui=NONE
-hi LineNr ctermfg=123 ctermbg=239 guifg=#80ffff guibg=#555555 cterm=NONE gui=NONE
+hi LineNr ctermfg=63 ctermbg=189 guifg=#6060ff guibg=#d0d0ff cterm=NONE gui=NONE
 hi MatchParen ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE cterm=underline gui=underline
 hi ModeMsg ctermfg=205 ctermbg=NONE guifg=#ff60c0 guibg=NONE cterm=NONE gui=NONE
 hi MoreMsg ctermfg=34 ctermbg=NONE guifg=#00c000 guibg=NONE cterm=NONE gui=NONE
