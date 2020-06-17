@@ -47,7 +47,3 @@ autocmd vimrc BufWritePre *
       \ call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
 " }}}
 
-" ウィンドウを切り替えたらターミナルジョブモードに突入するやつ
-if !has("nvim")
-  autocmd vimrc WinLeave * if &buftype ==# "terminal" | silent! execute "normal! i" | endif
-endif
