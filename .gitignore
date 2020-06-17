@@ -1,7 +1,9 @@
+/.mrw
 /backup
 /bookmark.lst
 /nvim
 /pack
+/plugin/local.vim
 /plugins
 /quickmemo.txt
 /scripts/config/colors_tmp.vim
