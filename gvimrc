@@ -9,7 +9,7 @@ let s:savefile = expand("~/.vim/scripts/config/tmp/guifont.vim")
 function! s:savefont() abort
   let f = getbufvar("%", "&guifont")
   call mkdir(expand("~/.vim/scripts/config/tmp"), "p")
-  call writefile(["if has('gui_running')", "let &guifont = " .. string(f), "endif"], s:savefile)
+  call writefile([printf("scriptencoding %s", &encoding), "if has('gui_running')", "let &guifont = " .. string(f), "endif"], s:savefile)
 endfunction
 
 autocmd vimrc OptionSet guifont call s:savefont()
