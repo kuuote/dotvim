@@ -46,7 +46,7 @@ function! s:set_rtp_cwd() abort
   \ "./syntax",
   \ ]
     if isdirectory(dir)
-      set rtp^=.
+      let &rtp = fnamemodify(".", ":p") .. "," .. &rtp
       break
     endif
   endfor
