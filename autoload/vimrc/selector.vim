@@ -128,7 +128,7 @@ function! vimrc#selector#openbuf(source, ...) abort
   autocmd vimrc_fz ColorScheme * call s:inithl()
   let s:bufnr = bufnr("%")
   let s:source = a:source
-  autocmd vimrc_fz BufEnter * if bufnr("%") != s:bufnr && empty(getcmdwintype()) | execute "call vimrc#selector#close()" | endif
+  autocmd vimrc_fz WinEnter * if bufnr("%") != s:bufnr && empty(getcmdwintype()) | execute "call vimrc#selector#close()" | endif
   nnoremap <buffer> <nowait> <silent> i :<C-u>call <SID>input()<CR>
   call vimrc#selector#refresh(v:true)
 endfunction

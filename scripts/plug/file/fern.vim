@@ -33,5 +33,5 @@ endfunction
 augroup vimrc
   autocmd FileType fern call s:rc()
   "WinEnterだとgetcmdwintype()が機能しない
-  autocmd BufEnter * call s:close_fern()
+  autocmd WinEnter * call s:close_fern()
 augroup END
