@@ -42,3 +42,18 @@ function! s:gitclone_temp(url) abort
 endfunction
 
 command! -nargs=1 Templug call s:gitclone_temp(<f-args>)
+
+" fugitiveのGwriteもどき
+function! s:gwrite() abort
+  update
+  let repo = finddir(".git", expand("%:p:h") .. ";")
+  if !empty(repo)
+    let repo = fnamemodify(repo, ":p")
+    let root = fnamemodify(repo, ":h:h") " ディレクトリ名が展開された場合末尾に/が付く
+    call  system(printf("git --work-tree=%s --git-dir=%s add %s", root, repo, expand("%:p")))
+  else
+    echoerr "not a git repository"
+  endif
+endfunction
+
+nnoremap <silent> gw :<C-u>call <SID>gwrite()<CR>
