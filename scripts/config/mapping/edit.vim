@@ -14,3 +14,6 @@ inoremap jk <Esc>
 
 " ISO8601スタイルで日付挿入
 noremap! <C-r><C-d> _<C-r>=strftime("%Y%m%dT%H%M%S")<CR>
+
+" easy to use visual-block
+vnoremap v <C-v>
