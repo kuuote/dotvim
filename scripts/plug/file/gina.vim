@@ -59,8 +59,7 @@ function! s:preview_change() abort
         endif
         call s:preview_apply(res, "text")
       catch
-        echo [v:exception, v:throwpoint]
-        call add(g:vimrc_errors, [v:exception, v:throwpoint])
+        call vimrc#add_exception()
       endtry
     else
       " もうちょっと上手くできた気がするけど面倒だし当分は放置

@@ -1,6 +1,6 @@
+let g:vimrc_errors = []
 function! vimrc#add_exception() abort
-  let e = get(g:, "vimrc_errors", [])
-  call add(e, [v:throwpoint, v:exception])
+  call add(g:vimrc_errors, [v:throwpoint, v:exception])
 endfunction
 
 "pathに指定したものをglobして:sourceする
