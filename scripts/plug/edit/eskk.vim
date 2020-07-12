@@ -2,7 +2,7 @@ call minpac#add('tyru/eskk.vim')
 
 "use dotfiles dictionary
 let g:eskk#dictionary = {'path':$HOME .. "/.vim/tmp/.skk-jisyo"}
-let g:eskk#large_dictionary = {'path': '~/.skk/SKK-JISYO.L', 'sorted': 0, 'encoding': 'euc-jp'}
+let g:eskk#large_dictionary = {'path': '~/.skk/SKK-JISYO.L', 'sorted': 1, 'encoding': 'euc-jp'}
 "enable eskk in 'jf'
 imap jf <Plug>(eskk:enable)
 cmap jf <Plug>(eskk:enable)
