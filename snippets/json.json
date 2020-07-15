@@ -1,0 +1,13 @@
+{
+  "snip": {
+    "prefix": "snip",
+    "body": [
+      "\"${1:name}\": {",
+      "\t\"prefix\": \"${1:name}\",",
+      "\t\"body\": [$0],",
+      "\t\"description\": \"${2:description}\"",
+      "}"
+    ],
+    "description": "VSCode(or vsnip) snippet"
+  }
+}

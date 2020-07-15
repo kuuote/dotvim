@@ -1,4 +1,3 @@
-call minpac#add('hrsh7th/vim-vsnip', {'type': 'opt'})
 call minpac#add('hrsh7th/vim-vsnip-integ', {'type': 'opt'})
 call minpac#add('mattn/vim-lsp-settings', {'type': 'opt'})
 call minpac#add('prabirshrestha/async.vim', {'type': 'opt'})
@@ -7,7 +6,6 @@ call minpac#add('prabirshrestha/asyncomplete-lsp.vim', {'type': 'opt'})
 call minpac#add('prabirshrestha/vim-lsp', {'type': 'opt'})
 
 function! s:load_lsp() abort
-  packadd vim-vsnip
   packadd vim-vsnip-integ
   packadd vim-lsp-settings
   packadd async.vim
