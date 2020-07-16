@@ -57,3 +57,10 @@ function! s:gwrite() abort
 endfunction
 
 nnoremap <silent> gw :<C-u>call <SID>gwrite()<CR>
+
+" vsnip用のスニペット作成補助
+function! s:yanksnip()
+  call setreg(v:register, json_encode(getline(1, "$")))
+endfunction
+
+command! YankSnip :call s:yanksnip()
