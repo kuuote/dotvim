@@ -5,7 +5,7 @@ nnoremap Q @@
 
 " Useful substitute pattern from https://github.com/tlhunter/vimrc
 nnoremap S :<C-u>%s/\v/g<Left><Left>
-vnoremap S :s/\v/g<Left><Left>
+xnoremap S :s/\v/g<Left><Left>
 
 inoremap <C-l> <del>
 
@@ -16,4 +16,4 @@ inoremap jk <Esc>
 noremap! <C-r><C-d> _<C-r>=strftime("%Y%m%dT%H%M%S")<CR>
 
 " easy to use visual-block
-vnoremap v <C-v>
+xnoremap v <C-v>
