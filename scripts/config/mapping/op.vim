@@ -1,6 +1,9 @@
 "常にコマンドウィンドウ使いたい
 nnoremap : q:i
 
+" sを付けたら普通のコマンドライン
+nnoremap s: :
+
 " incsearchを消す
 nnoremap <Space>h :<C-u>nohlsearch<CR>
 
