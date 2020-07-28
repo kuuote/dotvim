@@ -2,7 +2,7 @@ call minpac#add('lambdalisue/gina.vim')
 
 packadd gina.vim
 
-nnoremap gc :<C-u>Gina commit -v --opener=tabedit<CR>
+nnoremap gm :<C-u>Gina commit -v --opener=tabedit<CR>
 nnoremap gl :<C-u>Gina log<CR>
 nnoremap gs :<C-u>Gina status<CR>
 
