@@ -46,6 +46,20 @@
     "description": "snip: script local function mapping",
     "prefix": "bsmap"
   },
+  "minpac": {
+    "body": [
+      "call minpac#add('${1:repo}')"
+    ],
+    "description": "minpac package definition",
+    "prefix": "pac"
+  },
+  "minpac(lazy)": {
+    "body": [
+      "call minpac#add('${1:repo}',{'type': 'opt'})"
+    ],
+    "description": "minpac package definition",
+    "prefix": "opt"
+  },
   "scratch": {
     "body": [
       "setlocal buftype=nofile bufhidden=hide noswapfile"
