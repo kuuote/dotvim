@@ -26,3 +26,6 @@ set isfname-==
 " ウィンドウを後方に向けて開く
 set splitbelow
 set splitright
+
+" maximize history
+set history=10000
