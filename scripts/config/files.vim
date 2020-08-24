@@ -5,6 +5,7 @@ if !v:vim_did_enter
 endif
 
 "swap
+set updatetime=100
 call mkdir(s:dir, "p")
 let &directory = s:dir
 
