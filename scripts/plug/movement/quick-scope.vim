@@ -27,7 +27,6 @@ function! s:apply_highlight() abort
 endfunction
 
 augroup vimrc
-  autocmd!
   autocmd ColorScheme * call s:apply_highlight()
 augroup END
 call s:apply_highlight()
