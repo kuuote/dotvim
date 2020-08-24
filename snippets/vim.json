@@ -1,0 +1,56 @@
+{
+  "au": {
+    "body": [
+      "augroup ${1:group}",
+      "\tautocmd!",
+      "\t$0",
+      "augroup END"
+    ],
+    "description": "snip: auto command definition",
+    "prefix": "au"
+  },
+  "fn": {
+    "body": [
+      "function! ${1:name}($2) abort",
+      "\t$0",
+      "endfunction"
+    ],
+    "description": "snip: function",
+    "prefix": "fn"
+  },
+  "let": {
+    "body": [
+      "let ${1:lhs} = ${2:rhs}"
+    ],
+    "description": "snip: basic let",
+    "prefix": "let"
+  },
+  "let-short": {
+    "body": [
+      "let $1 = $0"
+    ],
+    "description": "shorter let",
+    "prefix": "l"
+  },
+  "map-with-script": {
+    "body": [
+      "$1noremap <silent> ${2:from} :<C-u>call <SID>${3:function}()<CR>"
+    ],
+    "description": "snip: script local function mapping",
+    "prefix": "smap"
+  },
+  "map-with-script(buffer only)": {
+    "body": [
+      "$1noremap <buffer> <silent> ${2:from} :<C-u><SID>${3:function}()<CR>"
+    ],
+    "description": "snip: script local function mapping",
+    "prefix": "bsmap"
+  },
+  "scratch": {
+    "body": [
+      "setlocal buftype=nofile bufhidden=hide noswapfile"
+    ],
+    "description": "snip: set to scratch buffer",
+    "prefix": "scratch"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "fin": {
+    "body": [
+      "${1:fn} () {",
+      "\t$0",
+      "}",
+      "trap $1 EXIT"
+    ],
+    "description": "",
+    "prefix": "fin"
+  },
+  "ift": {
+    "body": [
+      "if [[ $1 ]]; then",
+      "  $0",
+      "fi"
+    ],
+    "description": "if with test expression",
+    "prefix": "ift"
+  },
+  "sudo": {
+    "body": [
+      "if [ \\$(id -u) != 0 ]; then exec sudo \\$0 \"\\$@\"; fi"
+    ],
+    "description": "execute script with sudo",
+    "prefix": "sudo"
+  },
+  "var": {
+    "body": [
+      "{$1}"
+    ],
+    "description": "variable braces",
+    "prefix": "v"
+  }
+}

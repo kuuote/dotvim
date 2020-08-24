@@ -1,6 +1,5 @@
 {
   "snip": {
-    "prefix": "snip",
     "body": [
       "\"${1:name}\": {",
       "\t\"prefix\": \"${1:name}\",",
@@ -8,6 +7,7 @@
       "\t\"description\": \"${2:description}\"",
       "}"
     ],
-    "description": "VSCode(or vsnip) snippet"
+    "description": "VSCode(or vsnip) snippet",
+    "prefix": "snip"
   }
 }

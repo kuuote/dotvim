@@ -134,6 +134,7 @@ function! vimrc#selector#openbuf(source, ...) abort
 endfunction
 
 " Vim 9は対応してないと構文で死ぬので
+finish
 if !exists(":def")
   finish
 endif
