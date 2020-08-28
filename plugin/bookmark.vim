@@ -40,8 +40,9 @@ function! bookmark#open() abort
   " MRUっぽいやつ
   " :move 0で持ち上げて
   " :updateで変更があれば書き込みを行い
+  nnoremap <buffer> <nowait> <silent> m :<C-u>move 0<CR>:update<CR>
   " gfでファイルに飛ぶ
-  nnoremap <buffer> <nowait> <silent> <CR> :<C-u>move 0<CR>:update<CR>gf
+  nnoremap <buffer> <nowait> <silent> <CR> gf
 endfunction
 
 nnoremap <silent> <Space>a :<C-u>call bookmark#add()<CR>
