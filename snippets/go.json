@@ -1,0 +1,11 @@
+{
+  "struct": {
+    "body": [
+      "type ${1:Name} struct {",
+      "\t$0",
+      "}"
+    ],
+    "description": "struct definition",
+    "prefix": "struct"
+  }
+}

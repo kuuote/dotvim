@@ -1,0 +1,11 @@
+{
+  "bash": {
+    "body": [
+      "#!/bin/bash -eu",
+      "",
+      "$0"
+    ],
+    "description": "bash shebang",
+    "prefix": "bash"
+  }
+}
