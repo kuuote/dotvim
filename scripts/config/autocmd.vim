@@ -47,3 +47,8 @@ autocmd vimrc BufWritePre *
       \ call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
 " }}}
 
+" for quick-scope
+" quickly CursorHold call but not quick save swapfile
+autocmd InsertEnter * set updatetime&
+autocmd InsertLeave * set updatetime=100
+set updatetime=100
