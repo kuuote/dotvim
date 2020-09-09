@@ -29,3 +29,7 @@ set splitright
 
 " maximize history
 set history=10000
+
+" for quick-scope
+" quickly call CursorHold
+set updatetime=100
