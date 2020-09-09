@@ -1,5 +1,6 @@
 if !v:vim_did_enter
-  const s:dir = $HOME .. "/.vim/tmp//"
+  " const s:dir = $HOME .. "/.vim/tmp//"
+  const s:dir = "/tmp/vimswap"
   const s:bdir = $HOME .. "/.vim/backup//"
   const s:udir = $HOME .. "/.vim/undo//"
 endif
