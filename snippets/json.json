@@ -2,9 +2,9 @@
   "snip": {
     "body": [
       "\"${1:name}\": {",
-      "\t\"prefix\": \"${1:name}\",",
+      "\t\"prefix\": \"${2:name}\",",
       "\t\"body\": [$0],",
-      "\t\"description\": \"${2:description}\"",
+      "\t\"description\": \"${3:description}\"",
       "}"
     ],
     "description": "VSCode(or vsnip) snippet",
