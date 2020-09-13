@@ -7,5 +7,14 @@
     ],
     "description": "bash shebang",
     "prefix": "bash"
+  },
+  "bash(termux)": {
+    "body": [
+      "#!/data/data/com.termux/files/usr/bin/bash -eu",
+      "",
+      "$0"
+    ],
+    "description": "bash shebang(termux)",
+    "prefix": "tmsh"
   }
 }

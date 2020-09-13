@@ -18,6 +18,13 @@
     "description": "snip: function",
     "prefix": "fn"
   },
+  "gset": {
+    "body": [
+      "let g:${1:name} = get(g:, \"${1:name}\", ${2:default})"
+    ],
+    "description": "global variable definition with default",
+    "prefix": "gset"
+  },
   "let": {
     "body": [
       "let ${1:lhs} = ${2:rhs}"
@@ -59,6 +66,15 @@
     ],
     "description": "minpac package definition",
     "prefix": "opt"
+  },
+  "reltime": {
+    "body": [
+      "let t = reltime()",
+      "\t$0",
+      "echo reltimestr(reltime(t))"
+    ],
+    "description": "time profiler",
+    "prefix": "rel"
   },
   "scratch": {
     "body": [
