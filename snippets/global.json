@@ -1,7 +1,7 @@
 {
   "bash": {
     "body": [
-      "#!/bin/bash -eu",
+      "#!/bin/bash -u",
       "",
       "$0"
     ],
@@ -10,7 +10,7 @@
   },
   "bash(termux)": {
     "body": [
-      "#!/data/data/com.termux/files/usr/bin/bash -eu",
+      "#!/data/data/com.termux/files/usr/bin/bash -u",
       "",
       "$0"
     ],
