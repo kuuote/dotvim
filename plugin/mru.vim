@@ -14,10 +14,7 @@ endfunction
 function! s:read(type) abort
   let f = g:{a:type}_file
   if !empty(f)
-    try
-      let s:[a:type] = readfile(f)
-    catch
-    endtry
+    silent! let s:[a:type] = readfile(f)
   endif
   return s:[a:type]
 endfunction
