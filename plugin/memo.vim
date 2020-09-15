@@ -32,11 +32,12 @@ function! s:jump() abort
 endfunction
 
 function! memo#open(dir) abort
-  let t = localtime()
-  if execute("language time") =~ "en"
-    let t += 32400
-  endif
-  edit `=printf("%s/%s.scp", a:dir, strftime("%F", t))`
+  let date = substitute(system("date +%F"), "\n", "", "")
+  " let t = localtime()
+  " if execute("language time") =~ "en"
+  "   let t += 32400
+  " endif
+  edit `=printf("%s/%s.scp", a:dir, date)`
 endfunction
 
 autocmd BufRead,BufNewFile *.scp setfiletype scrap

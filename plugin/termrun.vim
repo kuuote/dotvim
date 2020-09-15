@@ -1,18 +1,22 @@
+let g:termrun_modifier = get(g:, "termrun_modifier", "")
 let s:termbuf = -1
 
 function! s:setup(args) abort
-  let s:winid = win_getid()
   let s:args = a:args
   nnoremap <silent> ' :<C-u>call <SID>open()<CR>
 endfunction
 
 function! s:open() abort
+  let view = winsaveview()
+  update
   only
+  let s:winid = win_getid()
   silent! execute "bdelete!" s:termbuf
-  execute "terminal" s:args
+  execute g:termrun_modifier "terminal" s:args
   let s:termbuf = winbufnr(0)
   setlocal nonumber norelativenumber
   call win_gotoid(s:winid)
+  call winrestview(view)
 endfunction
 
 command! -nargs=* TermRunSetup call s:setup(<q-args>)
