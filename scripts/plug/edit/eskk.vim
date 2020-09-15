@@ -28,11 +28,6 @@ augroup vimrc
   autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
 augroup END
 
-function! s:eskkfunc(seq)
-  call eskk#enable()
-  call feedkeys(a:seq, 'n')
-endfunction
-
 function! s:eskkmap(mode, seq)
   execute a:mode .. 'noremap <buffer> <silent> ' .. a:seq .. ' :<C-u>call <SID>eskkfunc("' .. a:seq ..  '")<CR>'
 endfunction
@@ -40,14 +35,15 @@ endfunction
 function! s:my_eskk_func()
   " 挿入モードでとりあえずeskkを有効化する
   autocmd InsertEnter <buffer> call eskk#enable()
-  " 個人的によく使うやつ、wipeout
-  nnoremap <buffer> <silent> w :<C-u>call <SID>eskkfunc('ggcG')<CR>
 
   " 入力を前方検索してそこから後方全削除し挿入モードに入る
   nnoremap <expr> <SID>hatena "?" .. input("") .. "<CR>:nohlsearch<CR>C"
   nnoremap <nowait> <script> s :<C-u>call eskk#enable()<CR><SID>hatena
   " 逆三角はあると便利
   nnoremap <nowait> S :<C-u>call eskk#enable()<CR>?▽<CR>:nohlsearch<CR>C
+  if input("use c-u wipeout?(y/N)") ==# "y"
+    inoremap <buffer> <C-u> <Esc>ggVGC<CR>
+  endif
 endfunction
 
 command! MyEskk :call <SID>my_eskk_func()
