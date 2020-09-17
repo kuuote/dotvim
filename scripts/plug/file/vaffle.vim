@@ -1,7 +1,7 @@
 call minpac#add('cocopon/vaffle.vim')
 
 "shortcut to vaffle in current directory
-"nnoremap <Space>d :Vaffle %:p:h<Enter>
+nnoremap <Space>d :Vaffle %:p:h<Enter>
 " let g:vaffle_show_hidden_files=1
 let g:vaffle_auto_cd=0
 
