@@ -18,6 +18,18 @@
     "description": "if with test expression",
     "prefix": "ift"
   },
+  "mktemp": {
+    "body": [
+      "tmp=\\$(mktemp$0)",
+      "",
+      "atexit() {",
+      "\tsudo rm -rf \\${tmp}",
+      "}",
+      "trap atexit EXIT"
+    ],
+    "description": "mktemp and atexit",
+    "prefix": "tmp"
+  },
   "sudo": {
     "body": [
       "if [ \\$(id -u) != 0 ]; then exec sudo \\$0 \"\\$@\"; fi"
@@ -31,5 +43,14 @@
     ],
     "description": "variable braces",
     "prefix": "v"
+  },
+  "while_not": {
+    "body": [
+      "while ! ${1:cond} ; do",
+      "\t${0:cmd}",
+      "done"
+    ],
+    "description": "while with !",
+    "prefix": "wn"
   }
 }
