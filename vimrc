@@ -55,9 +55,17 @@ endfunction
 if !v:vim_did_enter
   let s:minpac = fnamemodify("~/.vim/pack/minpac/opt/minpac", ":p")
 
-  if !isdirectory(s:minpac) && executable("git")
+  if !isdirectory(s:minpac)
+    if !executable("git")
+      echoerr "minpac and git is not found, quitting now."
+      cquit
+    endif
     call mkdir(fnamemodify(s:minpac, ":h"), "p")
     execute "!git clone https://github.com/k-takata/minpac.git" s:minpac
+    if v:shell_error
+      echoerr "cloning minpac is failed, quitting now."
+      cquit
+    endif
   endif
   packadd minpac
 
