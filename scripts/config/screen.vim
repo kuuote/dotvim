@@ -19,9 +19,6 @@ if !has("nvim")
   set cursorlineopt=number
 endif
 
-"ターミナルによっては設定に失敗するので強制的に設定
-set ambiwidth=double
-
 "たまにマウス使うので
 set mouse=a
 
