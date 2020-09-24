@@ -6,7 +6,7 @@
       "\t$0",
       "augroup END"
     ],
-    "description": "snip: auto command definition",
+    "description": "auto command definition",
     "prefix": "au"
   },
   "fn": {
@@ -15,7 +15,7 @@
       "\t$0",
       "endfunction"
     ],
-    "description": "snip: function",
+    "description": "function",
     "prefix": "fn"
   },
   "gset": {
@@ -29,7 +29,7 @@
     "body": [
       "let ${1:lhs} = ${2:rhs}"
     ],
-    "description": "snip: basic let",
+    "description": "basic let",
     "prefix": "let"
   },
   "let-short": {
@@ -43,14 +43,14 @@
     "body": [
       "$1noremap <silent> ${2:from} :<C-u>call <SID>${3:function}()<CR>"
     ],
-    "description": "snip: script local function mapping",
+    "description": "script local function mapping",
     "prefix": "smap"
   },
   "map-with-script(buffer only)": {
     "body": [
       "$1noremap <buffer> <silent> ${2:from} :<C-u><SID>${3:function}()<CR>"
     ],
-    "description": "snip: script local function mapping",
+    "description": "script local function mapping",
     "prefix": "bsmap"
   },
   "minpac": {
@@ -80,7 +80,7 @@
     "body": [
       "setlocal buftype=nofile bufhidden=hide noswapfile"
     ],
-    "description": "snip: set to scratch buffer",
+    "description": "set to scratch buffer",
     "prefix": "scratch"
   }
 }
