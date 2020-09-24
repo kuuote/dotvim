@@ -9,7 +9,7 @@ endfunction
 function! s:open() abort
   let view = winsaveview()
   update
-  only
+  silent! only
   let s:winid = win_getid()
   silent! execute "bdelete!" s:termbuf
   execute g:termrun_modifier "terminal" s:args
