@@ -58,9 +58,12 @@ endfunction
 
 nnoremap <silent> gw :<C-u>call <SID>gwrite()<CR>
 
-" vsnip用のスニペット作成補助
-function! s:yanksnip()
-  call setreg(v:register, json_encode(getline(1, "$")))
+" カレントファイルを行ごとに履歴に挿入する
+function! s:bulkhist(type) abort
+  let t = empty(a:type) ? ":" : a:type
+  for l in getline(1, "$")
+    call histadd(t, l)
+  endfor
 endfunction
 
-command! YankSnip :call s:yanksnip()
+command! -nargs=? BulkHistAdd call s:bulkhist(<q-args>)
