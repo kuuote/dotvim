@@ -69,16 +69,14 @@ if !v:vim_did_enter
   endif
   packadd minpac
 
-  if exists("*minpac#init")
-    call minpac#init()
-    call minpac#add("k-takata/minpac", {"type": "opt"})
+  call minpac#init()
+  call minpac#add("k-takata/minpac", {"type": "opt"})
 
-    call vimrc#loadscripts("~/.vim/scripts/plug/**/*.vim")
-    if has("nvim")
-      call vimrc#loadscripts("~/.vim/scripts/plug.nvim/**/*.vim")
-    else
-      call vimrc#loadscripts("~/.vim/scripts/plug.vim/**/*.vim")
-    endif
+  call vimrc#loadscripts("~/.vim/scripts/plug/**/*.vim")
+  if has("nvim")
+    call vimrc#loadscripts("~/.vim/scripts/plug.nvim/**/*.vim")
+  else
+    call vimrc#loadscripts("~/.vim/scripts/plug.vim/**/*.vim")
   endif
 endif
 
