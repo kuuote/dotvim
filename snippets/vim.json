@@ -18,6 +18,17 @@
     "description": "function",
     "prefix": "fn"
   },
+  "fold-marker": {
+    "body": [
+      "\" {{{ ${1:comment}",
+      "",
+      "$0",
+      "",
+      "\" }}}"
+    ],
+    "description": "fold marker",
+    "prefix": "zf"
+  },
   "gset": {
     "body": [
       "let g:${1:name} = get(g:, \"${1:name}\", ${2:default})"
