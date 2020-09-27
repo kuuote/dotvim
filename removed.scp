@@ -5,3 +5,5 @@ iro.vim
 nvim-tree-sitter
   ネイティブモジュール必要で面倒な感じある
   lua周り整備してないのでvimrcのリビルドするまで抜いておく
+vaffle.vim
+  求めているのがdirvish並のシンプルさなので、同じ方向性で安定していて今後も余計な物が付くことはないであろうvim-molderに乗り換えた
