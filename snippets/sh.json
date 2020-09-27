@@ -9,6 +9,15 @@
     "description": "",
     "prefix": "fin"
   },
+  "function": {
+    "body": [
+      "${1:name}() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "",
+    "prefix": "fn"
+  },
   "ift": {
     "body": [
       "if [[ $1 ]]; then",
@@ -52,5 +61,16 @@
     ],
     "description": "while with !",
     "prefix": "wn"
+  },
+  "yes/no brach": {
+    "body": [
+      "echo -n \"${1:question} (y/N)?\"",
+      "read ${2:variable}",
+      "if [[ \"\\${${2:variable}}\" == \"y\" ]]; then",
+      "\t${0:command}",
+      "fi"
+    ],
+    "description": "",
+    "prefix": "cfm"
   }
 }

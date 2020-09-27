@@ -75,7 +75,7 @@
     "body": [
       "call minpac#add('${1:repo}',{'type': 'opt'})"
     ],
-    "description": "minpac package definition",
+    "description": "minpac package definition (for lazy load)",
     "prefix": "opt"
   },
   "reltime": {
