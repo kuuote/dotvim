@@ -18,6 +18,23 @@
     "description": "",
     "prefix": "fn"
   },
+  "help": {
+    "body": [
+      "help() {",
+      "\tcat << EOS",
+      "USAGE: \\$0 [OPTION]... $1",
+      "\t${2:detail}",
+      "",
+      "OPTIONS:",
+      "\t${3:options}",
+      "EOS",
+      "",
+      "\texit",
+      "}"
+    ],
+    "description": "",
+    "prefix": "help"
+  },
   "ift": {
     "body": [
       "if [[ $1 ]]; then",
@@ -38,6 +55,23 @@
     ],
     "description": "mktemp and atexit",
     "prefix": "tmp"
+  },
+  "optcase": {
+    "body": [
+      "while (( \\$# != 0 )); do",
+      "\tcase \"\\$1\" in",
+      "\t\t$0",
+      "\t\t-h | --help)",
+      "\t\t\thelp",
+      "\t\t\t;;",
+      "\t\t*)",
+      "\t\t\t;;",
+      "\tesac",
+      "\tshift",
+      "done"
+    ],
+    "description": "",
+    "prefix": "optcase"
   },
   "sudo": {
     "body": [
