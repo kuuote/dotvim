@@ -5,7 +5,7 @@ let g:dup_write_dir = get(g:, "dup_write_dir", "/tmp/dup")
 let s:time = -1
 
 function! s:normalize(path) abort
-  return substitute(resolve(fnamemodify(a:path, ":p")), "/", "%", "g")
+  return substitute(resolve(fnamemodify(a:path, ":p")), "/", "@", "g")
 endfunction
 
 function! s:read(path) abort

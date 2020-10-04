@@ -4,7 +4,6 @@ endfunction
 
 function! s:real_part() abort
   let p = expand("%:p:h:t")
-    " let p = substitute(p, "%", "/", "g")
   return p
 endfunction
 
@@ -26,7 +25,7 @@ function! s:diff_dup() abort
 endfunction
 
 function! s:diff_origin() abort
-  let o = substitue(s:read_part(), "%", "/", "g")
+  let o = substitute(s:real_part(), "@", "/", "g")
   call s:diff(o, expand("%:p"))
 endfunction
 
