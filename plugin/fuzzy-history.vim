@@ -2,7 +2,7 @@ function! s:filter() abort
   let text = getcmdline()
   let newhist = copy(s:hist)
   let re = "\\v\\c" .. join(split(text, "\\zs"), ".*")
-  call filter(newhist, {_, val -> val =~ re})
+  call filter(newhist, {_, val -> val =~? re})
   call deletebufline("%", 1, "$")
   call setline(1, newhist)
   call cursor("$", 1)
