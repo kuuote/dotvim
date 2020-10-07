@@ -1,4 +1,11 @@
 {
+  "die": {
+    "body": [
+      "|| exit 1"
+    ],
+    "description": "",
+    "prefix": "die"
+  },
   "fin": {
     "body": [
       "${1:fn} () {",
