@@ -12,9 +12,9 @@ nmap <Space>/ :<C-u>set nohlsearch<CR>/jf
 nmap <Space>? :<C-u>set nohlsearch<CR>?jf
 
 "sticky key
-augroup vimrc
-  autocmd User eskk-enable-post lnoremap <buffer> <expr> : eskk#filter(eskk#util#key2char(eskk#get_mode() ==# "ascii" ? ":" : ";"))
-augroup END
+" augroup vimrc
+  " autocmd User eskk-enable-post lnoremap <buffer> <expr> : eskk#filter(eskk#util#key2char(eskk#get_mode() ==# "ascii" ? ":" : ";"))
+" augroup END
 
 "register alphabet table
 
