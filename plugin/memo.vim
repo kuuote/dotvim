@@ -10,11 +10,12 @@ let s:hls = [
 let g:memodir = get(g:, "memodir", $HOME .. "/memo")
 
 function! s:init_scrap_mode() abort
+  " TODO:後からftpluginに作り換える
   for i in range(100)
-    let ii = i * &shiftwidth
-    execute printf("syn match %s %s", s:hls[i%len(s:hls)], string(repeat(" ", ii) .. ".*"))
+    execute printf("syn match %s %s", s:hls[i%len(s:hls)], string(repeat("\t", i) .. ".*"))
   endfor
   nnoremap <buffer> <silent> <CR> :<C-u>call <SID>jump()<CR>
+  setlocal noexpandtab tabstop=2 softtabstop=2 shiftwidth=2
 endfunction
 
 function! s:jump() abort
