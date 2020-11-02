@@ -6,7 +6,7 @@ endif
 set termguicolors
 
 " set transparent
-nnoremap <Space>tp :<C-u>hi Normal ctermbg=NONE guibg=NONE<CR>
+nnoremap <Space>tp :<C-u>hi Normal ctermbg=NONE guibg=NONE<CR>:hi NonText ctermbg=NONE guibg=NONE<CR>
 
 " persistent colorscheme selector {{{
 
