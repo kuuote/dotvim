@@ -5,8 +5,9 @@ nnoremap ; q:i
 nnoremap s; :
 
 " swap
-nnoremap : ;
+" nnoremap : ; "eftでリマップするので無効化
 nnoremap q; q:
+xnoremap ; :
 
 " incsearchを消す
 nnoremap <Space>h :<C-u>nohlsearch<CR>

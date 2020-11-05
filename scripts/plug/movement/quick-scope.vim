@@ -1,3 +1,5 @@
+finish
+" ↑ vim-eft導入のため無効化
 call minpac#add('unblevable/quick-scope')
 
 let g:qs_lazy_highlight = 1
