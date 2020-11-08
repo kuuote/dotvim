@@ -1,4 +1,5 @@
-call minpac#add('mattn/vim-molder')
+call minpac#add('mattn/vim-molder',{'type': 'opt'})
+packadd vim-molder
 
 function! s:map_molder() abort
   nmap <buffer> <silent> <nowait> h <plug>(molder-up)
