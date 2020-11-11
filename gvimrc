@@ -15,3 +15,4 @@ endfunction
 autocmd vimrc OptionSet guifont call s:savefont()
 
 command! Jiskan set guifont=JF\ Dot\ jiskan16s-2000\ 12
+colorscheme bluenote256
