@@ -27,7 +27,7 @@ function! s:save() abort
   let f = []
   call add(f, "let g:colors_name = " .. string(s:cs))
   call add(f, "set background=" .. s:bg)
-  let tmpdir = fnamemodify(s:this, ":p:h") .. "/tmp"
+  let tmpdir = $HOME .. "/.vim/tmp"
   call mkdir(tmpdir, "p")
   call writefile(f, tmpdir .. "/colors.vim")
   echo "Saved colorscheme setting"
@@ -51,6 +51,8 @@ function! s:openbuf() abort
 endfunction
 
 nnoremap <silent> cs :<C-u>call <SID>openbuf()<CR>
+
+autocmd VimEnter * source ~/.vim/tmp/colors.vim
 
 " }}}
 
