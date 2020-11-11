@@ -46,7 +46,7 @@ command! -nargs=1 Templug call s:gitclone_temp(<f-args>)
 " fugitiveのGwriteもどき
 function! s:gwrite() abort
   update
-  let repo = finddir(".git", expand("%:p:h") .. ";")
+  let repo = finddir(".git", resolve(expand("%:p:h")) .. ";")
   if !empty(repo)
     let repo = fnamemodify(repo, ":p")
     let root = fnamemodify(repo, ":h:h") " ディレクトリ名が展開された場合末尾に/が付く
