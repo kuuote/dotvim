@@ -5,8 +5,15 @@ iro.vim
 nvim-tree-sitter
   ネイティブモジュール必要で面倒な感じある
   lua周り整備してないのでvimrcのリビルドするまで抜いておく
+    リビルドではないが使えるようにした
 vaffle.vim
   求めているのがdirvish並のシンプルさなので、同じ方向性で安定していて今後も余計な物が付くことはないであろうvim-molderに乗り換えた
 vim-fz
   外部依存は減らしていきたい
   あまり使ってないため
+semshi
+  リモートプラグインだるいっす
+vim-shot-f
+	fallthrough
+quick-scope
+	vim-eftと競合するので無効化
