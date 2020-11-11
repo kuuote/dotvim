@@ -16,5 +16,12 @@
     ],
     "description": "bash shebang(termux)",
     "prefix": "tmsh"
+  },
+  "todo": {
+    "body": [
+      "TODO:"
+    ],
+    "description": "",
+    "prefix": "todo"
   }
 }
