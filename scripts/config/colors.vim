@@ -53,6 +53,7 @@ endfunction
 nnoremap <silent> cs :<C-u>call <SID>openbuf()<CR>
 
 autocmd VimEnter * source ~/.vim/tmp/colors.vim
+autocmd VimEnter * silent! call lightline#highlight()
 
 " }}}
 

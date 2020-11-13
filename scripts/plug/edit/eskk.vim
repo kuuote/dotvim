@@ -4,8 +4,12 @@ call minpac#add('tyru/eskk.vim')
 let g:eskk#dictionary = {'path':$HOME .. "/.vim/tmp/.skk-jisyo"}
 let g:eskk#large_dictionary = {'path': '~/.skk/SKK-JISYO.L', 'sorted': 1, 'encoding': 'euc-jp'}
 "enable eskk in 'jf'
-imap jf <Plug>(eskk:enable)
-cmap jf <Plug>(eskk:enable)
+" imap jf <Plug>(eskk:enable)
+" cmap jf <Plug>(eskk:enable)
+
+" improve eskk enabler
+" see https://thinca.hatenablog.com/entry/20120716/1342374586
+inoremap <expr> <script> f getline('.')[col('.') - 2] ==# 'j' ? "\<BS>" .. eskk#enable() : 'f'
 
 "skk-search shortcut
 nmap <Space>/ :<C-u>set nohlsearch<CR>/jf
