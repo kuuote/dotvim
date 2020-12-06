@@ -14,3 +14,9 @@ noremap! <C-r><C-d> _<C-r>=strftime("%Y%m%dT%H%M%S")<CR>
 
 " easy to use visual-block
 xnoremap v <C-v>
+" from TornaxO7's config
+" undo the undo with a latter U
+map U <C-r>
+
+" セミコロン入れるのだるいでござる～
+nnoremap <Space>; A;<Esc>
