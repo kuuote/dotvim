@@ -52,6 +52,10 @@ nnoremap <Space><Space>. :<C-u>source $MYVIMRC<CR>
 nnoremap <Space>CD :<C-u>cd %:p:h<CR>
 nnoremap <Space>cd :<C-u>lcd %:p:h<CR>
 
+" カーソル下の単語を置換
+" 誰かのvimrcから持ってきたんだけど忘れてしまった
+nnoremap <Space>r :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i
+
 " 単語境界検索
 cnoremap <expr> / empty(getcmdline()) ? '\<' : '/'
 cnoremap <expr> ? empty(getcmdline()) ? '\<' : '?'
