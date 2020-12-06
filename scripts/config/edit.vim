@@ -36,3 +36,6 @@ set updatetime=100
 
 " no insert candidate at completion
 set completeopt+=noinsert,noselect
+
+set ttimeout " Esc時に待たされる時間を削る
+set ttimeoutlen=100 " 適当に100msにしておく
