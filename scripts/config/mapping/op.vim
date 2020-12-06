@@ -55,3 +55,7 @@ nnoremap <Space>cd :<C-u>lcd %:p:h<CR>
 " from TornaxO7's config
 " undo the undo with a latter U
 map U <C-r>
+
+" 単語境界検索
+cnoremap <expr> / empty(getcmdline()) ? '\<' : '/'
+cnoremap <expr> ? empty(getcmdline()) ? '\<' : '?'
