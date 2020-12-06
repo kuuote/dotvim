@@ -33,3 +33,6 @@ set history=10000
 " for quick-scope
 " quickly call CursorHold
 set updatetime=100
+
+" no insert candidate at completion
+set completeopt+=noinsert,noselect
