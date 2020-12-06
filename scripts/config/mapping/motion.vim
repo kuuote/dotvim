@@ -9,6 +9,11 @@ nnoremap <Space>w <C-w>
 nnoremap n nzz
 nnoremap N Nzz
 
+" *押した時にカーソルを戻す
+" from monaqa's config
+nnoremap * *N
+nnoremap g* g*N
+
 " Pseudo page down by mouse click
 nnoremap <RightMouse> z<CR>
 
