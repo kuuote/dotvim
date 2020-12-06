@@ -27,6 +27,9 @@ nnoremap <RightMouse> z<CR>
 noremap <Space>h ^
 noremap <Space>l g_
 
+" 自分のいるfold以外を閉じる
+" from monaqa's config
+nnoremap <Space>z zMzv
 
 " 楽にタグ移動がしたいっ
 nnoremap <expr> <CR> empty(getcmdwintype()) && &buftype != "quickfix" ? "<C-]>" : "<CR>"
