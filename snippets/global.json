@@ -1,4 +1,29 @@
 {
+  "[": {
+    "body": [
+      "($0)"
+    ],
+    "description": "",
+    "prefix": "["
+  },
+  "[[": {
+    "body": [
+      "($1) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "",
+    "prefix": "[["
+  },
+  "]": {
+    "body": [
+      "{",
+      "\t$0",
+      "}"
+    ],
+    "description": "",
+    "prefix": "]]"
+  },
   "bash": {
     "body": [
       "#!/bin/bash -u",
@@ -23,5 +48,14 @@
     ],
     "description": "",
     "prefix": "todo"
+  },
+  "zp": {
+    "body": [
+      "{",
+      "\t$0",
+      "}"
+    ],
+    "description": "",
+    "prefix": "zp"
   }
 }
