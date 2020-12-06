@@ -11,6 +11,12 @@ let g:eskk#large_dictionary = {'path': '~/.skk/SKK-JISYO.L', 'sorted': 1, 'encod
 " see https://thinca.hatenablog.com/entry/20120716/1342374586
 inoremap <expr> <script> f getline('.')[col('.') - 2] ==# 'j' ? "\<BS>" .. eskk#enable() : 'f'
 
+function! s:eskk_enable_post() abort
+  lmap <buffer> l <Plug>(eskk:disable)
+endfunction
+autocmd vimrc User eskk-enable-post call s:eskk_enable_post()
+
+
 "skk-search shortcut
 nmap <Space>/ :<C-u>set nohlsearch<CR>/jf
 nmap <Space>? :<C-u>set nohlsearch<CR>?jf
@@ -29,6 +35,7 @@ function! s:eskk_initialize_pre()
 endfunction
 
 augroup vimrc
+  autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
   autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
 augroup END
 
