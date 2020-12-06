@@ -32,3 +32,4 @@ if !has("nvim")
   let &t_EI .= "\e[1 q"
   let &t_te .= "\e[0 q"
 endif
+set signcolumn=yes " signの欄を常に出す
