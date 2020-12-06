@@ -12,6 +12,11 @@ nnoremap N Nzz
 " Pseudo page down by mouse click
 nnoremap <RightMouse> z<CR>
 
+" without shift from wass88 dotfiles
+noremap <Space>h ^
+noremap <Space>l g_
+
+
 " 楽にタグ移動がしたいっ
 nnoremap <expr> <CR> empty(getcmdwintype()) && &buftype != "quickfix" ? "<C-]>" : "<CR>"
 
