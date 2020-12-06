@@ -11,8 +11,14 @@ nnoremap N Nzz
 
 " *押した時にカーソルを戻す
 " from monaqa's config
-nnoremap * *N
-nnoremap g* g*N
+" nnoremap * *N
+" nnoremap g* g*N
+"
+" from https://twitter.com/Bakudankun/status/1207057884581900289
+nnoremap <silent><expr> * v:count ? '*'
+\ : '<Cmd>sil keepj norm! *<CR><Cmd>call winrestview(' . string(winsaveview()) . ')<CR>'
+nnoremap <silent><expr> g* v:count ? 'g*'
+\ : '<Cmd>sil keepj norm! g*<CR><Cmd>call winrestview(' . string(winsaveview()) . ')<CR>'
 
 " Pseudo page down by mouse click
 nnoremap <RightMouse> z<CR>
