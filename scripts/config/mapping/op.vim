@@ -10,7 +10,7 @@ nnoremap q; q:
 xnoremap ; :
 
 " incsearchを消す
-nnoremap <Space>h :<C-u>nohlsearch<CR>
+nnoremap H :<C-u>nohlsearch<CR>
 
 nnoremap <Space>s :<C-u>update<CR>
 nnoremap <Space>q :<C-u>confirm qa<CR>
@@ -51,6 +51,3 @@ nnoremap <Space><Space>. :<C-u>source $MYVIMRC<CR>
 
 nnoremap <Space>CD :<C-u>cd %:p:h<CR>
 nnoremap <Space>cd :<C-u>lcd %:p:h<CR>
-
-"helpを大画面で
-nnoremap H :<C-u><Bar><Space>silent! only<Home>h<Space>
