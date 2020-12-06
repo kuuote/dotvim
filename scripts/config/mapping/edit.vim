@@ -20,3 +20,8 @@ map U <C-r>
 
 " セミコロン入れるのだるいでござる～
 nnoremap <Space>; A;<Esc>
+
+"" Automatically indent with i and A
+"" by yuki-ycino
+nnoremap <expr> i len(getline('.')) ? "i" : "cc"
+nnoremap <expr> A len(getline('.')) ? "A" : "cc"
