@@ -1,0 +1,23 @@
+{
+  "arrow-function": {
+    "body": [
+      "($1)$2 => $0"
+    ],
+    "description": "",
+    "prefix": "af"
+  },
+  "const": {
+    "body": [
+      "const $1 = $0;"
+    ],
+    "description": "",
+    "prefix": "val"
+  },
+  "let": {
+    "body": [
+      "let $1 = $0;"
+    ],
+    "description": "",
+    "prefix": "var"
+  }
+}
