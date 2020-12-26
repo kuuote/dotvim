@@ -10,12 +10,20 @@ let s:hls = [
 let g:memodir = get(g:, "memodir", $HOME .. "/memo")
 
 function! s:init_scrap_mode() abort
-  " TODO:後からftpluginに作り換える
   for i in range(100)
-    execute printf("syn match %s %s", s:hls[i%len(s:hls)], string(repeat("\t", i) .. ".*"))
+    execute printf("syn match ScrapIndent%d /%s/hs=e", i%6, repeat("\t", i))
   endfor
   nnoremap <buffer> <silent> <CR> :<C-u>call <SID>jump()<CR>
   setlocal noexpandtab tabstop=2 softtabstop=2 shiftwidth=2
+endfunction
+
+function! s:init_scrap_highlight() abort
+  hi! ScrapIndent0 guibg=#BAFFFF
+  hi! ScrapIndent1 guibg=#FFCACA
+  hi! ScrapIndent2 guibg=#FFFFBA
+  hi! ScrapIndent3 guibg=#CACAFF
+  hi! ScrapIndent4 guibg=#CAFFCA
+  hi! ScrapIndent5 guibg=#FFBAFF
 endfunction
 
 function! s:jump() abort
@@ -24,15 +32,14 @@ function! s:jump() abort
   call setreg("a", "")
   normal! "ayi[
   let res = getreg("a")
+  call setreg("a", a)
+  call winrestview(w)
   if !empty(res)
     edit `=expand("%:h") .. "/" .. res .. ".scp"`
-  else
-    call winrestview(w)
   endif
-  call setreg("a", a)
 endfunction
 
-function! memo#open(dir) abort
+function! scrap#open(dir) abort
   let date = substitute(system("date +%F"), "\n", "", "")
   " let t = localtime()
   " if execute("language time") =~ "en"
@@ -43,3 +50,4 @@ endfunction
 
 autocmd BufRead,BufNewFile *.scp setfiletype scrap
 autocmd FileType scrap call s:init_scrap_mode()
+autocmd ColorScheme * call s:init_scrap_highlight()
