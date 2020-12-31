@@ -1,9 +1,10 @@
 let s:dein_repo = $HOME .. '/.vim/dein/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo)
-  execute printf('!git clone https://github.com/Shougo/dein.vim %s', s:dein_dir)
+  execute printf('!git clone https://github.com/Shougo/dein.vim %s', s:dein_repo)
 endif
 let &runtimepath ..= ',' .. s:dein_repo
 let g:dein#auto_recache = 1
+let g:dein#cache_directory = $HOME .. '/.vim/dein/cache/' .. g:progname_short
 let s:dein_dir = '~/.vim/dein'
 let s:rc = '~/.vim/conf/plug.vim'
 let s:rc2 = has('nvim') ? '~/.vim/conf/nvim/plug.vim' : '~/.vim/conf/vim/plug.vim'
