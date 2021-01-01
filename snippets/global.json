@@ -1,0 +1,61 @@
+{
+  "[": {
+    "body": [
+      "($0)"
+    ],
+    "description": "",
+    "prefix": "["
+  },
+  "[[": {
+    "body": [
+      "($1) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "",
+    "prefix": "[["
+  },
+  "]": {
+    "body": [
+      "{",
+      "\t$0",
+      "}"
+    ],
+    "description": "",
+    "prefix": "]]"
+  },
+  "bash": {
+    "body": [
+      "#!/bin/bash -u",
+      "",
+      "$0"
+    ],
+    "description": "bash shebang",
+    "prefix": "bash"
+  },
+  "bash(termux)": {
+    "body": [
+      "#!/data/data/com.termux/files/usr/bin/bash -u",
+      "",
+      "$0"
+    ],
+    "description": "bash shebang(termux)",
+    "prefix": "tmsh"
+  },
+  "todo": {
+    "body": [
+      "TODO:"
+    ],
+    "description": "",
+    "prefix": "todo"
+  },
+  "zp": {
+    "body": [
+      "{",
+      "\t$0",
+      "}"
+    ],
+    "description": "",
+    "prefix": "zp"
+  }
+}
