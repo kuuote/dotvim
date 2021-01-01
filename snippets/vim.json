@@ -64,20 +64,6 @@
     "description": "script local function mapping",
     "prefix": "bsmap"
   },
-  "minpac": {
-    "body": [
-      "call minpac#add('${1:repo}')"
-    ],
-    "description": "minpac package definition",
-    "prefix": "pac"
-  },
-  "minpac(lazy)": {
-    "body": [
-      "call minpac#add('${1:repo}',{'type': 'opt'})"
-    ],
-    "description": "minpac package definition (for lazy load)",
-    "prefix": "opt"
-  },
   "reltime": {
     "body": [
       "let t = reltime()",
@@ -93,5 +79,13 @@
     ],
     "description": "set to scratch buffer",
     "prefix": "scratch"
+  },
+  "tap": {
+    "body": [
+      "if !dein#tap('$1') | finish | endif",
+      ""
+    ],
+    "description": "",
+    "prefix": "tap"
   }
 }
