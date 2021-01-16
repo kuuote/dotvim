@@ -21,6 +21,10 @@ if getftype($HOME .. '/.vim/local.vim') ==# 'file'
 endif
 
 if empty(get(g:, 'colors_name', ''))
-  set bg=dark
-  colorscheme edge
+  if dein#tap('edge')
+    set bg=dark
+    colorscheme edge
+  else
+    colorscheme morning
+  endif
 endif
