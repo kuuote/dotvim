@@ -4,7 +4,7 @@ if !isdirectory(s:dein_repo)
 endif
 let &runtimepath ..= ',' .. s:dein_repo
 let g:dein#auto_recache = 1
-let g:dein#cache_directory = $HOME .. '/.vim/dein/cache/' .. g:progname_short
+let g:dein#cache_directory = '/tmp/dein/cache/' .. g:progname_short
 let s:dein_dir = '~/.vim/dein'
 let s:rc = '~/.vim/conf/plug.vim'
 let s:rc2 = has('nvim') ? '~/.vim/conf/nvim/plug.vim' : '~/.vim/conf/vim/plug.vim'
