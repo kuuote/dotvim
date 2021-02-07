@@ -2,6 +2,7 @@ call dein#add('hrsh7th/vim-vsnip') " VSCode形式を使えるスニペットプ�
 call dein#add('junegunn/fzf') " fzf-previewの前提
 call dein#add('kuuote/vim-fuzzyhistory') " cmdwin用selector
 call dein#add('lambdalisue/gina.vim') " Vimからgit操作するプラグイン
+call dein#add('lambdalisue/fern.vim') " Vimからgit操作するプラグイン
 call dein#add('lambdalisue/suda.vim') " sudo経由でファイルを読み書きする
 call dein#add('machakann/vim-sandwich') " 括弧を囲ってくれるすごいやつ
 call dein#add('thinca/vim-localrc') " ローカルのvimrcを読み込んでくれる
@@ -18,7 +19,11 @@ call dein#add('sainnhe/edge')
 call dein#add('yasukotelin/shirotelin')
 
 " lsp
-call dein#add('mattn/vim-lsp-settings') " vim-lspの設定をいい感じにしてくれるやつ
-call dein#add('prabirshrestha/asyncomplete-lsp.vim') " asyncompleteとvim-lspの連携
-call dein#add('prabirshrestha/asyncomplete.vim') " 自動補完
-call dein#add('prabirshrestha/vim-lsp') " Pure Vim script LSP Client
+if !empty($vimrc_coc)
+  call dein#add('neoclide/coc.nvim')
+else
+  call dein#add('mattn/vim-lsp-settings') " vim-lspの設定をいい感じにしてくれるやつ
+  call dein#add('prabirshrestha/asyncomplete-lsp.vim') " asyncompleteとvim-lspの連携
+  call dein#add('prabirshrestha/asyncomplete.vim') " 自動補完
+  call dein#add('prabirshrestha/vim-lsp') " Pure Vim script LSP Client
+endif
