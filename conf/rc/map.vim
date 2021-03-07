@@ -12,3 +12,10 @@ nnoremap <C-l> :nohlsearch<CR>:checktime<CR><Esc><C-l>
 
 " from https://github.com/aonemd/aaku/blob/0455967a9eae4abc7d66c6d2ce8059580d4b3cc5/vim/vimrc#L66
 nnoremap ! :!
+
+" from https://gist.github.com/tsukkee/1240267
+onoremap ( t(
+
+" short hand to window-down/up
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
