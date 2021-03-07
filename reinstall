@@ -1,0 +1,5 @@
+#!/bin/bash -u
+
+cd $(dirname $(realpath $0))
+rm -rf dein
+./install

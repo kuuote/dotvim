@@ -1,0 +1,5 @@
+#!/bin/bash -u
+
+cd $(dirname $(realpath $0))
+vim -u ~/.vim/vimrc -N -c "try | call dein#install() | finally | qall! | endtry" -V1 -es
+nvim -u ~/.config/nvim/init.vim -N -c "try | call dein#install() | finally | qall! | endtry" -V1 -es
