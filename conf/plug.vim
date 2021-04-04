@@ -1,6 +1,9 @@
 call dein#add('hrsh7th/vim-vsnip') " VSCode形式を使えるスニペットプラグイン
 call dein#add('junegunn/fzf') " fzf-previewの前提
+call dein#add('kana/vim-textobj-entire') " バッファ全体を対象とするテキストオブジェクト
+call dein#add('kana/vim-textobj-user') " テキストオブジェクト追加用の補助プラグイン
 call dein#add('kuuote/vim-fuzzyhistory') " cmdwin用selector
+call dein#add('lambdalisue/fern.vim') " ふぁーん
 call dein#add('lambdalisue/gina.vim') " Vimからgit操作するプラグイン
 call dein#add('lambdalisue/mr-quickfix.vim') " mr.vim用の高速なインターフェース
 call dein#add('lambdalisue/mr.vim') " MRUを記録するプラグイン
@@ -15,6 +18,7 @@ call dein#add('vim-denops/denops.vim') " Denoでプラグインを書ける基�
 call dein#add('yuki-ycino/fzf-preview.vim', { 'rev': 'release/rpc' }) " dark powered fzf plugin
 
 " colorscheme
+call dein#add('bluz71/vim-nightfly-guicolors')
 call dein#add('cormacrelf/vim-colors-github')
 call dein#add('ghifarit53/tokyonight-vim')
 call dein#add('kjssad/quantum.vim')
