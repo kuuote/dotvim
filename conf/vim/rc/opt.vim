@@ -1,3 +1,5 @@
+set encoding=utf-8
+
 " termguicolors有効化のためターミナルタイプの強制書き換え
 " ちらつくので起動時のみ
 if !v:vim_did_enter
