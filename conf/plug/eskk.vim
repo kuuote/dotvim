@@ -6,7 +6,8 @@ let g:eskk#large_dictionary = {'path': '~/.skk/SKK-JISYO.L', 'sorted': 1, 'encod
 
 " improve eskk enabler
 " see https://thinca.hatenablog.com/entry/20120716/1342374586
-inoremap <expr> <script> f getline('.')[col('.') - 2] ==# 'j' ? "\<BS>" .. eskk#enable() : 'f'
+" inoremap <expr> <script> f getline('.')[col('.') - 2] ==# 'j' ? "\<BS>" .. eskk#enable() : 'f'
+call hypermap#map('zj', 'eskk#enable()', {'eval': v:true})
 
 function! s:eskk_enable_post() abort
   lmap <buffer> l <Plug>(eskk:disable)
