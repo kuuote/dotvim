@@ -22,6 +22,7 @@ call dein#add('bluz71/vim-nightfly-guicolors')
 call dein#add('cormacrelf/vim-colors-github')
 call dein#add('ghifarit53/tokyonight-vim')
 call dein#add('kjssad/quantum.vim')
+call dein#add('lifepillar/vim-solarized8')
 call dein#add('sainnhe/edge')
 call dein#add('yasukotelin/shirotelin')
 
