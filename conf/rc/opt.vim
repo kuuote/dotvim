@@ -10,3 +10,6 @@ set relativenumber
 " swapfile
 call mkdir('/tmp/vimswap', 'p')
 set directory=/tmp/vimswap//
+
+" diffを垂直に並べる
+set diffopt+=vertical
