@@ -13,3 +13,6 @@ set directory=/tmp/vimswap//
 
 " diffを垂直に並べる
 set diffopt+=vertical
+
+" システムのクリップボードを使う
+set clipboard=unnamedplus
