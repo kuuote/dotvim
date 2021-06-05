@@ -20,3 +20,6 @@ onoremap ( t(
 " short hand to window-down/up
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
+
+" sugoi undo
+nnoremap U <C-r>
