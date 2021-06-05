@@ -15,7 +15,8 @@ call dein#add('thinca/vim-quickrun') " コマンドを素早く実行する
 call dein#add('tyru/capture.vim') " コマンドの出力をバッファで開く
 call dein#add('tyru/eskk.vim') " Nihongo Nyuuryoku suruyatu
 call dein#add('vim-denops/denops.vim') " Denoでプラグインを書ける基盤
-call dein#add('yuki-ycino/fzf-preview.vim', { 'rev': 'release/rpc' }) " dark powered fzf plugin
+call dein#add('yuki-yano/fern-preview.vim') " ふぁーん用のプレビュープラグイン
+call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' }) " dark powered fzf plugin
 
 " colorscheme
 call dein#add('bluz71/vim-nightfly-guicolors')
