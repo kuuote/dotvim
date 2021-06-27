@@ -23,3 +23,6 @@ nnoremap <C-k> <C-w>k
 
 " sugoi undo
 nnoremap U <C-r>
+
+" fzf help
+nnoremap <Leader>fh <Cmd>call vimrc#fzf#help#run()<CR>
