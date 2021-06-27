@@ -1,4 +1,4 @@
-if !dein#tap('eskk.vim') | finish | endif
+UsePlugin eskk.vim
 
 "use dotfiles dictionary
 let g:eskk#dictionary = {'path':$HOME .. "/.vim/tmp/.skk-jisyo"}

@@ -1,4 +1,5 @@
-/dein
+/load_nvim.vim
+/load_vim.vim
 /local.vim
 /local/
 /pack

@@ -1,3 +1,5 @@
+UsePlugin dial.nvim
+
 " from help
 nmap <C-a> <Plug>(dial-increment)
 nmap <C-x> <Plug>(dial-decrement)

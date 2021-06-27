@@ -1,4 +1,4 @@
-if !dein#tap('nvim-treesitter') | finish | endif
+UsePlugin nvim-treesitter
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {

@@ -1,4 +1,5 @@
-if !dein#tap('vim-molder') | finish | endif
+UsePlugin vim-molder
+
 function! s:map_molder() abort
   nmap <buffer> <silent> <nowait> h <plug>(molder-up)
   nmap <buffer> <silent> <nowait> l <plug>(molder-open)

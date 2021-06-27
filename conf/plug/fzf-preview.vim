@@ -1,3 +1,5 @@
+UsePlugin fzf-preview.vim
+
 nnoremap <fzf-p> <Nop>
 map 'z <fzf-p>
 nnoremap <silent> <fzf-p>f <Cmd>FzfPreviewCommandPaletteRpc<CR>

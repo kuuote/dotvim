@@ -1,9 +1,10 @@
-if !dein#tap('lir.nvim') | finish | endif
+UsePlugin lir.nvim
+
 lua << EOF
   local actions = require'lir.actions'
 
   require'lir'.setup {
-    show_hidden_files = false,
+    show_hidden_files = true,
     mappings = {
       ['l']     = actions.edit,
       ['<C-s>'] = actions.split,

@@ -1,4 +1,4 @@
-if !dein#tap('vim-lsp') | finish | endif
+UsePlugin vim-lsp
 
 " さすまつ https://mattn.kaoriya.net/software/vim/20191231213507.htm
 
@@ -19,3 +19,5 @@ let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_auto_completeopt = 1
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1
+
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')

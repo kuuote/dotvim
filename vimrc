@@ -5,8 +5,11 @@ augroup END
 let g:progname_short = fnamemodify(v:progname, ':r')
 let g:mapleader = "'"
 
+" temporalily do nothing
+command! -nargs=1 UsePlugin :
+
 if !v:vim_did_enter
-  source ~/.vim/conf/dein.vim
+  execute 'source' '~/.vim/load_' .. (has('nvim') ? 'nvim' : 'vim') .. '.vim'
 endif
 
 filetype plugin indent on
@@ -22,10 +25,6 @@ if getftype($HOME .. '/.vim/local.vim') ==# 'file'
 endif
 
 if empty(get(g:, 'colors_name', ''))
-  if dein#tap('edge')
-    set bg=dark
-    colorscheme edge
-  else
-    colorscheme morning
-  endif
+  set bg=dark
+  colorscheme edge
 endif
