@@ -3,7 +3,7 @@ let s:termbuf = -1
 
 function! s:setup(args) abort
   let s:args = a:args
-  nnoremap <silent> ' :<C-u>call <SID>open()<CR>
+  nnoremap <silent> <CR>r :<C-u>call <SID>open()<CR>
 endfunction
 
 function! s:open() abort
