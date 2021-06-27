@@ -3,6 +3,7 @@ augroup vimrc
 augroup END
 
 let g:progname_short = fnamemodify(v:progname, ':r')
+let g:mapleader = "'"
 
 if !v:vim_did_enter
   source ~/.vim/conf/dein.vim
