@@ -1,3 +1,5 @@
+import {exists} from 'https://deno.land/std@0.99.0/fs/exists.ts';
+
 export type PluginOption = {
   branch: string;
   tag: string;
@@ -54,6 +56,21 @@ async function updatePlugin(
     }).status();
     await Deno.remove(dir, { recursive: true });
     await Deno.rename(tmp, dir);
+  } else if(await exists(dir)) {
+    // update
+    const cwd = Deno.cwd();
+    try {
+      Deno.chdir(dir);
+      await Deno.run({
+        cmd: ["git", "pull"],
+      }).status();
+    } finally {
+      Deno.chdir(cwd);
+    }
+  } else {
+    await Deno.run({
+      cmd: ["git", "clone", path, dir],
+    }).status();
   }
 }
 

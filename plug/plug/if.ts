@@ -37,12 +37,13 @@ export function useProfile(profile: string, fn: () => void) {
 type Option = {
   repositoryRoot: string;
   vimrc: string;
+  forceUpdate: boolean
 }
 
 export async function run(command: string, option: Option) {
   switch (command) {
     case "update":
-      await updatePlugins(option.repositoryRoot, true);
+      await updatePlugins(option.repositoryRoot, option.forceUpdate);
       break;
     case "assemble":
       await assemblePlugins(option.repositoryRoot, option.vimrc);

@@ -71,11 +71,13 @@ function init(profiles: string[]) {
 
 async function main(args: string[]): Promise<number> {
   const parsed = parseArgs(args, {
+    boolean: ["f"],
     string: ["r", "v"],
   });
   const option = {
     repositoryRoot: parsed.r ?? (Deno.env.get("HOME")! + "/.cache/plugins"),
     vimrc: parsed.v ?? (Deno.env.get("HOME")! + "/.vim/load.vim"),
+    forceUpdate: !!parsed.f,
   };
   const command = String(parsed._[0]);
   const profiles = parsed._.map((v) => v.toString()).slice(1);
