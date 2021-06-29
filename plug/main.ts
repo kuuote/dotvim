@@ -22,11 +22,14 @@ function init(profiles: string[]) {
   use("tyru/eskk.vim"); // Nihongo Nyuuryoku suruyatu
   use("vim-denops/denops.vim"); // An ecosystem of Vim/Neovim which allows developers to write plugins in Deno
   use("yuki-yano/fern-preview.vim"); // ふぁーん用のプレビュープラグイン
-  use("yuki-yano/fzf-preview.vim", { "branch": "release/rpc" }); // dark powered fzf plugin
-  use('thinca/vim-qfreplace'); // quickfixに対して置換を行うプラグイン
+  use("thinca/vim-qfreplace"); // quickfixに対して置換を行うプラグイン
+
+  useProfile("coc", () => {
+    use("yuki-yano/fzf-preview.vim", { "branch": "release/rpc" }); // dark powered fzf plugin
+  }, true);
 
   // colorscheme
-  
+
   use("bluz71/vim-nightfly-guicolors");
   use("cormacrelf/vim-colors-github");
   use("ghifarit53/tokyonight-vim");
@@ -37,12 +40,16 @@ function init(profiles: string[]) {
 
   // lsp
   useProfile("vim-lsp", () => {
-
     use("mattn/vim-lsp-settings"); // vim-lspの設定をいい感じにしてくれるやつ
     use("prabirshrestha/asyncomplete-lsp.vim"); // asyncompleteとvim-lspの連携
     use("prabirshrestha/asyncomplete.vim"); // 自動補完
     use("prabirshrestha/vim-lsp"); // Pure Vim script LSP Client
+  });
 
+  useProfile("coc", () => {
+    use("neoclide/coc.nvim", {
+      branch: "release",
+    });
   });
 
   // filetype
@@ -51,13 +58,10 @@ function init(profiles: string[]) {
   use("zah/nim.vim");
 
   useProfile("vim", () => {
-
     use("mattn/vim-molder");
-
   });
 
   useProfile("nvim", () => {
-
     use("monaqa/dial.nvim"); // ぐりぐりするやつ
     use("nvim-lua/plenary.nvim"); // vitalみたいなやつ
     use("nvim-treesitter/nvim-treesitter"); // very sugoi syntax highlighter and more

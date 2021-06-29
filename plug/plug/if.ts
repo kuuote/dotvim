@@ -1,9 +1,5 @@
 import type { PluginOption } from "./plug.ts";
-import {
-  registerPlugin,
-  updatePlugins,
-  assemblePlugins,
-} from "./plug.ts";
+import { assemblePlugins, registerPlugin, updatePlugins } from "./plug.ts";
 
 let using = true;
 let profiles: string[] = [];
@@ -30,15 +26,19 @@ export function usePredicate(use: boolean, fn: () => void) {
   using = saveUsing;
 }
 
-export function useProfile(profile: string, fn: () => void) {
-  usePredicate(profiles.includes(profile), fn);
+export function useProfile(profile: string, fn: () => void, invert = false) {
+  if (invert) {
+    usePredicate(!profiles.includes(profile), fn);
+  } else {
+    usePredicate(profiles.includes(profile), fn);
+  }
 }
 
 type Option = {
   repositoryRoot: string;
   vimrc: string;
-  forceUpdate: boolean
-}
+  forceUpdate: boolean;
+};
 
 export async function run(command: string, option: Option) {
   switch (command) {
