@@ -24,5 +24,9 @@ nnoremap <C-k> <C-w>k
 " sugoi undo
 nnoremap U <C-r>
 
+" thanks monaqa and tsuyoshicho
+"" code input advanced in insert mode
+inoremap <C-v>u <C-r>=nr2char(0x)<Left>
+
 " fzf help
 nnoremap <Leader>fh <Cmd>call vimrc#fzf#help#run()<CR>
