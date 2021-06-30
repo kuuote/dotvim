@@ -17,12 +17,13 @@ function init(profiles: string[]) {
   use("machakann/vim-sandwich"); // 括弧を囲ってくれるすごいやつ
   use("mattn/vim-sonictemplate"); // 便利なテンプレートプラグイン
   use("thinca/vim-localrc"); // ローカルのvimrcを読み込んでくれる
+  use("thinca/vim-qfreplace"); // quickfixに対して置換を行うプラグイン
   use("thinca/vim-quickrun"); // コマンドを素早く実行する
   use("tyru/capture.vim"); // コマンドの出力をバッファで開く
   use("tyru/eskk.vim"); // Nihongo Nyuuryoku suruyatu
   use("vim-denops/denops.vim"); // An ecosystem of Vim/Neovim which allows developers to write plugins in Deno
+  use("vim-jp/vimdoc-ja"); // 日本語help
   use("yuki-yano/fern-preview.vim"); // ふぁーん用のプレビュープラグイン
-  use("thinca/vim-qfreplace"); // quickfixに対して置換を行うプラグイン
 
   useProfile("coc", () => {
     use("yuki-yano/fzf-preview.vim", { "branch": "release/rpc" }); // dark powered fzf plugin
