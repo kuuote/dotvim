@@ -1,8 +1,6 @@
-import { run, setProfile, use, useProfile } from "plug";
-import { parse as parseArgs } from "https://deno.land/std@0.95.0/flags/mod.ts";
+import { main, use, useProfile } from "plug";
 
-function init(profiles: string[]) {
-  setProfile(profiles);
+function init() {
 
   use("hrsh7th/vim-vsnip"); // VSCode形式を使えるスニペットプラグイン
   use("junegunn/fzf"); // fzf-previewの前提
@@ -76,21 +74,5 @@ function init(profiles: string[]) {
   });
 }
 
-async function main(args: string[]): Promise<number> {
-  const parsed = parseArgs(args, {
-    boolean: ["f"],
-    string: ["r", "v"],
-  });
-  const option = {
-    repositoryRoot: parsed.r ?? (Deno.env.get("HOME")! + "/.cache/plugins"),
-    vimrc: parsed.v ?? (Deno.env.get("HOME")! + "/.vim/load.vim"),
-    forceUpdate: !!parsed.f,
-  };
-  const command = String(parsed._[0]);
-  const profiles = parsed._.map((v) => v.toString()).slice(1);
-  init(profiles);
-  await run(command, option);
-  return 0;
-}
 
-Deno.exit(await main(Deno.args));
+Deno.exit(await main(Deno.args, init));

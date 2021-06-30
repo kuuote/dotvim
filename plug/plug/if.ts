@@ -1,5 +1,6 @@
 import type { PluginOption } from "./plug.ts";
 import { assemblePlugins, registerPlugin, updatePlugins } from "./plug.ts";
+import { parse as parseArgs } from "https://deno.land/std@0.95.0/flags/mod.ts";
 
 let using = true;
 let profiles: string[] = [];
@@ -53,6 +54,19 @@ export async function run(command: string, option: Option) {
   }
 }
 
-export function setProfile(p: string[]) {
-  profiles = profiles.concat(p);
+export async function main(args: string[], init: () => void): Promise<number> {
+  const parsed = parseArgs(args, {
+    boolean: ["f"],
+    string: ["r", "v"],
+  });
+  const option = {
+    repositoryRoot: parsed.r ?? (Deno.env.get("HOME")! + "/.cache/plugins"),
+    vimrc: parsed.v ?? (Deno.env.get("HOME")! + "/.vim/load.vim"),
+    forceUpdate: !!parsed.f,
+  };
+  const command = String(parsed._[0]);
+  profiles = parsed._.map((v) => v.toString()).slice(1);
+  init();
+  await run(command, option);
+  return 0;
 }
