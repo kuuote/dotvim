@@ -2,6 +2,8 @@ augroup vimrc
   autocmd!
 augroup END
 
+let g:dotvim = expand('<sfile>:p:h')
+
 let g:progname_short = fnamemodify(v:progname, ':r')
 let g:mapleader = "'"
 

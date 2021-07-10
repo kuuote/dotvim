@@ -1,0 +1,11 @@
+#!/bin/bash -u
+
+cat > def/$1_light.vim << EOF
+set background=light
+colorscheme $1
+EOF
+
+cat > def/$1_dark.vim << EOF
+set background=dark
+colorscheme $1
+EOF
