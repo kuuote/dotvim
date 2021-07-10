@@ -1,5 +1,5 @@
 " Treat buffers from stdin as scratch.
-" from https://github.com/airblade/dotvim/tree/edad9fe8793b7c9266039b4cf85272a9b10cd9cb/
+" from https://github.com/airblade/dotvim/blob/edad9fe8793b7c9266039b4cf85272a9b10cd9cb/vimrc#L202-L203
 autocmd vimrc StdinReadPost * :set buftype=nofile
 
 function! s:chmod(file) abort
