@@ -17,6 +17,7 @@ function init() {
   use("thinca/vim-localrc"); // ローカルのvimrcを読み込んでくれる
   use("thinca/vim-qfreplace"); // quickfixに対して置換を行うプラグイン
   use("thinca/vim-quickrun"); // コマンドを素早く実行する
+  use("thinca/vim-ref"); // ドキュメントをいい感じに見るプラグイン
   use("tyru/capture.vim"); // コマンドの出力をバッファで開く
   use("tyru/eskk.vim"); // Nihongo Nyuuryoku suruyatu
   use("vim-denops/denops.vim"); // An ecosystem of Vim/Neovim which allows developers to write plugins in Deno
