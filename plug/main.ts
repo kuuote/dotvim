@@ -33,6 +33,7 @@ function init() {
   use("bluz71/vim-nightfly-guicolors");
   use("cormacrelf/vim-colors-github");
   use("ghifarit53/tokyonight-vim");
+  use("habamax/vim-gruvbit");
   use("haishanh/night-owl.vim");
   use("joshdick/onedark.vim");
   use("kjssad/quantum.vim");
