@@ -21,6 +21,30 @@ onoremap ( t(
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+" 括弧とか打つのにShift押したくないでござる
+call hypermap#map(';s', '(')
+call hypermap#map(';d', '=')
+call hypermap#map(';f', ')')
+call hypermap#map(';w', '{')
+call hypermap#map(';e', '+')
+call hypermap#map(';r', '}')
+call hypermap#map(';x', '<')
+call hypermap#map(';c', '-')
+call hypermap#map(';v', '>')
+call hypermap#map(';q', '|')
+call hypermap#map(';z', '\')
+call hypermap#map(',q', '!')
+call hypermap#map(',w', '@')
+call hypermap#map(',e', '#')
+call hypermap#map(',r', '$')
+call hypermap#map(',a', '&')
+call hypermap#map(',f', '%')
+call hypermap#map(',s', '"')
+call hypermap#map(',d', '*')
+call hypermap#map(',x', "'")
+call hypermap#map(',z', '_')
+inoremap ' :
+
 " sugoi undo
 nnoremap U <C-r>
 
