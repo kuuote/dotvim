@@ -22,6 +22,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
 " 括弧とか打つのにShift押したくないでござる
+" genius maping by @KosukeMizuno
+" heavily modified by me
 call hypermap#map(';s', '(')
 call hypermap#map(';d', '=')
 call hypermap#map(';f', ')')
