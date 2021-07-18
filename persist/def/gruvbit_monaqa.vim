@@ -1,6 +1,7 @@
 " gruvbit colorscheme with @monaqa config
 " https://github.com/monaqa/dotfiles/blob/424b0ab2d7623005f4b79544570b0f07a76e921a/.config/nvim/scripts/plugin.vim#L34-L67
 
+let g:gruvbit_transp_bg = 1
 set background=dark
 colorscheme gruvbit
 
@@ -38,5 +39,3 @@ hi! BufferVisibleTarget  guifg=red     guibg=#444444
 hi! BufferTabpages       guifg=#e9593d guibg=#444444 gui=bold
 hi! BufferTabpageFill    guifg=#888888 guibg=#c8c8c8
 hi! TabLineFill          guibg=#c8c8c8
-
-let g:gruvbit_transp_bg = 1
