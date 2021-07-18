@@ -10,3 +10,6 @@ endif
 if exists('$TMUX')
   set t_ZH=
 endif
+
+" vimdoc-jaはVim専用なのでこちら
+set helplang=ja
