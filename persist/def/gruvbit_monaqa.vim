@@ -1,7 +1,11 @@
 " gruvbit colorscheme with @monaqa config
 " https://github.com/monaqa/dotfiles/blob/424b0ab2d7623005f4b79544570b0f07a76e921a/.config/nvim/scripts/plugin.vim#L34-L67
 
-let g:gruvbit_transp_bg = 1
+if has('gui_running')
+  let g:gruvbit_transp_bg = 0
+else
+  let g:gruvbit_transp_bg = 1
+endif
 set background=dark
 colorscheme gruvbit
 
