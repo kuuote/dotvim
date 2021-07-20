@@ -40,6 +40,7 @@ function init() {
   use("lifepillar/vim-solarized8");
   use("sainnhe/edge");
   use("severij/vadelma");
+  use("ulwlu/elly.vim");
 
   // lsp
   useProfile("vim-lsp", () => {
