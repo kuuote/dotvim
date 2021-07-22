@@ -13,8 +13,9 @@ let s:conf = '~/.vim/conf/plug.toml'
 let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)
 if dein#load_state(s:dein_dir)
   let s:profiles = [
-  \ 'main',
   \ 'colorscheme',
+  \ 'main',
+  \ 'vim-lsp',
   \ ]
   let configs = map(copy(s:profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
   let configs2 = map(copy(s:profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
