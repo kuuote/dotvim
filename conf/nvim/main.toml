@@ -1,0 +1,74 @@
+[[plugins]]
+repo = 'monaqa/dial.nvim'
+hook_add = '''
+" from help
+nmap <C-a> <Plug>(dial-increment)
+nmap <C-x> <Plug>(dial-decrement)
+vmap <C-a> <Plug>(dial-increment)
+vmap <C-x> <Plug>(dial-decrement)
+vmap g<C-a> <Plug>(dial-increment-additional)
+vmap g<C-x> <Plug>(dial-decrement-additional)
+'''
+
+[[plugins]]
+repo = 'phaazon/hop.nvim'
+hook_add = '''
+lua << EOF
+require("hop").setup()
+EOF
+
+nnoremap ,f <Cmd>HopChar1<CR>
+'''
+
+[[plugins]]
+repo = 'tamago324/lir.nvim'
+hook_add = '''
+lua << EOF
+  local actions = require'lir.actions'
+
+  require'lir'.setup {
+    show_hidden_files = true,
+    mappings = {
+      ['l']     = actions.edit,
+      ['<C-s>'] = actions.split,
+      ['<C-v>'] = actions.vsplit,
+      ['<C-t>'] = actions.tabedit,
+
+      ['h']     = actions.up,
+      ['q']     = actions.quit,
+
+      ['K']     = actions.mkdir,
+      ['N']     = actions.newfile,
+      ['R']     = actions.rename,
+      ['@']     = actions.cd,
+      ['Y']     = actions.yank_path,
+      ['.']     = actions.toggle_show_hidden,
+    }
+  }
+EOF
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_add = '''
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+lua <<EOF
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.typescript.used_by = "typescriptreact"
+EOF
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+[[plugins]]
+repo = 'nvim-lua/popup.nvim'
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'

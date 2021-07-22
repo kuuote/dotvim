@@ -1,0 +1,134 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+merged = 0
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+hook_add = '''
+imap <Tab> <Plug>(vsnip-expand-or-jump)
+let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'kuuote/vim-fuzzyhistory'
+hook_add = '''
+nmap <C-f> <Plug>(fuzzy-history)
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+hook_add = '''
+call gina#custom#mapping#nmap(
+      \ 'status', 'C',
+      \ ':<C-u>Gina commit -v --opener=tabedit<CR>',
+      \ {'noremap': 1, 'nowait': 1, 'silent': 1},
+      \)
+'''
+
+[[plugins]]
+repo = 'lambdalisue/mr-quickfix.vim'
+
+[[plugins]]
+repo = 'lambdalisue/mr.vim'
+
+[[plugins]]
+repo = 'lambdalisue/suda.vim'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+
+[[plugins]]
+repo = 'mattn/vim-sonictemplate'
+hook_add = '''
+let g:sonictemplate_vim_template_dir = $HOME .. '/.vim/template'
+'''
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
+
+[[plugins]]
+repo = 'thinca/vim-qfreplace'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'thinca/vim-ref'
+
+[[plugins]]
+repo = 'tyru/capture.vim'
+
+[[plugins]]
+repo = 'tyru/eskk.vim'
+hook_add = '''
+"use dotfiles dictionary
+let g:eskk#dictionary = {'path':$HOME .. "/.vim/tmp/.skk-jisyo"}
+let g:eskk#large_dictionary = {'path': '~/.skk/SKK-JISYO.L', 'sorted': 1, 'encoding': 'euc-jp'}
+
+" improve eskk enabler
+" see https://thinca.hatenablog.com/entry/20120716/1342374586
+" inoremap <expr> <script> f getline('.')[col('.') - 2] ==# 'j' ? "\<BS>" .. eskk#enable() : 'f'
+call hypermap#map('zj', 'eskk#enable()', {'eval': v:true})
+
+function! s:eskk_enable_post() abort
+  lmap <buffer> l <Plug>(eskk:disable)
+endfunction
+
+"register alphabet table
+function! s:eskk_initialize_pre()
+  let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
+  call t.add_map('z ', '　')
+  call eskk#register_mode_table('hira', t)
+endfunction
+
+augroup vimrc
+  autocmd User eskk-enable-post call s:eskk_enable_post()
+  autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
+augroup END
+'''
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
+[[plugins]]
+repo = 'yuki-yano/fern-preview.vim'
+hook_add = '''
+function! s:fern_preview_map() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> P     <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup vimrc
+  autocmd FileType fern call s:fern_preview_map()
+augroup END
+'''
+
+[[plugins]]
+repo = 'yuki-yano/fzf-preview.vim'
+rev = 'release/rpc'
+hook_add = '''
+nnoremap <fzf-p> <Nop>
+nmap 'z <fzf-p>
+nnoremap <silent> <C-p> <Cmd>FzfPreviewDirectoryFilesRpc<CR>
+nnoremap <silent> <fzf-p>f <Cmd>FzfPreviewCommandPaletteRpc<CR>
+nnoremap <silent> <fzf-p>l <Cmd>FzfPreviewLinesRpc<CR>
+nnoremap <silent> <fzf-p>s <Cmd>FzfPreviewGitStatusRpc<CR>
+nnoremap <silent> <fzf-p>w <Cmd>FzfPreviewProjectMrwFilesRpc --add-fzf-arg=--no-sort<CR>
+'''

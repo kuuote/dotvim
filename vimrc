@@ -7,11 +7,8 @@ let g:dotvim = expand('<sfile>:p:h')
 let g:vim_type = has('nvim') ? 'nvim' : 'vim'
 let g:mapleader = "'"
 
-" temporalily do nothing
-command! -nargs=1 UsePlugin :
-
 if !v:vim_did_enter
-  execute 'source' '~/.vim/load_' .. g:vim_type .. '.vim'
+  source ~/.vim/conf/dein.vim
 endif
 
 filetype plugin indent on
@@ -27,6 +24,5 @@ if getftype($HOME .. '/.vim/local.vim') ==# 'file'
 endif
 
 if empty(get(g:, 'colors_name', ''))
-  set bg=dark
-  colorscheme edge
+  colorscheme morning
 endif

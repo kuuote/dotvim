@@ -1,0 +1,33 @@
+[[plugins]]
+repo = 'bluz71/vim-nightfly-guicolors'
+
+[[plugins]]
+repo = 'cormacrelf/vim-colors-github'
+
+[[plugins]]
+repo = 'ghifarit53/tokyonight-vim'
+
+[[plugins]]
+repo = 'habamax/vim-gruvbit'
+
+[[plugins]]
+repo = 'haishanh/night-owl.vim'
+
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+
+[[plugins]]
+repo = 'kjssad/quantum.vim'
+
+[[plugins]]
+repo = 'lifepillar/vim-solarized8'
+
+[[plugins]]
+repo = 'sainnhe/edge'
+
+[[plugins]]
+repo = 'severij/vadelma'
+
+[[plugins]]
+repo = 'ulwlu/elly.vim'
+

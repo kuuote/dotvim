@@ -1,4 +1,4 @@
-UsePlugin vim-lsp
+" UsePlugin vim-lsp
 
 " さすまつ https://mattn.kaoriya.net/software/vim/20191231213507.htm
 
