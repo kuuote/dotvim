@@ -8,6 +8,8 @@
 "       "eval": evaluate to if true(same as `<expr>`)
 "       "mapmode": map to mode(default: ic)
 
+let s:mapmode = {'ic': 'noremap!', 'i': 'inoremap', 'c': 'cnoremap'}
+
 let s:maps = {}
 
 function! hypermap#map(from, to, ...) abort
@@ -20,12 +22,7 @@ function! hypermap#map(from, to, ...) abort
   let opt = len(a:000) == 0 ? {} : a:1
   let newopt = extend({'mapto': a:to, 'mapmode': 'ic', 'eval': v:false}, opt)
   let map[prefix] = newopt
-  if newopt.mapmode =~# 'i'
-    execute 'inoremap' '<expr>' key 'hypermap#resolve("' .. key .. '")'
-  endif
-  if newopt.mapmode =~# 'c'
-    execute 'cnoremap' key '<C-r>=hypermap#resolve("' .. key .. '")<CR>'
-  endif
+  execute s:mapmode[newopt.mapmode] '<expr>' key 'hypermap#resolve("' .. key .. '")'
 endfunction
 
 function! s:getlinepos() abort
