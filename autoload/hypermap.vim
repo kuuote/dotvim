@@ -36,7 +36,7 @@ endfunction
 function! hypermap#resolve(key) abort
   let [line, lastidx] = s:getlinepos()
   for [map_prev, map] in items(get(s:maps, a:key, {}))
-    let prev = line[max([0, lastidx - (len(map_prev) - 1)]):col('.') - 2]
+    let prev = line[max([0, lastidx - (len(map_prev) - 1)]) : lastidx]
     if prev ==# map_prev
       return repeat("\<C-h>", len(map_prev)) .. (map.eval ? eval(map.mapto) : map.mapto)
     endif
