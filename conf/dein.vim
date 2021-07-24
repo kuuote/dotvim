@@ -20,7 +20,7 @@ if dein#load_state(s:dein_dir)
   let configs = map(copy(s:profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
   let configs2 = map(copy(s:profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
 
-  call dein#begin(s:dein_dir, flatten([$MYVIMRC, expand('<sfile>'), configs, configs2]))
+  call dein#begin(s:dein_dir, flatten([g:vimrc, expand('<sfile>'), configs, configs2]))
   for toml in configs
     if getftype(toml) ==# 'file'
       call dein#load_toml(toml)
