@@ -12,7 +12,7 @@ vmap g<C-x> <Plug>(dial-decrement-additional)
 
 [[plugins]]
 repo = 'phaazon/hop.nvim'
-hook_add = '''
+hook_post_source = '''
 lua << EOF
 require("hop").setup()
 EOF
@@ -22,7 +22,7 @@ nnoremap ,f <Cmd>HopChar1<CR>
 
 [[plugins]]
 repo = 'tamago324/lir.nvim'
-hook_add = '''
+hook_post_source = '''
 lua << EOF
   local actions = require'lir.actions'
 
@@ -50,7 +50,7 @@ EOF
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-hook_add = '''
+hook_post_source = '''
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {

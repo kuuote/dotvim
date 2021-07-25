@@ -29,7 +29,7 @@ repo = 'lambdalisue/fern.vim'
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
-hook_add = '''
+hook_post_source = '''
 call gina#custom#mapping#nmap(
       \ 'status', 'C',
       \ ':<C-u>Gina commit -v --opener=tabedit<CR>',

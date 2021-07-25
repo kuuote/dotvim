@@ -3,6 +3,7 @@ augroup vimrc
 augroup END
 
 let g:dotvim = expand('<sfile>:p:h')
+let g:vimrc = expand('<sfile>:p')
 
 let g:vim_type = has('nvim') ? 'nvim' : 'vim'
 let g:mapleader = "'"
