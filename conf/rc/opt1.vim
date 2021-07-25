@@ -5,3 +5,4 @@ set termguicolors              " フルカラーは人権
 set ttimeout                   " タイムアウトを設けることによりEscを単体で入力できるようにする
 set ttimeoutlen=100            " defaults.vimより
 set backspace=indent,eol,start " いい感じにBackspaceが効くように
+set helplang=ja                " 日本語helpがあると優先する

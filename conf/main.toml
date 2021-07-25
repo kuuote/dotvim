@@ -103,9 +103,6 @@ augroup END
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
-repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
 repo = 'yuki-yano/fern-preview.vim'
 hook_add = '''
 function! s:fern_preview_map() abort
