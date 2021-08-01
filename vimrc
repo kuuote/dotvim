@@ -13,7 +13,7 @@ if !v:vim_did_enter
 endif
 
 if getftype('/tmp/templug') ==# 'dir'
-  let &runtimepath ..= ',' .. join(glob('/tmp/templug/*', 1, 1), ',')
+  let &runtimepath = join(glob('/tmp/templug/*', 1, 1), ',') .. ',' .. &runtimepath
 endif
 
 filetype plugin indent on
