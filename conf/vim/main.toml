@@ -14,3 +14,5 @@ let g:molder_show_hidden = 1
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
+[[plugins]]
+repo = 'kuuote/dps-skkeleton'
