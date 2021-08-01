@@ -72,3 +72,10 @@ repo = 'nvim-lua/popup.nvim'
 
 [[plugins]]
 repo = 'nvim-telescope/telescope.nvim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+'''
+
