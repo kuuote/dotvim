@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'kuuote/dps-skkeleton'
+
+[[plugins]]
 repo = 'mattn/vim-molder'
 hook_add = '''
 function! s:map_molder() abort
@@ -13,6 +16,3 @@ let g:molder_show_hidden = 1
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
-repo = 'kuuote/dps-skkeleton'

@@ -1,0 +1,5 @@
+#!/bin/bash -u
+
+shopt -s globstar
+
+deno run --no-check --allow-read --allow-write sortoml.ts **/*.toml

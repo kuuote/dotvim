@@ -30,4 +30,3 @@ repo = 'severij/vadelma'
 
 [[plugins]]
 repo = 'ulwlu/elly.vim'
-

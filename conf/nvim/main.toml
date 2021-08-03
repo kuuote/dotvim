@@ -1,4 +1,10 @@
 [[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+'''
+
+[[plugins]]
 repo = 'monaqa/dial.nvim'
 hook_add = '''
 " from help
@@ -8,6 +14,31 @@ vmap <C-a> <Plug>(dial-increment)
 vmap <C-x> <Plug>(dial-decrement)
 vmap g<C-a> <Plug>(dial-increment-additional)
 vmap g<C-x> <Plug>(dial-decrement-additional)
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+[[plugins]]
+repo = 'nvim-lua/popup.nvim'
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_post_source = '''
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+lua <<EOF
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.typescript.used_by = "typescriptreact"
+EOF
 '''
 
 [[plugins]]
@@ -46,37 +77,6 @@ lua << EOF
     }
   }
 EOF
-'''
-
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-hook_post_source = '''
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-  },
-}
-EOF
-lua <<EOF
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.typescript.used_by = "typescriptreact"
-EOF
-'''
-
-[[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-
-[[plugins]]
-repo = 'nvim-lua/popup.nvim'
-
-[[plugins]]
-repo = 'nvim-telescope/telescope.nvim'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-let g:deoplete#enable_at_startup = 1
 '''
 
 [[plugins]]
