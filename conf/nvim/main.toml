@@ -1,10 +1,4 @@
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-let g:deoplete#enable_at_startup = 1
-'''
-
-[[plugins]]
 repo = 'monaqa/dial.nvim'
 hook_add = '''
 " from help

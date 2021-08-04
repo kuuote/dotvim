@@ -1,4 +1,32 @@
 [[plugins]]
+repo = 'Shougo/ddc-around'
+hook_post_source = '''
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+hook_post_source = '''
+call ddc#custom#patch_global('sources', ['around', 'eskk'])
+call ddc#custom#patch_global('sourceOptions', {
+	    \ '_': {
+	    \   'matchers': ['matcher_head'],
+	    \   'sorters': ['sorter_rank']
+	    \ },
+      \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
+      \ })
+" とりあえずNeovimだけ
+if has('nvim')
+  call ddc#enable()
+endif
+'''
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
 merged = 0
 
