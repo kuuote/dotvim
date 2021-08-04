@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'ayu-theme/ayu-vim'
+
+[[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 
 [[plugins]]
