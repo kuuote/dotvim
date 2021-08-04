@@ -40,12 +40,14 @@ call hypermap#map(',w', '@')
 call hypermap#map(',e', '#')
 call hypermap#map(',r', '$')
 call hypermap#map(',a', '&')
-call hypermap#map(',f', '%')
 call hypermap#map(',s', '"')
 call hypermap#map(',d', '*')
-call hypermap#map(',x', "'")
+call hypermap#map(',f', '%')
 call hypermap#map(',z', '_')
-inoremap ' :
+call hypermap#map(',x', "'")
+call hypermap#map(',c', "^")
+call hypermap#map(',v', "`")
+noremap! ' :
 
 " sugoi undo
 nnoremap U <C-r>
