@@ -43,3 +43,8 @@ hi! BufferVisibleTarget  guifg=red     guibg=#444444
 hi! BufferTabpages       guifg=#e9593d guibg=#444444 gui=bold
 hi! BufferTabpageFill    guifg=#888888 guibg=#c8c8c8
 hi! TabLineFill          guibg=#c8c8c8
+
+" modified by @kuuote
+
+" LSPのエラーが鬱陶しい
+hi! link Todo Underlined
