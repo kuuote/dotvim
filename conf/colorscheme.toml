@@ -11,6 +11,9 @@ repo = 'cormacrelf/vim-colors-github'
 repo = 'ghifarit53/tokyonight-vim'
 
 [[plugins]]
+repo = 'gruvbox-community/gruvbox'
+
+[[plugins]]
 repo = 'habamax/vim-gruvbit'
 
 [[plugins]]
