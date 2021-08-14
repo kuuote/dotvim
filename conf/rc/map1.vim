@@ -12,4 +12,8 @@ nnoremap Q <Cmd>confirm qa<CR>
 nnoremap cs <Cmd>Persist<CR>
 nnoremap q; q:
 nnoremap s <NOP>
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
 xnoremap ; :
