@@ -4,7 +4,8 @@
 function! s:changed() abort
   try
     let [l, s] = matchlist(getline('.'), '\v(\d+)\|(.*)')[1:2]
-    let c = min(filter(map(split(getcmdline(), '\s\+'), 'stridx(s, v:val)'), 'v:val != -1')) + 1
+    let s = tolower(s)
+    let c = min(filter(map(split(tolower(getcmdline()), '\s\+'), 'stridx(s, v:val)'), 'v:val != -1')) + 1
     call win_execute(s:winid, printf('call cursor(%s, %s)', l, c))
     call win_execute(s:winid, 'normal! zz')
     redraw
@@ -16,18 +17,23 @@ function! s:lines() abort
   let s:winid = win_getid()
   let lines = getline(1, '$')
   call map(lines, "v:key + 1 .. '|' .. v:val")
-  let previous = lines[:line('.') - 2]
-  let next = lines[line('.') - 1:]
-  let rotated = next + previous
+  let line = line('.')
+  if len(lines) > 1 && line > 1
+    " consultのように現在の行を起点にする
+    let previous = lines[:line - 2]
+    let next = lines[line - 1:]
+    let lines = next + previous
+  endif
   augroup vimrc-lines
     autocmd!
     autocmd User SelectorChanged call s:changed()
   augroup END
   try
-    call selector#run(rotated, 'denops')
+    call selector#run(lines, 'denops')
   finally
     autocmd! vimrc-lines
   endtry
+  normal! zz
 endfunction
 
 nnoremap zl <Cmd>call <sid>lines()<cr>
