@@ -15,6 +15,7 @@ if dein#load_state(s:dein_dir)
   let s:profiles = [
   \ 'colorscheme',
   \ 'main',
+  \ 'treesitter',
   \ 'vim-lsp',
   \ ]
   let configs = map(copy(s:profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')

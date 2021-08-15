@@ -1,0 +1,34 @@
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_post_source = '''
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+lua <<EOF
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.typescript.used_by = "typescriptreact"
+EOF
+'''
+
+[[plugins]]
+repo = 'ikatyang/tree-sitter-toml'
+hook_post_update = '''
+call system('git clean -ffdx')
+call system('git reset --hard')
+call system('mkdir parser')
+call system('clang -shared -o parser/toml.so -Isrc src/parser.c src/scanner.c')
+'''
+
+[[plugins]]
+repo = 'tree-sitter/tree-sitter-typescript'
+hook_post_update = '''
+call system('git clean -ffdx')
+call system('git reset --hard')
+call system('mkdir parser')
+call system('clang -shared -o parser/typescript.so -Itypescript/src typescript/src/parser.c typescript/src/scanner.c')
+call system('clang -shared -o parser/tsx.so -Itsx/src tsx/src/parser.c tsx/src/scanner.c')
+'''

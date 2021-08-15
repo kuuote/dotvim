@@ -20,22 +20,6 @@ repo = 'nvim-lua/popup.nvim'
 repo = 'nvim-telescope/telescope.nvim'
 
 [[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-hook_post_source = '''
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-  },
-}
-EOF
-lua <<EOF
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.typescript.used_by = "typescriptreact"
-EOF
-'''
-
-[[plugins]]
 repo = 'phaazon/hop.nvim'
 hook_post_source = '''
 lua << EOF
