@@ -1,8 +1,30 @@
 function! selector#changed() abort
-  let filtered = reverse(b:filter(b:source, getcmdline()))
+  let filtered = b:filter(b:source, getcmdline())
   call deletebufline('%', 1, '$')
   call setbufline('%', 1, filtered)
-  call cursor(line('$'), 1)
+  call cursor(1, 1)
+  redraw
+endfunction
+
+function! s:down() abort
+  let current = line('.')
+  if current == line('$')
+    let next = 1
+  else
+    let next = current + 1
+  endif
+  call cursor(next, 1)
+  redraw
+endfunction
+
+function! s:up() abort
+  let current = line('.')
+  if current == 1
+    let next = line('$')
+  else
+    let next = current - 1
+  endif
+  call cursor(next, 1)
   redraw
 endfunction
 
@@ -14,8 +36,15 @@ function! selector#run(source, ...) abort
   setlocal buftype=nofile bufhidden=hide noswapfile cursorline
   autocmd CmdlineEnter,CmdlineChanged <buffer> call selector#changed()
   cnoremap <buffer> <Esc> <C-c>
-  cnoremap <buffer> <C-j> <Cmd>call cursor(line('.') + 1, 1)<CR><Cmd>redraw<CR>
-  cnoremap <buffer> <C-k> <Cmd>call cursor(line('.') - 1, 1)<CR><Cmd>redraw<CR>
+  " vim
+  cnoremap <buffer> <C-j> <Cmd>call <SID>down()<CR>
+  cnoremap <buffer> <C-k> <Cmd>call <SID>up()<CR>
+  " emacs
+  cnoremap <buffer> <C-n> <Cmd>call <SID>down()<CR>
+  cnoremap <buffer> <C-p> <Cmd>call <SID>up()<CR>
+  " cursor
+  cnoremap <buffer> <Down> <Cmd>call <SID>down()<CR>
+  cnoremap <buffer> <Up> <Cmd>call <SID>up()<CR>
   try
     let result = input('> ')
     return getline('.')
