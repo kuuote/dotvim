@@ -3,11 +3,13 @@
 
 function! s:changed() abort
   try
+    silent! call win_execute(s:winid, 'call matchdelete(s:matchid)')
     let [l, s] = matchlist(getline('.'), '\v(\d+)\|(.*)')[1:2]
     let s = tolower(s)
     let c = min(filter(map(split(tolower(getcmdline()), '\s\+'), 'stridx(s, v:val)'), 'v:val != -1')) + 1
     call win_execute(s:winid, printf('call cursor(%s, %s)', l, c))
     call win_execute(s:winid, 'normal! zz')
+    call win_execute(s:winid, 'let s:matchid = matchaddpos("Search", [[l, c]])')
     redraw
   catch
   endtry
@@ -32,6 +34,7 @@ function! s:lines() abort
     call selector#run(lines, 'denops')
   finally
     autocmd! vimrc-lines
+    silent! call win_execute(s:winid, 'call matchdelete(s:matchid)')
   endtry
   normal! zz
 endfunction
