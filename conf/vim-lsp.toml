@@ -1,10 +1,10 @@
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
 
-[[plugins]]
+[[plugin]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
-[[plugins]]
+[[plugin]]
 repo = 'prabirshrestha/asyncomplete.vim'
 
 [[plugins]]

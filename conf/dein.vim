@@ -14,6 +14,7 @@ let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)
 if dein#load_state(s:dein_dir)
   let s:profiles = [
   \ 'colorscheme',
+  \ 'ddc',
   \ 'main',
   \ 'treesitter',
   \ 'vim-lsp',
