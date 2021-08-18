@@ -84,4 +84,7 @@ augroup vimrc
   autocmd User eskk-enable-post call s:eskk_enable_post()
   autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
 augroup END
+
+" ddc integration
+let g:vimrc#ddc_sources = add(get(g:, 'vimrc#ddc_sources', []), 'eskk')
 '''

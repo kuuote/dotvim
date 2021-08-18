@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'Shougo/ddc-around'
-hook_post_source = '''
+hook_add = '''
+let g:vimrc#ddc_sources = add(get(g:, 'vimrc#ddc_sources', []), 'around')
 '''
 
 [[plugins]]
@@ -12,20 +13,29 @@ repo = 'Shougo/ddc-sorter_rank'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 hook_post_source = '''
-call ddc#custom#patch_global('sources', ['around', 'eskk', 'ddc-vim-lsp'])
+" 各sourceのhook_addでg:vimrc#ddc_sourcesへの追加を行い、ddc.vimのhook_post_sourceでまとめて処理する
+call ddc#custom#patch_global('sources', g:vimrc#ddc_sources)
 call ddc#custom#patch_global('sourceOptions', {
 	    \ '_': {
 	    \   'matchers': ['matcher_head'],
 	    \   'sorters': ['sorter_rank']
 	    \ },
+      \ 'around': {'mark': 'around'},
       \ 'eskk': {'mark': 'eskk', 'matchers': [], 'sorters': []},
       \ 'ddc-vim-lsp': {'forceCompletionPattern': '\.', 'minAutoCompleteLength': 0},
       \ })
-" とりあえずNeovimだけ
-if has('nvim')
-  call ddc#enable()
-endif
+call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+hook_add = '''
+let g:vimrc#ddc_sources = add(get(g:, 'vimrc#ddc_sources', []), 'necovim')
 '''
 
 [[plugins]]
 repo = 'shun/ddc-vim-lsp'
+hook_post_source = '''
+" 一旦workaroundで一部のfiletypeだけ処理しておく
+call ddc#custom#patch_filetype(['typescript', 'typescriptreact'], 'sources', g:vimrc#ddc_sources + ['ddc-vim-lsp'])
+'''
