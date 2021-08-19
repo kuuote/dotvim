@@ -48,6 +48,13 @@ augroup vimrc
   autocmd CmdlineLeave,CmdwinLeave / call timer_start(0, {->execute("set nowrapscan")}) " timer使っているのはCmdlineを抜けた直後に走る検索でwrapscanを有効にするため
 augroup END
 
+" 検索時だけhlsearchしてほしい
+augroup vimrc
+  autocmd!
+  autocmd CmdlineEnter / setglobal hlsearch
+  autocmd CmdlineLeave / setglobal nohlsearch
+augroup END
+
 " auto quickfix opener
 " from https://github.com/monaqa/dotfiles/blob/424b0ab2d7623005f4b79544570b0f07a76e921a/.config/nvim/scripts/autocmd.vim#L100-L104
 augroup vimrc
