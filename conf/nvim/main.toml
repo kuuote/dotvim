@@ -38,6 +38,9 @@ lua << EOF
   require'lir'.setup {
     show_hidden_files = true,
     mappings = {
+      ['f']     = function()
+                    vim.call('vimrc#fzf#ff#run')
+                  end,
       ['l']     = actions.edit,
       ['<C-s>'] = actions.split,
       ['<C-v>'] = actions.vsplit,

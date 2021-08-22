@@ -5,6 +5,7 @@ repo = 'kuuote/dps-skkeleton'
 repo = 'mattn/vim-molder'
 hook_add = '''
 function! s:map_molder() abort
+  nnoremap <buffer> <nowait> f <Cmd>call vimrc#fzf#ff#run()<CR>
   nmap <buffer> <silent> <nowait> h <plug>(molder-up)
   nmap <buffer> <silent> <nowait> l <plug>(molder-open)
 endfunction
