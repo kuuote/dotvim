@@ -50,7 +50,6 @@ augroup END
 
 " 検索時だけhlsearchしてほしい
 augroup vimrc
-  autocmd!
   autocmd CmdlineEnter / setglobal hlsearch
   autocmd CmdlineLeave / setglobal nohlsearch
 augroup END
