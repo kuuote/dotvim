@@ -3,6 +3,20 @@ repo = 'Shougo/dein.vim'
 merged = 0
 
 [[plugins]]
+repo = 'c000/rapidfire.vim'
+hook_add = '''
+function! s:rapidfire_search_config() abort
+  let file = findfile('.rapidfire', '.;')
+  if empty(file)
+    let g:rapidfire#persistent_filename = '~/.vim/.rapidfire'
+  else
+    let g:rapidfire#persistent_filename = readfile(file)[0]
+  endif
+endfunction
+call s:rapidfire_search_config()
+'''
+
+[[plugins]]
 repo = 'hrsh7th/vim-vsnip'
 hook_add = '''
 imap <Tab> <Plug>(vsnip-expand-or-jump)
@@ -14,6 +28,9 @@ repo = 'junegunn/fzf'
 
 [[plugins]]
 repo = 'kana/vim-textobj-entire'
+
+[[plugins]]
+repo = 'kana/vim-textobj-line'
 
 [[plugins]]
 repo = 'kana/vim-textobj-user'
