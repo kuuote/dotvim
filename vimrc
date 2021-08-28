@@ -7,6 +7,7 @@ let g:vimrc = expand('<sfile>:p')
 
 let g:vim_type = has('nvim') ? 'nvim' : 'vim'
 let g:mapleader = "'"
+let g:maplocalleader = ","
 
 if !v:vim_did_enter
   source ~/.vim/conf/dein.vim
