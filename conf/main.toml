@@ -36,6 +36,9 @@ repo = 'kana/vim-textobj-line'
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
+repo = 'kuuote/denops-skkeleton.vim'
+
+[[plugins]]
 repo = 'kuuote/vim-fuzzyhistory'
 hook_add = '''
 nmap <C-f> <Plug>(fuzzy-history)

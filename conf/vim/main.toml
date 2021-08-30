@@ -1,7 +1,4 @@
 [[plugins]]
-repo = 'kuuote/dps-skkeleton'
-
-[[plugins]]
 repo = 'mattn/vim-molder'
 hook_add = '''
 function! s:map_molder() abort
