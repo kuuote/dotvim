@@ -33,6 +33,27 @@ EOF
 '''
 
 [[plugins]]
+repo = 'nvim-treesitter/tree-sitter-lua'
+hook_post_update = '''
+call system('git clean -ffdx')
+call system('git reset --hard')
+call system('mkdir parser')
+call system('clang++ -fPIC -shared -o parser/lua.so -Isrc src/parser.c src/scanner.cc')
+'''
+
+[[plugins]]
+repo = 'p00f/nvim-ts-rainbow'
+hook_post_source = '''
+lua <<unko
+require'nvim-treesitter.configs'.setup {
+  rainbow = {
+    enable = true,
+  },
+}
+unko
+'''
+
+[[plugins]]
 repo = 'tree-sitter/tree-sitter-typescript'
 hook_post_update = '''
 call system('git clean -ffdx')
