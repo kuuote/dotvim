@@ -1,9 +1,8 @@
-import { Denops } from "./deps.ts";
+import { Denops, vars } from "./deps.ts";
 import { select } from "./select.ts";
 import { uu } from "./deps.ts";
 import { Fzf } from "./deps/fzf.ts";
 
-// deno-lint-ignore require-await
 export async function main(denops: Denops) {
   denops.dispatcher = {
     select(haystack: unknown, needle: unknown): Promise<string[]> {
@@ -22,4 +21,5 @@ export async function main(denops: Denops) {
       return Promise.resolve(fzf.find(needle).map((r) => r.item));
     },
   };
+  await vars.g.set(denops, "vimrc#init_denops", true);
 }
