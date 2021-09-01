@@ -36,6 +36,13 @@
     "description": "global variable definition with default",
     "prefix": "gset"
   },
+  "hoge": {
+    "body": [
+      "let g:hoge = add(get(g:, 'hoge', []), $0)"
+    ],
+    "description": "debug stuff",
+    "prefix": "hoge"
+  },
   "let": {
     "body": [
       "let ${1:lhs} = ${2:rhs}"
