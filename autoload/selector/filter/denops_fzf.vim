@@ -1,6 +1,4 @@
 function! selector#filter#denops_fzf#filter(haystack, needle) abort
-  if !get(g:, 'vimrc#init_denops', v:false)
-    return a:haystack
-  endif
+  call denops#plugin#wait('vimrc')
   return denops#request('vimrc', 'fzf' , [a:haystack, a:needle])
 endfunction
