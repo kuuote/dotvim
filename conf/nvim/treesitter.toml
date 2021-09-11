@@ -18,7 +18,7 @@ call system('clang -fPIC -shared -o parser/toml.so -Isrc src/parser.c src/scanne
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-hook_post_source = '''
+hook_source = '''
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -43,7 +43,7 @@ call system('clang++ -fPIC -shared -o parser/lua.so -Isrc src/parser.c src/scann
 
 [[plugins]]
 repo = 'p00f/nvim-ts-rainbow'
-hook_post_source = '''
+hook_source = '''
 lua <<unko
 require'nvim-treesitter.configs'.setup {
   rainbow = {

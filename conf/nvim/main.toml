@@ -21,7 +21,7 @@ repo = 'nvim-telescope/telescope.nvim'
 
 [[plugins]]
 repo = 'phaazon/hop.nvim'
-hook_post_source = '''
+hook_source = '''
 lua << EOF
 require("hop").setup()
 EOF
@@ -31,7 +31,7 @@ nnoremap ,f <Cmd>HopChar1<CR>
 
 [[plugins]]
 repo = 'tamago324/lir.nvim'
-hook_post_source = '''
+hook_source = '''
 lua << EOF
   local actions = require'lir.actions'
 
@@ -90,4 +90,6 @@ augroup END
 
 " ddc integration
 let g:vimrc#ddc_sources = add(get(g:, 'vimrc#ddc_sources', []), 'eskk')
+let g:vimrc#ddc_source_options = get(g:, 'vimrc#ddc_source_options', {})
+let g:vimrc#ddc_source_options.eskk = {'mark': 'eskk', 'matchers': [], 'sorters': []}
 '''
