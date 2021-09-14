@@ -1,3 +1,5 @@
+/.rapidfire
+/build.sh
 /load_nvim.vim
 /load_vim.vim
 /local.vim
@@ -5,4 +7,3 @@
 /pack
 /tmp
 /viminfo
-/.rapidfire
