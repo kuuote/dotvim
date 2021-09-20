@@ -89,7 +89,6 @@ augroup vimrc
 augroup END
 
 " ddc integration
-let g:vimrc#ddc_sources = add(get(g:, 'vimrc#ddc_sources', []), 'eskk')
-let g:vimrc#ddc_source_options = get(g:, 'vimrc#ddc_source_options', {})
+call add(g:vimrc#ddc_sources, [1, 'eskk'])
 let g:vimrc#ddc_source_options.eskk = {'mark': 'eskk', 'matchers': [], 'sorters': []}
 '''

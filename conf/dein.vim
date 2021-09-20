@@ -8,6 +8,9 @@ let &runtimepath ..= ',' .. s:dein_repo
 let g:dein#auto_recache = 1
 let g:dein#cache_directory = '/tmp/dein/cache/' .. g:vim_type
 
+" 共通で使われる要素を先に初期化しておく
+let g:vimrc#ddc_sources = []
+let g:vimrc#ddc_source_options = {}
 
 let s:conf = '~/.vim/conf/plug.toml'
 let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)

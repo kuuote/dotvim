@@ -10,6 +10,7 @@ function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
   nmap <buffer> gd <Plug>(lsp-definition)
+  nmap <buffer> K <Plug>(lsp-hover)
   nnoremap <buffer> <LocalLeader>la <Cmd>LspCodeActionSync<CR>
   nnoremap <buffer> <LocalLeader>lf <Cmd>LspDocumentFormatSync<CR>
   inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
