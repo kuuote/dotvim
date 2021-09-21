@@ -17,6 +17,7 @@ endfunction
 
 function! s:lines() abort
   let s:winid = win_getid()
+  let rest = winrestcmd()
   let lines = getline(1, '$')
   call map(lines, "v:key + 1 .. '|' .. v:val")
   let line = line('.')
@@ -31,10 +32,12 @@ function! s:lines() abort
     autocmd User SelectorChanged call s:changed()
   augroup END
   try
-    call selector#run(lines, 'denops')
+    call selector#run(lines, 'exact')
   finally
     autocmd! vimrc-lines
     silent! call win_execute(s:winid, 'call matchdelete(s:matchid)')
+    call win_gotoid(s:winid)
+    execute rest
   endtry
   normal! zz
 endfunction
