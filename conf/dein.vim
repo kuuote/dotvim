@@ -15,15 +15,16 @@ let g:vimrc#ddc_source_options = {}
 let s:conf = '~/.vim/conf/plug.toml'
 let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)
 if dein#load_state(s:dein_dir)
-  let s:profiles = [
-  \ 'colorscheme',
-  \ 'ddc',
-  \ 'main',
-  \ 'treesitter',
-  \ 'vim-lsp',
-  \ ]
-  let configs = map(copy(s:profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
-  let configs2 = map(copy(s:profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
+  let s:profiles = {}
+  let s:profiles['coc'] = 0
+  let s:profiles['colorscheme'] = 1
+  let s:profiles['ddc'] = 1
+  let s:profiles['main'] = 1
+  let s:profiles['treesitter'] = 1
+  let s:profiles['vim-lsp'] = 1
+  let s:enabled_profiles = map(filter(items(s:profiles), 'v:val[1]'), 'v:val[0]')
+  let configs = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
+  let configs2 = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
 
   call dein#begin(s:dein_dir, flatten([g:vimrc, expand('<sfile>'), configs, configs2]))
   for toml in configs
