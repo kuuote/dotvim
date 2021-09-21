@@ -33,25 +33,30 @@ let g:vimrc#ddc_sources_sorted = sort(map(g:vimrc#ddc_sources, 'v:val[1]'))
 " 各sourceのhook_addでg:vimrc#ddc_sourcesへの追加を行い、ddc.vimのhook_sourceでまとめて処理する
 call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_sorted)
 call ddc#custom#patch_global('sourceOptions', g:vimrc#ddc_source_options)
+doautocmd <nomodeline> User vimrc-ddc
 call ddc#enable()
 '''
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
-depends = 'Shougo/ddc.vim'
-hook_source = '''
-call ddc#custom#patch_filetype(['vim'], 'sources', ['necovim'] + g:vimrc#ddc_sources_sorted)
+hook_add = '''
+function! s:setup_necovim() abort
+  call ddc#custom#patch_filetype(['vim'], 'sources', ['necovim'] + g:vimrc#ddc_sources_sorted)
+endfunction
+autocmd User vimrc-ddc call s:setup_necovim()
 '''
 
 [[plugins]]
 repo = 'shun/ddc-vim-lsp'
-depends = 'Shougo/ddc.vim'
-hook_source = '''
-let s:sources = ['ddc-vim-lsp'] + g:vimrc#ddc_sources_sorted
-call ddc#custom#patch_filetype([
-\ 'go',
-\ 'rust',
-\ 'typescript',
-\ 'typescriptreact',
-\ ], 'sources', s:sources)
+hook_add = '''
+function! s:setup_ddc_vim_lsp() abort
+  let sources = ['ddc-vim-lsp'] + g:vimrc#ddc_sources_sorted
+  call ddc#custom#patch_filetype([
+  \ 'go',
+  \ 'rust',
+  \ 'typescript',
+  \ 'typescriptreact',
+  \ ], 'sources', sources)
+endfunction
+autocmd User vimrc-ddc call s:setup_ddc_vim_lsp()
 '''
