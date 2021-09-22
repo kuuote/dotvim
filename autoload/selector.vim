@@ -48,9 +48,10 @@ function! s:up() abort
 endfunction
 
 function! selector#run(source, ...) abort
+  let winid = win_getid()
+  let rest = winrestcmd()
   botright 1new
-  let winid = winnr()
-  let b:filter = function(printf('selector#filter#%s#filter', get(a:000, 0, 'denops')))
+  let b:filter = function(printf('selector#filter#%s#filter', get(a:000, 0, 'exact')))
   let b:source = copy(a:source)
   execute 'resize' &cmdwinheight
   setlocal buftype=nofile bufhidden=hide noswapfile cursorline
@@ -71,5 +72,7 @@ function! selector#run(source, ...) abort
   catch
   finally
     close
+    call win_gotoid(winid)
+    execute rest
   endtry
 endfunction
