@@ -139,11 +139,15 @@ augroup END
 [[plugins]]
 repo = 'yuki-yano/fzf-preview.vim'
 hook_add = '''
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort=path --with-filename'
+
 nnoremap <fzf-p> <Nop>
 nmap 'z <fzf-p>
 nnoremap <silent> <C-p> <Cmd>FzfPreviewDirectoryFilesRpc<CR>
+nnoremap <silent> <fzf-p>L :<C-u>FzfPreviewProjectGrepRpc --experimental-fast -add-fzf-arg=--exact --add-fzf-arg=--no-sort . <C-r>=expand('%:p')<CR><CR>
 nnoremap <silent> <fzf-p>f <Cmd>FzfPreviewCommandPaletteRpc<CR>
 nnoremap <silent> <fzf-p>l <Cmd>FzfPreviewLinesRpc<CR>
+nnoremap <silent> <fzf-p>p :<C-u>FzfPreviewProjectGrep --experimental-fast<Space>
 nnoremap <silent> <fzf-p>s <Cmd>FzfPreviewGitStatusRpc<CR>
 nnoremap <silent> <fzf-p>w <Cmd>FzfPreviewProjectMrwFilesRpc --add-fzf-arg=--no-sort<CR>
 '''
