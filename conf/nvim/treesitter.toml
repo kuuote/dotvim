@@ -1,10 +1,4 @@
 [[plugins]]
-repo = 'ikatyang/tree-sitter-toml'
-hook_source = '''
-call vimrc#build#add(g:dein#plugin)
-'''
-
-[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 hook_source = '''
 lua <<EOF
