@@ -34,7 +34,6 @@ let g:vimrc#ddc_sources_sorted = sort(map(g:vimrc#ddc_sources, 'v:val[1]'))
 call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_sorted)
 call ddc#custom#patch_global('sourceOptions', g:vimrc#ddc_source_options)
 doautocmd <nomodeline> User vimrc-ddc
-call ddc#custom#patch_filetype('gina-commit', 'specialBufferCompletion', v:true)
 call ddc#enable()
 '''
 

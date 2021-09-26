@@ -83,6 +83,9 @@ call gina#custom#mapping#nmap(
       \ ':<C-u>Gina commit -v --opener=tabedit<CR>',
       \ {'noremap': 1, 'nowait': 1, 'silent': 1},
       \)
+if dein#tap('ddc.vim')
+  call ddc#custom#patch_filetype('gina-commit', 'specialBufferCompletion', v:true)
+endif
 '''
 
 [[plugins]]
