@@ -13,8 +13,11 @@ function! vimrc#build#output() abort
     let repo_hash = trim(system(printf('git -C %s rev-parse origin/HEAD', path)))
 
     let hash_path = printf('%s/.vimrc_hash', path)
-    let file = []
-    silent! let file = readfile(hash_path)
+    try
+      let file = readfile(hash_path)
+    catch
+      let file = []
+    endtry
     if get(file, 0, '') ==# script_hash && get(file, 1, '') ==# repo_hash
       continue
     endif
