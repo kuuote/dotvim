@@ -13,7 +13,7 @@ function! selector#changed() abort
     return
   endif
   let b:oldline = newline
-  let filtered = b:filter(b:source, getcmdline())
+  let filtered = b:filter(getcmdline())
   call deletebufline('%', 1, '$')
   call setbufline('%', 1, filtered)
   call cursor(1, 1)
@@ -51,8 +51,9 @@ function! selector#run(source, ...) abort
   let winid = win_getid()
   let rest = winrestcmd()
   botright 1new
+  let filter_name = get(a:000, 0, 'exact')
+  call selector#filter#{filter_name}#gather(a:source)
   let b:filter = function(printf('selector#filter#%s#filter', get(a:000, 0, 'exact')))
-  let b:source = copy(a:source)
   execute 'resize' &cmdwinheight
   setlocal buftype=nofile bufhidden=hide noswapfile cursorline
   autocmd CmdlineEnter,CmdlineChanged <buffer> call selector#changed()

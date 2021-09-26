@@ -3,20 +3,25 @@ import { select } from "./select.ts";
 import { uu } from "./deps.ts";
 import { Fzf } from "./deps/fzf.ts";
 
+let gathered: string[] = [];
+
 export async function main(denops: Denops) {
   denops.dispatcher = {
-    select(haystack: unknown, needle: unknown): Promise<string[]> {
+    gather(haystack: unknown) {
       uu.ensureArray(haystack, uu.isString);
-      uu.ensureString(needle);
-      return Promise.resolve(select(haystack, needle));
+      gathered = haystack;
+      return Promise.resolve();
     },
-    fzf(haystack: unknown, needle: unknown): Promise<string[]> {
-      uu.ensureArray(haystack, uu.isString);
+    select(needle: unknown): Promise<string[]> {
+      uu.ensureString(needle);
+      return Promise.resolve(select(gathered, needle));
+    },
+    fzf(needle: unknown): Promise<string[]> {
       uu.ensureString(needle);
       if (needle === "") {
-        return Promise.resolve(haystack);
+        return Promise.resolve(gathered);
       }
-      const fzf = new Fzf(haystack);
+      const fzf = new Fzf(gathered);
       fzf.find(needle);
       return Promise.resolve(fzf.find(needle).map((r) => r.item));
     },
