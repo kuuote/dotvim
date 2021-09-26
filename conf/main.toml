@@ -36,13 +36,23 @@ repo = 'kana/vim-textobj-line'
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
-repo = 'kuuote/denops-skkeleton.vim'
+repo = 'vim-skk/denops-skkeleton.vim'
 hook_add = '''
 let g:vimrc#ddc_source_options.skkeleton = {
   \ 'mark': 'skk',
   \ 'matchers': ['skkeleton'],
   \ 'sorters': [],
   \ }
+
+function! s:skkeleton_init() abort
+  call skkeleton#config({
+  \ 'registerConvertResult': v:true,
+  \ 'userJisyo': '/hd/skkeleton/jisyo',
+  \ })
+endfunction
+
+autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+
 autocmd User skkeleton-enable-pre call s:skkeleton_pre()
 function! s:skkeleton_pre() abort
   " Save current sources

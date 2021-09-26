@@ -61,7 +61,7 @@ EOF
 '''
 
 [[plugins]]
-repo = 'tyru/eskk.vim'
+repo = 'vim-skk/eskk.vim'
 hook_add = '''
 "use dotfiles dictionary
 let g:eskk#dictionary = {'path':$HOME .. "/.vim/tmp/.skk-jisyo"}
