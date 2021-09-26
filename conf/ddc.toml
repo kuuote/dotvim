@@ -33,8 +33,8 @@ let g:vimrc#ddc_sources_sorted = sort(map(g:vimrc#ddc_sources, 'v:val[1]'))
 " 各sourceのhook_addでg:vimrc#ddc_sourcesへの追加を行い、ddc.vimのhook_sourceでまとめて処理する
 call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_sorted)
 call ddc#custom#patch_global('sourceOptions', g:vimrc#ddc_source_options)
-doautocmd <nomodeline> User vimrc-ddc
-call ddc#enable()
+autocmd VimEnter * doautocmd <nomodeline> User vimrc-ddc
+autocmd VimEnter * call ddc#enable()
 '''
 
 [[plugins]]
@@ -49,8 +49,10 @@ autocmd User vimrc-ddc call s:setup_necovim()
 [[plugins]]
 repo = 'shun/ddc-vim-lsp'
 hook_add = '''
+let g:vimrc#ddc_source_options['vim-lsp'] = {'forceCompletionPattern': '\.', 'minAutoCompleteLength': 1}
+
 function! s:setup_ddc_vim_lsp() abort
-  let sources = ['ddc-vim-lsp'] + g:vimrc#ddc_sources_sorted
+  let sources = ['vim-lsp'] + g:vimrc#ddc_sources_sorted
   call ddc#custom#patch_filetype([
   \ 'go',
   \ 'rust',
