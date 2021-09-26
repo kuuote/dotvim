@@ -56,5 +56,5 @@ nnoremap U <C-r>
 "" code input advanced in insert mode
 inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 
-" fzf help
-nnoremap <Leader>fh <Cmd>call vimrc#fzf#help#run()<CR>
+" my ui
+nnoremap sm <Cmd>call vimrc#ui#menu()<CR>

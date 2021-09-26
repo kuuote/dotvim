@@ -1,0 +1,18 @@
+{
+  "FileType": {
+    "json": {
+      "jq": ":%!jq -S ."
+    }
+  },
+  "Help": "vimrc#fzf#help#run()",
+  "Plugins": {
+    "dein.vim": {
+      "check_update": "dein#check_update()",
+      "install": "dein#install()"
+    },
+    "vim-lsp": {
+      "action": ":LspCodeActionSync",
+      "format": ":LspDocumentFormatSync"
+    }
+  }
+}
