@@ -1,4 +1,7 @@
 function! s:help_tags() abort
+  if exists('s:cache')
+    return s:cache
+  endif
   let tags = []
   for path in split(&runtimepath, ',')
     let filepath = path .. '/doc/tags'
@@ -9,9 +12,13 @@ function! s:help_tags() abort
     let t = map(t, 'split(v:val, "\<Tab>")[0]')
     call extend(tags, t)
   endfor
-  return sort(tags)
+  let s:cache = sort(tags)
+  return s:cache
 endfunction
 
-function! vimrc#fzf#help#run() abort
-  call vimrc#fzf#run(s:help_tags(), 'help', '--reverse')
+function! selector#source#help#run() abort
+  let tag = selector#run(s:help_tags())
+  if !empty(tag)
+    execute 'help' tag
+  endif
 endfunction

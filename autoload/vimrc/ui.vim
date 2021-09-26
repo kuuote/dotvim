@@ -1,7 +1,30 @@
-let s:history = {'z': ['x', 'z']}
+function! s:assert_equals(expected, actual) abort
+  if a:expected !=# a:actual
+    throw printf('%s !=# %s', a:expected, a:actual)
+  endif
+endfunction
+
+function! s:load() abort
+  try
+    let s:history = json_decode(join(readfile('/tmp/ui.json')))
+    " assertion
+    call s:assert_equals(v:t_dict, type(s:history))
+    for v in values(s:history)
+      call s:assert_equals(v:t_list, type(v))
+      for vv in v
+        call s:assert_equals(v:t_string, type(vv))
+      endfor
+    endfor
+  catch
+    echom string([v:exception, v:throwpoint])
+    let s:history = {}
+  endtry
+endfunction
+call s:load()
 
 function! s:histadd(history, name) abort
   let s:history[a:history] = insert(filter(get(s:history, a:history, []), 'v:val !=# a:name'), a:name)
+  call writefile([json_encode(s:history)], '/tmp/ui.json')
 endfunction
 
 function! s:sort(history, list) abort
@@ -26,17 +49,17 @@ function! s:sort(history, list) abort
       return ai - bi
     endif
   endfunction
-  return sort(copy(a:list), funcref("s:cmp"))
+  return sort(copy(a:list), funcref('s:cmp'))
 endfunction
 
-let s:main = json_decode(join(readfile(expand("<sfile>:p:h") .. "/ui.json")))
+let s:main = json_decode(join(readfile(expand('<sfile>:p:h') .. '/ui.json')))
 
 function! vimrc#ui#menu() abort
   let current = s:main
   let name = 'main'
   while v:true
     let list = s:sort(name, keys(current))
-    let select = selector#run(list, 'exact')
+    let select = selector#run(list, 'denops_fzf')
     if empty(select)
       return
     endif
@@ -49,9 +72,23 @@ function! vimrc#ui#menu() abort
     elseif type(result) == v:t_string
       if result[0] !=# ':'
         let result = 'eval ' .. result
+      else
+        let result = result[1:]
       endif
       call histadd(':', result)
       execute result
+    elseif type(result) == v:t_list
+      " eval result[1] as expr and using eval result as next menu
+      if result[0] ==# 'eval'
+        let evaluated = eval(result[1])
+        if type(evaluated) == v:t_dict
+          let name ..= '.' .. select
+          let current = evaluated
+          continue
+        else
+          throw evaluated
+        endif
+      endif
     endif
     return
   endwhile
