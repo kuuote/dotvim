@@ -1,9 +1,8 @@
 {
-  "FileType": {
-    "json": {
-      "jq": ":%!jq -S ."
-    }
-  },
+  "FileType": [
+    "eval",
+    "vimrc#ui#filetype#menu()"
+  ],
   "Help": "selector#source#help#run()",
   "Plugins": {
     "dein.vim": {
@@ -12,7 +11,9 @@
     },
     "vim-lsp": {
       "action": ":LspCodeActionSync",
-      "format": ":LspDocumentFormatSync"
+      "format": ":LspDocumentFormatSync",
+      "lens": ":LspCodeLens",
+      "rename": ":LspRename"
     }
   }
 }
