@@ -9,6 +9,10 @@
       "check_update": "dein#check_update()",
       "install": "dein#install()"
     },
+    "fzf-preview.vim": [
+      "eval",
+      "vimrc#ui#plugin#fzf_preview#menu()"
+    ],
     "vim-lsp": {
       "action": ":LspCodeActionSync",
       "format": ":LspDocumentFormatSync",
