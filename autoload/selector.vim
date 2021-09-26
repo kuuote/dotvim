@@ -3,6 +3,16 @@ augroup vimrc-selector
   autocmd User SelectorChanged :
 augroup END
 
+function! s:cursor_changed() abort
+  let old = get(s:, 'current', 'xyzzy')
+  let new = getline('.')
+  let g:hoge = add(get(g:, 'hoge', []), [old, new])
+  if old !=# new
+    let s:current = new
+    doautocmd <nomodeline> User SelectorChanged
+  endif
+endfunction
+
 function! selector#changed() abort
   if expand('<afile>') !=# '@'
     return
@@ -17,7 +27,7 @@ function! selector#changed() abort
   call deletebufline('%', 1, '$')
   call setbufline('%', 1, filtered)
   call cursor(1, 1)
-  doautocmd <nomodeline> User SelectorChanged
+  call s:cursor_changed()
   redraw
 endfunction
 
@@ -30,7 +40,7 @@ function! s:down() abort
   endif
   call cursor(next, 1)
   redraw
-  doautocmd <nomodeline> User SelectorChanged
+  call s:cursor_changed()
   return ''
 endfunction
 
@@ -43,7 +53,7 @@ function! s:up() abort
   endif
   call cursor(next, 1)
   redraw
-  doautocmd <nomodeline> User SelectorChanged
+  call s:cursor_changed()
   return ''
 endfunction
 
