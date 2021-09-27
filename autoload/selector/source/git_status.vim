@@ -20,7 +20,7 @@ function! s:changed(_) abort
     call gina#command#patch#call([1,1], args, '')
     call win_gotoid(winid)
     execute 'resize' &cmdwinheight
-  elseif stridx(mode, '?') != -1
+  elseif stridx(mode, '?') != -1 || stridx(mode, 'A') != -1
     execute 'topleft new' file
     call win_gotoid(winid)
     execute 'resize' &cmdwinheight
