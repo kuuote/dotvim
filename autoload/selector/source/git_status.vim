@@ -39,6 +39,9 @@ function! s:status(root) abort
   augroup END
   try
     let result = selector#run(status)
+    if empty(result)
+      return
+    endif
   catch
     return
   finally
