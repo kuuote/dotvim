@@ -53,7 +53,9 @@ function! s:status(root) abort
   \ ])
   if action ==# 'add'
     execute 'Gina add' file
+    call s:status(a:root)
   elseif action ==# 'reset'
     execute 'Gina reset' file
+    call s:status(a:root)
   endif
 endfunction
