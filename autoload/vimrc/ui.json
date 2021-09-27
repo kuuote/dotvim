@@ -3,7 +3,6 @@
     "eval",
     "vimrc#ui#filetype#menu()"
   ],
-  "Help": "selector#source#help#run()",
   "Plugins": {
     "dein.vim": {
       "check_update": "dein#check_update()",
@@ -19,5 +18,9 @@
       "lens": ":LspCodeLens",
       "rename": ":LspRename"
     }
-  }
+  },
+  "Selector": [
+    "eval",
+    "vimrc#ui#selector#menu()"
+  ]
 }
