@@ -9,8 +9,11 @@ function! s:normalize(path) abort
 endfunction
 
 function! s:read(path) abort
-  let buf = []
-  silent! let buf = readfile(a:path)
+  try
+    let buf = readfile(a:path)
+  catch
+    let buf = []
+  endtry
   return buf
 endfunction
 
