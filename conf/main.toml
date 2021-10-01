@@ -36,7 +36,7 @@ repo = 'kana/vim-textobj-line'
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
-repo = 'vim-skk/denops-skkeleton.vim'
+repo = 'vim-skk/skkeleton'
 hook_add = '''
 let g:vimrc#ddc_source_options.skkeleton = {
   \ 'mark': 'skk',
