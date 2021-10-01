@@ -1,5 +1,6 @@
 " hypermap.vim
 " It provides non-blocking mapping at insert mode
+" Original idea from https://thinca.hatenablog.com/entry/20120716/1342374586
 
 " Usage:
 "   hypermap#map(from, to[, {options}])
@@ -12,6 +13,10 @@ let s:mapmode = {'ic': 'noremap!', 'i': 'inoremap', 'c': 'cnoremap'}
 
 let s:maps = {}
 
+" マッピングを分割することで<expr>の評価前に<Ignore>を適用する
+" 詳しくは:h map-exprを参照
+noremap! <expr> <SID>(hypermap) hypermap#resolve(nr2char(getchar()))
+
 function! hypermap#map(from, to, ...) abort
   let key = a:from[-1:]
   let prefix = a:from[:-2]
@@ -22,7 +27,7 @@ function! hypermap#map(from, to, ...) abort
   let opt = len(a:000) == 0 ? {} : a:1
   let newopt = extend({'mapto': a:to, 'mapmode': 'ic', 'eval': v:false}, opt)
   let map[prefix] = newopt
-  execute s:mapmode[newopt.mapmode] '<expr>' key 'hypermap#resolve("' .. key .. '")'
+  execute s:mapmode[newopt.mapmode] '<script>' key '<Ignore><SID>(hypermap)' ..  key
 endfunction
 
 function! s:getlinepos() abort
