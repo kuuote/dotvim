@@ -6,13 +6,6 @@ let g:vimrc#ddc_source_options.around = {'mark': 'A'}
 '''
 
 [[plugins]]
-repo = 'matsui54/ddc-buffer'
-hook_add = '''
-call add(g:vimrc#ddc_sources, [2, 'buffer'])
-let g:vimrc#ddc_source_options.buffer = {'mark': 'B'}
-'''
-
-[[plugins]]
 repo = 'Shougo/ddc-matcher_head'
 hook_add = '''
 let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
@@ -33,6 +26,7 @@ let g:vimrc#ddc_sources_sorted = sort(map(g:vimrc#ddc_sources, 'v:val[1]'))
 " 各sourceのhook_addでg:vimrc#ddc_sourcesへの追加を行い、ddc.vimのhook_sourceでまとめて処理する
 call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_sorted)
 call ddc#custom#patch_global('sourceOptions', g:vimrc#ddc_source_options)
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
 autocmd VimEnter * doautocmd <nomodeline> User vimrc-ddc
 autocmd VimEnter * call ddc#enable()
 '''
@@ -44,6 +38,16 @@ function! s:setup_necovim() abort
   call ddc#custom#patch_filetype(['vim'], 'sources', ['necovim'] + g:vimrc#ddc_sources_sorted)
 endfunction
 autocmd User vimrc-ddc call s:setup_necovim()
+'''
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+hook_add = '''
+call add(g:vimrc#ddc_sources, [2, 'buffer'])
+let g:vimrc#ddc_source_options.buffer = {'mark': 'B'}
 '''
 
 [[plugins]]

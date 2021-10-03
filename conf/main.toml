@@ -36,37 +36,6 @@ repo = 'kana/vim-textobj-line'
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
-repo = 'vim-skk/skkeleton'
-hook_add = '''
-let g:vimrc#ddc_source_options.skkeleton = {
-  \ 'mark': 'skk',
-  \ 'matchers': ['skkeleton'],
-  \ 'sorters': [],
-  \ }
-
-function! s:skkeleton_init() abort
-  call skkeleton#config({
-  \ 'registerConvertResult': v:true,
-  \ 'userJisyo': '/hd/skkeleton/jisyo',
-  \ })
-endfunction
-
-autocmd User skkeleton-initialize-pre call s:skkeleton_init()
-
-autocmd User skkeleton-enable-pre call s:skkeleton_pre()
-function! s:skkeleton_pre() abort
-  " Save current sources
-  let s:skkeleton_ddc_sources = get(ddc#custom#get_current(), 'sources', [])
-  call ddc#custom#patch_buffer('sources', ['skkeleton'])
-endfunction
-autocmd User skkeleton-disable-pre call s:skkeleton_post()
-function! s:skkeleton_post() abort
-  " Restore current sources
-  call ddc#custom#patch_buffer('sources', s:skkeleton_ddc_sources)
-endfunction
-'''
-
-[[plugins]]
 repo = 'kuuote/vim-fuzzyhistory'
 hook_add = '''
 nmap <C-f> <Plug>(fuzzy-history)
@@ -123,6 +92,43 @@ repo = 'tyru/capture.vim'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+hook_add = '''
+let g:vimrc#ddc_source_options.skkeleton = {
+  \ 'mark': 'skk',
+  \ 'matchers': ['skkeleton'],
+  \ 'sorters': [],
+  \ }
+
+function! s:skkeleton_init() abort
+  call skkeleton#config({
+  \ 'registerConvertResult': v:true,
+  \ 'userJisyo': '/hd/skkeleton/jisyo',
+  \ })
+endfunction
+
+autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+
+autocmd User skkeleton-enable-pre call s:skkeleton_pre()
+function! s:skkeleton_pre() abort
+  " Save current sources
+  let s:skkeleton_ddc_sources = get(ddc#custom#get_current(), 'sources', [])
+  call ddc#custom#patch_buffer('sources', ['skkeleton'])
+endfunction
+autocmd User skkeleton-disable-pre call s:skkeleton_post()
+function! s:skkeleton_post() abort
+  " Restore current sources
+  call ddc#custom#patch_buffer('sources', s:skkeleton_ddc_sources)
+endfunction
+'''
+
+[[plugins]]
+repo = 'wsdjeg/dein-ui.vim'
+hook_add = '''
+autocmd FileType SpaceVimPlugManager autocmd TextChanged <buffer> normal! G
+'''
 
 [[plugins]]
 repo = 'yuki-yano/fern-preview.vim'
