@@ -19,7 +19,7 @@ noremap! <expr> <SID>(hypermap) hypermap#resolve(nr2char(getchar()))
 
 function! hypermap#map(from, to, ...) abort
   let key = a:from[-1:]
-  let prefix = a:from[:-2]
+  let prefix = list2str(reverse(str2list(a:from[:-2])))
 
   let map = get(s:maps, key, {})
   let s:maps[key] = map
@@ -40,11 +40,12 @@ endfunction
 
 function! hypermap#resolve(key) abort
   let [line, lastidx] = s:getlinepos()
-  for [map_prev, map] in items(get(s:maps, a:key, {}))
-    let prev = line[max([0, lastidx - (len(map_prev) - 1)]) : lastidx]
-    if prev ==# map_prev
-      return repeat("\<C-h>", len(map_prev)) .. (map.eval ? eval(map.mapto) : map.mapto)
-    endif
-  endfor
+  let line = list2str(reverse(str2list(line)))
+  let matches = filter(items(get(s:maps, a:key, {})), 'stridx(line, v:val[0]) == 0')
+  call sort(matches, {a, b -> a[0] < b[0] ? -1 : 1})
+  if !empty(matches)
+    let [map_prev, map] = matches[-1]
+    return repeat("\<C-h>", len(map_prev)) .. (map.eval ? eval(map.mapto) : map.mapto)
+  endif
   return a:key
 endfunction
