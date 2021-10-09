@@ -20,28 +20,36 @@ noremap! <expr> <SID>(hypermap) hypermap#resolve(nr2char(getchar()))
 function! hypermap#map(from, to, ...) abort
   let key = a:from[-1:]
   let prefix = list2str(reverse(str2list(a:from[:-2])))
+  let opt = get(a:000, 0, {})
 
-  let map = get(s:maps, key, {})
-  let s:maps[key] = map
+  if get(opt, 'buffer', v:false)
+    let b:maps = get(b:, 'maps', {})
+    let map = get(b:maps, key, {})
+    let b:maps[key] = map
+  else
+    let map = get(s:maps, key, {})
+    let s:maps[key] = map
+  endif
 
-  let opt = len(a:000) == 0 ? {} : a:1
   let newopt = extend({'mapto': a:to, 'mapmode': 'ic', 'eval': v:false}, opt)
   let map[prefix] = newopt
   execute s:mapmode[newopt.mapmode] '<script>' key '<Ignore><SID>(hypermap)' ..  key
 endfunction
 
-function! s:getlinepos() abort
+function! s:getline() abort
   if mode() ==# 'i'
-    return [getline('.'), col('.') - 2]
+    return getline('.')[:col('.') - 2]
   else
-    return [getcmdline(), getcmdpos() - 2]
+    return getcmdline()[:getcmdpos() - 2]
   endif
 endfunction
 
 function! hypermap#resolve(key) abort
-  let [line, lastidx] = s:getlinepos()
-  let line = list2str(reverse(str2list(line)))
-  let matches = filter(items(get(s:maps, a:key, {})), 'stridx(line, v:val[0]) == 0')
+  let line = list2str(reverse(str2list(s:getline())))
+  let g:hoge = add(get(g:, 'hoge', []), line)
+  let localmaps = get(b:, 'maps', {})
+  let maps = extend(copy(get(localmaps, a:key, {})), get(s:maps, a:key, {}), 'keep')
+  let matches = filter(items(maps), 'stridx(line, v:val[0]) == 0')
   call sort(matches, {a, b -> a[0] < b[0] ? -1 : 1})
   if !empty(matches)
     let [map_prev, map] = matches[-1]
