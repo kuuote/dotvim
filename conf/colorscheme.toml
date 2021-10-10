@@ -29,6 +29,9 @@ repo = 'kjssad/quantum.vim'
 repo = 'lifepillar/vim-solarized8'
 
 [[plugins]]
+repo = 'romgrk/github-light.vim'
+
+[[plugins]]
 repo = 'sainnhe/edge'
 
 [[plugins]]
@@ -42,3 +45,6 @@ repo = 'yasukotelin/shirotelin'
 hook_source = '''
 call vimrc#build#add(g:dein#plugin)
 '''
+
+[[plugins]]
+repo = 'yuttie/hydrangea-vim'
