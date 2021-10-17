@@ -59,7 +59,7 @@ function! vimrc#ui#menu() abort
   let name = 'main'
   while v:true
     let list = s:sort(name, keys(current))
-    let select = selector#run(list, 'denops_fzf')
+    let select = selector#run(list, 'fzf')
     if empty(select)
       return
     endif

@@ -31,7 +31,7 @@ function! s:lines() abort
     autocmd User SelectorChanged call s:changed()
   augroup END
   try
-    call selector#run(lines, 'exact')
+    call selector#run(lines, 'grep')
   finally
     autocmd! vimrc-lines
     silent! call win_execute(s:winid, 'call matchdelete(s:matchid)')

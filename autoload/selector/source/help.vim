@@ -17,7 +17,7 @@ function! s:help_tags() abort
 endfunction
 
 function! selector#source#help#run() abort
-  let tag = selector#run(s:help_tags(), 'denops_fzf')
+  let tag = selector#run(s:help_tags(), 'fzf')
   if !empty(tag)
     execute 'help' tag
   endif
