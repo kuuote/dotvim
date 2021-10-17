@@ -5,8 +5,7 @@ augroup END
 
 function! s:cursor_changed() abort
   let old = get(s:, 'current', 'xyzzy')
-  let new = getline('.')
-  let g:hoge = add(get(g:, 'hoge', []), [old, new])
+  let new = getline('.') .. getcmdline()
   if old !=# new
     let s:current = new
     doautocmd <nomodeline> User SelectorChanged
