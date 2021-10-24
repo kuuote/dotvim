@@ -1,4 +1,11 @@
 [[plugins]]
+description = '''
+Original: romgrk/github-light.vim
+hi clearをしていない&pumblendを汚染する&Neovimでしか動かないのでfork
+'''
+repo = 'kuuote/github-light.vim'
+
+[[plugins]]
 repo = 'ayu-theme/ayu-vim'
 
 [[plugins]]
@@ -27,13 +34,6 @@ repo = 'kjssad/quantum.vim'
 
 [[plugins]]
 repo = 'lifepillar/vim-solarized8'
-
-[[plugins]]
-description = '''
-Original: romgrk/github-light.vim
-hi clearをしていない&pumblendを汚染する&Neovimでしか動かないのでfork
-'''
-repo = 'kuuote/github-light.vim'
 
 [[plugins]]
 repo = 'sainnhe/edge'
