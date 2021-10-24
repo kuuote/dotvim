@@ -88,6 +88,9 @@ repo = 'thinca/vim-quickrun'
 repo = 'thinca/vim-ref'
 
 [[plugins]]
+repo = 'thinca/vim-themis'
+
+[[plugins]]
 repo = 'tyru/capture.vim'
 
 [[plugins]]
@@ -96,6 +99,9 @@ repo = 'vim-denops/denops.vim'
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 hook_add = '''
+
+call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
+
 let g:vimrc#ddc_source_options.skkeleton = {
   \ 'mark': 'skk',
   \ 'matchers': ['skkeleton'],
@@ -107,6 +113,9 @@ function! s:skkeleton_init() abort
   \ 'registerConvertResult': v:true,
   \ 'userJisyo': '/hd/skkeleton/jisyo',
   \ })
+  call skkeleton#register_kanatable('rom', {
+  \   'jj': 'disable',
+  \ })
 endfunction
 
 autocmd User skkeleton-initialize-pre call s:skkeleton_init()
@@ -114,13 +123,13 @@ autocmd User skkeleton-initialize-pre call s:skkeleton_init()
 autocmd User skkeleton-enable-pre call s:skkeleton_pre()
 function! s:skkeleton_pre() abort
   " Save current sources
-  let s:skkeleton_ddc_sources = get(ddc#custom#get_current(), 'sources', [])
+  let b:skkeleton_ddc_sources = get(ddc#custom#get_current(), 'sources', [])
   call ddc#custom#patch_buffer('sources', ['skkeleton'])
 endfunction
 autocmd User skkeleton-disable-pre call s:skkeleton_post()
 function! s:skkeleton_post() abort
   " Restore current sources
-  call ddc#custom#patch_buffer('sources', s:skkeleton_ddc_sources)
+  call ddc#custom#patch_buffer('sources', b:skkeleton_ddc_sources)
 endfunction
 '''
 
