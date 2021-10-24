@@ -1,7 +1,6 @@
 let s:source = expand('<sfile>:h') .. '/vimsel.c'
-let s:exe = '/tmp/vimsel'
-let s:haystack = '/tmp/vimsel.lst'
-let s:filtered = '/tmp/vimsel.out'
+let s:haystack = tempname()
+let s:filtered = tempname()
 
 function! selector#filter#fzf#filter(needle) abort
   let cmd = printf('cat %s | fzf -f %s > %s', s:haystack, string(a:needle), s:filtered)

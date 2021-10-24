@@ -1,15 +1,14 @@
 let s:source = expand('<sfile>:h') .. '/vimsel.c'
-let s:exe = '/tmp/vimsel'
-let s:haystack = '/tmp/vimsel.lst'
-let s:filtered = '/tmp/vimsel.out'
+let s:haystack = tempname()
+let s:filtered = tempname()
 
 function! selector#filter#grep#filter(needle) abort
   let args = split(a:needle)
   if empty(args)
     return readfile(s:haystack)
   endif
-  let matcher = join(map(args, 'printf("-e %s", string(v:val))'), ' ')
-  let cmd = printf('grep -iF %s %s > %s', matcher, s:haystack, s:filtered)
+  let matcher = join(map(args, 'printf("grep -iF %s", string(v:val))'), '|')
+  let cmd = printf('cat %s | %s > %s', s:haystack, matcher, s:filtered)
   call system(cmd)
   if v:shell_error
     return []
