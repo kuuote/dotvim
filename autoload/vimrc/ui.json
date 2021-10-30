@@ -12,6 +12,10 @@
       "eval",
       "vimrc#ui#plugin#fzf_preview#menu()"
     ],
+    "telescope": [
+      "eval",
+      "vimrc#ui#plugin#telescope#menu()"
+    ],
     "vim-lsp": {
       "action": ":LspCodeActionSync",
       "format": ":LspDocumentFormatSync",
