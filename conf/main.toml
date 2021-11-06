@@ -106,6 +106,7 @@ let g:vimrc#ddc_source_options.skkeleton = {
   \ 'mark': 'skk',
   \ 'matchers': ['skkeleton'],
   \ 'sorters': [],
+  \ 'minAutoCompleteLength': 2,
   \ }
 
 function! s:skkeleton_init() abort
@@ -125,11 +126,13 @@ function! s:skkeleton_pre() abort
   " Save current sources
   let b:skkeleton_ddc_sources = get(ddc#custom#get_current(), 'sources', [])
   call ddc#custom#patch_buffer('sources', ['skkeleton'])
+  " call pum#set_option('setline_insert', v:true)
 endfunction
 autocmd User skkeleton-disable-pre call s:skkeleton_post()
 function! s:skkeleton_post() abort
   " Restore current sources
   call ddc#custom#patch_buffer('sources', b:skkeleton_ddc_sources)
+  call pum#set_option('setline_insert', v:false)
 endfunction
 '''
 
