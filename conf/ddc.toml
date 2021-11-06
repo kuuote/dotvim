@@ -6,6 +6,17 @@ let g:vimrc#ddc_source_options.around = {'mark': 'A'}
 '''
 
 [[plugins]]
+repo = 'LumaKernel/ddc-file'
+hook_add = '''
+call add(g:vimrc#ddc_sources, [1, 'file'])
+let g:vimrc#ddc_source_options.file = {
+\ 'mark': 'F',
+\ 'isVolatile': v:true,
+\ 'forceCompletionPattern': '\S/\S*',
+\ }
+'''
+
+[[plugins]]
 repo = 'Shougo/ddc-matcher_head'
 hook_add = '''
 let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
