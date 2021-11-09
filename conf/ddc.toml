@@ -1,11 +1,4 @@
 [[plugins]]
-repo = 'Shougo/ddc-around'
-hook_add = '''
-call add(g:vimrc#ddc_sources, [2, 'around'])
-let g:vimrc#ddc_source_options.around = {'mark': 'A'}
-'''
-
-[[plugins]]
 repo = 'LumaKernel/ddc-file'
 hook_add = '''
 call add(g:vimrc#ddc_sources, [1, 'file'])
@@ -14,6 +7,13 @@ let g:vimrc#ddc_source_options.file = {
 \ 'isVolatile': v:true,
 \ 'forceCompletionPattern': '\S/\S*',
 \ }
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+hook_add = '''
+call add(g:vimrc#ddc_sources, [2, 'around'])
+let g:vimrc#ddc_source_options.around = {'mark': 'A'}
 '''
 
 [[plugins]]

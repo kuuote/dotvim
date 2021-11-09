@@ -3,6 +3,9 @@ repo = 'Shougo/dein.vim'
 merged = 0
 
 [[plugins]]
+repo = 'Shougo/junkfile.vim'
+
+[[plugins]]
 repo = 'c000/rapidfire.vim'
 hook_add = '''
 function! s:rapidfire_search_config() abort
