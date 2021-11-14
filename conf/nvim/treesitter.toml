@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
+merged = 0
 hook_source = '''
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -15,12 +16,6 @@ EOF
 '''
 
 [[plugins]]
-repo = 'nvim-treesitter/tree-sitter-lua'
-hook_source = '''
-call vimrc#build#add(g:dein#plugin)
-'''
-
-[[plugins]]
 repo = 'p00f/nvim-ts-rainbow'
 hook_source = '''
 lua <<unko
@@ -30,10 +25,4 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 unko
-'''
-
-[[plugins]]
-repo = 'tree-sitter/tree-sitter-typescript'
-hook_source = '''
-call vimrc#build#add(g:dein#plugin)
 '''
