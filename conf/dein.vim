@@ -21,6 +21,7 @@ if dein#load_state(s:dein_dir)
   let s:profiles['ddc'] = 1
   let s:profiles['filetype'] = 1
   let s:profiles['main'] = 1
+  let s:profiles['nvim-lsp'] = 0
   let s:profiles['treesitter'] = 1
   let s:profiles['vim-lsp'] = 1
   let s:enabled_profiles = map(filter(items(s:profiles), 'v:val[1]'), 'v:val[0]')

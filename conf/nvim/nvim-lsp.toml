@@ -1,0 +1,33 @@
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+hook_add = '''
+lua << unko
+local lsp = require('lspconfig')
+lsp.denols.setup({
+  init_options = {
+    lint = true,
+  },
+})
+unko
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+hook_add = '''
+let g:vimrc#ddc_source_options['nvim-lsp'] = {
+\ 'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+\ 'mark': 'lsp',
+\ 'minAutoCompleteLength': 1
+\ }
+
+function! s:setup_ddc_nvim_lsp() abort
+  let sources = ['nvim-lsp'] + g:vimrc#ddc_sources_sorted
+  call ddc#custom#patch_filetype([
+  \ 'go',
+  \ 'rust',
+  \ 'typescript',
+  \ 'typescriptreact',
+  \ ], 'sources', sources)
+endfunction
+autocmd User vimrc-ddc call s:setup_ddc_nvim_lsp()
+'''
