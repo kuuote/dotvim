@@ -4,6 +4,9 @@ merged = 0
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
+hook_add = '''
+let g:junkfile#directory = '/data/code/junkfile'
+'''
 
 [[plugins]]
 repo = 'c000/rapidfire.vim'
