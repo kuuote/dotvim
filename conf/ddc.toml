@@ -69,20 +69,3 @@ hook_add = '''
 call add(g:vimrc#ddc_sources, [2, 'buffer'])
 let g:vimrc#ddc_source_options.buffer = {'mark': 'B'}
 '''
-
-[[plugins]]
-repo = 'shun/ddc-vim-lsp'
-hook_add = '''
-let g:vimrc#ddc_source_options['vim-lsp'] = {'forceCompletionPattern': '\.', 'minAutoCompleteLength': 1}
-
-function! s:setup_ddc_vim_lsp() abort
-  let sources = ['vim-lsp'] + g:vimrc#ddc_sources_sorted
-  call ddc#custom#patch_filetype([
-  \ 'go',
-  \ 'rust',
-  \ 'typescript',
-  \ 'typescriptreact',
-  \ ], 'sources', sources)
-endfunction
-autocmd User vimrc-ddc call s:setup_ddc_vim_lsp()
-'''
