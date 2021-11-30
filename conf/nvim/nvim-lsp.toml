@@ -1,17 +1,4 @@
 [[plugins]]
-repo = 'neovim/nvim-lspconfig'
-hook_add = '''
-lua << unko
-local lsp = require('lspconfig')
-lsp.denols.setup({
-  init_options = {
-    lint = true,
-  },
-})
-unko
-'''
-
-[[plugins]]
 repo = 'Shougo/ddc-nvim-lsp'
 hook_add = '''
 let g:vimrc#ddc_source_options['nvim-lsp'] = {
@@ -30,4 +17,17 @@ function! s:setup_ddc_nvim_lsp() abort
   \ ], 'sources', sources)
 endfunction
 autocmd User vimrc-ddc call s:setup_ddc_nvim_lsp()
+'''
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+hook_add = '''
+lua << unko
+local lsp = require('lspconfig')
+lsp.denols.setup({
+  init_options = {
+    lint = true,
+  },
+})
+unko
 '''
