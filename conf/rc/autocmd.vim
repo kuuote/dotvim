@@ -50,8 +50,8 @@ augroup END
 
 " 検索時だけhlsearchしてほしい
 augroup vimrc
-  autocmd CmdlineEnter / setglobal hlsearch
-  autocmd CmdlineLeave / setglobal nohlsearch
+  autocmd CmdlineEnter /,? setglobal hlsearch
+  autocmd CmdlineLeave /,? setglobal nohlsearch
 augroup END
 
 " auto quickfix opener
