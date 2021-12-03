@@ -45,7 +45,8 @@ autocmd vimrc BufWritePre *
 " 初回検索時のみwrapscanする
 augroup vimrc
   autocmd CmdlineEnter,CmdwinEnter / set wrapscan
-  autocmd CmdlineLeave,CmdwinLeave / call timer_start(0, {->execute("set nowrapscan")}) " timer使っているのはCmdlineを抜けた直後に走る検索でwrapscanを有効にするため
+  " timer使っているのはCmdlineを抜けた直後に走る検索でwrapscanを有効にするため
+  autocmd CmdlineLeave,CmdwinLeave / call timer_start(0, {->execute("set nowrapscan")}) 
 augroup END
 
 " 検索時だけhlsearchしてほしい
