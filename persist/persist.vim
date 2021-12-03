@@ -17,4 +17,4 @@ function! persist#run() abort
   call writefile(readfile(path), $HOME .. "/.vim/local/colors.vim")
 endfunction
 
-command! Persist call persist#run()
+nnoremap cs <Cmd>call persist#run()<CR>
