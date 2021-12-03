@@ -25,7 +25,7 @@ call vimrc#load_scripts(printf('~/.vim/conf/%s/rc/**/*.vim', g:vim_type))
 call vimrc#load_scripts('~/.vim/conf/plug/**/*.vim')
 call vimrc#load_scripts(printf('~/.vim/conf/%s/plug/**/*.vim', g:vim_type))
 
-if getftype($HOME .. '/.vim/local.vim') ==# 'file'
+if getftype(g:dotvim .. '/local.vim') ==# 'file'
   source ~/.vim/local.vim
 endif
 
