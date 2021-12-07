@@ -1,0 +1,15 @@
+pattern = '''\(\S.*\)\.\(\a\+\)\.b$'''
+
+template = '''
+{{$2}} {{$1}}
+	{{_cursor_}}
+end{{$2}}
+'''
+
+what = '''
+v:true.while.bのような記述を
+while v:true
+  |
+endwhile
+のようなブロックに変換します
+'''
