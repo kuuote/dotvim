@@ -33,7 +33,7 @@ let g:vimrc#ddc_source_options['_']['sorters'] = ['sorter_rank']
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 hook_source = '''
-let g:vimrc#ddc_sources_sorted = sort(map(g:vimrc#ddc_sources, 'v:val[1]'))
+let g:vimrc#ddc_sources_sorted = sort(g:vimrc#ddc_sources, { a, b -> a[0] - b[0] || a[1] < b[1] ? -1 : 1 })->map('v:val[1]')
 " 各sourceのhook_addでg:vimrc#ddc_sourcesへの追加を行い、ddc.vimのhook_sourceでまとめて処理する
 call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_sorted)
 call ddc#custom#patch_global('sourceOptions', g:vimrc#ddc_source_options)
