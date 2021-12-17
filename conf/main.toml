@@ -99,6 +99,7 @@ repo = 'machakann/vim-sandwich'
 repo = 'mattn/vim-sonictemplate'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = $HOME .. '/.vim/template'
+call hypermap#map(';b',"\<C-r>=sonictemplate#postfix()\<CR>")
 '''
 
 [[plugins]]
@@ -126,6 +127,7 @@ repo = 'vim-denops/denops.vim'
 repo = 'vim-skk/skkeleton'
 hook_add = '''
 
+call hypermap#map(';j', 'eval(maparg("<Plug>(skkeleton-enable)", mode()))', {'eval': v:true})
 call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
 
 let g:vimrc#ddc_source_options.skkeleton = {
@@ -138,8 +140,14 @@ let g:vimrc#ddc_source_options.skkeleton = {
 
 function! s:skkeleton_init() abort
   call skkeleton#config({
-  \ 'registerConvertResult': v:true,
-  \ 'userJisyo': '/hd/skkeleton/jisyo',
+  \   'registerConvertResult': v:true,
+  \   'showCandidatesCount': 1,
+  \   'userJisyo': '/hd/skkeleton/jisyo',
+  \ })
+  " from shougo-s-github
+  call skkeleton#config({
+  \   'markerHenkan': '<>',
+  \   'markerHenkanSelect': '>>',
   \ })
   call skkeleton#register_kanatable('rom', {
   \   'jj': 'disable',
@@ -198,6 +206,11 @@ nnoremap <silent> <fzf-p>l <Cmd>FzfPreviewLinesRpc<CR>
 nnoremap <silent> <fzf-p>p :<C-u>FzfPreviewProjectGrep --experimental-fast<Space>
 nnoremap <silent> <fzf-p>s <Cmd>FzfPreviewGitStatusRpc<CR>
 nnoremap <silent> <fzf-p>w <Cmd>FzfPreviewProjectMrwFilesRpc --add-fzf-arg=--no-sort<CR>
+
+" non prefix shortcut
+nnoremap mru :FzfPreviewMruFilesRpc<CR>
+nnoremap mrw :FzfPreviewMrwFilesRpc<CR>
+nnoremap gs :FzfPreviewGitStatusRpc<CR>
 '''
 hook_source = '''
 call vimrc#build#add(g:dein#plugin)
