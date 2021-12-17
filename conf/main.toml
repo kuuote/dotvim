@@ -129,10 +129,11 @@ hook_add = '''
 call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
 
 let g:vimrc#ddc_source_options.skkeleton = {
-  \ 'mark': 'skk',
-  \ 'matchers': ['skkeleton'],
-  \ 'sorters': [],
-  \ 'minAutoCompleteLength': 2,
+  \   'mark': 'skk',
+  \   'matchers': ['skkeleton'],
+  \   'sorters': [],
+  \   'minAutoCompleteLength': 2,
+  \   'maxCandidates': 50,
   \ }
 
 function! s:skkeleton_init() abort
