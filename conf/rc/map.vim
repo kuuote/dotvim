@@ -62,12 +62,15 @@ nnoremap <C-k> <C-w>k
 " 括弧とか打つのにShift押したくないでござる
 " genius maping by @KosukeMizuno
 " heavily modified by me
-call hypermap#map(';s', '(')
+
+" disabled some mappings because I'm using lexima.vim
+" see main.toml
+" call hypermap#map(';s', '(')
 call hypermap#map(';d', '=')
-call hypermap#map(';f', ')')
-call hypermap#map(';w', '{')
+" call hypermap#map(';f', ')')
+" call hypermap#map(';w', '{')
 call hypermap#map(';e', '+')
-call hypermap#map(';r', '}')
+" call hypermap#map(';r', '}')
 call hypermap#map(';x', '<')
 call hypermap#map(';c', '-')
 call hypermap#map(';v', '>')
