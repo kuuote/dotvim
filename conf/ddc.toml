@@ -69,3 +69,6 @@ hook_add = '''
 call add(g:vimrc#ddc_sources, [2, 'buffer'])
 let g:vimrc#ddc_source_options.buffer = {'mark': 'B'}
 '''
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
