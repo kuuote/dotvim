@@ -14,7 +14,9 @@ function! persist#run() abort
   source `=path`
 
   " and persist
-  call writefile(readfile(path), $HOME .. "/.vim/local/colors.vim")
+  if confirm('Save changes?', "&Yes\n&No\n", 2) == 1
+    call writefile(readfile(path), $HOME .. "/.vim/local/colors.vim")
+  endif
 endfunction
 
 nnoremap cs <Cmd>call persist#run()<CR>
