@@ -39,3 +39,7 @@ set termguicolors
 set ttimeout
 " defaults.vimより
 set ttimeoutlen=100
+
+" 検索の時にケースを無視
+set ignorecase
+
