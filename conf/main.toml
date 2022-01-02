@@ -100,7 +100,7 @@ call s:lexima_init()
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
 hook_add = '''
-" imap <Tab> <Plug>(vsnip-expand-or-jump)
+imap <C-b> <Plug>(vsnip-expand-or-jump)
 let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
 '''
 
