@@ -151,6 +151,9 @@ repo = 'lambdalisue/suda.vim'
 repo = 'machakann/vim-sandwich'
 
 [[plugins]]
+repo = 'machakann/vim-textobj-functioncall'
+
+[[plugins]]
 repo = 'mattn/vim-sonictemplate'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = $HOME .. '/.vim/template'
