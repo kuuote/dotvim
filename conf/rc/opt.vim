@@ -23,9 +23,6 @@ set backspace=indent,eol,start " いい感じにBackspaceが効くように
 " ファイルを変更したまま裏に移動できるようにする
 set hidden
 
-" 検索の結果をリアルタイムで表示する
-set incsearch
-
 " マウスでスクロールできるようにする
 set mouse=nvr
 
@@ -42,4 +39,8 @@ set ttimeoutlen=100
 
 " 検索の時にケースを無視
 set ignorecase
+
+" 履歴を増やしてパスを変える
+set history=1000
+let &viminfo = "'1000,:1000" + ',n~/.vim/' .. g:vim_type .. '.info'
 
