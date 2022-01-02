@@ -248,6 +248,12 @@ augroup END
 '''
 
 [[plugins]]
+repo = 'yuki-yano/fuzzy-motion.vim'
+hook_add = '''
+nnoremap sf <Cmd>FuzzyMotion<CR>
+'''
+
+[[plugins]]
 repo = 'yuki-yano/fzf-preview.vim'
 hook_add = '''
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort=path --with-filename'
