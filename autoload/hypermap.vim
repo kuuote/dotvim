@@ -40,11 +40,12 @@ function! hypermap#map(from, to, ...) abort
 endfunction
 
 function! s:getline() abort
-  if mode() ==# 'i'
-    return getline('.')[:col('.') - 2]
-  else
-    return getcmdline()[:getcmdpos() - 2]
+  let i = mode() ==# 'i'
+  let pos = (i ? col('.') : getcmdpos()) - 2
+  if pos == -1
+    return ''
   endif
+  return (i ? getline('.') : getcmdline())[:pos]
 endfunction
 
 function! hypermap#resolve(key) abort
