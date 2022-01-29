@@ -6,7 +6,7 @@ if !isdirectory(s:dein_repo)
 endif
 let &runtimepath ..= ',' .. s:dein_repo
 let g:dein#auto_recache = 1
-let g:dein#cache_directory = '/tmp/dein/cache/' .. g:vim_type
+let g:dein#cache_directory = '/tmp/dein/cache/' .. v:argv[0]
 
 " 共通で使われる要素を先に初期化しておく
 let g:vimrc#ddc_sources = []
@@ -19,6 +19,7 @@ if dein#load_state(s:dein_dir)
   let s:profiles['coc'] = 0
   let s:profiles['colorscheme'] = 1
   let s:profiles['ddc'] = 1
+  let s:profiles['ddu'] = 1
   let s:profiles['filetype'] = 1
   let s:profiles['main'] = 1
   let s:profiles['nvim-lsp'] = 0
