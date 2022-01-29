@@ -4,6 +4,7 @@ let s:ui[''] = {
 \   'edit': 'edit ' .. expand('<sfile>:p'),
 \   'help': 'call selector#source#help#run()',
 \   'plugin/dein.vim': 'UI plugin/dein.vim',
+\   'copypath': 'call setreg(v:register, expand("%:p"), "V")',
 \ }
 
 let s:ui['plugin/dein.vim'] = {
