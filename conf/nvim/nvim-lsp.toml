@@ -1,5 +1,15 @@
 [[plugins]]
+repo = 'matsui54/denops-signature_help'
+hook_source = '''
+let g:signature_help_config = {
+\   'style': 'virtual',
+\ }
+call signature_help#enable()
+'''
+
+[[plugins]]
 repo = 'Shougo/ddc-nvim-lsp'
+on_if = 'dein#is_available("ddc.vim")'
 hook_add = '''
 let g:vimrc#ddc_source_options['nvim-lsp'] = {
 \ 'forceCompletionPattern': '\.\w*|:\w*|->\w*',
@@ -21,7 +31,7 @@ autocmd User vimrc-ddc call s:setup_ddc_nvim_lsp()
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-hook_add = '''
+hook_source = '''
 lua << unko
 local lsp = require('lspconfig')
 lsp.denols.setup({
