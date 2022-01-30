@@ -45,6 +45,7 @@ command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
 [[plugins]]
 repo = 'shun/ddc-vim-lsp'
+on_if = 'dein#is_available("ddc.vim")'
 hook_add = '''
 let g:vimrc#ddc_source_options['vim-lsp'] = {'forceCompletionPattern': '\..?', 'minAutoCompleteLength': 2}
 
