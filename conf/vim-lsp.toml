@@ -1,4 +1,15 @@
 [[plugins]]
+repo = 'matsui54/denops-signature_help'
+hook_asource = '''
+let g:signature_help_config = {
+\   'style': 'virtual',
+\ }
+call signature_help#enable()
+" disable vim-lsp's signature help
+let g:lsp_signature_help_enabled = 0
+'''
+
+[[plugins]]
 repo = 'mattn/vim-lsp-settings'
 
 [[plugins]]
@@ -11,8 +22,11 @@ function! s:on_lsp_buffer_enabled() abort
   setlocal signcolumn=yes
   nmap <buffer> gd <Plug>(lsp-definition)
   nmap <buffer> K <Plug>(lsp-hover)
-  nnoremap <buffer> <LocalLeader>la <Cmd>LspCodeActionSync<CR>
-  nnoremap <buffer> <LocalLeader>lf <Cmd>LspDocumentFormatSync<CR>
+  " using m prefix
+  " idea from https://github.com/yuki-yano/dotfiles/blob/7f10462d12228f57ea3cf86d61f3b22d4728b6f1/.vimrc#L1504
+  nnoremap <buffer> ma <Cmd>LspCodeActionSync<CR>
+  nnoremap <buffer> mf <Cmd>LspDocumentFormatSync<CR>
+  nnoremap <buffer> mrn <Cmd>LspRename<CR>
 endfunction
 
 augroup vimrc
