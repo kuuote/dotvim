@@ -207,8 +207,9 @@ function! s:skkeleton_init() abort
   \   'markerHenkan': '<>',
   \   'markerHenkanSelect': '>>',
   \ })
+  " USキーボードの n' で「ん」を打てるやつをJISキーボードでもやる
   call skkeleton#register_kanatable('rom', {
-  \   'jj': 'disable',
+  \ 'n:': ['ん',  ''],
   \ })
 endfunction
 
