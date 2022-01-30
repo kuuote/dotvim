@@ -79,12 +79,6 @@ function! s:lexima_init() abort
   \ {'char': '<BS>', 'at': '\[ \%# ]', 'delete': 1},
   \ ]
 
-  " https://vim-jp.slack.com/archives/CLKR04BEF/p1639724901002900
-  " ycino: こういうルールを今書いてみました
-  let rules += [
-  \ { 'char': '>', 'at': 'function\s[a-zA-Z]\+\%#', 'input': '(', 'input_after': ') {<CR><CR>}' },
-  \ { 'char': '>', 'at': 'function\s[a-zA-Z]\+(.*\%#)', 'input': '<C-g><Down><C-o>^' },
-  \ ]
   for rule in rules
     call lexima#add_rule(rule)
   endfor
@@ -95,6 +89,25 @@ function! s:lexima_init() abort
 
 endfunction
 call s:lexima_init()
+
+" lexima.vimでBetter vim-altercmdを再現する
+" https://scrapbox.io/vim-jp/lexima.vim%E3%81%A7Better_vim-altercmd%E3%82%92%E5%86%8D%E7%8F%BE%E3%81%99%E3%82%8B
+function! s:lexima_alter_command(original, altanative) abort
+  let input_space = '<C-w>' . a:altanative . '<Space>'
+  let input_cr    = '<C-w>' . a:altanative . '<CR>'
+  let rule = {
+  \ 'mode': ':',
+  \ 'at': '^\(''<,''>\)\?' . a:original . '\%#$',
+  \ }
+  call lexima#add_rule(extend(rule, { 'char': '<Space>', 'input': input_space }))
+  call lexima#add_rule(extend(rule, { 'char': '<CR>',    'input': input_cr    }))
+endfunction
+command! -nargs=+ LeximaAlterCommand call <SID>lexima_alter_command(<f-args>)
+
+LeximaAlterCommand ee e!
+LeximaAlterCommand r\%[un] QuickRun
+LeximaAlterCommand git Gina
+LeximaAlterCommand cap\%[ture] Capture
 '''
 
 [[plugins]]
@@ -146,12 +159,21 @@ repo = 'lambdalisue/mr.vim'
 
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
+on_cmd = ['SudaRead', 'SudaWrite']
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
 
 [[plugins]]
 repo = 'machakann/vim-textobj-functioncall'
+hook_add = '''
+" from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
+let g:textobj_functioncall_no_default_key_mappings = 1
+omap <silent> if <Plug>(textobj-functioncall-innerparen-i)
+xmap <silent> if <Plug>(textobj-functioncall-innerparen-i)
+omap <silent> af <Plug>(textobj-functioncall-i)
+xmap <silent> af <Plug>(textobj-functioncall-i)
+'''
 
 [[plugins]]
 repo = 'mattn/vim-sonictemplate'
@@ -159,6 +181,20 @@ hook_add = '''
 let g:sonictemplate_vim_template_dir = $HOME .. '/.vim/template'
 call hypermap#map(';b',"\<C-r>=sonictemplate#postfix()\<CR>")
 '''
+
+[[plugins]]
+repo = 'monaqa/dps-dial.vim'
+hook_add = '''
+nmap  <C-a>  <Plug>(dps-dial-increment)
+nmap  <C-x>  <Plug>(dps-dial-decrement)
+xmap  <C-a>  <Plug>(dps-dial-increment)
+xmap  <C-x>  <Plug>(dps-dial-decrement)
+xmap g<C-a> g<Plug>(dps-dial-increment)
+xmap g<C-x> g<Plug>(dps-dial-decrement)
+'''
+
+[[plugins]]
+repo = 'skanehira/denops-gh.vim'
 
 [[plugins]]
 repo = 'thinca/vim-localrc'
