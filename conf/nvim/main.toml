@@ -1,4 +1,11 @@
 [[plugins]]
+repo = 'skanehira/jumpcursor.vim'
+on_map = '<Plug>'
+hook_add = '''
+nmap [j <Plug>(jumpcursor-jump)
+'''
+
+[[plugins]]
 repo = 'monaqa/dial.nvim'
 hook_add = '''
 " from help
@@ -18,16 +25,6 @@ repo = 'nvim-lua/popup.nvim'
 
 [[plugins]]
 repo = 'nvim-telescope/telescope.nvim'
-
-[[plugins]]
-repo = 'phaazon/hop.nvim'
-hook_source = '''
-lua << EOF
-require("hop").setup()
-EOF
-
-nnoremap ,f <Cmd>HopChar1<CR>
-'''
 
 [[plugins]]
 repo = 'tamago324/lir.nvim'
