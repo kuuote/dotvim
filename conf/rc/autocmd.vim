@@ -61,3 +61,13 @@ augroup vimrc
   autocmd QuickfixCmdPost [^l]* cwin
   autocmd QuickfixCmdPost l* lwin
 augroup END
+
+" https://github.com/tsuyoshicho/vimrc-reading/blob/4037e59bdfaad9063c859e5fe724579623ef7836/.vimrc#L1640-L1640
+" 自分が書いたのを忘れて人のvimrcから持ってきているやつ～
+augroup vimrc
+  autocmd FileType
+    \ help nested if &l:buftype ==# 'help'
+    \ |             nnoremap <buffer> <CR> <C-]>
+    \ |             nnoremap <buffer> <BS> <C-T>
+    \ |           endif
+augroup END
