@@ -17,6 +17,7 @@ function s:add_sub(name, funcname) abort
   let s:ui[a:name] = a:funcname
 endfunction
 
+call s:add_sub('local', 'vimrc#ui#local#menu()')
 call s:add_sub('plugin/fzf-preview.vim', 'vimrc#ui#plugin#fzf_preview#menu()')
 if has('nvim')
   call s:add_sub('plugin/telescope', 'vimrc#ui#plugin#telescope#menu()')
