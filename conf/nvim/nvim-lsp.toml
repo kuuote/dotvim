@@ -33,8 +33,16 @@ autocmd User vimrc-ddc call s:setup_ddc_nvim_lsp()
 repo = 'neovim/nvim-lspconfig'
 hook_source = '''
 lua << unko
+
+local function on_attach(client, bufnr)
+  local opts = { noremap=true, silent=true }
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+end
+
 local lsp = require('lspconfig')
 lsp.denols.setup({
+  on_attach = on_attach,
   init_options = {
     lint = true,
   },
