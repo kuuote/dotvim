@@ -71,4 +71,7 @@ let g:vimrc#ddc_source_options.buffer = {'mark': 'B'}
 '''
 
 [[plugins]]
+repo = 'takker99/ddc-bitap'
+
+[[plugins]]
 repo = 'tani/ddc-fuzzy'
