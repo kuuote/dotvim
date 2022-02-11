@@ -24,7 +24,7 @@ if dein#load_state(s:dein_dir)
   let s:profiles['main'] = 1
   let s:profiles['treesitter'] = 1
   let s:profiles['vim-lsp'] = 1
-  if 0
+  if 1
     if has('nvim')
       let s:profiles['nvim-lsp'] = 1
       let s:profiles['vim-lsp'] = 0
