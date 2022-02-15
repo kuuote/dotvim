@@ -16,9 +16,6 @@ function! s:map_ft_vim() abort
   \ ]
     call hypermap#map('\' .. tolower(n[1:-2]), n, {'buffer': v:true})
   endfor
-  for p in ['if', 'for', 'while']
-    call hypermap#map(p[:1] .. ';', printf("%s \<CR>end%s\<Up>\<End>", p, p), {'buffer': v:true})
-  endfor
 endfunction
 
 call s:map_ft_vim()
