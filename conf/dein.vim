@@ -49,4 +49,8 @@ if dein#load_state(s:dein_dir)
   call dein#save_state()
 endif
 
+if !empty($plug)
+  let &runtimepath = getcwd() .. ',' .. &runtimepath
+endif
+
 call dein#call_hook('source')
