@@ -139,6 +139,9 @@ nmap <C-f> <Plug>(fuzzy-history)
 repo = 'lambdalisue/fern.vim'
 
 [[plugins]]
+repo = 'lambdalisue/gin.vim'
+
+[[plugins]]
 repo = 'lambdalisue/gina.vim'
 hook_source = '''
 call gina#custom#mapping#nmap(

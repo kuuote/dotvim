@@ -1,0 +1,55 @@
+function s:open(curwin) abort
+  " open window
+  if a:curwin
+    only
+  else
+    tab split
+  endif
+  " cd to git root
+  execute 'tcd' expand('%:p:h')
+  let root = system('git rev-parse --show-toplevel')
+  if v:shell_error
+    throw 'Not a git repository.'
+  endif
+  execute 'tcd' root
+  " open status window
+  GinStatus
+  " remove previous handler
+  augroup gin-preview
+    autocmd! * <buffer>
+  augroup END
+  let t:gin_preview = {'cursor': [-1, -1], 'status': win_getid()}
+  " open worktree window
+  belowright new
+  diffthis
+  let t:gin_preview.worktree = win_getid()
+  " open index window
+  vnew
+  diffthis
+  let t:gin_preview.index = win_getid()
+  " resize status window
+  call win_gotoid(t:gin_preview.status)
+  execute 'resize' &lines / 3
+  " define handler
+  autocmd gin-preview CursorMoved <buffer> ++nested call s:moved()
+endfunction
+
+function! s:moved() abort
+  if !exists('t:gin_preview')
+    return
+  endif
+  let new_cursor = [line('.'), col('.')]
+  if t:gin_preview.cursor == new_cursor
+    return
+  endif
+  let t:gin_preview.cursor = new_cursor
+  let line = getline('.')
+  if line =~# '^##'
+    return
+  endif
+  diffoff!
+  call win_execute(t:gin_preview.worktree, 'GinEdit ' .. line[3:] .. ' | diffthis')
+  call win_execute(t:gin_preview.index, 'GinEdit --cached ' .. line[3:] .. ' | diffthis')
+endfunction
+
+command! -bang GinPreview call s:open(<bang>0)
