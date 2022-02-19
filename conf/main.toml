@@ -294,6 +294,9 @@ augroup END
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
 hook_add = '''
+" from https://github.com/yuki-yano/dotfiles/blob/7f10462d12228f57ea3cf86d61f3b22d4728b6f1/.vimrc#L3030
+let g:fuzzy_motion_word_regexp_list = ['[0-9a-zA-Z_-]+',  '([0-9a-zA-Z_-]|[.])+', '([0-9a-zA-Z]|[()<>.-_#''"]|(\s=+\s)|(,\s)|(:\s)|(\s=>\s))+']
+
 nnoremap sf <Cmd>FuzzyMotion<CR>
 '''
 
