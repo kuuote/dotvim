@@ -1,13 +1,14 @@
 " buffer local menu
 
+let s:defs = {}
+
 function! vimrc#ui#local#register(id, condition, source) abort
-  let b:ui_local = get(b:, 'ui_local', {})
-  let b:ui_local[a:id] = [a:condition, a:source]
+  let s:defs[a:id] = [a:condition, a:source]
 endfunction
 
 function! vimrc#ui#local#menu() abort
   let menu = {}
-  let availables = values(get(b:, 'ui_local', {}))
+  let availables = values(s:defs)
   \ ->filter('eval(v:val[0])')
   for m in availables
     let val = m[1]
