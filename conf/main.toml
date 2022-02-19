@@ -237,6 +237,7 @@ let g:vimrc#ddc_source_options.skkeleton = {
 
 function! s:skkeleton_init() abort
   call skkeleton#config({
+  \   'completionRankFile': '/tmp/rank',
   \   'registerConvertResult': v:true,
   \   'showCandidatesCount': 1,
   \   'userJisyo': '/hd/skkeleton/jisyo',
