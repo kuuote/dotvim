@@ -6,6 +6,8 @@ if !isdirectory(s:dein_repo)
 endif
 let &runtimepath ..= ',' .. s:dein_repo
 let g:dein#auto_recache = 1
+let g:dein#install_check_diff = v:true
+let g:dein#install_progress_type = 'floating'
 let g:dein#cache_directory = '/tmp/dein/cache/' .. v:argv[0]
 
 " 共通で使われる要素を先に初期化しておく
