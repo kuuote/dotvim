@@ -1,8 +1,8 @@
 function s:open(curwin) abort
   " in before VimEnter, do lazy evaluation
   " because gin.vim is using denops.vim
-  if !v:vim_did_enter
-    execute 'autocmd VimEnter * ++nested call s:open(' .. a:curwin .. ')'
+  if !denops#plugin#is_loaded('gin')
+    execute 'autocmd User DenopsPluginPost:gin ++nested call s:open(' .. a:curwin .. ')'
     return
   endif
   " open window
