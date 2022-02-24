@@ -1,0 +1,9 @@
+pattern = '''\(\S\+\).val'''
+
+template = '''
+const {{$1}} = {{_cursor_}}
+'''
+
+what = '''
+hoge.val を const hoge = に展開します
+'''
