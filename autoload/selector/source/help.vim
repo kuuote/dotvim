@@ -3,13 +3,9 @@ function! s:help_tags() abort
     return s:cache
   endif
   let tags = []
-  for path in split(&runtimepath, ',')
-    let filepath = path .. '/doc/tags'
-    if !filereadable(filepath)
-      continue
-    endif
-    let t = readfile(filepath)
-    let t = map(t, 'split(v:val, "\<Tab>")[0]')
+  for path in globpath(&runtimepath, 'doc/tags', 1, 1) + globpath(&runtimepath, 'doc/tags-??', 1, 1)
+    let t = readfile(path)
+    call map(t, 'split(v:val, "\<Tab>")[0]')
     call extend(tags, t)
   endfor
   let s:cache = sort(tags)
