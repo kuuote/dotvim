@@ -215,6 +215,9 @@ repo = 'thinca/vim-ref'
 repo = 'thinca/vim-themis'
 
 [[plugins]]
+repo = 'tweekmonster/helpful.vim'
+
+[[plugins]]
 repo = 'tyru/capture.vim'
 
 [[plugins]]
