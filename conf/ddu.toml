@@ -35,24 +35,24 @@ endfunction
 repo = 'Shougo/ddu.vim'
 hook_source = '''
 call ddu#custom#patch_global({
-    \   'kindOptions': {
-    \     'file': {
-    \       'defaultAction': 'open',
-    \     },
-    \   },
-    \   'sourceOptions': {
-    \     '_': {
-    \       'ignoreCase': v:true,
-    \       'matchers': ['matcher_fzf'],
-    \     },
-    \   },
-    \   'ui': 'ff',
-    \   'uiParams': {
-    \     'ff': {
-    \       'split': has('nvim') ? 'floating' : 'horizontal',
-    \     },
-    \   },
-    \ })
+\   'kindOptions': {
+\     'file': {
+\       'defaultAction': 'open',
+\     },
+\   },
+\   'sourceOptions': {
+\     '_': {
+\       'ignoreCase': v:true,
+\       'matchers': ['matcher_fzf'],
+\     },
+\   },
+\   'ui': 'ff',
+\   'uiParams': {
+\     'ff': {
+\       'split': has('nvim') ? 'floating' : 'horizontal',
+\     },
+\   },
+\ })
 '''
 
 [[plugins]]
