@@ -43,7 +43,7 @@ call ddu#custom#patch_global({
 \   'sourceOptions': {
 \     '_': {
 \       'ignoreCase': v:true,
-\       'matchers': ['matcher_fzf'],
+\       'matchers': ['matcher_fuse'],
 \     },
 \   },
 \   'ui': 'ff',
@@ -54,6 +54,9 @@ call ddu#custom#patch_global({
 \   },
 \ })
 '''
+
+[[plugins]]
+repo = 'kuuote/ddu-filter-fuse'
 
 [[plugins]]
 repo = 'kuuote/ddu-source-mr'
