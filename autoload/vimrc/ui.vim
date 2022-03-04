@@ -34,7 +34,7 @@ function vimrc#ui#menu(...) abort
     throw "Illegal result: " .. result
   endif
   if result[0] ==# '*'
-    call feedkeys(':' .. result[1:], 'n')
+    call feedkeys(':' .. result[1:], 'nt')
   else
     call histadd(':', result)
     execute result
