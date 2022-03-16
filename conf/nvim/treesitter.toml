@@ -2,17 +2,17 @@
 repo = 'nvim-treesitter/nvim-treesitter'
 merged = 0
 hook_source = '''
-lua <<EOF
+lua <<unko
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
 }
-EOF
-lua <<EOF
+unko
+lua <<unko
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.typescript.filetype_to_parsername = "typescriptreact"
-EOF
+unko
 '''
 
 [[plugins]]
