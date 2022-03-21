@@ -3,8 +3,13 @@ let s:ui = {}
 let s:ui[''] = {
 \   'edit': 'edit ' .. expand('<sfile>:p'),
 \   'help': 'call selector#source#help#run()',
+\   'plugin/ddu.vim': 'UI plugin/ddu.vim',
 \   'plugin/dein.vim': 'UI plugin/dein.vim',
 \   'copypath': 'call setreg(v:register, expand("%:p"), "V")',
+\ }
+
+let s:ui['plugin/ddu.vim'] = {
+\   'file_rec': 'call ddu#start({"sources": [{"name": "file_rec"}]})'
 \ }
 
 let s:ui['plugin/dein.vim'] = {
