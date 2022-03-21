@@ -117,6 +117,9 @@ nmap <C-f> <Plug>(fuzzy-history)
 
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
+hook_add = '''
+nnoremap <Space>f <Cmd>Fern . -reveal=%:p<CR>
+'''
 
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
