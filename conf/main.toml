@@ -299,8 +299,6 @@ nnoremap <silent> <fzf-p>s <Cmd>FzfPreviewGitStatusRpc<CR>
 nnoremap <silent> <fzf-p>w <Cmd>FzfPreviewProjectMrwFilesRpc --add-fzf-arg=--no-sort<CR>
 
 " non prefix shortcut
-nnoremap mru :FzfPreviewMruFilesRpc<CR>
-nnoremap mrw :FzfPreviewMrwFilesRpc<CR>
 nnoremap gs :FzfPreviewGitStatusRpc<CR>
 '''
 hook_source = '''
