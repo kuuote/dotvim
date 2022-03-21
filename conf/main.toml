@@ -215,6 +215,7 @@ call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'ev
 
 let g:vimrc#ddc_source_options.skkeleton = {
   \   'mark': 'skk',
+  \   'converters': [],
   \   'matchers': ['skkeleton'],
   \   'sorters': [],
   \   'minAutoCompleteLength': 2,
