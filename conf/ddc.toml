@@ -17,6 +17,19 @@ let g:vimrc#ddc_source_options.around = {'mark': 'A'}
 '''
 
 [[plugins]]
+repo = 'Shougo/ddc-cmdline'
+hook_add = '''
+function! Ddc_cmdline() abort
+  call ddc#custom#patch_buffer('sources', ['cmdline', 'file'])
+  call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
+endfunction
+let g:vimrc#ddc_source_options.cmdline = {
+\ 'isVolatile': v:true,
+\ }
+autocmd FileType cmdwin call Ddc_cmdline()
+'''
+
+[[plugins]]
 repo = 'Shougo/ddc-matcher_head'
 hook_add = '''
 let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
