@@ -9,6 +9,5 @@ endfunction
 function! vimrc#shufflejump(re) abort
   let lines = getline(1, '$')->map('[v:key + 1, v:val]')->filter('v:val[1] =~# a:re')
   let selected = rand() % len(lines)
-  execute lines[selected][0]
-  normal! 0
+  call cursor(lines[selected][0], 1)
 endfunction
