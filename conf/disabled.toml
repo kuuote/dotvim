@@ -1,0 +1,26 @@
+[[__plugins__]]
+comment = '''
+いまいち合わなかった
+特定の位置に飛びたいケースがそんなにない
+  あまり管理したくない
+もっといい単位があるかもしれないので考えていきたい
+'''
+repo = 'MattesGroeger/vim-bookmarks'
+hook_add = '''
+let g:bookmark_no_default_key_mappings = 1
+nmap mm <Plug>BookmarkToggle
+nmap mx <Plug>BookmarkClearAll
+nmap mf <Cmd>FzfPreviewBookmarksRpc<CR>
+
+let g:bookmark_save_per_working_dir = 1
+call mkdir('/tmp/bookmarks', 'p')
+function! BMWorkDirFileLocation() abort
+  let root = system('git rev-parse --show-toplevel')
+  if v:shell_error
+    let root = getcwd()
+  endif
+  let root = substitute(root, '/', '@', 'g')
+  return '/tmp/bookmarks/' .. root
+endfunction
+'''
+
