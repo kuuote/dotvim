@@ -13,6 +13,7 @@ repo = 'Shougo/ddu-source-line'
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 hook_add = '''
+au BufEnter ddu-ff-* call timer_start(0, {->execute('0')})
 autocmd FileType ddu-ff call s:ddu_ff_common_mapping()
 function! s:ddu_ff_common_mapping() abort
   " copy from doc
@@ -38,6 +39,10 @@ function! s:ddu_filter_my_settings() abort
   \ <Esc><Cmd>close<CR>
   nnoremap <buffer><silent> <CR>
   \ <Cmd>close<CR>
+  inoremap <buffer> <C-j>
+  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
+  inoremap <buffer> <C-k>
+  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
 endfunction
 '''
 
@@ -55,21 +60,23 @@ call ddu#custom#patch_global({
 \     'word': {
 \       'defaultAction': 'append',
 \     },
+\     'dein_update': {
+\       'defaultAction': 'viewDiff',
+\     },
 \   },
 \   'sourceOptions': {
 \     '_': {
 \       'ignoreCase': v:true,
-\       'matchers': ['matcher_fuse'],
+\       'matchers': ['matcher_fzf'],
 \     },
-\     'command': {
-\       'matchers': ['matcher_fuse'],
+\     'dein_update': {
+\       'matchers': ['matcher_dein_update'],
 \     },
 \   },
 \   'ui': 'ff',
 \   'uiParams': {
 \     'ff': {
 \       'split': has('nvim') ? 'floating' : 'horizontal',
-\       'startFilter': v:true,
 \     },
 \   },
 \ })
@@ -84,6 +91,12 @@ hook_add = '''
 nnoremap mru <Cmd>call ddu#start({'name': 'file', 'sources': [{'name': 'mr'}]})<CR>
 nnoremap mrw <Cmd>call ddu#start({'name': 'file', 'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
 nnoremap mrr <Cmd>call ddu#start({'name': 'file', 'sources': [{'name': 'mr', 'params': {'kind': 'mrr'}}]})<CR>
+'''
+
+[[plugins]]
+repo = 'matsui54/ddu-source-dein_update'
+hook_add = '''
+command! DduDeinUpdate call ddu#start({'sources': [{'name': 'dein_update'}]})
 '''
 
 [[plugins]]
