@@ -52,7 +52,9 @@ if dein#load_state(s:dein_dir)
 endif
 
 if !empty($plug)
-  let &runtimepath = getcwd() .. ',' .. &runtimepath
+  " $plugに何かセットされてたらカレントディレクトリをruntimepathの先頭に置く
+  " dd(c|u)は一番最後に現れた要素を使うので末尾にも置く
+  let &runtimepath = printf('%s,%s,%s', getcwd(), &runtimepath, getcwd())
 endif
 
 call dein#call_hook('source')
