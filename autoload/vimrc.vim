@@ -11,3 +11,14 @@ function! vimrc#shufflejump(re) abort
   let selected = rand() % len(lines)
   call cursor(lines[selected][0], 1)
 endfunction
+
+function vimrc#oresyntax(...) abort
+  " ひらがな
+  syntax match Green /[\u3042-\u3093]/
+  " カタカナ
+  syntax match Blue /[\u30a2-\u30fc]/
+  " 漢字
+  syntax match Red /[\u4e00-\u9fff]/
+  syntax match ErrorMsg /[[\]]/
+  syntax match Yellow /[[:alnum:]]/
+endfunction
