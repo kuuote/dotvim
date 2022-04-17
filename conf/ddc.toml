@@ -32,15 +32,15 @@ autocmd FileType cmdwin call Ddc_cmdline()
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
 hook_add = '''
-let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
-let g:vimrc#ddc_source_options['_']['matchers'] = ['matcher_head']
+" let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
+" let g:vimrc#ddc_source_options['_']['matchers'] = ['matcher_head']
 '''
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
 hook_add = '''
-let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
-let g:vimrc#ddc_source_options['_']['sorters'] = ['sorter_rank']
+" let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
+" let g:vimrc#ddc_source_options['_']['sorters'] = ['sorter_rank']
 '''
 
 [[plugins]]
@@ -88,3 +88,10 @@ repo = 'takker99/ddc-bitap'
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
+hook_add = '''
+let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
+let g:vimrc#ddc_source_options['_']['ignoreCase'] = v:true
+let g:vimrc#ddc_source_options['_']['converters'] = ['converter_fuzzy']
+let g:vimrc#ddc_source_options['_']['matchers'] = ['matcher_fuzzy']
+" let g:vimrc#ddc_source_options['_']['sorters'] = ['sorter_fuzzy']
+'''
