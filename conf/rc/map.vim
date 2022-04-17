@@ -100,3 +100,6 @@ inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 " my ui
 nnoremap sm <Cmd>call vimrc#ui#menu()<CR>
 nnoremap ml <Cmd>call vimrc#ui#menu('local')<CR>
+
+" 挿入モードで再描画できるようにしてみる
+inoremap <C-l> <Cmd>mode<CR>
