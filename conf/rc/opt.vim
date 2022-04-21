@@ -44,3 +44,14 @@ set ignorecase
 set history=1000
 let &viminfo = "'1000,:1000" + ',n~/.vim/' .. g:vim_type .. '.info'
 
+" https://github.com/tsuyoshicho/vimrc-reading/blob/4037e59bdfaad9063c859e5fe724579623ef7836/.vimrc#L1294-L1298
+" ファイルパスの@を利用可能にする
+" = は使われないはずなので除外
+set isfname&
+  \ isfname+=@-@
+  \ isfname-==
+
+" from https://github.com/Shougo/shougo-s-github/blob/8504d14d2d057a485b5b96f6632c6369fb93c7c0/vim/rc/options.rc.vim#L320
+" Display an invisible letter with hex format.
+set display+=uhex
+
