@@ -3,6 +3,12 @@ repo = 'Shougo/dein.vim'
 merged = 0
 
 [[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+hook_source = '''
+call popup_preview#enable()
+'''
+
+[[plugins]]
 repo = 'Shougo/junkfile.vim'
 hook_add = '''
 let g:junkfile#directory = '/data/code/junkfile'
