@@ -17,6 +17,12 @@ repo = 'nvim-lua/plenary.nvim'
 repo = 'nvim-lua/popup.nvim'
 
 [[plugins]]
+repo = 'nvim-telescope/telescope-ui-select.nvim'
+hook_source = '''
+lua require('telescope').load_extension('ui-select')
+'''
+
+[[plugins]]
 repo = 'nvim-telescope/telescope.nvim'
 
 [[plugins]]
