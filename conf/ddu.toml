@@ -13,7 +13,8 @@ repo = 'Shougo/ddu-source-line'
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 hook_add = '''
-au BufEnter ddu-ff-* call timer_start(0, {->execute('0')})
+au BufEnter ddu-ff-* if &ft !=# 'ddu-ff-filter' | call timer_start(0, {->execute('0')}) | endif
+" au BufEnter ddu-ff-filter call deletebufline('%', 1, '$')
 autocmd FileType ddu-ff call s:ddu_ff_common_mapping()
 function! s:ddu_ff_common_mapping() abort
   " copy from doc
@@ -57,6 +58,9 @@ call ddu#custom#patch_global({
 \     'file': {
 \       'defaultAction': 'open',
 \     },
+\     'help': {
+\       'defaultAction': 'tabopen',
+\     },
 \     'word': {
 \       'defaultAction': 'append',
 \     },
@@ -76,6 +80,10 @@ call ddu#custom#patch_global({
 \   'ui': 'ff',
 \   'uiParams': {
 \     'ff': {
+\       'floatingBorder': ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "String"]'),
+\       'highlights': {
+\         'floating': 'None',
+\       },
 \       'split': has('nvim') ? 'floating' : 'horizontal',
 \     },
 \   },
@@ -98,6 +106,9 @@ repo = 'matsui54/ddu-source-dein_update'
 hook_add = '''
 command! DduDeinUpdate call ddu#start({'sources': [{'name': 'dein_update'}]})
 '''
+
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
 
 [[plugins]]
 repo = 'shun/ddu-rg'

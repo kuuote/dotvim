@@ -48,6 +48,7 @@ lsp.denols.setup({
   on_attach = on_attach,
   init_options = {
     lint = true,
+    unstable = true,
   },
 })
 unko

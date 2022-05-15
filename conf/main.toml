@@ -3,12 +3,6 @@ repo = 'Shougo/dein.vim'
 merged = 0
 
 [[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-hook_source = '''
-call popup_preview#enable()
-'''
-
-[[plugins]]
 repo = 'Shougo/junkfile.vim'
 hook_add = '''
 let g:junkfile#directory = '/data/code/junkfile'
@@ -155,6 +149,33 @@ on_cmd = ['SudaRead', 'SudaWrite']
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
+hook_source = '''
+" from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
+let g:sandwich#recipes = g:sandwich#default_recipes + [
+\ {
+\   'buns': ['InputGenerics()', '">"'],
+\   'expr': 1,
+\   'cursor': 'inner_tail',
+\   'kind': ['add', 'replace'],
+\   'action': ['add'],
+\   'input': ['g']
+\ },
+\ {
+\   'external': ['i<', "\<Plug>(textobj-functioncall-generics-a)"],
+\   'noremap': 0,
+\   'kind': ['delete', 'replace', 'query'],
+\   'input': ['g']
+\ },
+\ ]
+
+function! InputGenerics() abort
+  let genericsname = input('Generics Name: ', '')
+  if genericsname ==# ''
+    throw 'OperatorSandwichCancel'
+  endif
+  return genericsname . '<'
+endfunction
+'''
 
 [[plugins]]
 repo = 'machakann/vim-textobj-functioncall'
@@ -165,6 +186,31 @@ omap <silent> if <Plug>(textobj-functioncall-innerparen-i)
 xmap <silent> if <Plug>(textobj-functioncall-innerparen-i)
 omap <silent> af <Plug>(textobj-functioncall-i)
 xmap <silent> af <Plug>(textobj-functioncall-i)
+
+let g:textobj_functioncall_generics_patterns = [
+\ {
+\   'header' : '\<\%(\h\k*\.\)*\h\k*',
+\   'bra'    : '<',
+\   'ket'    : '>',
+\   'footer' : '',
+\ },
+\ ]
+
+onoremap <silent> <Plug>(textobj-functioncall-generics-i) :<C-u>call textobj#functioncall#ip('o', g:textobj_functioncall_generics_patterns)<CR>
+xnoremap <silent> <Plug>(textobj-functioncall-generics-i) :<C-u>call textobj#functioncall#ip('x', g:textobj_functioncall_generics_patterns)<CR>
+onoremap <silent> <Plug>(textobj-functioncall-generics-a) :<C-u>call textobj#functioncall#i('o', g:textobj_functioncall_generics_patterns)<CR>
+xnoremap <silent> <Plug>(textobj-functioncall-generics-a) :<C-u>call textobj#functioncall#i('x', g:textobj_functioncall_generics_patterns)<CR>
+
+omap <silent> ig <Plug>(textobj-functioncall-generics-i)
+xmap <silent> ig <Plug>(textobj-functioncall-generics-i)
+omap <silent> ag <Plug>(textobj-functioncall-generics-a)
+xmap <silent> ag <Plug>(textobj-functioncall-generics-a)
+'''
+
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+hook_source = '''
+call popup_preview#enable()
 '''
 
 [[plugins]]
