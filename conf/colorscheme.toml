@@ -12,6 +12,9 @@ repo = 'ayu-theme/ayu-vim'
 repo = 'bluz71/vim-nightfly-guicolors'
 
 [[plugins]]
+repo = 'cocopon/iceberg.vim'
+
+[[plugins]]
 repo = 'cormacrelf/vim-colors-github'
 
 [[plugins]]
