@@ -82,7 +82,7 @@ call ddu#custom#patch_global({
 \     'ff': {
 \       'floatingBorder': ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "String"]'),
 \       'highlights': {
-\         'floating': 'None',
+\         'floating': 'NormalFloat:None',
 \       },
 \       'split': has('nvim') ? 'floating' : 'horizontal',
 \     },
