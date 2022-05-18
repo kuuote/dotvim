@@ -1,66 +1,80 @@
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
-hook_add = '''
-call add(g:vimrc#ddc_sources, [1, 'file'])
-let g:vimrc#ddc_source_options.file = {
-\ 'mark': 'F',
-\ 'isVolatile': v:true,
-\ 'forceCompletionPattern': '\S/\S*',
-\ }
-'''
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
-hook_add = '''
-call add(g:vimrc#ddc_sources, [2, 'around'])
-let g:vimrc#ddc_source_options.around = {'mark': 'A'}
-'''
 
 [[plugins]]
 repo = 'Shougo/ddc-cmdline'
-hook_add = '''
-function! Ddc_cmdline() abort
-  call ddc#custom#patch_buffer('sources', ['cmdline', 'file'])
-  call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
-endfunction
-let g:vimrc#ddc_source_options.cmdline = {
-\ 'isVolatile': v:true,
-\ }
-autocmd FileType cmdwin call Ddc_cmdline()
-'''
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
-hook_add = '''
-" let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
-" let g:vimrc#ddc_source_options['_']['matchers'] = ['matcher_head']
-'''
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
-hook_add = '''
-" let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
-" let g:vimrc#ddc_source_options['_']['sorters'] = ['sorter_rank']
-'''
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 hook_source = '''
-let g:vimrc#ddc_sources_sorted = sort(g:vimrc#ddc_sources, { a, b -> a[0] - b[0] || a[1] < b[1] ? -1 : 1 })->map('v:val[1]')
-" 各sourceのhook_addでg:vimrc#ddc_sourcesへの追加を行い、ddc.vimのhook_sourceでまとめて処理する
-call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_sorted)
-call ddc#custom#patch_global('sourceOptions', g:vimrc#ddc_source_options)
-call ddc#custom#patch_global('completionMenu', 'pum.vim')
-call ddc#custom#patch_global('backspaceCompletion', v:true)
+let g:vimrc#ddc_sources = ['file', 'around', 'buffer']
+" insert space for paragraph selector
+" vip => :!jq -S .
+let s:config_json =<< UNKO
+
+{
+  "backspaceCompletion": true,
+  "completionMenu": "pum.vim",
+  "sourceOptions": {
+    "_": {
+      "converters": [
+        "converter_fuzzy"
+      ],
+      "ignoreCase": true,
+      "matchers": [
+        "matcher_fuzzy"
+      ],
+      "sorters": [
+        "sorter_fuzzy"
+      ]
+    },
+    "around": {
+      "mark": "A"
+    },
+    "buffer": {
+      "mark": "B"
+    },
+    "file": {
+      "forceCompletionPattern": "\\S/\\S*",
+      "isVolatile": true,
+      "mark": "F",
+      "minAutoCompleteLength": 1000
+    },
+    "necovim": {
+      "mark": "V"
+    },
+    "nvim-lsp": {
+      "forceCompletionPattern": "\\.\\w*|:\\w*|->\\w*",
+      "mark": "lsp",
+      "minAutoCompleteLength": 1
+    }
+  }
+}
+
+UNKO
+let s:config = s:config_json->join('')->json_decode()
+let s:config['sources'] = g:vimrc#ddc_sources
+call ddc#custom#patch_global(s:config)
+unlet s:config
+unlet s:config_json
 autocmd VimEnter * doautocmd <nomodeline> User vimrc-ddc
 autocmd VimEnter * call ddc#enable()
 '''
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
-hook_add = '''
+hook_source = '''
 function! s:setup_necovim() abort
-  call ddc#custom#patch_filetype(['vim'], 'sources', ['necovim'] + g:vimrc#ddc_sources_sorted)
+  call ddc#custom#patch_filetype(['vim', 'toml'], 'sources', ['necovim'] + g:vimrc#ddc_sources)
 endfunction
 autocmd User vimrc-ddc call s:setup_necovim()
 '''
@@ -78,20 +92,9 @@ inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
 [[plugins]]
 repo = 'matsui54/ddc-buffer'
-hook_add = '''
-call add(g:vimrc#ddc_sources, [2, 'buffer'])
-let g:vimrc#ddc_source_options.buffer = {'mark': 'B'}
-'''
 
 [[plugins]]
 repo = 'takker99/ddc-bitap'
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
-hook_add = '''
-let g:vimrc#ddc_source_options['_'] = get(g:vimrc#ddc_source_options, '_', {})
-let g:vimrc#ddc_source_options['_']['ignoreCase'] = v:true
-let g:vimrc#ddc_source_options['_']['converters'] = ['converter_fuzzy']
-let g:vimrc#ddc_source_options['_']['matchers'] = ['matcher_fuzzy']
-" let g:vimrc#ddc_source_options['_']['sorters'] = ['sorter_fuzzy']
-'''

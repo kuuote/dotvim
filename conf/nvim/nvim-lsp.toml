@@ -2,14 +2,8 @@
 repo = 'Shougo/ddc-nvim-lsp'
 on_if = 'dein#is_available("ddc.vim")'
 hook_add = '''
-let g:vimrc#ddc_source_options['nvim-lsp'] = {
-\ 'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-\ 'mark': 'lsp',
-\ 'minAutoCompleteLength': 1
-\ }
-
 function! s:setup_ddc_nvim_lsp() abort
-  let sources = ['nvim-lsp'] + g:vimrc#ddc_sources_sorted
+  let sources = ['nvim-lsp'] + g:vimrc#ddc_sources
   call ddc#custom#patch_filetype([
   \ 'go',
   \ 'rust',
