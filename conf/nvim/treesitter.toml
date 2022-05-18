@@ -10,8 +10,12 @@ require'nvim-treesitter.configs'.setup {
 }
 unko
 lua <<unko
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.typescript.filetype_to_parsername = "typescriptreact"
+require('nvim-treesitter.utils').get_parser_install_dir = function(folder_name)
+  local path = table.concat({'/data/vim/treesitter', folder_name or 'parser'}, '/')
+  pcall(vim.fn.mkdir, path, 'p')
+  return path
+end
+vim.o.runtimepath = vim.o.runtimepath .. ',/data/vim/treesitter'
 unko
 '''
 
