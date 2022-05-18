@@ -5,7 +5,7 @@ merged = 0
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
 hook_add = '''
-let g:junkfile#directory = '/data/code/junkfile'
+let g:junkfile#directory = '/data/junkfile'
 '''
 
 [[plugins]]
