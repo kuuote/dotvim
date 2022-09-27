@@ -101,3 +101,5 @@ nnoremap ml <Cmd>call vimrc#ui#menu('local')<CR>
 
 " 挿入モードで再描画できるようにしてみる
 inoremap <C-l> <Cmd>mode<CR>
+
+tnoremap fj <C-\><C-N>
