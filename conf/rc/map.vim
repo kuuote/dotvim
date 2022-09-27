@@ -38,8 +38,6 @@ nnoremap <Space>tp <Cmd>hi Normal guibg=NONE <Bar> hi EndOfBuffer guibg=NONE<CR>
 nnoremap <Space>w <C-w>
 
 " タブ関連
-nnoremap <Tab> <Cmd>tabnext<CR>
-tnoremap <Tab> <Cmd>tabnext<CR>
 nnoremap th <Cmd>tabprevious<CR>
 nnoremap tl <Cmd>tabnext<CR>
 nnoremap tq <Cmd>tabclose<CR>
