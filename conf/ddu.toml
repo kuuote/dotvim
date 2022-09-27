@@ -53,52 +53,76 @@ hook_source = '''
 
 call ddu#custom#alias('filter', 'matcher_fzf_nosort', 'matcher_fzf')
 
-call ddu#custom#patch_global({
-\   'filterParams': {
-\     'matcher_fzf_nosort': {
-\       'sort': v:false,
-\     },
-\   },
-\   'kindOptions': {
-\     'command': {
-\       'defaultAction': 'execute',
-\     },
-\     'file': {
-\       'defaultAction': 'open',
-\     },
-\     'help': {
-\       'defaultAction': 'tabopen',
-\     },
-\     'word': {
-\       'defaultAction': 'append',
-\     },
-\     'dein_update': {
-\       'defaultAction': 'viewDiff',
-\     },
-\   },
-\   'sourceOptions': {
-\     '_': {
-\       'ignoreCase': v:true,
-\       'matchers': ['matcher_fzf'],
-\     },
-\     'dein_update': {
-\       'matchers': ['matcher_dein_update'],
-\     },
-\     'mr': {
-\       'matchers': ['matcher_fzf_nosort'],
-\     },
-\   },
-\   'ui': 'ff',
-\   'uiParams': {
-\     'ff': {
-\       'floatingBorder': ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "String"]'),
-\       'highlights': {
-\         'floating': 'NormalFloat:None',
-\       },
-\       'split': has('nvim') ? 'floating' : 'horizontal',
-\     },
-\   },
-\ })
+let s:config_json =<< UNKO
+
+{
+  "filterParams": {
+    "matcher_fzf_nosort": {
+      "sort": 0
+    }
+  },
+  "kindOptions": {
+    "command": {
+      "defaultAction": "execute"
+    },
+    "dein_update": {
+      "defaultAction": "viewDiff"
+    },
+    "file": {
+      "defaultAction": "open"
+    },
+    "help": {
+      "defaultAction": "tabopen"
+    },
+    "word": {
+      "defaultAction": "append"
+    }
+  },
+  "sourceOptions": {
+    "_": {
+      "ignoreCase": true,
+      "matchers": [
+        "matcher_fzf"
+      ]
+    },
+    "dein_update": {
+      "matchers": [
+        "matcher_dein_update"
+      ]
+    },
+    "file": {
+      "matchers": [
+        "matcher_fuse"
+      ]
+    },
+    "mr": {
+      "matchers": [
+        "matcher_fzf_nosort"
+      ]
+    }
+  },
+  "ui": "ff",
+  "uiParams": {
+    "ff": {
+      "highlights": {}
+    }
+  }
+}
+
+UNKO
+
+let s:config_json = s:config_json->join('')->json_decode()
+
+let s:config_json['uiParams']['ff']['floatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "String"]')
+let s:config_json['uiParams']['ff']['highlights']['floating'] = 'NormalFloat:DduFloat'
+let s:config_json['uiParams']['ff']['split'] = has('nvim') ? 'floating' : 'horizontal'
+let s:config_json['uiParams']['ff']['previewFloating'] = has('nvim')
+
+call ddu#custom#patch_global(s:config_json)
+
+unlet s:config_json
+
+autocmd ColorScheme * hi DduFloat guibg=#e0e0ff guifg=#6060ff
 '''
 
 [[plugins]]
