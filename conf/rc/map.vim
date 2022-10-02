@@ -81,7 +81,7 @@ call hypermap#map(',z', '_')
 call hypermap#map(',x', "'")
 call hypermap#map(',c', "^")
 call hypermap#map(',v', "`")
-noremap! ' :
+" noremap! ' :
 
 " sugoi undo
 nnoremap U <C-r>
@@ -89,10 +89,6 @@ nnoremap U <C-r>
 " thanks monaqa and tsuyoshicho
 "" code input advanced in insert mode
 inoremap <C-v>u <C-r>=nr2char(0x)<Left>
-
-" my ui
-nnoremap sm <Cmd>call vimrc#ui#menu()<CR>
-nnoremap ml <Cmd>call vimrc#ui#menu('local')<CR>
 
 " 挿入モードで再描画できるようにしてみる
 inoremap <C-l> <Cmd>mode<CR>
