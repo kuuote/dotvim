@@ -23,11 +23,6 @@ nnoremap <Space>d <Cmd>edit %:p:h<CR>
 nnoremap <Space>j <PageDown>
 nnoremap <Space>k <PageUp>
 
-" 安全にかつ高速に終わるための設定
-nnoremap Q <Cmd>confirm qa<CR>
-xnoremap Q <Cmd>confirm qa<CR>
-onoremap Q <Cmd>confirm qa<CR>
-
 " こまめなセーブは忘れずに
 nnoremap <Space>s <Cmd>update<CR>
 

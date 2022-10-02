@@ -20,8 +20,8 @@ endif
 filetype plugin indent on
 syntax enable
 
-call vimrc#load_scripts('~/.vim/conf/rc/**/*.vim')
-call vimrc#load_scripts(printf('~/.vim/conf/%s/rc/**/*.vim', g:vim_type))
+call vimrc#load_scripts('~/.vim/conf/rc/**/*')
+call vimrc#load_scripts(printf('~/.vim/conf/%s/rc/**/*', g:vim_type))
 
 if getftype(g:dotvim .. '/local.vim') ==# 'file'
   source ~/.vim/local.vim

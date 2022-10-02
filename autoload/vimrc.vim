@@ -1,7 +1,11 @@
 " pathに指定したものをglobして:sourceする
 function! vimrc#load_scripts(path) abort
   for f in sort(glob(a:path, v:true, v:true))
-    execute "source" f
+    if f =~# '.lua$'
+      execute 'luafile' f
+    else
+      execute "source" f
+    endif
   endfor
 endfunction
 
