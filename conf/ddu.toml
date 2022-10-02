@@ -1,11 +1,23 @@
 [[plugins]]
+repo = '4513echo/ddu-source-source'
+hook_add = '''
+command! DduSourceSource call ddu#start({'sources': [{'name': 'source'}]})
+'''
+
+[[plugins]]
 repo = 'Shougo/ddu-kind-file'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
 
 [[plugins]]
+repo = 'Shougo/ddu-source-file'
+
+[[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
+hook_add = '''
+nnoremap <C-p> <Cmd>call ddu#start({"name": "file", "sources": [{"name": "file_rec"}]})<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
@@ -13,8 +25,6 @@ repo = 'Shougo/ddu-source-line'
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 hook_add = '''
-au BufEnter ddu-ff-* if &ft !=# 'ddu-ff-filter' | call timer_start(0, {->execute('0')}) | endif
-" au BufEnter ddu-ff-filter call deletebufline('%', 1, '$')
 autocmd FileType ddu-ff call s:ddu_ff_common_mapping()
 function! s:ddu_ff_common_mapping() abort
   " copy from doc
@@ -24,14 +34,18 @@ function! s:ddu_ff_common_mapping() abort
   \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
   nnoremap <buffer> <nowait> i
   \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+  nnoremap <buffer> <nowait> p
+  \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
   nnoremap <buffer> <nowait> q
   \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
-endfunction
-
-autocmd BufEnter ddu-ff-file call s:ddu_ff_file_mapping()
-function! s:ddu_ff_file_mapping() abort
-  nnoremap <buffer> <nowait> t
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'action': 'open', 'params': {'command': 'tabedit'}})<CR>
+  if b:ddu_ui_name ==# 'file'
+    nnoremap <buffer> <nowait> t
+    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'action': 'open', 'params': {'command': 'tabedit'}})<CR>
+    nnoremap <buffer> <nowait> s
+    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'action': 'open', 'params': {'command': 'split'}})<CR>
+    nnoremap <buffer> <nowait> v
+    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'action': 'open', 'params': {'command': 'vsplit'}})<CR>
+  endif
 endfunction
 
 autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
@@ -41,88 +55,16 @@ function! s:ddu_filter_my_settings() abort
   nnoremap <buffer><silent> <CR>
   \ <Cmd>close<CR>
   inoremap <buffer> <C-j>
-  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR>
+  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR><Cmd>redraw!<CR>
   inoremap <buffer> <C-k>
-  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR>
+  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR><Cmd>redraw!<CR>
 endfunction
 '''
 
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 hook_source = '''
-
-call ddu#custom#alias('filter', 'matcher_fzf_nosort', 'matcher_fzf')
-
-let s:config_json =<< UNKO
-
-{
-  "filterParams": {
-    "matcher_fzf_nosort": {
-      "sort": 0
-    }
-  },
-  "kindOptions": {
-    "command": {
-      "defaultAction": "execute"
-    },
-    "dein_update": {
-      "defaultAction": "viewDiff"
-    },
-    "file": {
-      "defaultAction": "open"
-    },
-    "help": {
-      "defaultAction": "tabopen"
-    },
-    "word": {
-      "defaultAction": "append"
-    }
-  },
-  "sourceOptions": {
-    "_": {
-      "ignoreCase": true,
-      "matchers": [
-        "matcher_fzf"
-      ]
-    },
-    "dein_update": {
-      "matchers": [
-        "matcher_dein_update"
-      ]
-    },
-    "file": {
-      "matchers": [
-        "matcher_fuse"
-      ]
-    },
-    "mr": {
-      "matchers": [
-        "matcher_fzf_nosort"
-      ]
-    }
-  },
-  "ui": "ff",
-  "uiParams": {
-    "ff": {
-      "highlights": {}
-    }
-  }
-}
-
-UNKO
-
-let s:config_json = s:config_json->join('')->json_decode()
-
-let s:config_json['uiParams']['ff']['floatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "String"]')
-let s:config_json['uiParams']['ff']['highlights']['floating'] = 'NormalFloat:DduFloat'
-let s:config_json['uiParams']['ff']['split'] = has('nvim') ? 'floating' : 'horizontal'
-let s:config_json['uiParams']['ff']['previewFloating'] = has('nvim')
-
-call ddu#custom#patch_global(s:config_json)
-
-unlet s:config_json
-
-autocmd ColorScheme * hi DduFloat guibg=#e0e0ff guifg=#6060ff
+source ~/.vim/conf/plug/ddu.vim
 '''
 
 [[plugins]]
@@ -144,6 +86,9 @@ command! DduDeinUpdate call ddu#start({'sources': [{'name': 'dein_update'}]})
 
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
+hook_add = '''
+nnoremap <Space>h <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
+'''
 
 [[plugins]]
 repo = 'shun/ddu-rg'

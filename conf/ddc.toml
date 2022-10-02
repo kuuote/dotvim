@@ -22,6 +22,13 @@ let g:vimrc#ddc_sources = ['file', 'around', 'buffer']
 let s:config_json =<< UNKO
 
 {
+  "autoCompleteEvents": [
+    "InsertEnter",
+    "TextChangedI",
+    "TextChangedP",
+    "CmdlineEnter",
+    "CmdlineChanged"
+  ],
   "backspaceCompletion": true,
   "completionMenu": "pum.vim",
   "sourceOptions": {
@@ -56,18 +63,30 @@ let s:config_json =<< UNKO
       "forceCompletionPattern": "\\.\\w*|:\\w*|->\\w*",
       "mark": "lsp",
       "minAutoCompleteLength": 1
+    },
+    "skkeleton": {
+      "converters": [],
+      "mark": "skk",
+      "matchers": [
+        "skkeleton"
+      ],
+      "maxCandidates": 50,
+      "minAutoCompleteLength": 2,
+      "isVolatile": true,
+      "sorters": []
     }
   }
 }
 
 UNKO
-let s:config = s:config_json->join('')->json_decode()
-let s:config['sources'] = g:vimrc#ddc_sources
-call ddc#custom#patch_global(s:config)
-unlet s:config
+let g:vimrc#ddc_config = s:config_json->join('')->json_decode()
 unlet s:config_json
+let g:vimrc#ddc_config['sources'] = g:vimrc#ddc_sources
+call ddc#custom#patch_global(g:vimrc#ddc_config)
 autocmd VimEnter * doautocmd <nomodeline> User vimrc-ddc
 autocmd VimEnter * call ddc#enable()
+
+autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
 '''
 
 [[plugins]]
@@ -88,6 +107,9 @@ inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+
+cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 '''
 
 [[plugins]]

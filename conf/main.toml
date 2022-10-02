@@ -57,6 +57,8 @@ function! s:lexima_init() abort
   \ {'char': '<Space>', 'at': '\[\%#]', 'input_after': '<Space>'},
   \ {'char': ']', 'at': '\%# ]', 'leave': 2},
   \ {'char': '<BS>', 'at': '\[ \%# ]', 'delete': 1},
+  \ {'char': '@', 'at': '=>\%#', 'input': '<BS><BS>@'},
+  \ {'char': '@', 'input': '=>'},
   \ ]
 
   for rule in rules
@@ -257,6 +259,9 @@ repo = 'tyru/capture.vim'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
+hook_add = '''
+" let g:denops_server_addr = '127.0.0.1:32123'
+'''
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
@@ -264,15 +269,6 @@ hook_add = '''
 
 call hypermap#map(';j', 'eval(maparg("<Plug>(skkeleton-enable)", mode()))', {'eval': v:true})
 call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
-
-let g:vimrc#ddc_source_options.skkeleton = {
-  \   'mark': 'skk',
-  \   'converters': [],
-  \   'matchers': ['skkeleton'],
-  \   'sorters': [],
-  \   'minAutoCompleteLength': 2,
-  \   'maxCandidates': 50,
-  \ }
 
 function! s:skkeleton_init() abort
   call skkeleton#config({
@@ -299,6 +295,7 @@ function! s:skkeleton_pre() abort
   let b:skkeleton_ddc_sources_backup = get(ddc#custom#get_current(), 'sources', [])
   let sources = get(b:, 'skkeleton_ddc_sources', ['skkeleton'])
   call ddc#custom#patch_buffer('sources', sources)
+  call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
   " call pum#set_option('setline_insert', v:true)
 endfunction
 autocmd User skkeleton-disable-pre call s:skkeleton_post()
@@ -336,7 +333,7 @@ hook_add = '''
 " from https://github.com/yuki-yano/dotfiles/blob/7f10462d12228f57ea3cf86d61f3b22d4728b6f1/.vimrc#L3030
 let g:fuzzy_motion_word_regexp_list = ['[0-9a-zA-Z_-]+',  '([0-9a-zA-Z_-]|[.])+', '([0-9a-zA-Z]|[()<>.-_#''"]|(\s=+\s)|(,\s)|(:\s)|(\s=>\s))+']
 
-nnoremap sf <Cmd>FuzzyMotion<CR>
+nnoremap ,f <Cmd>FuzzyMotion<CR>
 '''
 
 [[plugins]]
@@ -346,7 +343,7 @@ let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort
 
 nnoremap <fzf-p> <Nop>
 nmap 'z <fzf-p>
-nnoremap <silent> <C-p> <Cmd>FzfPreviewDirectoryFilesRpc<CR>
+" nnoremap <silent> <C-p> <Cmd>FzfPreviewDirectoryFilesRpc<CR>
 nnoremap <silent> <fzf-p>L :<C-u>FzfPreviewProjectGrepRpc --experimental-fast -add-fzf-arg=--exact --add-fzf-arg=--no-sort . <C-r>=expand('%:p')<CR><CR>
 nnoremap <silent> <fzf-p>f <Cmd>FzfPreviewCommandPaletteRpc<CR>
 nnoremap <silent> <fzf-p>l <Cmd>FzfPreviewLinesRpc<CR>

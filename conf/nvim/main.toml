@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'MunifTanjim/nui.nvim'
+
+[[plugins]]
 repo = 'milisims/nvim-luaref'
 
 [[plugins]]
@@ -101,3 +104,6 @@ augroup END
 call add(g:vimrc#ddc_sources, [1, 'eskk'])
 let g:vimrc#ddc_source_options.eskk = {'mark': 'eskk', 'matchers': [], 'sorters': []}
 '''
+
+[[plugins]]
+repo = 'yuki-yano/tsnip.nvim'

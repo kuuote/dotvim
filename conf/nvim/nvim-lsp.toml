@@ -15,6 +15,21 @@ autocmd User vimrc-ddc call s:setup_ddc_nvim_lsp()
 '''
 
 [[plugins]]
+repo = 'gamoutatsumi/ddu-source-nvim-lsp'
+
+[[plugins]]
+repo = 'j-hui/fidget.nvim'
+hook_source = '''
+lua << unko
+require('fidget').setup({
+  text = {
+    spinner = 'moon',
+  },
+})
+unko
+'''
+
+[[plugins]]
 repo = 'matsui54/denops-signature_help'
 hook_source = '''
 let g:signature_help_config = {
@@ -28,18 +43,20 @@ repo = 'neovim/nvim-lspconfig'
 hook_source = '''
 lua << unko
 
-local function on_attach(client, bufnr)
-  local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ma', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'mf', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'mS', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
-end
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local opts = { noremap=true, silent=true }
+    local bufnr = vim.fn.bufnr()
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ma', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'mf', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'mS', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
+  end,
+})
 
 local lsp = require('lspconfig')
 lsp.denols.setup({
-  on_attach = on_attach,
   init_options = {
     lint = true,
     unstable = true,
