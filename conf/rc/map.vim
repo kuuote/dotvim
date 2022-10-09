@@ -1,24 +1,3 @@
-" VimはUSキーボードに優しくないよね
-nnoremap ; :
-xnoremap ; :
-nnoremap q; q:
-
-" Prefixの開放
-nnoremap ' <Nop>
-nnoremap s <Nop>
-
-" Window移動
-nnoremap sh <C-w>h
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-
-" 設定開くマン
-nnoremap <Space>. <Cmd>edit ~/.vim/conf<CR>
-
-" Open directory for netrw like plugin
-nnoremap <Space>d <Cmd>edit %:p:h<CR>
-
 " <Space> + j/k でPageDown/Up
 nnoremap <Space>j <PageDown>
 nnoremap <Space>k <PageUp>
@@ -47,10 +26,6 @@ nnoremap ! :!
 
 " from https://gist.github.com/tsukkee/1240267
 onoremap ( t(
-
-" short hand to window-down/up
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
 
 " 括弧とか打つのにShift押したくないでござる
 " genius maping by @KosukeMizuno
