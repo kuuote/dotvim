@@ -57,4 +57,6 @@ if !empty($plug)
   let &runtimepath = printf('%s,%s,%s', getcwd(), &runtimepath, getcwd())
 endif
 
+lua pcall(require, 'impatient')
+
 call dein#call_hook('source')

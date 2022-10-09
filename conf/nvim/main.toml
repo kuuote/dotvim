@@ -2,6 +2,9 @@
 repo = 'MunifTanjim/nui.nvim'
 
 [[plugins]]
+repo = 'lewis6991/impatient.nvim'
+
+[[plugins]]
 repo = 'milisims/nvim-luaref'
 
 [[plugins]]
