@@ -258,6 +258,13 @@ repo = 'tweekmonster/helpful.vim'
 repo = 'tyru/capture.vim'
 
 [[plugins]]
+repo = 'uga-rosa/linkformat.vim'
+on_cmd = 'LinkFormatPaste'
+hook_source = '''
+luafile ~/.vim/conf/plug/linkformat.lua
+'''
+
+[[plugins]]
 repo = 'vim-denops/denops.vim'
 hook_add = '''
 " let g:denops_server_addr = '127.0.0.1:32123'
