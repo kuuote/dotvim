@@ -2,17 +2,6 @@
 " from https://github.com/airblade/dotvim/blob/edad9fe8793b7c9266039b4cf85272a9b10cd9cb/vimrc#L202-L203
 autocmd vimrc StdinReadPost * :set buftype=nofile
 
-function! s:chmod(file) abort
-  let perm = getfperm(a:file)
-  let newperm = printf("%sx%sx%sx", perm[0:1], perm[3:4], perm[6:7])
-  if perm != newperm
-    call setfperm(a:file, newperm)
-  endif
-endfunction
-
-" シバン付いてるファイルに実行権限を与える
-autocmd vimrc BufWritePost * if getline(1) =~# "^#!" | call s:chmod(expand("<afile>")) | endif
-
 " Automatically create missing directories
 " copied from https://github.com/lambdalisue/dotfiles/blob/master/nvim/init.vim
 function! s:auto_mkdir(dir, force) abort
