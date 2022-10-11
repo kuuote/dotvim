@@ -1,22 +1,15 @@
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 merged = 0
-hook_source = '''
-lua <<unko
-require'nvim-treesitter.configs'.setup {
+lua_source = '''
+require('nvim-treesitter.configs').setup({
   highlight = {
     enable = true,
+    disable = {'help'},
   },
-}
-unko
-lua <<unko
-require('nvim-treesitter.utils').get_parser_install_dir = function(folder_name)
-  local path = table.concat({'/data/vim/treesitter', folder_name or 'parser'}, '/')
-  pcall(vim.fn.mkdir, path, 'p')
-  return path
-end
+  parser_install_dir = '/data/vim/treesitter'
+})
 vim.o.runtimepath = vim.o.runtimepath .. ',/data/vim/treesitter'
-unko
 '''
 
 [[plugins]]
