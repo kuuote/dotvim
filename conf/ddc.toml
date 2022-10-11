@@ -31,6 +31,11 @@ let s:config_json =<< UNKO
   ],
   "backspaceCompletion": true,
   "completionMenu": "pum.vim",
+  "filterParams": {
+    "matcher_substring": {
+      "highlightMatched": "Number"
+    }
+  },
   "sourceOptions": {
     "_": {
       "converters": [
