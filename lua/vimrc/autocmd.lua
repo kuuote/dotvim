@@ -3,6 +3,9 @@ local callback = require('vimrc.callback')
 
 local M = {}
 
+-- autocmd用コンパチブルレイヤー
+-- コールバックの引数は実装してないのでexpandで何とかしてくれ
+
 if vim.fn.has('nvim') == 1 then
   M.group = vim.api.nvim_create_augroup
   M.define = vim.api.nvim_create_autocmd
@@ -16,8 +19,7 @@ else
   end
   function M.define(event, opts)
     if type(event) == 'table' then
-      event = vim.fn.join(event, ',')
-      event = { event }
+      event = vim.fn.join(vim.list(event), ',')
     end
     opts = opts or {}
     local group = opts.group or ''
