@@ -2,35 +2,6 @@
 " from https://github.com/airblade/dotvim/blob/edad9fe8793b7c9266039b4cf85272a9b10cd9cb/vimrc#L202-L203
 autocmd vimrc StdinReadPost * :set buftype=nofile
 
-" Automatically create missing directories
-" copied from https://github.com/lambdalisue/dotfiles/blob/master/nvim/init.vim
-function! s:auto_mkdir(dir, force) abort
-  if empty(a:dir) || a:dir =~# '^\w\+://' || isdirectory(a:dir) || a:dir =~# '^suda:'
-      return
-  endif
-  if !a:force
-    echohl Question
-    call inputsave()
-    try
-      let result = input(
-            \ printf('"%s" does not exist. Create? [y/N]', a:dir),
-            \ '',
-            \)
-      if empty(result)
-        echohl WarningMsg
-        echo 'Canceled'
-        return
-      endif
-    finally
-      call inputrestore()
-      echohl None
-    endtry
-  endif
-  call mkdir(a:dir, 'p')
-endfunction
-autocmd vimrc BufWritePre *
-      \ call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-
 " 初回検索時のみwrapscanする
 augroup vimrc
   autocmd CmdlineEnter,CmdwinEnter / set wrapscan
