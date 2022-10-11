@@ -36,3 +36,12 @@ endfunction
 autocmd FileType toml ++nested call timer_start(0, {id->s:dein_toml_syntax()})
 '''
 
+[[plugins]]
+comment = '''
+ddudeinupdateを使うようになったので
+'''
+repo = 'wsdjeg/dein-ui.vim'
+hook_add = '''
+autocmd FileType SpaceVimPlugManager autocmd TextChanged <buffer> normal! G
+'''
+

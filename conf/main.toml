@@ -314,12 +314,6 @@ endfunction
 '''
 
 [[plugins]]
-repo = 'wsdjeg/dein-ui.vim'
-hook_add = '''
-autocmd FileType SpaceVimPlugManager autocmd TextChanged <buffer> normal! G
-'''
-
-[[plugins]]
 repo = 'yuki-yano/fern-preview.vim'
 hook_add = '''
 function! s:fern_preview_map() abort
