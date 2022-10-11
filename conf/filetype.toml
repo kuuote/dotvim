@@ -1,13 +1,2 @@
 [[plugins]]
-repo = 'cespare/vim-toml'
-hook_add = '''
-function! s:dein_toml_syntax() abort
-  if expand('%:p') =~# '\vconf/[^/]+.toml$'
-    call dein#toml#syntax()
-  endif
-endfunction
-autocmd FileType toml ++nested call timer_start(0, {id->s:dein_toml_syntax()})
-'''
-
-[[plugins]]
 repo = 'kat0h/bufpreview.vim'
