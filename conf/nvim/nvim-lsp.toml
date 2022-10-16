@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ma', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'mf', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'mf', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'mS', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
   end,
 })
