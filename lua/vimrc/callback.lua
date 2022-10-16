@@ -11,7 +11,7 @@ function M.register(fn)
 end
 
 function M.call(id)
-  callback[id]()
+  return callback[id]()
 end
 
 return M

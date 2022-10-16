@@ -2,9 +2,6 @@ local callback = require('vimrc.callback')
 
 local M = {}
 
-M.fns = {}
-local fnidx = 1
-
 if vim.fn.has('nvim') == 1 then
   M.define = vim.keymap.set
 else
@@ -13,14 +10,17 @@ else
       mode = { mode }
     end
 
+    opts = opts or {}
+
     if type(rhs) == 'function' then
-      local id = callback.register(id)
-      M.fns[fnidx] = rhs
-      rhs = string.format("<Cmd>lua require('vimrc.callback').call(%d)<CR>", fnidx)
-      fnidx = fnidx + 1
+      local id = callback.register(rhs)
+      if opts.expr then
+        rhs = string.format([[luaeval("require('vimrc.callback').call(%d)")]], id)
+      else
+        rhs = string.format([[<Cmd>lua require('vimrc.callback').call(%d)<CR>]], id)
+      end
     end
 
-    opts = opts or {}
     local mods = ''
 
     for _, m in ipairs({ 'buffer', 'nowait', 'silent', 'script', 'expr' }) do
