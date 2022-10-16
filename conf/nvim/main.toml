@@ -56,33 +56,31 @@ nmap [j <Plug>(jumpcursor-jump)
 
 [[plugins]]
 repo = 'tamago324/lir.nvim'
-hook_source = '''
-lua << EOF
-  local actions = require'lir.actions'
+lua_source = '''
+local actions = require('lir.actions')
 
-  require'lir'.setup {
-    show_hidden_files = true,
-    mappings = {
-      ['f']     = function()
-                    vim.call('vimrc#fzf#ff#run')
-                  end,
-      ['l']     = actions.edit,
-      ['<C-s>'] = actions.split,
-      ['<C-v>'] = actions.vsplit,
-      ['<C-t>'] = actions.tabedit,
+require('lir').setup({
+  show_hidden_files = true,
+  mappings = {
+    ['f'] = function()
+      vim.call('vimrc#fzf#ff#run')
+    end,
+    ['l'] = actions.edit,
+    ['<C-s>'] = actions.split,
+    ['<C-v>'] = actions.vsplit,
+    ['<C-t>'] = actions.tabedit,
 
-      ['h']     = actions.up,
-      ['q']     = actions.quit,
+    ['h'] = actions.up,
+    ['q'] = actions.quit,
 
-      ['K']     = actions.mkdir,
-      ['N']     = actions.newfile,
-      ['R']     = actions.rename,
-      ['@']     = actions.cd,
-      ['Y']     = actions.yank_path,
-      ['.']     = actions.toggle_show_hidden,
-    }
-  }
-EOF
+    ['K'] = actions.mkdir,
+    ['N'] = actions.newfile,
+    ['R'] = actions.rename,
+    ['@'] = actions.cd,
+    ['Y'] = actions.yank_path,
+    ['.'] = actions.toggle_show_hidden,
+  },
+})
 '''
 
 [[plugins]]
