@@ -55,8 +55,14 @@ function! s:moved() abort
   endif
   diffoff!
   let file = fnamemodify(line[3:], ':p')
-  call win_execute(t:gin_preview.worktree, 'GinEdit ' .. file .. ' | diffthis')
-  call win_execute(t:gin_preview.index, 'GinEdit --cached ' .. file .. ' | diffthis')
+  call win_execute(t:gin_preview.worktree, 'edit ' .. file .. ' | diffthis')
+  if line =~# '^??'
+    call win_execute(t:gin_preview.index, 'enew | diffthis')
+  else
+    call win_execute(t:gin_preview.index, 'GinEdit ' .. file .. ' | diffthis')
+  endif
+  call win_execute(t:gin_preview.worktree, 'set wrap')
+  call win_execute(t:gin_preview.index, 'set wrap')
 endfunction
 
 command! -bang GinPreview call s:open(<bang>0)
