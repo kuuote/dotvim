@@ -30,12 +30,22 @@ repo = 'nvim-lua/popup.nvim'
 
 [[plugins]]
 repo = 'nvim-telescope/telescope-ui-select.nvim'
-hook_source = '''
-lua require('telescope').load_extension('ui-select')
+on_lua = 'telescope'
+lua_add = '''
+vim.ui.select = function(items, opts, on_choice)
+	require("telescope").load_extension("ui-select")
+  vim.ui.select(items, opts, on_choice)
+end
 '''
 
 [[plugins]]
 repo = 'nvim-telescope/telescope.nvim'
+# depends = ['telescope-ui-select.nvim']
+on_cmd = 'Telescope'
+on_lua = 'telescope'
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
 
 [[plugins]]
 repo = 'skanehira/jumpcursor.vim'
