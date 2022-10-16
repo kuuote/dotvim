@@ -28,9 +28,13 @@ else
         mods = mods .. '<' .. m .. '>'
       end
     end
+    local remap = 'nore'
+    if opts.remap then
+      remap = ''
+    end
 
     for _, m in ipairs(mode) do
-      local cmd = string.format('%snoremap %s %s %s', m, mods, lhs, rhs)
+      local cmd = string.format('%s%smap %s %s %s', m, remap, mods, lhs, rhs)
       vim.command(cmd)
     end
   end
