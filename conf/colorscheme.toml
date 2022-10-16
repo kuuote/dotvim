@@ -6,6 +6,9 @@ hi clearをしていない&pumblendを汚染する&Neovimでしか動かない�
 repo = 'kuuote/github-light.vim'
 
 [[plugins]]
+repo = 'EdenEast/nightfox.nvim'
+
+[[plugins]]
 repo = 'Rigellute/rigel'
 
 [[plugins]]
