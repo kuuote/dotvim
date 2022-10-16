@@ -1,4 +1,5 @@
 local m = require('vimrc.map').define
+local nvim = vim.fn.has('nvim') == 1
 
 -- 安全にかつ高速に終わるための設定
 m({ 'n', 'x', 'o' }, 'Q', '<Cmd>confirm qa<CR>')
@@ -27,3 +28,25 @@ m('n', '<Space>.', '<Cmd>edit ~/.vim/conf<CR>')
 
 -- Open directory at netrw like plugin
 m('n', '<Space>d', '<Cmd>edit %:p:h<CR>')
+
+-- すすむくんもどるくん
+m('n', '<Space>h', '^')
+m('n', '<Space>l', '$')
+
+if nvim then
+  local transparent = function(hlgroup)
+    vim.api.nvim_set_hl(0, hlgroup, { bg = 'NONE' })
+  end
+else
+  local transparent = function(hlgroup)
+    vim.command('highlight ' .. hlgroup .. ' guibg=NONE')
+  end
+end
+
+-- 背景を一瞬で透過する
+m('n', '<Space>tp', function()
+  transparent('EndOfBuffer')
+  transparent('NonText')
+  transparent('Normal')
+  transparent('NormalNC')
+end)

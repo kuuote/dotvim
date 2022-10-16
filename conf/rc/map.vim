@@ -5,9 +5,6 @@ nnoremap <Space>k <PageUp>
 " こまめなセーブは忘れずに
 nnoremap <Space>s <Cmd>update<CR>
 
-" 背景を一瞬で透過する
-nnoremap <Space>tp <Cmd>hi Normal guibg=NONE <Bar> hi EndOfBuffer guibg=NONE<CR>
-
 " Short hand to window prefix
 nnoremap <Space>w <C-w>
 
