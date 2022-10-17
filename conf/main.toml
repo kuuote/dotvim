@@ -128,15 +128,17 @@ repo = 'lambdalisue/gin.vim'
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
-hook_source = '''
-call gina#custom#mapping#nmap(
-      \ 'status', ',c',
-      \ ':<C-u>Gina commit -v --opener=tabedit<CR>',
-      \ {'noremap': 1, 'nowait': 1, 'silent': 1},
-      \)
-if dein#tap('ddc.vim')
-  call ddc#custom#patch_filetype('gina-commit', 'specialBufferCompletion', v:true)
-endif
+on_cmd = 'Gina'
+lua_source = '''
+local vimeval = require('vimrc.convert').call
+vimeval('gina#custom#mapping#nmap', 'status', ',c', '<Cmd>Gina commit -v --opener=tabedit<CR>', {
+  noremap = true,
+  nowait = true,
+  silent = true,
+})
+if vimeval('dein#tap', 'ddc.vim') ~= 1 then
+  vimeval('ddc#custom#patch_filetype', 'gina-commit', 'specialBufferCompletion', true)
+end
 '''
 
 [[plugins]]
