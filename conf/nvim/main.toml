@@ -85,20 +85,30 @@ require('lir').setup({
 
 [[plugins]]
 repo = 'vim-skk/eskk.vim'
+lua_add = '''
+-- use dotfiles dictionary
+vim.g['eskk#dictionary'] = { path = vim.env.HOME .. '/.vim/tmp/.skk-jisyo' }
+vim.g['eskk#large_dictionary'] = {
+  path = vim.env.HOME .. '/.vim/tmp/.skk-jisyo',
+  sorted = true,
+  encoding = 'euc-jp',
+}
+
+-- improve eskk enabler
+-- see https://thinca.hatenablog.com/entry/20120716/1342374586
+-- inoremap <expr> <script> f getline('.')[col('.') - 2] ==# 'j' ? "\<BS>" .. eskk#enable() : 'f'
+vim.call('hypermap#map', 'zj', 'eskk#enable()', { eval = true })
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'eskk-enable-post',
+  callback = function()
+    vim.keymap.set('l', 'l', '<Plug>(eskk:disable)', {
+      buffer = vim.fn.bufnr(),
+    })
+  end,
+})
+'''
 hook_add = '''
-"use dotfiles dictionary
-let g:eskk#dictionary = {'path':$HOME .. "/.vim/tmp/.skk-jisyo"}
-let g:eskk#large_dictionary = {'path': '~/.skk/SKK-JISYO.L', 'sorted': 1, 'encoding': 'euc-jp'}
-
-" improve eskk enabler
-" see https://thinca.hatenablog.com/entry/20120716/1342374586
-" inoremap <expr> <script> f getline('.')[col('.') - 2] ==# 'j' ? "\<BS>" .. eskk#enable() : 'f'
-call hypermap#map('zj', 'eskk#enable()', {'eval': v:true})
-
-function! s:eskk_enable_post() abort
-  lmap <buffer> l <Plug>(eskk:disable)
-endfunction
-
 "register alphabet table
 function! s:eskk_initialize_pre()
   let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')

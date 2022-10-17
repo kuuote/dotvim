@@ -2,13 +2,6 @@
 " from https://github.com/airblade/dotvim/blob/edad9fe8793b7c9266039b4cf85272a9b10cd9cb/vimrc#L202-L203
 autocmd vimrc StdinReadPost * :set buftype=nofile
 
-" 初回検索時のみwrapscanする
-augroup vimrc
-  autocmd CmdlineEnter,CmdwinEnter / set wrapscan
-  " timer使っているのはCmdlineを抜けた直後に走る検索でwrapscanを有効にするため
-  autocmd CmdlineLeave,CmdwinLeave / call timer_start(0, {->execute("set nowrapscan")}) 
-augroup END
-
 " 検索時だけhlsearchしてほしい
 augroup vimrc
   autocmd CmdlineEnter /,\? setglobal hlsearch

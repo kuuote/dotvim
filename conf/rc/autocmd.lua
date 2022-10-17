@@ -27,3 +27,20 @@ au('BufWritePre', {
     end
   end,
 })
+
+-- 初回検索時のみwrapscanする
+au({ 'CmdlineEnter', 'CmdwinEnter' }, {
+  group = 'vimrc',
+  pattern = '/,\\?',
+  command = 'set wrapscan',
+})
+
+au({ 'CmdlineLeave', 'CmdwinLeave' }, {
+  group = 'vimrc',
+  pattern = '/,\\?',
+  callback = function()
+    fn.timer_start(0, function()
+      cmd('set nowrapscan')
+    end)
+  end,
+})
