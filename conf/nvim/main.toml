@@ -117,13 +117,8 @@ function! s:eskk_initialize_pre()
 endfunction
 
 augroup vimrc
-  autocmd User eskk-enable-post call s:eskk_enable_post()
   autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
 augroup END
-
-" ddc integration
-call add(g:vimrc#ddc_sources, [1, 'eskk'])
-let g:vimrc#ddc_source_options.eskk = {'mark': 'eskk', 'matchers': [], 'sorters': []}
 '''
 
 [[plugins]]
