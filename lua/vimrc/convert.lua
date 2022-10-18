@@ -1,4 +1,4 @@
--- if_lua value to Vim script value converter
+-- Lua value to Vim script value converter for if_lua
 
 local M = {}
 
@@ -52,7 +52,10 @@ else
     __index = function(_, k)
       return function(...)
         local newtable = { ... }
-        vim.fn[k](unpack(map(newtable, M.convert)))
+        if #newtable == 0 then
+          return vim.fn[k]()
+        end
+        return vim.fn[k](unpack(map(newtable, M.convert)))
       end
     end,
     __newindex = function() end,
