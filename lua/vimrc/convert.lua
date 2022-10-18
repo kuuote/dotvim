@@ -15,14 +15,6 @@ local function islist(tbl)
   return others == 0 and nums == #tbl
 end
 
-local function map(tbl, fn)
-  local new = {}
-  for _, v in ipairs(tbl) do
-    table.insert(new, fn(v))
-  end
-  return new
-end
-
 if vim.fn.has('nvim') == 1 then
   -- Neovimだと組み込みでよしなにしてくれるので何もしない
   function M.convert(obj)
@@ -32,6 +24,8 @@ if vim.fn.has('nvim') == 1 then
   M.fn = vim.fn
   M.call = vim.call
 else
+  local map = require('kutil.function').map
+
   function M.convert(obj)
     if type(obj) == 'table' then
       local newobj = {}
