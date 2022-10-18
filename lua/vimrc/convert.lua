@@ -48,14 +48,13 @@ else
     return obj
   end
 
+  local u = unpack or table.unpack
+
   M.fn = setmetatable({}, {
     __index = function(_, k)
       return function(...)
         local newtable = { ... }
-        if #newtable == 0 then
-          return vim.fn[k]()
-        end
-        return vim.fn[k](unpack(map(newtable, M.convert)))
+        return vim.fn[k](u(map(newtable, M.convert)))
       end
     end,
     __newindex = function() end,
