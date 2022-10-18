@@ -19,7 +19,11 @@ repo = 'Shougo/ddc-sorter_rank'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 hook_source = '''
-let g:vimrc#ddc_sources = ['file', 'around', 'buffer']
+if has('nvim')
+  let g:vimrc#ddc_sources = ['file', 'tsnip', 'around', 'buffer']
+else
+  let g:vimrc#ddc_sources = ['file', 'around', 'buffer']
+endif
 " insert space for paragraph selector
 " vip => :!jq -S .
 let s:config_json =<< UNKO

@@ -122,4 +122,5 @@ augroup END
 '''
 
 [[plugins]]
-repo = 'yuki-yano/tsnip.nvim'
+repo = 'kuuote/tsnip.nvim'
+rev = 'monster'
