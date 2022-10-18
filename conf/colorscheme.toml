@@ -58,9 +58,6 @@ repo = 'ulwlu/elly.vim'
 
 [[plugins]]
 repo = 'yasukotelin/shirotelin'
-hook_source = '''
-call vimrc#build#add(g:dein#plugin)
-'''
 
 [[plugins]]
 repo = 'yuttie/hydrangea-vim'

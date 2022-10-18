@@ -1,4 +1,10 @@
 [[plugins]]
+repo = 'skk-dev/dict'
+
+[[plugins]]
+repo = 'skk-dev/skktools'
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
 merged = 0
 
@@ -356,7 +362,4 @@ nnoremap <silent> <fzf-p>w <Cmd>FzfPreviewProjectMrwFilesRpc --add-fzf-arg=--no-
 
 " non prefix shortcut
 nnoremap gs :FzfPreviewGitStatusRpc<CR>
-'''
-hook_source = '''
-call vimrc#build#add(g:dein#plugin)
 '''

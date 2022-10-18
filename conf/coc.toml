@@ -1,5 +1,2 @@
 [[plugins]]
 repo = 'neoclide/coc.nvim'
-hook_source = '''
-call vimrc#build#add(g:dein#plugin)
-'''

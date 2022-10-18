@@ -1,0 +1,14 @@
+{
+  "dict": {
+    "script": "~/.vim/build/dict.sh"
+  },
+  "fzf-preview.vim": {
+    "script": "~/.vim/build/fzf-preview.sh"
+  },
+  "shirotelin": {
+    "script": "~/.vim/build/shirotelin.sh"
+  },
+  "skktools": {
+    "script": "~/.vim/build/skktools.sh"
+  }
+}
