@@ -274,7 +274,7 @@ au('User', {
 hook_add = '''
 
 call hypermap#map(';j', 'eval(maparg("<Plug>(skkeleton-enable)", mode()))', {'eval': v:true})
-call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
+" call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
 
 
 autocmd User skkeleton-enable-pre call s:skkeleton_pre()
