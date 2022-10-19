@@ -89,6 +89,9 @@ nnoremap <Space>f <Cmd>Fern . -reveal=%:p<CR>
 
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
+hook_add = '''
+autocmd FileType gin-status nnoremap <buffer> ,c <Cmd>Gin commit<CR>
+'''
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
@@ -100,7 +103,7 @@ vimeval('gina#custom#mapping#nmap', 'status', ',c', '<Cmd>Gina commit -v --opene
   nowait = true,
   silent = true,
 })
-if vimeval('dein#tap', 'ddc.vim') ~= 1 then
+if vimeval('dein#tap', 'ddc.vim') == 1 then
   vimeval('ddc#custom#patch_filetype', 'gina-commit', 'specialBufferCompletion', true)
 end
 '''
