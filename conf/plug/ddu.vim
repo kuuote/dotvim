@@ -97,7 +97,7 @@ function! s:reset() abort
 endfunction
 
 call s:reset()
-" autocmd VimResized * call s:reset()
+autocmd VimResized * call s:reset()
 
 autocmd ColorScheme * hi DduFloat guibg=#e0e0ff guifg=#6060ff
 autocmd ColorScheme * hi DduBorder guibg=#f0f0ff guifg=#6060ff
