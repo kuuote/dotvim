@@ -1,8 +1,5 @@
 [[plugins]]
-repo = 'skk-dev/dict'
-
-[[plugins]]
-repo = 'skk-dev/skktools'
+repo = '4513ECHO/vim-readme-viewer'
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
@@ -243,6 +240,12 @@ xmap g<C-x> g<Plug>(dps-dial-decrement)
 
 [[plugins]]
 repo = 'skanehira/denops-gh.vim'
+
+[[plugins]]
+repo = 'skk-dev/dict'
+
+[[plugins]]
+repo = 'skk-dev/skktools'
 
 [[plugins]]
 repo = 'thinca/vim-localrc'
