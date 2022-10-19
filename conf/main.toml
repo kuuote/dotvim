@@ -244,29 +244,38 @@ repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
+lua_add = '''
+local au = require('vimrc.autocmd').define
+local vimeval = require('vimrc.convert').call
+
+local dictPath = vimeval('dein#get', 'dict').path
+
+vim.g['skkeleton#debug'] = false
+
+au('User', {
+  pattern = 'skkeleton-initialize-pre',
+  callback = function()
+    vimeval('skkeleton#config', {
+      eggLikeNewline = true,
+      globalDictionaries = { dictPath .. '/SKK-JISYO.L' },
+      registerConvertResult = true,
+      showCandidatesCount = 1,
+      -- from shougo-s-github
+      markerHenkan = '<>',
+      markerHenkanSelect = '>>',
+    })
+    -- USキーボードの n' で「ん」を打てるやつをJISキーボードでもやる
+    vimeval('skkeleton#register_kanatable', 'rom', {
+      ['n:'] = { 'ん', '' },
+    })
+  end,
+})
+'''
 hook_add = '''
 
 call hypermap#map(';j', 'eval(maparg("<Plug>(skkeleton-enable)", mode()))', {'eval': v:true})
 call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
 
-function! s:skkeleton_init() abort
-  call skkeleton#config({
-  \   'eggLikeNewline': v:true,
-  \   'registerConvertResult': v:true,
-  \   'showCandidatesCount': 1,
-  \ })
-  " from shougo-s-github
-  call skkeleton#config({
-  \   'markerHenkan': '<>',
-  \   'markerHenkanSelect': '>>',
-  \ })
-  " USキーボードの n' で「ん」を打てるやつをJISキーボードでもやる
-  call skkeleton#register_kanatable('rom', {
-  \ 'n:': ['ん',  ''],
-  \ })
-endfunction
-
-autocmd User skkeleton-initialize-pre call s:skkeleton_init()
 
 autocmd User skkeleton-enable-pre call s:skkeleton_pre()
 function! s:skkeleton_pre() abort
