@@ -1,6 +1,6 @@
 " ビルドログを眺めてニヤニヤするためのツール
 
-let s:targets = readfile(expand('<sfile>:h') .. '/build.json')->join('')->json_decode()
+let s:targets = readfile(expand('~/.vim/build/build.json'))->join('')->json_decode()
 
 function! vimrc#build#output() abort
   let plugins = sort(items(s:targets), {a, b -> a[0] < b[0]})
