@@ -1,8 +1,10 @@
 local au = require('vimrc.autocmd').define
 local fn = vim.fn
+local cmd = vim.cmd or vim.command
 
 -- シバン付いてるファイルに実行権限を与える
 au('BufWritePost', {
+  group = 'vimrc',
   callback = function()
     if fn.getline(1):sub(1, 2) == '#!' then
       local file = fn.expand('<afile>')
@@ -18,6 +20,7 @@ au('BufWritePost', {
 
 -- auto mkdir
 au('BufWritePre', {
+  group = 'vimrc',
   callback = function()
     local dir = fn.expand('<afile>:p:h')
     if fn.isdirectory(dir) == 0 then
