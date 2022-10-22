@@ -13,14 +13,31 @@ repo = 'milisims/nvim-luaref'
 
 [[plugins]]
 repo = 'monaqa/dial.nvim'
+on_map = {"n" = "<Plug>(dial"}
 hook_add = '''
 " from help
-nmap <C-a> <Plug>(dial-increment)
-nmap <C-x> <Plug>(dial-decrement)
-vmap <C-a> <Plug>(dial-increment)
-vmap <C-x> <Plug>(dial-decrement)
-vmap g<C-a> <Plug>(dial-increment-additional)
-vmap g<C-x> <Plug>(dial-decrement-additional)
+nnoremap <C-a> <Plug>(dial-increment)
+nnoremap <C-x> <Plug>(dial-decrement)
+xnoremap <C-a> <Plug>(dial-increment)
+xnoremap <C-x> <Plug>(dial-decrement)
+xnoremap g<C-a> <Plug>(dial-increment-additional)
+xnoremap g<C-x> <Plug>(dial-decrement-additional)
+'''
+lua_source = '''
+local augend = require('dial.augend')
+require('dial.config').augends:register_group {
+  -- グループ名を指定しない場合に用いられる被加数
+  default = {
+    augend.integer.alias.decimal, -- nonnegative decimal number
+    augend.integer.alias.hex, -- nonnegative hex number
+    augend.constant.alias.bool,
+    -- date (2022/02/19, etc.)
+    augend.date.new {
+      pattern = '%Y/%m/%d',
+      default_kind = 'day',
+    },
+  },
+}
 '''
 
 [[plugins]]
