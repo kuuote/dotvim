@@ -5,18 +5,18 @@ function s:open(curwin) abort
     execute 'autocmd User DenopsPluginPost:gin ++nested call s:open(' .. a:curwin .. ')'
     return
   endif
+
+  " git root by gin
+  let root = gin#util#worktree()
+
   " open window
   if a:curwin
     only
   else
     tab split
   endif
+
   " cd to git root
-  execute 'tcd' expand('%:p:h')
-  let root = system('git rev-parse --show-toplevel')
-  if v:shell_error
-    throw 'Not a git repository.'
-  endif
   execute 'tcd' root
   " open status window
   GinStatus
