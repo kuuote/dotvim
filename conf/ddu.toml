@@ -58,6 +58,9 @@ function! s:ddu_filter_my_settings() abort
   \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR><Cmd>redraw!<CR>
   inoremap <buffer> <C-k>
   \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR><Cmd>redraw!<CR>
+
+  " for fzf and jis keyboard
+  inoremap <buffer> : '
 endfunction
 '''
 
