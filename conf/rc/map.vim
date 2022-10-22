@@ -62,7 +62,4 @@ nnoremap U <C-r>
 "" code input advanced in insert mode
 inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 
-" 挿入モードで再描画できるようにしてみる
-inoremap <C-l> <Cmd>mode<CR>
-
 tnoremap fj <C-\><C-N>
