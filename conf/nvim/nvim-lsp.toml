@@ -5,8 +5,8 @@ lua_add = '''
 vim.api.nvim_create_autocmd('User', {
   pattern = 'vimrc-ddc',
   callback = function()
-    local sources = {'nvim-lsp'}
-    vim.list_extend(sources, vim.g['vimrc#ddc_sources'])
+    local e = vim.list_extend
+    local sources = e(e(vim.g['vimrc#ddc_sources_front'], {'nvim-lsp'}), vim.g['vimrc#ddc_sources'])
     vim.call('ddc#custom#patch_filetype', {
       'go',
       'rust',
