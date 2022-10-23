@@ -1,7 +1,10 @@
 [[plugins]]
 repo = '4513echo/ddu-source-source'
-hook_add = '''
-command! DduSourceSource call ddu#start({'sources': [{'name': 'source'}]})
+lua_add = '''
+local c = require('vimrc.command').define
+c('DduSourceSource', function()
+  require('ddu').start { 'source' }
+end)
 '''
 
 [[plugins]]
@@ -15,8 +18,10 @@ repo = 'Shougo/ddu-source-file'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
-hook_add = '''
-nnoremap <C-p> <Cmd>call ddu#start({"name": "file", "sources": [{"name": "file_rec"}]})<CR>
+lua_add = '''
+require('vimrc.map').define('n', '<C-p>', function()
+  require('ddu').start {'file_rec'}
+end)
 '''
 
 [[plugins]]
@@ -24,44 +29,75 @@ repo = 'Shougo/ddu-source-line'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-hook_add = '''
-autocmd FileType ddu-ff call s:ddu_ff_common_mapping()
-function! s:ddu_ff_common_mapping() abort
-  " copy from doc
-  nnoremap <buffer> <nowait> <CR>
-  \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
-  nnoremap <buffer> <nowait> <Space>
-  \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
-  nnoremap <buffer> <nowait> i
-  \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
-  nnoremap <buffer> <nowait> p
-  \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
-  nnoremap <buffer> <nowait> q
-  \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
-  if b:ddu_ui_name ==# 'file'
-    nnoremap <buffer> <nowait> t
-    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'action': 'open', 'params': {'command': 'tabedit'}})<CR>
-    nnoremap <buffer> <nowait> s
-    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'action': 'open', 'params': {'command': 'split'}})<CR>
-    nnoremap <buffer> <nowait> v
-    \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'action': 'open', 'params': {'command': 'vsplit'}})<CR>
-  endif
-endfunction
+lua_add = '''
+local au = require('vimrc.autocmd').define
+local fn = require('vimrc.convert').fn
+local m = require('vimrc.map').define
+local part = require('kutil.function').partition_keyvalue
+local cmd = vim.cmd or vim.command
 
-autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
-function! s:ddu_filter_my_settings() abort
-  inoremap <buffer><silent> <CR>
-  \ <Esc><Cmd>call ddu#ui#ff#close()<CR>
-  nnoremap <buffer><silent> <CR>
-  \ <Esc><Cmd>call ddui#ui#ff#close()<CR>
-  inoremap <buffer> <C-j>
-  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')+1,0)")<CR><Cmd>redraw!<CR>
-  inoremap <buffer> <C-k>
-  \ <Cmd>call ddu#ui#ff#execute("call cursor(line('.')-1,0)")<CR><Cmd>redraw!<CR>
+local do_action = fn['ddu#ui#ff#do_action']
 
-  " for fzf and jis keyboard
-  inoremap <buffer> : '
-endfunction
+local function action(name)
+  return function()
+    do_action(name)
+  end
+end
+
+local function item_action(tbl)
+  local args, params = part(tbl)
+  local farg = {
+    action = args[1],
+    params = params,
+  }
+  return function()
+    do_action('itemAction', farg)
+  end
+end
+
+au('FileType', {
+  pattern = 'ddu-ff',
+  callback = function()
+    local opts = {
+      buffer = true,
+      nowait = true,
+    }
+    m('n', '<CR>', action('itemAction'), opts)
+    m('n', '<Space>', action('toggleSelectItem'), opts)
+    m('n', 'i', action('openFilterWindow'), opts)
+    m('n', 'p', action('preview'), opts)
+    m('n', 'q', action('quit'), opts)
+    if vim.b.ddu_ui_name == 'file' then
+      m('n', 't', item_action { 'open', command = 'tabedit' }, opts)
+      m('n', 's', item_action { 'open', command = 'split' }, opts)
+      m('n', 'v', item_action { 'open', command = 'vsplit' }, opts)
+    end
+  end,
+})
+
+au('FileType', {
+  pattern = 'ddu-ff-filter',
+  callback = function()
+    local opts = {
+    buffer = true,
+    nowait = true,
+    }
+    m({'n', 'i'}, '<CR>', function()
+      cmd('stopinsert')
+      vim.call('ddu#ui#ff#close')
+    end, opts)
+    m('i', '<C-j>', function()
+      vim.call('ddu#ui#ff#execute', [[call cursor(line('.')+1, 0)]])
+      cmd('redraw!')
+    end, opts)
+    m('i', '<C-k>', function()
+      vim.call('ddu#ui#ff#execute', [[call cursor(line('.')-1, 0)]])
+      cmd('redraw!')
+    end, opts)
+    -- for fzf and jis keyboard
+    m('i', ':', [[']], {buffer=true})
+  end,
+})
 '''
 
 [[plugins]]
@@ -75,26 +111,57 @@ repo = 'kuuote/ddu-filter-fuse'
 
 [[plugins]]
 repo = 'kuuote/ddu-source-mr'
-hook_add = '''
-nnoremap mru <Cmd>call ddu#start({'name': 'file', 'sources': [{'name': 'mr'}]})<CR>
-nnoremap mrw <Cmd>call ddu#start({'name': 'file', 'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
-nnoremap mrr <Cmd>call ddu#start({'name': 'file', 'sources': [{'name': 'mr', 'params': {'kind': 'mrr'}}]})<CR>
+lua_add = '''
+local m = require('vimrc.map').define
+
+for _, t in ipairs { 'mru', 'mrw', 'mrr' } do
+  m('n', t, function()
+    require('ddu').start {
+      { name = 'mr', params = { kind = t } },
+      name = 'file',
+    }
+  end)
+end
 '''
 
 [[plugins]]
 repo = 'matsui54/ddu-source-dein_update'
-hook_add = '''
-command! DduDeinUpdate call ddu#start({'sources': [{'name': 'dein_update'}]})
+lua_add = '''
+local c = require('vimrc.command').define
+c('DduDeinUpdate', function()
+  require('ddu').start { 'dein_update', name = 'dein_update' }
+end)
 '''
 
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
-hook_add = '''
-nnoremap <Space>h <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
+lua_add = '''
+require('vimrc.map').define('n', 'H', function()
+  require('ddu').start { 'help' }
+end)
 '''
 
 [[plugins]]
 repo = 'shun/ddu-rg'
+lua_add = '''
+local c = require('vimrc.command').define
+c('DduRgLive', function()
+  require('ddu').start {
+    {
+      name = 'rg',
+      options = {
+        matchers = {},
+      },
+    },
+    uiParams = {
+      ff = {
+        ignoreEmpty = false,
+        autoResize = false,
+      },
+    },
+  }
+end)
+'''
 hook_add = '''
 " from help
 command! DduRgLive call <SID>ddu_rg_live()
