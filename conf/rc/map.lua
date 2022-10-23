@@ -21,7 +21,7 @@ m('n', "'", '<Nop>')
 m('n', 's', '<Nop>')
 
 -- Window移動
-for _, k in ipairs({ 'h', 'j', 'k', 'l' }) do
+for _, k in ipairs { 'h', 'j', 'k', 'l' } do
   m('n', 's' .. k, '<C-w>' .. k)
 end
 
