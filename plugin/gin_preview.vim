@@ -57,7 +57,7 @@ function! s:moved() abort
   let file = fnamemodify(line[3:], ':p')
   call win_execute(t:gin_preview.worktree, 'edit ' .. file .. ' | diffthis')
   if line =~# '^??'
-    call win_execute(t:gin_preview.index, 'enew | diffthis')
+    call win_execute(t:gin_preview.index, 'call s:open_not_index(' .. string(file) ..')')
   else
     call win_execute(t:gin_preview.index, 'GinEdit ' .. file .. ' | diffthis')
   endif
@@ -66,3 +66,28 @@ function! s:moved() abort
 endfunction
 
 command! -bang GinPreview call s:open(<bang>0)
+
+function! s:open_not_index(file) abort
+  let path = 'ginpreview://' .. a:file
+  let b = bufnr(path)
+  if b != -1
+    execute 'buf' b
+    return
+  endif
+  enew | diffthis
+  let b:gin_preview_file = a:file
+  setlocal buftype=acwrite bufhidden=hide noswapfile
+  autocmd BufWriteCmd <buffer> call timer_start(0, function('s:write_not_index'))
+  execute 'file' path
+endfunction
+
+function! s:write_not_index(...) abort
+  let b = bufnr()
+  let file = b:gin_preview_file
+  let text = getline(1, '$')
+  call system('git add -N ' .. file)
+  execute 'GinEdit ' .. file .. ' | diffthis'
+  call setline(1, text)
+  write
+  execute 'bdelete!' b
+endfunction
