@@ -72,9 +72,11 @@ function! s:open_not_index(file) abort
   let b = bufnr(path)
   if b != -1
     execute 'buf' b
+    diffthis
     return
   endif
-  enew | diffthis
+  enew
+  diffthis
   let b:gin_preview_file = a:file
   setlocal buftype=acwrite bufhidden=hide noswapfile
   autocmd BufWriteCmd <buffer> call timer_start(0, function('s:write_not_index'))
