@@ -8,6 +8,14 @@ function M.map(tbl, fn)
   return new
 end
 
+function M.copy(tbl)
+	local new = {}
+  for k, v in pairs(tbl) do
+    new[k] = v
+  end
+  return new
+end
+
 -- キーワード付き配列を分解するやつ
 -- {1, 2, a = 3} => {1, 2}, {a = 3}
 function M.partition_keyvalue(tbl)
