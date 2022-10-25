@@ -20,7 +20,20 @@ repo = 'Shougo/ddu-source-file'
 repo = 'Shougo/ddu-source-file_rec'
 lua_add = '''
 require('vimrc.map').define('n', '<C-p>', function()
-  require('ddu').start {'file_rec'}
+  local path = vim.fn.expand('%:p')
+  if path == '' then
+    path = vim.fn.getcwd()
+  elseif vim.fn.isdirectory(path) == 0 then
+    path = vim.fn.expand('%:p:h')
+  end
+  require('ddu').start {
+    'file_rec',
+    sourceOptions = {
+      file_rec = {
+        path = path,
+      },
+    },
+  }
 end)
 '''
 
