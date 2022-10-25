@@ -29,14 +29,10 @@ call s:rapidfire_search_config()
 repo = 'cohama/lexima.vim'
 hook_source = '''
 luafile ~/.vim/conf/plug/lexima.lua
-function! s:lexima_init() abort
-  " "call hypermap#map(';s', "lexima#expand('(', 'i')", { 'eval': v:true })
-  call hypermap#map(';f', "lexima#expand(')', 'i')", { 'eval': v:true })
-  call hypermap#map(';w', "lexima#expand('{', 'i')", { 'eval': v:true })
-  call hypermap#map(';r', "lexima#expand('}', 'i')", { 'eval': v:true })
-endfunction
-call s:lexima_init()
-
+call hypermap#map(';s', "lexima#expand('(', 'i')", { 'eval': v:true })
+call hypermap#map(';f', "lexima#expand(')', 'i')", { 'eval': v:true })
+call hypermap#map(';w', "lexima#expand('{', 'i')", { 'eval': v:true })
+call hypermap#map(';r', "lexima#expand('}', 'i')", { 'eval': v:true })
 '''
 
 [[plugins]]
