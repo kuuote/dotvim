@@ -2,23 +2,16 @@ local au = require('vimrc.autocmd').define
 local fn = require('vimrc.convert').fn
 local add = fn['lexima#add_rule']
 
-local function hypermap(from, to)
-  local fromlen = #from
-  add {
-    char = from:sub(fromlen, fromlen),
-    at = from:sub(1, fromlen - 1) .. [[\%#]],
-    input = to,
-  }
-end
-
-hypermap(';s', [[<BS><C-r>=lexima#expand('(', 'i')<CR>]])
-
--- add {
---   char = 's',
---   at = ';\\%#',
---   input = [[<BS><C-r>=lexima#expand('(', 'i')<CR>]],
--- }
-
+-- local function hypermap(from, to)
+--   local fromlen = #from
+--   add {
+--     char = from:sub(fromlen, fromlen),
+--     at = from:sub(1, fromlen - 1) .. [[\%#]],
+--     input = to,
+--   }
+-- end
+-- 
+-- hypermap(';s', [[<BS><C-r>=lexima#expand('(', 'i')<CR>]])
 -- simulates altercmd by lexima
 -- port of https://scrapbox.io/vim-jp/lexima.vim%E3%81%A7Better_vim-altercmd%E3%82%92%E5%86%8D%E7%8F%BE%E3%81%99%E3%82%8B
 local function altercmd(original, alternative)
