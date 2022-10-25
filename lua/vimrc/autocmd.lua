@@ -19,13 +19,13 @@ else
   end
   function M.define(event, opts)
     if type(event) == 'table' then
-      event = vim.fn.join(vim.list(event), ',')
+      event = table.concat(event, ',')
     end
     opts = opts or {}
     local group = opts.group or ''
     local pattern = opts.pattern or '*'
     if type(pattern) == 'table' then
-      pattern = vim.fn.join(pattern, ':')
+      pattern = table.concat(pattern, ':')
     end
     local command = opts.command
     if type(opts.callback) == 'string' then
