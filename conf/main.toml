@@ -37,24 +37,6 @@ function! s:lexima_init() abort
 endfunction
 call s:lexima_init()
 
-" lexima.vimでBetter vim-altercmdを再現する
-" https://scrapbox.io/vim-jp/lexima.vim%E3%81%A7Better_vim-altercmd%E3%82%92%E5%86%8D%E7%8F%BE%E3%81%99%E3%82%8B
-function! s:lexima_alter_command(original, altanative) abort
-  let input_space = '<C-w>' . a:altanative . '<Space>'
-  let input_cr    = '<C-w>' . a:altanative . '<CR>'
-  let rule = {
-  \ 'mode': ':',
-  \ 'at': '^\(''<,''>\)\?' . a:original . '\%#$',
-  \ }
-  call lexima#add_rule(extend(rule, { 'char': '<Space>', 'input': input_space }))
-  call lexima#add_rule(extend(rule, { 'char': '<CR>',    'input': input_cr    }))
-endfunction
-command! -nargs=+ LeximaAlterCommand call <SID>lexima_alter_command(<f-args>)
-
-LeximaAlterCommand ee e!
-LeximaAlterCommand r\%[un] QuickRun
-LeximaAlterCommand git Gina
-LeximaAlterCommand cap\%[ture] Capture
 '''
 
 [[plugins]]
