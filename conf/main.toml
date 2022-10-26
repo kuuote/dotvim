@@ -194,6 +194,9 @@ repo = 'skk-dev/skktools'
 repo = 'thinca/vim-localrc'
 
 [[plugins]]
+repo = 'thinca/vim-partedit'
+
+[[plugins]]
 repo = 'thinca/vim-qfreplace'
 
 [[plugins]]
