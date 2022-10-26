@@ -17,6 +17,12 @@ repo = 'Shougo/ddc-matcher_head'
 repo = 'Shougo/ddc-sorter_rank'
 
 [[plugins]]
+repo = 'Shougo/ddc-ui-native'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+
+[[plugins]]
 repo = 'Shougo/ddc.vim'
 hook_source = '''
 " frontは出現したら何よりも先に選びたいやつ
@@ -32,6 +38,7 @@ endif
 let s:config_json =<< UNKO
 
 {
+  "ui": "pum",
   "autoCompleteEvents": [
     "InsertEnter",
     "TextChangedI",
