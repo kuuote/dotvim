@@ -108,7 +108,9 @@ au('FileType', {
       cmd('redraw!')
     end, opts)
     -- for fzf and jis keyboard
-    m('i', ':', [[']], {buffer=true})
+    m('i', ':', [[']], { buffer = true })
+    -- 'のルール追加するくらいならlexima無効化する
+    vim.b.lexima_disabled = true
   end,
 })
 '''
