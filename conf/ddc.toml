@@ -109,6 +109,8 @@ autocmd VimEnter * doautocmd <nomodeline> User vimrc-ddc
 autocmd VimEnter * call ddc#enable()
 
 autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
+
+autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
 '''
 
 [[plugins]]
