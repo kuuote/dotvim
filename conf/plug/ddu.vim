@@ -88,8 +88,11 @@ function! s:set_size() abort
   let s:config['uiParams']['ff']['winRow'] = winRow
   let s:config['uiParams']['ff']['winHeight'] = winHeight
 
-  " 期待通りに動かんので一旦保留
-  let s:config['uiParams']['ff']['previewCol'] = winCol + (winWidth / 2)
+  " fzf-previewやtelescopeみたいなpreviewの出し方をする
+  " - winWidthの部分が内部コードに依存してるのでアレ
+  " (previewVerticalの時、絶対位置にwinWidthを足して出しているのでその分を引き去る)
+  " よってpreviewVertical = trueじゃないと動かない
+  let s:config['uiParams']['ff']['previewCol'] = winCol + (winWidth / 2) - winWidth
   let s:config['uiParams']['ff']['previewWidth'] = winWidth / 2
   let s:config['uiParams']['ff']['previewRow'] = winRow
   let s:config['uiParams']['ff']['previewHeight'] = winHeight
