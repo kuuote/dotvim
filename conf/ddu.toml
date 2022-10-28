@@ -159,6 +159,9 @@ c('DduRgLive', function()
       options = {
         matchers = {},
       },
+      params = {
+        path = require('vimrc.util').find_root(),
+      },
     },
     uiParams = {
       ff = {
@@ -166,25 +169,9 @@ c('DduRgLive', function()
         autoResize = false,
       },
     },
+    volatile = true,
   }
 end)
-'''
-hook_add = '''
-" from help
-command! DduRgLive call <SID>ddu_rg_live()
-function! s:ddu_rg_live() abort
-  call ddu#start({
-        \   'volatile': v:true,
-        \   'sources': [{
-        \     'name': 'rg',
-        \     'options': {'matchers': []},
-        \   }],
-        \   'uiParams': {'ff': {
-        \     'ignoreEmpty': v:false,
-        \     'autoResize': v:false,
-        \   }},
-        \ })
-endfunction
 '''
 
 [[plugins]]
