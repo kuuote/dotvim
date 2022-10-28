@@ -2,13 +2,13 @@
 repo = 'LumaKernel/ddc-file'
 
 [[plugins]]
-repo = 'Shougo/ddc-around'
+repo = 'Shougo/ddc-source-around'
 
 [[plugins]]
-repo = 'Shougo/ddc-cmdline'
+repo = 'Shougo/ddc-source-cmdline'
 
 [[plugins]]
-repo = 'Shougo/ddc-line'
+repo = 'Shougo/ddc-source-line'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
