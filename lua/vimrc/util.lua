@@ -20,4 +20,18 @@ function M.pum_confirm(fallback)
   return fallback()
 end
 
+function M.find_root(path)
+  path = path or vim.fn.expand('%:p')
+  if path == '' then
+    path = vim.fn.getcwd() -- ファイルが開かれていない場合はcwdを使う
+  elseif vim.fn.isdirectory(path) == 0 then
+    path = vim.fn.expand('%:p:h') -- パスがファイルであればその親を取る
+  end
+  local found = vim.fn.finddir('.git/..', path .. ';') -- gitリポジトリの中であれば、そのrootを取る
+  if found ~= '' then
+    path = found
+  end
+  return path
+end
+
 return M
