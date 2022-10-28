@@ -27,11 +27,9 @@ require('vimrc.map').define('n', '<C-p>', function()
     path = vim.fn.expand('%:p:h')
   end
   require('ddu').start {
-    'file_rec',
-    sourceOptions = {
-      file_rec = {
-        path = path,
-      },
+    {
+      name = 'file_rec',
+      options = { path = path },
     },
   }
 end)
