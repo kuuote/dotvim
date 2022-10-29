@@ -26,6 +26,12 @@ endfunction
 
 [[plugins]]
 comment = '''
+ddu-source-mr使ってるので
+'''
+repo = 'lambdalisue/mr-quickfix.vim'
+
+[[plugins]]
+comment = '''
 ddudeinupdateを使うようになったので
 '''
 repo = 'wsdjeg/dein-ui.vim'

@@ -88,9 +88,6 @@ end
 '''
 
 [[plugins]]
-repo = 'lambdalisue/mr-quickfix.vim'
-
-[[plugins]]
 repo = 'lambdalisue/mr.vim'
 
 [[plugins]]
