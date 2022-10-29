@@ -52,7 +52,7 @@ end
 local function item_action(tbl)
   local args, params = part(tbl)
   local farg = {
-    action = args[1],
+    name = args[1],
     params = params,
   }
   return function()
