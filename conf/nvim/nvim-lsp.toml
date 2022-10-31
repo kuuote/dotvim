@@ -66,4 +66,7 @@ lsp.denols.setup {
     unstable = true,
   },
 }
+
+lsp.rust_analyzer.setup {}
+
 '''
