@@ -2,6 +2,15 @@
 repo = 'LumaKernel/ddc-file'
 
 [[plugins]]
+repo = 'matsui54/ddc-buffer'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+
+[[plugins]]
 repo = 'Shougo/ddc-source-around'
 
 [[plugins]]
@@ -9,12 +18,6 @@ repo = 'Shougo/ddc-source-cmdline'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-line'
-
-[[plugins]]
-repo = 'Shougo/ddc-matcher_head'
-
-[[plugins]]
-repo = 'Shougo/ddc-sorter_rank'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
@@ -143,10 +146,8 @@ cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 '''
 
 [[plugins]]
-repo = 'matsui54/ddc-buffer'
-
-[[plugins]]
 repo = 'takker99/ddc-bitap'
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
+

@@ -8,13 +8,45 @@ end)
 '''
 
 [[plugins]]
+repo = 'kuuote/ddu-filter-fuse'
+
+[[plugins]]
+repo = 'kuuote/ddu-source-mr'
+lua_add = '''
+local m = require('vimrc.map').define
+
+for _, t in ipairs { 'mru', 'mrw', 'mrr' } do
+  m('n', t, function()
+    require('ddu').start {
+      { name = 'mr', params = { kind = t } },
+      name = 'file',
+    }
+  end)
+end
+'''
+
+[[plugins]]
+repo = 'matsui54/ddu-source-dein_update'
+lua_add = '''
+local c = require('vimrc.command').define
+c('DduDeinUpdate', function()
+  require('ddu').start { 'dein_update', name = 'dein_update' }
+end)
+'''
+
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
+lua_add = '''
+require('vimrc.map').define('n', '<Space>fh', function()
+  require('ddu').start { 'help' }
+end)
+'''
+
+[[plugins]]
 repo = 'Shougo/ddu-kind-file'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
-
-[[plugins]]
-repo = 'Shougo/ddu-source-file'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
@@ -28,6 +60,9 @@ require('vimrc.map').define('n', '<C-p>', function()
   }
 end)
 '''
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
@@ -142,41 +177,6 @@ source ~/.vim/conf/plug/ddu.vim
 '''
 
 [[plugins]]
-repo = 'kuuote/ddu-filter-fuse'
-
-[[plugins]]
-repo = 'kuuote/ddu-source-mr'
-lua_add = '''
-local m = require('vimrc.map').define
-
-for _, t in ipairs { 'mru', 'mrw', 'mrr' } do
-  m('n', t, function()
-    require('ddu').start {
-      { name = 'mr', params = { kind = t } },
-      name = 'file',
-    }
-  end)
-end
-'''
-
-[[plugins]]
-repo = 'matsui54/ddu-source-dein_update'
-lua_add = '''
-local c = require('vimrc.command').define
-c('DduDeinUpdate', function()
-  require('ddu').start { 'dein_update', name = 'dein_update' }
-end)
-'''
-
-[[plugins]]
-repo = 'matsui54/ddu-source-help'
-lua_add = '''
-require('vimrc.map').define('n', '<Space>fh', function()
-  require('ddu').start { 'help' }
-end)
-'''
-
-[[plugins]]
 repo = 'shun/ddu-rg'
 lua_add = '''
 local c = require('vimrc.command').define
@@ -204,3 +204,4 @@ end)
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
+

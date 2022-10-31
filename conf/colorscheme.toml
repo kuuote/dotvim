@@ -1,17 +1,4 @@
 [[plugins]]
-description = '''
-Original: romgrk/github-light.vim
-hi clearをしていない&pumblendを汚染する&Neovimでしか動かないのでfork
-'''
-repo = 'kuuote/github-light.vim'
-
-[[plugins]]
-repo = 'EdenEast/nightfox.nvim'
-
-[[plugins]]
-repo = 'Rigellute/rigel'
-
-[[plugins]]
 repo = 'ayu-theme/ayu-vim'
 
 [[plugins]]
@@ -22,6 +9,9 @@ repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'cormacrelf/vim-colors-github'
+
+[[plugins]]
+repo = 'EdenEast/nightfox.nvim'
 
 [[plugins]]
 repo = 'ghifarit53/tokyonight-vim'
@@ -39,7 +29,17 @@ repo = 'joshdick/onedark.vim'
 repo = 'kjssad/quantum.vim'
 
 [[plugins]]
+description = '''
+Original: romgrk/github-light.vim
+hi clearをしていない&pumblendを汚染する&Neovimでしか動かないのでfork
+'''
+repo = 'kuuote/github-light.vim'
+
+[[plugins]]
 repo = 'lifepillar/vim-solarized8'
+
+[[plugins]]
+repo = 'Rigellute/rigel'
 
 [[plugins]]
 repo = 'sainnhe/edge'
@@ -61,3 +61,4 @@ repo = 'yasukotelin/shirotelin'
 
 [[plugins]]
 repo = 'yuttie/hydrangea-vim'
+

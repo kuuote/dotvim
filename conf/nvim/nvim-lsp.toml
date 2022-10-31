@@ -1,23 +1,4 @@
 [[plugins]]
-repo = 'Shougo/ddc-nvim-lsp'
-on_if = 'dein#is_available("ddc.vim")'
-lua_add = '''
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'vimrc-ddc',
-  callback = function()
-    local e = vim.list_extend
-    local sources = e(e(vim.g['vimrc#ddc_sources_front'], {'nvim-lsp'}), vim.g['vimrc#ddc_sources'])
-    vim.call('ddc#custom#patch_filetype', {
-      'go',
-      'rust',
-      'typescript',
-      'typescriptreact',
-    }, 'sources', sources)
-  end,
-})
-'''
-
-[[plugins]]
 repo = 'gamoutatsumi/ddu-source-nvim-lsp'
 
 [[plugins]]
@@ -70,3 +51,23 @@ lsp.denols.setup {
 lsp.rust_analyzer.setup {}
 
 '''
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_if = 'dein#is_available("ddc.vim")'
+lua_add = '''
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'vimrc-ddc',
+  callback = function()
+    local e = vim.list_extend
+    local sources = e(e(vim.g['vimrc#ddc_sources_front'], {'nvim-lsp'}), vim.g['vimrc#ddc_sources'])
+    vim.call('ddc#custom#patch_filetype', {
+      'go',
+      'rust',
+      'typescript',
+      'typescriptreact',
+    }, 'sources', sources)
+  end,
+})
+'''
+

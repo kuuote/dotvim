@@ -1,7 +1,4 @@
 [[plugins]]
-repo = 'MunifTanjim/nui.nvim'
-
-[[plugins]]
 repo = 'kuuote/tsnip.nvim'
 rev = 'monster'
 
@@ -39,6 +36,9 @@ require('dial.config').augends:register_group {
   },
 }
 '''
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
 
 [[plugins]]
 repo = 'nanotee/luv-vimdocs'
@@ -141,3 +141,4 @@ augroup vimrc
   autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
 augroup END
 '''
+

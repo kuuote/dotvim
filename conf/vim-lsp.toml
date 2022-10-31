@@ -59,3 +59,4 @@ function! s:setup_ddc_vim_lsp() abort
 endfunction
 autocmd User vimrc-ddc call s:setup_ddc_vim_lsp()
 '''
+
