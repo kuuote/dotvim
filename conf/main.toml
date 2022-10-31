@@ -295,7 +295,10 @@ au('User', {
   callback = function()
     vimeval('skkeleton#config', {
       eggLikeNewline = true,
-      globalDictionaries = { dictPath .. '/SKK-JISYO.L' },
+      globalDictionaries = {
+        dictPath .. '/SKK-JISYO.edict2',
+        dictPath .. '/SKK-JISYO.L',
+      },
       registerConvertResult = true,
       showCandidatesCount = 1,
       -- from shougo-s-github
