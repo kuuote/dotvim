@@ -18,7 +18,7 @@ local function altercmd(original, alternative)
   -- space
   add {
     mode = ':',
-    at = [[\v^('<, '>)?]] .. original .. [[\%#$]],
+    at = [[^\('<,'>\)\?]] .. original .. [[\%#$]],
     char = '<Space>',
     input = '<C-w>' .. alternative .. '<Space>',
   }
@@ -26,7 +26,7 @@ local function altercmd(original, alternative)
   -- cr
   add {
     mode = ':',
-    at = [[\v^('<, '>)?]] .. original .. [[\%#$]],
+    at = [[^\('<,'>\)\?]] .. original .. [[\%#$]],
     char = '<CR>',
     input = '<C-w>' .. alternative .. '<CR>',
   }
