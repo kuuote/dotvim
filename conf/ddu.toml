@@ -77,6 +77,27 @@ au('FileType', {
       m('n', 's', item_action { 'open', command = 'split' }, opts)
       m('n', 'v', item_action { 'open', command = 'vsplit' }, opts)
     end
+    if isnvim then
+      m('n', 'P', function()
+        local preview = action('preview')
+        local bufnr = vim.api.nvim_get_current_buf()
+        local group = 'ddu-ui-auto_action' -- ddu-ui-ffが内部で使っているグループ名
+        aug(group, {})
+        au('CursorMoved', {
+          group = group,
+          buffer = 0,
+          callback = function()
+            preview()
+            for _, info in ipairs(vim.fn.getwininfo()) do
+              buf = vim.fn.getbufinfo(info.bufnr)[1]
+              if buf.name:sub(1, 7) == 'ddu-ff:' then
+                vim.api.nvim_win_set_option(info.winid, 'winhighlight', vim.g['vimrc#ddu_highlights'])
+              end
+            end
+          end,
+        })
+      end, opts)
+    end
   end,
 })
 
