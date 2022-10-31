@@ -36,10 +36,12 @@ repo = 'Shougo/ddu-source-line'
 repo = 'Shougo/ddu-ui-ff'
 lua_add = '''
 local au = require('vimrc.autocmd').define
+local aug = require('vimrc.autocmd').group
+local cmd = vim.cmd or vim.command
 local fn = require('vimrc.convert').fn
+local isnvim = vim.fn.has('nvim') == 1
 local m = require('vimrc.map').define
 local part = require('kutil.function').partition_keyvalue
-local cmd = vim.cmd or vim.command
 
 local do_action = fn['ddu#ui#ff#do_action']
 
