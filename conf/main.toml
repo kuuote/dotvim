@@ -8,6 +8,59 @@ set helplang=ja
 '''
 
 [[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  
+'''
+lua_add = '''
+local convert = require('vimrc.convert').convert
+
+vim.g.lightline = convert {
+  enable = {
+    statusline = true,
+    tabline = true,
+  },
+  tabline = {
+    left = {
+      { 'tabs' },
+    },
+    right = {},
+  },
+}
+'''
+hook_add = '''
+function! s:gruvbox_material() abort
+  return 'gruvbox_material'
+endfunction
+
+let s:special = {
+\   'gruvbox-material': function('s:gruvbox_material'),
+\ }
+
+" lightlineのカラースキームを自動で適用するやつ
+function! s:lightline_colorscheme(name) abort
+  if has_key(s:special, a:name)
+    let g:lightline.colorscheme = s:special[a:name]()
+  elseif globpath(&runtimepath, printf('autoload/lightline/colorscheme/%s.vim', a:name)) ==# ''
+    unlet g:lightline.colorscheme
+  else
+    let g:lightline.colorscheme = a:name
+  endif
+  if has_key(g:lightline, 'colorscheme')
+    " edgeのような白黒共用のカラースキームを適用し直す
+    let path = globpath(&runtimepath, printf('autoload/lightline/colorscheme/%s.vim', g:lightline.colorscheme), v:true, v:true)
+    if !empty(path)
+      execute 'source' path[0]
+    endif
+  endif
+  call lightline#init()
+  call lightline#colorscheme()
+endfunction
+
+autocmd ColorScheme * call s:lightline_colorscheme(expand('<amatch>'))
+'''
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
 merged = 0
 
