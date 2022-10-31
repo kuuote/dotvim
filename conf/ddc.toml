@@ -46,7 +46,10 @@ let s:config_json =<< UNKO
     "CmdlineChanged"
   ],
   "backspaceCompletion": true,
-  "completionMenu": "pum.vim",
+  "cmdlineSources": [
+    "cmdline_help",
+    "mycmdline"
+  ],
   "filterParams": {
     "matcher_substring": {
       "highlightMatched": "Number"
@@ -70,6 +73,9 @@ let s:config_json =<< UNKO
     },
     "buffer": {
       "mark": "B"
+    },
+    "cmdline_help": {
+      "maxItems": 20
     },
     "file": {
       "forceCompletionPattern": "\\S/\\S*",
