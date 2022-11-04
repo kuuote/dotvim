@@ -32,7 +32,12 @@ local function altercmd(original, alternative)
   }
 end
 
+altercmd('cap\\%[ture]', 'Capture')
+altercmd('d', 'Deol')
 altercmd('ee', 'e!')
+altercmd('git', 'Gin')
+altercmd('gy', 'Gina browse --yank --exact :')
+altercmd('pe', 'Partedit -filetype')
 altercmd('r\\%[un]', 'QuickRun')
 altercmd('cap\\%[ture]', 'Capture')
 altercmd('gy', 'Gina browse --yank --exact :')
