@@ -20,6 +20,9 @@ repo = 'Shougo/ddc-source-cmdline'
 repo = 'Shougo/ddc-source-line'
 
 [[plugins]]
+repo = 'Shougo/ddc-source-zsh'
+
+[[plugins]]
 repo = 'Shougo/ddc-ui-native'
 
 [[plugins]]
