@@ -30,6 +30,7 @@ onoremap ( t(
 
 " disabled some mappings because I'm using lexima.vim
 " see main.toml
+call hypermap#map(';a', '\')
 " call hypermap#map(';s', '(')
 call hypermap#map(';d', '=')
 " call hypermap#map(';f', ')')
@@ -40,7 +41,7 @@ call hypermap#map(';x', '<')
 call hypermap#map(';c', '-')
 call hypermap#map(';v', '>')
 call hypermap#map(';q', '|')
-call hypermap#map(';z', '\')
+call hypermap#map(';z', '_')
 call hypermap#map(';;', ':')
 call hypermap#map(',q', '!')
 call hypermap#map(',w', '@')
@@ -50,11 +51,10 @@ call hypermap#map(',a', '&')
 call hypermap#map(',s', '"')
 call hypermap#map(',d', '*')
 call hypermap#map(',f', '%')
-call hypermap#map(',z', '_')
+call hypermap#map(',z', '~')
 call hypermap#map(',x', "'")
 call hypermap#map(',c', "^")
 call hypermap#map(',v', "`")
-" noremap! ' :
 
 " sugoi undo
 nnoremap U <C-r>
