@@ -166,6 +166,9 @@ end
 '''
 
 [[plugins]]
+repo = 'lambdalisue/guise.vim'
+
+[[plugins]]
 repo = 'lambdalisue/mr.vim'
 
 [[plugins]]
