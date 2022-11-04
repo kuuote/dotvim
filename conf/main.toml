@@ -2,6 +2,12 @@
 repo = '4513ECHO/vim-readme-viewer'
 
 [[plugins]]
+repo = 'itchyny/vim-gitbranch'
+
+[[plugins]]
+repo = 'yasunori-kirin0418/lightline_skk.vim'
+
+[[plugins]]
 repo = 'c000/rapidfire.vim'
 hook_add = '''
 function! s:rapidfire_search_config() abort
@@ -34,13 +40,21 @@ let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-hook_add = '''
-  
-'''
 lua_add = '''
 local convert = require('vimrc.convert').convert
 
 vim.g.lightline = convert {
+  active = {
+    left = {
+      { 'mode', 'paste', 'skk_mode' },
+      { 'readonly', 'filename', 'modified', 'test' },
+    },
+  },
+  component_function = {
+    git_branch = 'gitbranch#name',
+    git_status = 'gina#component#status#preset',
+    skk_mode = 'g:lightline_skk#mode',
+  },
   enable = {
     statusline = true,
     tabline = true,
@@ -49,7 +63,9 @@ vim.g.lightline = convert {
     left = {
       { 'tabs' },
     },
-    right = {},
+    right = {
+      {'git_branch', 'git_status'},
+    },
   },
 }
 '''
@@ -134,6 +150,7 @@ nnoremap <Space>f <Cmd>Fern . -reveal=%:p<CR>
 repo = 'lambdalisue/gin.vim'
 hook_add = '''
 autocmd FileType gin-status nnoremap <buffer> ,c <Cmd>Gin commit<CR>
+autocmd User GinComponentPost redrawtabline
 '''
 
 [[plugins]]
