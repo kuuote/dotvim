@@ -30,11 +30,11 @@ repo = 'Shougo/ddc.vim'
 hook_source = '''
 " frontは出現したら何よりも先に選びたいやつ
 " 次にバッファ固有の物、その後に通常という戦略で行く
-let g:vimrc#ddc_sources = ['file', 'around', 'buffer']
+let g:vimrc#ddc_sources = ['around', 'buffer']
 if has('nvim')
-  let g:vimrc#ddc_sources_front = ['tsnip']
+  let g:vimrc#ddc_sources_front = ['tsnip', 'file']
 else
-  let g:vimrc#ddc_sources_front = []
+  let g:vimrc#ddc_sources_front = ['file']
 endif
 " insert space for paragraph selector
 " vip => :!jq -S .
