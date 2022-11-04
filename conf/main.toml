@@ -2,12 +2,6 @@
 repo = '4513ECHO/vim-readme-viewer'
 
 [[plugins]]
-repo = 'itchyny/vim-gitbranch'
-
-[[plugins]]
-repo = 'yasunori-kirin0418/lightline_skk.vim'
-
-[[plugins]]
 repo = 'c000/rapidfire.vim'
 hook_add = '''
 function! s:rapidfire_search_config() abort
@@ -100,6 +94,9 @@ endfunction
 
 autocmd ColorScheme * call s:lightline_colorscheme(expand('<amatch>'))
 '''
+
+[[plugins]]
+repo = 'itchyny/vim-gitbranch'
 
 [[plugins]]
 repo = 'junegunn/fzf'
@@ -260,6 +257,12 @@ xmap g<C-x> g<Plug>(dps-dial-decrement)
 '''
 
 [[plugins]]
+repo = 'rbtnn/vim-textobj-string'
+lua_add = '''
+vim.g.vim_textobj_string_mapping = 'c' -- colon
+'''
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
 merged = 0
 
@@ -372,6 +375,9 @@ function! s:skkeleton_post() abort
   call pum#set_option('setline_insert', v:false)
 endfunction
 '''
+
+[[plugins]]
+repo = 'yasunori-kirin0418/lightline_skk.vim'
 
 [[plugins]]
 repo = 'yuki-yano/fern-preview.vim'
