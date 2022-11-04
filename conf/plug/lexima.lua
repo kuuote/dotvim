@@ -80,28 +80,27 @@ au('FileType', {
     -- 1. (
     -- if |
     -- 2. <CR>
-    -- if (|) {
-    -- }
-    -- 3.
+    -- if (|) {}
+    -- 3. input this way...
     -- if () {
     --   |
     -- }
     for _, stmt in ipairs { 'if', 'for', 'while' } do
       add {
         char = '(',
-        at = '^\\s*' .. stmt .. ' \\%#',
+        at = [[^\s*]] .. stmt .. [[\s\%#]],
         input = '(',
-        input_after = ') {<CR>}',
+        input_after = ') {}',
         filetype = clike_filetype,
       }
     end
-    add {
-      char = '<CR>',
-      at = '\\%#.*) {$',
-      input = ') {<C-g>u<CR>',
-      delete = 3,
-      filetype = clike_filetype,
-    }
+    -- add {
+    --   char = '<CR>',
+    --   at = '\\%#.*) {$',
+    --   input = ') {<C-g>u<CR>',
+    --   delete = 3,
+    --   filetype = clike_filetype,
+    -- }
   end,
   once = true,
 })
