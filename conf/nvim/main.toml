@@ -69,18 +69,18 @@ on_lua = 'telescope'
 repo = 'rcarriga/nvim-notify'
 
 [[plugins]]
-repo = 'skanehira/jumpcursor.vim'
-on_map = '<Plug>'
-hook_add = '''
-nmap [j <Plug>(jumpcursor-jump)
-'''
-
-[[plugins]]
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 hook_source = '''
 call ddc#custom#patch_filetype('zsh', 'sources', ['file', 'zsh', 'shell-history'])
 call ddc#custom#patch_filetype('zsh', 'specialBufferCompletion', v:true)
+'''
+
+[[plugins]]
+repo = 'skanehira/jumpcursor.vim'
+on_map = '<Plug>'
+hook_add = '''
+nmap [j <Plug>(jumpcursor-jump)
 '''
 
 [[plugins]]
