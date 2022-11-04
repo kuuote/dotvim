@@ -1,3 +1,9 @@
+"
+" '<,'>call vimrc#blocksort('^"', 'function.*')
+function! vimrc#blocksort(finder, sorter) abort range
+  call denops#request('vimrc', 'blockSort', [a:firstline, a:lastline, a:finder, a:sorter])
+endfunction
+
 " pathに指定したものをglobして:sourceする
 function! vimrc#load_scripts(path) abort
   for f in sort(glob(a:path, v:true, v:true))
@@ -9,14 +15,8 @@ function! vimrc#load_scripts(path) abort
   endfor
 endfunction
 
-" 正規表現とマッチする行にランダムで飛ぶ
-function! vimrc#shufflejump(re) abort
-  let lines = getline(1, '$')->map('[v:key + 1, v:val]')->filter('v:val[1] =~# a:re')
-  let selected = rand() % len(lines)
-  call cursor(lines[selected][0], 1)
-endfunction
-
-function vimrc#oresyntax(...) abort
+"
+function! vimrc#oresyntax(...) abort
   " ひらがな
   syntax match Green /[\u3042-\u3093]/
   " カタカナ
@@ -26,3 +26,11 @@ function vimrc#oresyntax(...) abort
   syntax match ErrorMsg /[[\]]/
   syntax match Yellow /[[:alnum:]]/
 endfunction
+
+" 正規表現とマッチする行にランダムで飛ぶ
+function! vimrc#shufflejump(re) abort
+  let lines = getline(1, '$')->map('[v:key + 1, v:val]')->filter('v:val[1] =~# a:re')
+  let selected = rand() % len(lines)
+  call cursor(lines[selected][0], 1)
+endfunction
+
