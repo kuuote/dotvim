@@ -12,25 +12,7 @@ local add = fn['lexima#add_rule']
 -- end
 -- 
 -- hypermap(';s', [[<BS><C-r>=lexima#expand('(', 'i')<CR>]])
--- simulates altercmd by lexima
--- port of https://scrapbox.io/vim-jp/lexima.vim%E3%81%A7Better_vim-altercmd%E3%82%92%E5%86%8D%E7%8F%BE%E3%81%99%E3%82%8B
-local function altercmd(original, alternative)
-  -- space
-  add {
-    mode = ':',
-    at = [[^\('<,'>\)\?]] .. original .. [[\%#$]],
-    char = '<Space>',
-    input = '<C-w>' .. alternative .. '<Space>',
-  }
-
-  -- cr
-  add {
-    mode = ':',
-    at = [[^\('<,'>\)\?]] .. original .. [[\%#$]],
-    char = '<CR>',
-    input = '<C-w>' .. alternative .. '<CR>',
-  }
-end
+local altercmd = require('vimrc.plug.lexima').altercmd
 
 altercmd('cap\\%[ture]', 'Capture')
 altercmd('d', 'Deol')
