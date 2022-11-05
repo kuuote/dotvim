@@ -9,3 +9,5 @@ endfunction
 " inner hook
 " parteditするためにhook部分を選択する
 xnoremap <buffer> ih <Cmd>call <SID>select_block()<CR>
+
+command! -buffer Sortoml call denops#request('vimrc', 'blockSort', [1, line('$'), '..plugins]]', 'repo.*'])
