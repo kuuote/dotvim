@@ -11,7 +11,7 @@ function s:open(curwin) abort
 
   " open window
   if a:curwin
-    only
+    silent! only
   else
     tab split
   endif
