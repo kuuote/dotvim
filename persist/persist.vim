@@ -1,6 +1,5 @@
 let s:defdir = expand('<sfile>:p:h') .. '/def'
 
-
 function! persist#run() abort
   let defs = map(filter(readdir(s:defdir), 'v:val =~ "vim$"'), "v:val[:-5]")
   let ch = &cmdwinheight

@@ -64,12 +64,12 @@ vim.g.lightline = convert {
 }
 '''
 hook_add = '''
-function! s:gruvbox_material() abort
-  return 'gruvbox_material'
-endfunction
-
 let s:special = {
-\   'gruvbox-material': function('s:gruvbox_material'),
+\   'catppuccin-latte': { -> 'catppuccin' },
+\   'catppuccin-mocha': { -> 'catppuccin' },
+\   'catppuccin-frappe': { -> 'catppuccin' },
+\   'catppuccin-macchiato': { -> 'catppuccin' },
+\   'gruvbox-material': { -> 'gruvbox_material' },
 \ }
 
 " lightlineのカラースキームを自動で適用するやつ

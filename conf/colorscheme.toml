@@ -5,6 +5,22 @@ repo = 'ayu-theme/ayu-vim'
 repo = 'bluz71/vim-nightfly-guicolors'
 
 [[plugins]]
+comment = '''
+同じ場所に固めておきたいのでifを使う
+'''
+repo = 'catppuccin/nvim'
+name = 'catppuccin-nvim'
+if = 'has("nvim")'
+
+[[plugins]]
+comment = '''
+上に同じく
+'''
+repo = 'catppuccin/vim'
+name = 'catppuccin-vim'
+if = '!has("nvim")'
+
+[[plugins]]
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
