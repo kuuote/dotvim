@@ -48,6 +48,7 @@ let s:config_json =<< UNKO
     "InsertEnter",
     "TextChangedI",
     "TextChangedP",
+    "TextChangedT",
     "CmdlineEnter",
     "CmdlineChanged"
   ],
