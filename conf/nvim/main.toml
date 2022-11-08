@@ -51,6 +51,7 @@ repo = 'nvim-lua/popup.nvim'
 
 [[plugins]]
 repo = 'nvim-telescope/telescope-ui-select.nvim'
+if = 'g:vim_ui_select ==# "telescope.nvim"'
 on_lua = 'telescope'
 lua_add = '''
 vim.ui.select = function(items, opts, on_choice)

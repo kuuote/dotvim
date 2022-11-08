@@ -14,6 +14,13 @@ let g:dein#cache_directory = '/tmp/dein/cache/' .. v:argv[0]
 let g:vimrc#ddc_sources = []
 let g:vimrc#ddc_source_options = {}
 
+" 気分で変えていくぞ
+let g:vim_ui_select = [
+\   'ddu.vim',
+\   'fzyselect.vim',
+\   'telescope.nvim',
+\ ][1]
+
 let s:conf = '~/.vim/conf/plug.toml'
 let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)
 if dein#load_state(s:dein_dir)

@@ -26,6 +26,24 @@ call hypermap#map(';r', "lexima#expand('}', 'i')", { 'eval': v:true })
 '''
 
 [[plugins]]
+repo = 'gw31415/fzyselect.vim'
+lua_source = '''
+if vim.fn.has('nvim') == 1 and vim.g.vim_ui_select == 'fzyselect.vim' then
+  vim.ui.select = require('fzyselect').start
+end
+require('vimrc.autocmd').define('FileType', {
+  pattern = 'fzyselect',
+  callback = function()
+    local map = require('vimrc.map').define
+    local opts = {buffer = true}
+    map('n', 'i', '<Plug>(fzyselect-fzy)', opts)
+    map('n', '<CR>', '<Plug>(fzyselect-retu)', opts)
+    map('n', '<Esc>', '<Cmd>close<CR>', opts)
+  end
+})
+'''
+
+[[plugins]]
 repo = 'hrsh7th/vim-vsnip'
 hook_add = '''
 imap <C-b> <Plug>(vsnip-expand-or-jump)

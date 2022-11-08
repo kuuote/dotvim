@@ -28,6 +28,9 @@ let s:config_json =<< UNKO
     "source": {
       "defaultAction": "execute"
     },
+    "ui_select": {
+      "defaultAction": "select"
+    },
     "word": {
       "defaultAction": "append"
     }
@@ -58,8 +61,7 @@ let s:config_json =<< UNKO
   "ui": "ff",
   "uiParams": {
     "ff": {
-      "highlights": {
-      },
+      "highlights": {},
       "previewFloatingZindex": 100,
       "previewVertical": true
     }
