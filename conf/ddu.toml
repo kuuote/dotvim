@@ -93,6 +93,7 @@ end
 
 local function item_action(tbl)
   local args, params = part(tbl)
+  params[vim.type_idx] = vim.types.dictionary
   local farg = {
     name = args[1],
     params = params,
@@ -118,6 +119,11 @@ au('FileType', {
       m('n', 't', item_action { 'open', command = 'tabedit' }, opts)
       m('n', 's', item_action { 'open', command = 'split' }, opts)
       m('n', 'v', item_action { 'open', command = 'vsplit' }, opts)
+      m('n', '<C-q>', function()
+        do_action('clearSelectAllItems')
+        do_action('toggleAllItems')
+        item_action { 'quickfix' }()
+      end, opts)
     end
     if isnvim then
       m('n', 'P', function()
