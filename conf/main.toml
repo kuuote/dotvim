@@ -445,3 +445,15 @@ nnoremap <silent> <fzf-p>w <Cmd>FzfPreviewProjectMrwFilesRpc --add-fzf-arg=--no-
 nnoremap gs :FzfPreviewGitStatusRpc<CR>
 '''
 
+[[plugins]]
+repo = 'yuki-yano/vim-operator-replace'
+hook_add = '''
+nnoremap R <Plug>(operator-replace)
+xnoremap R <Plug>(operator-replace)
+nnoremap <Space>r R
+'''
+
+[plugins.on_map]
+o = '<Plug>(operator-replace)'
+x = '<Plug>(operator-replace)'
+
