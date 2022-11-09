@@ -197,6 +197,7 @@ c('DduRgLive', function()
         path = require('vimrc.util').find_root(),
       },
     },
+    name = 'file',
     uiParams = {
       ff = {
         ignoreEmpty = false,
