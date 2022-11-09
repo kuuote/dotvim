@@ -2,6 +2,11 @@
 repo = 'ayu-theme/ayu-vim'
 
 [[plugins]]
+repo = 'savq/melange'
+lua_add = '''
+'''
+
+[[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 
 [[plugins]]
@@ -11,6 +16,14 @@ comment = '''
 repo = 'catppuccin/nvim'
 name = 'catppuccin-nvim'
 if = 'has("nvim")'
+lua_source = '''
+require('catppuccin').setup {
+  integrations = {
+    fern = true,
+    ts_rainbow = true,
+  },
+}
+'''
 
 [[plugins]]
 comment = '''
