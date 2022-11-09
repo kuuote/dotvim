@@ -19,7 +19,6 @@ end
 local function reset()
   local bufnr = vim.fn.bufnr()
   if customs[bufnr] ~= nil then
-    print('reset')
     vimcall('ddc#custom#set_buffer', customs[bufnr])
     customs[bufnr] = nil
   end
@@ -40,3 +39,18 @@ map('i', '<C-x><C-f>', function()
   })
 end)
 
+map('i', '<C-x><C-j>', function()
+  change_source('suconv')
+  vimcall('ddc#custom#patch_buffer', {
+    sourceOptions = {
+      suconv = {
+        converters = {},
+        matchers = {},
+        sorters = {},
+        isVolatile = true,
+        maxItems = 20,
+      }
+    },
+    specialBufferCompletion = true,
+  })
+end)

@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'kuuote/ddc-source-suconv'
+
+[[plugins]]
 repo = 'LumaKernel/ddc-file'
 
 [[plugins]]
