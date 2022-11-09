@@ -86,35 +86,58 @@ nmap [j <Plug>(jumpcursor-jump)
 
 [[plugins]]
 repo = 'tamago324/lir.nvim'
+on_if = 'isdirectory(expand("%:p:h"))'
 lua_source = '''
-local actions = require('lir.actions')
+    local lir = require('lir')
+    local actions = require('lir.actions')
 
-require('lir').setup({
-  show_hidden_files = true,
-  mappings = {
-    ['f'] = function()
-      vim.call('vimrc#fzf#ff#run')
-    end,
-    ['l'] = actions.edit,
-    ['<C-s>'] = actions.split,
-    ['<C-v>'] = actions.vsplit,
-    ['<C-t>'] = actions.tabedit,
+    lir.setup {
+      show_hidden_files = true,
+      mappings = {
+        ['f'] = function()
+          vim.call('vimrc#fzf#ff#run')
+        end,
+        ['l'] = actions.edit,
+        ['<C-s>'] = actions.split,
+        ['<C-v>'] = actions.vsplit,
+        ['<C-t>'] = actions.tabedit,
 
-    ['h'] = actions.up,
-    ['q'] = actions.quit,
+        ['h'] = actions.up,
+        ['q'] = actions.quit,
 
-    ['K'] = actions.mkdir,
-    ['N'] = actions.newfile,
-    ['R'] = actions.rename,
-    ['@'] = actions.cd,
-    ['Y'] = actions.yank_path,
-    ['.'] = actions.toggle_show_hidden,
+        ['K'] = actions.mkdir,
+        ['N'] = actions.newfile,
+        ['R'] = actions.rename,
+        ['@'] = actions.cd,
+        ['Y'] = actions.yank_path,
+        ['.'] = actions.toggle_show_hidden,
+      },
+    }
+'''
+
+[[plugins]]
+repo = 'uga-rosa/ccc.nvim'
+on_cmd = 'CccHighlighterEnable'
+lua_source = '''
+local ccc = require('ccc')
+
+ccc.setup {
+  pickers = {
+    ccc.picker.hex,
+    ccc.picker.css_rgb,
+    ccc.picker.css_hsl,
+    ccc.picker.css_hwb,
+    ccc.picker.css_lab,
+    ccc.picker.css_lch,
+    ccc.picker.css_oklab,
+    ccc.picker.css_oklch,
   },
-})
+}
 '''
 
 [[plugins]]
 repo = 'vim-skk/eskk.vim'
+if = 'v:false'
 lua_add = '''
 -- use dotfiles dictionary
 vim.g['eskk#dictionary'] = { path = vim.env.HOME .. '/.vim/tmp/.skk-jisyo' }

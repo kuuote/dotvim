@@ -45,6 +45,7 @@ require('vimrc.autocmd').define('FileType', {
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
+on_map = {'i' = '<Plug>(vsnip'}
 hook_add = '''
 imap <C-b> <Plug>(vsnip-expand-or-jump)
 let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
@@ -117,6 +118,7 @@ autocmd ColorScheme * call s:lightline_colorscheme(expand('<amatch>'))
 repo = 'itchyny/vim-gitbranch'
 
 [[plugins]]
+on_func = 'fzf#'
 repo = 'junegunn/fzf'
 
 [[plugins]]
@@ -157,6 +159,7 @@ nmap <C-f> <Plug>(fuzzy-history)
 
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
+on_cmd = 'Fern'
 hook_add = '''
 nnoremap <Space>f <Cmd>Fern . -reveal=%:p<CR>
 '''
@@ -261,6 +264,7 @@ call popup_preview#enable()
 
 [[plugins]]
 repo = 'mattn/vim-sonictemplate'
+on_func = 'sonictemplate#'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = $HOME .. '/.vim/template'
 call hypermap#map(';b',"\<C-r>=sonictemplate#postfix()\<CR>")
@@ -279,9 +283,14 @@ xmap g<C-x> g<Plug>(dps-dial-decrement)
 
 [[plugins]]
 repo = 'rbtnn/vim-textobj-string'
+
 lua_add = '''
 vim.g.vim_textobj_string_mapping = 'c' -- colon
 '''
+
+[plugins.on_map]
+o = '<Plug>(textobj-string-'
+x = '<Plug>(textobj-string-'
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
@@ -402,6 +411,7 @@ repo = 'yasunori-kirin0418/lightline_skk.vim'
 
 [[plugins]]
 repo = 'yuki-yano/fern-preview.vim'
+on_cmd = 'Fern'
 hook_add = '''
 function! s:fern_preview_map() abort
   nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
@@ -428,6 +438,7 @@ nnoremap <Tab> <Cmd>FuzzyMotion<CR>
 
 [[plugins]]
 repo = 'yuki-yano/fzf-preview.vim'
+on_cmd = 'FzfPreview*'
 hook_add = '''
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort=path --with-filename'
 

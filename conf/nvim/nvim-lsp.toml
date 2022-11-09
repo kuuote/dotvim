@@ -3,6 +3,7 @@ repo = 'gamoutatsumi/ddu-source-nvim-lsp'
 
 [[plugins]]
 repo = 'j-hui/fidget.nvim'
+on_event = 'LspAttach'
 lua_source = '''
 require('fidget').setup {
   text = {
@@ -22,6 +23,7 @@ call signature_help#enable()
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+on_ft = ['typescript', 'typescriptreact', 'rust']
 lua_source = '''
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
