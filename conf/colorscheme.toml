@@ -2,11 +2,6 @@
 repo = 'ayu-theme/ayu-vim'
 
 [[plugins]]
-repo = 'savq/melange'
-lua_add = '''
-'''
-
-[[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 
 [[plugins]]
@@ -80,10 +75,13 @@ repo = 'sainnhe/everforest'
 repo = 'sainnhe/gruvbox-material'
 
 [[plugins]]
-repo = 'severij/vadelma'
+repo = 'sainnhe/sonokai'
 
 [[plugins]]
-repo = 'ulwlu/elly.vim'
+repo = 'savq/melange'
+
+[[plugins]]
+repo = 'severij/vadelma'
 
 [[plugins]]
 repo = 'yasukotelin/shirotelin'
