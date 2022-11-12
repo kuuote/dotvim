@@ -34,3 +34,15 @@ function! vimrc#shufflejump(re) abort
   call cursor(lines[selected][0], 1)
 endfunction
 
+" from https://github.com/thinca/config/blob/74009e9e9d4a66bae820c592343351bc7d0ee4b8/dotfiles/dot.vim/autoload/vimrc.vim
+function vimrc#keep_cursor(cmd) abort
+  let curwin_id = win_getid()
+  let view = winsaveview()
+  try
+    execute a:cmd
+  finally
+    if win_getid() == curwin_id
+      call winrestview(view)
+    endif
+  endtry
+endfunction
