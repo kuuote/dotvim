@@ -51,3 +51,7 @@ hook_add = '''
 autocmd FileType SpaceVimPlugManager autocmd TextChanged <buffer> normal! G
 '''
 
+[[plugins]]
+comment = '消えた。悲しい'
+repo = 'ulwlu/elly.vim'
+
