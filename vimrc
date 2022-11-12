@@ -9,6 +9,8 @@ let g:vim_type = has('nvim') ? 'nvim' : 'vim'
 let g:mapleader = "'"
 let g:maplocalleader = ","
 
+luafile ~/.vim/conf/preload.lua
+
 if !v:vim_did_enter
   source ~/.vim/conf/dein.vim
 endif
