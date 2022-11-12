@@ -78,7 +78,7 @@ let g:vimrc#ddu_highlights = "NormalFloat:DduFloat,CursorLine:DduCursorLine,EndO
 let s:config['uiParams']['ff']['floatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "DduBorder"]')
 let s:config['uiParams']['ff']['previewFloating'] = has('nvim')
 let s:config['uiParams']['ff']['previewFloatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "DduBorder"]')
-let s:config['uiParams']['ff']['split'] = has('nvim') ? 'floating' : 'horizontal'
+let s:config['uiParams']['ff']['split'] = has('nvim') ? 'floating' : 'no'
 
 function! s:set_size() abort
   let winCol = &columns / 8
