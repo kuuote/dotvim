@@ -39,6 +39,9 @@ if dein#load_state(s:dein_dir)
       let s:profiles['vim-lsp'] = 0
     endif
   endif
+  if has('nvim')
+    let s:profiles['cmp'] = 1
+  endif
   let s:enabled_profiles = map(filter(items(s:profiles), 'v:val[1]'), 'v:val[0]')
   let configs = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
   let configs2 = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')

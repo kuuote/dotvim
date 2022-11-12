@@ -1,0 +1,35 @@
+[[plugins]]
+repo = 'hrsh7th/cmp-buffer'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = '/home/arch/.vim/bundle/cmp-line'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-cmdline'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-path'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/nvim-cmp'
+on_cmd = 'Cmp'
+lua_source = '''
+vim.api.nvim_create_user_command('Cmp', function()
+  vim.cmd('source ~/.vim/conf/nvim/plug/nvim-cmp.lua')
+  vim.call('ddc#custom#set_global', {ui = 'none'})
+  vim.g.cmp = true
+end, {})
+'''
+
+[[plugins]]
+repo = 'uga-rosa/cmp-skkeleton'
+on_source = 'nvim-cmp'
+
