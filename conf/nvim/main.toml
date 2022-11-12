@@ -73,8 +73,12 @@ repo = 'rcarriga/nvim-notify'
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 hook_source = '''
+call ddc#custom#patch_filetype(['deol', 'zsh'], 'specialBufferCompletion', v:true)
+call ddc#custom#patch_filetype('deol', 'sources', ['zsh', 'shell-history', 'around'])
+" auto cdはEditバッファのみ有効なのでfileはこちら
 call ddc#custom#patch_filetype('zsh', 'sources', ['file', 'zsh', 'shell-history'])
-call ddc#custom#patch_filetype('zsh', 'specialBufferCompletion', v:true)
+
+autocmd FileType deol tnoremap <buffer> <C-e> <C-\><C-N>G<Cmd>DeolEdit<CR>
 '''
 
 [[plugins]]
