@@ -1,6 +1,5 @@
-" Treat buffers from stdin as scratch.
-" from https://github.com/airblade/dotvim/blob/edad9fe8793b7c9266039b4cf85272a9b10cd9cb/vimrc#L202-L203
-autocmd vimrc StdinReadPost * :set buftype=nofile
+" from https://github.com/monaqa/dotfiles/blob/2cd4d9d7a92e1b1d2878e939a4bad370f16cf49c/.config/nvim/lua/rc/autocmd.lua
+autocmd vimrc StdinReadPost * :set nomodified
 
 " 検索時だけhlsearchしてほしい
 augroup vimrc
@@ -24,3 +23,9 @@ augroup vimrc
     \ |             nnoremap <buffer> <BS> <C-T>
     \ |           endif
 augroup END
+
+" 挿入モードに入った時にカーソルをセンターに持ってくる
+" from https://twitter.com/verylargeboar/status/1501892456538771463
+" nnoremap o zzo
+autocmd vimrc InsertEnter * normal! zz
+
