@@ -1,7 +1,5 @@
 local m = require('vimrc.map').define
-local nvim = vim.fn.has('nvim') == 1
 local cmd = vim.cmd or vim.command
-local pum_confirm = require('vimrc.util').pum_confirm
 
 -- 安全にかつ高速に終わるための設定
 m({ 'n', 'x', 'o' }, 'Q', '<Cmd>confirm qa<CR>')
@@ -47,13 +45,8 @@ m('n', '<Space>tp', function()
   transparent('NormalNC')
 end)
 
--- pum.vimとleximaを考慮したegg like return
-m('i', '<CR>', function()
-  return pum_confirm(function()
-    return vim.call('lexima#expand', '<CR>', 'i')
-  end)
-end, {
-  expr = true,
-  replace_keycodes = false,
-  silent = true,
-})
+m('i', '<C-l>', function()
+  local pos = vim.fn.searchpos([=[\v%(\)|]|}|<end\a*)]=], 'cez')
+  vim.fn.cursor(pos[1], pos[2] + 1)
+  vim.cmd('doautocmd <nomodeline> TextChangedI foo') -- 補完をトリガーする
+end)
