@@ -136,12 +136,6 @@ au('FileType', {
           buffer = 0,
           callback = function()
             preview()
-            for _, info in ipairs(vim.fn.getwininfo()) do
-              buf = vim.fn.getbufinfo(info.bufnr)[1]
-              if buf.name:sub(1, 7) == 'ddu-ff:' then
-                vim.api.nvim_win_set_option(info.winid, 'winhighlight', vim.g['vimrc#ddu_highlights'])
-              end
-            end
           end,
         })
       end, opts)
@@ -178,6 +172,7 @@ au('FileType', {
 
 [[plugins]]
 repo = 'Shougo/ddu.vim'
+on_func = 'ddu#'
 hook_source = '''
 source ~/.vim/conf/plug/ddu.vim
 '''
