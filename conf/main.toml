@@ -17,6 +17,7 @@ call s:rapidfire_search_config()
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
 hook_source = '''
 luafile ~/.vim/conf/plug/lexima.lua
 call hypermap#map(';s', "lexima#expand('(', 'i')", { 'eval': v:true })
