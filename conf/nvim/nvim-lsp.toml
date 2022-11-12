@@ -23,10 +23,10 @@ call signature_help#enable()
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_ft = ['typescript', 'typescriptreact', 'rust']
+on_ft = ['lua', 'typescript', 'typescriptreact', 'rust']
 lua_source = '''
 vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
+  callback = function()
     local opts = {
       buffer = true,
       noremap = true,
@@ -43,14 +43,38 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 local lsp = require('lspconfig')
+
+lsp.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = {
+          'lua/?.lua',
+          'lua/?/init.lua',
+        },
+      },
+      completion = {
+        callSnippet = 'Replace',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+lsp.rust_analyzer.setup {}
+
 lsp.denols.setup {
   init_options = {
     lint = true,
     unstable = true,
   },
 }
-
-lsp.rust_analyzer.setup {}
 
 '''
 
@@ -64,7 +88,7 @@ vim.api.nvim_create_autocmd('User', {
     local e = vim.list_extend
     local sources = e(e(vim.g['vimrc#ddc_sources_front'], {'nvim-lsp'}), vim.g['vimrc#ddc_sources'])
     vim.call('ddc#custom#patch_filetype', {
-      'go',
+      'lua',
       'rust',
       'typescript',
       'typescriptreact',
