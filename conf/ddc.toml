@@ -2,7 +2,7 @@
 repo = 'kuuote/ddc-source-suconv'
 
 [[plugins]]
-repo = 'LumaKernel/ddc-file'
+repo = 'LumaKernel/ddc-source-file'
 
 [[plugins]]
 repo = 'matsui54/ddc-buffer'
@@ -27,6 +27,9 @@ repo = 'Shougo/ddc-source-zsh'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-none'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
