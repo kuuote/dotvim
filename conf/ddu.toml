@@ -13,7 +13,7 @@ repo = 'kuuote/ddu-filter-fuse'
 [[plugins]]
 repo = 'kuuote/ddu-source-mr'
 lua_add = '''
-local m = require('vimrc.map').define
+local m = require('vimrc.compat.map').define
 
 for _, t in ipairs { 'mru', 'mrw', 'mrr' } do
   m('n', t, function()
@@ -37,7 +37,7 @@ end)
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
 lua_add = '''
-require('vimrc.map').define('n', '<Space>fh', function()
+require('vimrc.compat.map').define('n', '<Space>fh', function()
   require('ddu').start { 'help' }
 end)
 '''
@@ -54,7 +54,7 @@ repo = 'Shougo/ddu-kind-word'
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 lua_add = '''
-require('vimrc.map').define('n', '<C-p>', function()
+require('vimrc.compat.map').define('n', '<C-p>', function()
   require('ddu').start {
     {
       name = 'file_rec',
@@ -74,7 +74,7 @@ repo = 'Shougo/ddu-source-file'
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
 lua_add = '''
-require('vimrc.map').define('n', '<Space>fl', function()
+require('vimrc.compat.map').define('n', '<Space>fl', function()
   require('ddu').start { 'line' }
 end)
 '''
@@ -82,12 +82,12 @@ end)
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 lua_add = '''
-local au = require('vimrc.autocmd').define
-local aug = require('vimrc.autocmd').group
+local au = require('vimrc.compat.autocmd').define
+local aug = require('vimrc.compat.autocmd').group
 local cmd = vim.cmd or vim.command
-local fn = require('vimrc.convert').fn
+local fn = require('vimrc.compat.convert').fn
 local isnvim = vim.fn.has('nvim') == 1
-local m = require('vimrc.map').define
+local m = require('vimrc.compat.map').define
 local part = require('kutil.function').partition_keyvalue
 
 local do_action = fn['ddu#ui#ff#do_action']

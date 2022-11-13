@@ -1,4 +1,4 @@
-local m = require('vimrc.map').define
+local m = require('vimrc.compat.map').define
 local cmd = vim.cmd or vim.command
 
 -- 安全にかつ高速に終わるための設定

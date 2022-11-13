@@ -1,6 +1,6 @@
 -- ddu adapter by me
 
-local vimcall = require('vimrc.convert').call
+local vimcall = require('vimrc.compat.convert').call
 
 local M = {}
 

@@ -1,4 +1,4 @@
-local fn = require('vimrc.convert').fn
+local fn = require('vimrc.compat.convert').fn
 local add = fn['lexima#add_rule']
 
 local M = {}

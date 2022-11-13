@@ -1,11 +1,11 @@
-package.preload['vimrc.autocmd'] = function()
+package.preload['vimrc.compat.autocmd'] = function()
   return {
     group = vim.api.nvim_create_augroup,
     define = vim.api.nvim_create_autocmd,
   }
 end
 
-package.preload['vimrc.convert'] = function()
+package.preload['vimrc.compat.convert'] = function()
   return {
     convert = function(obj)
       return obj
@@ -15,7 +15,7 @@ package.preload['vimrc.convert'] = function()
   }
 end
 
-package.preload['vimrc.map'] = function()
+package.preload['vimrc.compat.map'] = function()
   return {
     define = vim.keymap.set,
   }

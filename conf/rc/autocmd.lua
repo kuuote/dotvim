@@ -1,4 +1,4 @@
-local au = require('vimrc.autocmd').define
+local au = require('vimrc.compat.autocmd').define
 local fn = vim.fn
 local cmd = vim.cmd or vim.command
 

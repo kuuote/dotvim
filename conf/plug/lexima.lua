@@ -1,5 +1,5 @@
-local au = require('vimrc.autocmd').define
-local fn = require('vimrc.convert').fn
+local au = require('vimrc.compat.autocmd').define
+local fn = require('vimrc.compat.convert').fn
 local add = fn['lexima#add_rule']
 
 -- local function hypermap(from, to)

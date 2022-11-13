@@ -1,7 +1,6 @@
-local au = require('vimrc.autocmd').define
-local convert = require('vimrc.convert').convert
-local map = require('vimrc.map').define
-local vimcall = require('vimrc.convert').call
+local au = require('vimrc.compat.autocmd').define
+local map = require('vimrc.compat.map').define
+local vimcall = require('vimrc.compat.convert').call
 local cmd = vim.cmd or vim.command
 
 local customs = {}

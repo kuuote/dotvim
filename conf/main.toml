@@ -33,10 +33,10 @@ lua_source = '''
 -- if vim.fn.has('nvim') == 1 and vim.g.vim_ui_select == 'fzyselect.vim' then
   vim.ui.select = require('fzyselect').start
 -- end
-require('vimrc.autocmd').define('FileType', {
+require('vimrc.compat.autocmd').define('FileType', {
   pattern = 'fzyselect',
   callback = function()
-    local map = require('vimrc.map').define
+    local map = require('vimrc.compat.map').define
     local opts = {buffer = true}
     map('n', 'i', '<Plug>(fzyselect-fzy)', opts)
     map('n', '<CR>', '<Plug>(fzyselect-retu)', opts)
@@ -56,7 +56,7 @@ let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 lua_add = '''
-local convert = require('vimrc.convert').convert
+local convert = require('vimrc.compat.convert').convert
 
 vim.g.lightline = convert {
   active = {
@@ -180,7 +180,7 @@ autocmd User GinComponentPost redrawtabline
 repo = 'lambdalisue/gina.vim'
 on_cmd = 'Gina'
 lua_source = '''
-local vimeval = require('vimrc.convert').call
+local vimeval = require('vimrc.compat.convert').call
 vimeval('gina#custom#mapping#nmap', 'status', ',c', '<Cmd>Gina commit -v --opener=tabedit<CR>', {
   noremap = true,
   nowait = true,
@@ -384,8 +384,8 @@ set helplang=ja
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 lua_add = '''
-local au = require('vimrc.autocmd').define
-local vimeval = require('vimrc.convert').call
+local au = require('vimrc.compat.autocmd').define
+local vimeval = require('vimrc.compat.convert').call
 
 local dictPath = vimeval('dein#get', 'dict').path
 
