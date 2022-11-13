@@ -42,4 +42,11 @@ function M.find_root(path)
   return path
 end
 
+-- 辞書の中に値を配置するやつ
+function M.let(path, obj)
+  vim.g['LuaTemp'] = obj
+  vim.cmd(string.format('let %s = g:LuaTemp', path))
+  vim.cmd('unlet g:LuaTemp')
+end
+
 return M
