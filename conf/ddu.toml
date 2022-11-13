@@ -43,6 +43,9 @@ end)
 '''
 
 [[plugins]]
+repo = 'Shougo/ddu-filter-sorter_alpha'
+
+[[plugins]]
 repo = 'Shougo/ddu-kind-file'
 
 [[plugins]]
@@ -56,7 +59,11 @@ require('vimrc.map').define('n', '<C-p>', function()
     {
       name = 'file_rec',
       options = { path = require('vimrc.util').find_root() },
+      sourceOptions = {
+        sorters = { 'alpha' },
+      },
     },
+    name = 'file',
   }
 end)
 '''
@@ -190,6 +197,9 @@ c('DduRgLive', function()
       },
       params = {
         path = require('vimrc.util').find_root(),
+      },
+      sourceOptions = {
+        sorters = { 'sorter_alpha' },
       },
     },
     name = 'file',

@@ -15,6 +15,13 @@ function M.start(config)
       tableconfig[k] = v
     end
   end
+  -- sourceOptions
+  tableconfig.sourceOptions = tableconfig.sourceOptions or {}
+  for _, s in ipairs(sources) do
+    if s.sourceOptions ~= nil then
+      tableconfig.sourceOptions[s.name] = s.sourceOptions
+    end
+  end
   tableconfig.sources = sources
   vimcall('ddu#start', tableconfig)
 end
