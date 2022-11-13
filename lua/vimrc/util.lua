@@ -4,6 +4,7 @@ local eval = vim.eval or vim.api.nvim_eval
 
 
 local pum_vim_confirm = eval([["\<Cmd>call pum#map#confirm()\<CR>"]])
+local cmp_confirm = eval([["\<Cmd>lua require('cmp').confirm({select = false})\<CR>"]])
 
 function M.pum_confirm(fallback)
   if vim.fn.pumvisible() == 1 then
@@ -11,10 +12,17 @@ function M.pum_confirm(fallback)
       return '\25' -- <C-y>
     end
   end
-  local ok, result = pcall(vim.fn['pum#visible'])
+  local ok, result
+  ok, result = pcall(vim.fn['pum#visible'])
   if ok and result == 1 then
     if vim.call('pum#complete_info').selected ~= -1 then
       return pum_vim_confirm
+    end
+  end
+  ok, result = pcall(function() return require('cmp').visible() end)
+  if ok and result then
+    if require('cmp').get_active_entry() ~= nil then
+      return cmp_confirm
     end
   end
   return fallback()
