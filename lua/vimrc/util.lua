@@ -37,7 +37,7 @@ function M.find_root(path)
   end
   local found = vim.fn.finddir('.git/..', path .. ';') -- gitリポジトリの中であれば、そのrootを取る
   if found ~= '' then
-    path = found
+    path = vim.fn.fnamemodify(found, ':p')
   end
   return path
 end
