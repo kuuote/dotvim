@@ -15,10 +15,6 @@ if !v:vim_did_enter
   source ~/.vim/conf/dein.vim
 endif
 
-if getftype('/tmp/templug') ==# 'dir'
-  let &runtimepath = join(glob('/tmp/templug/*', 1, 1), ',') .. ',' .. &runtimepath
-endif
-
 filetype plugin indent on
 syntax enable
 
