@@ -102,3 +102,23 @@ add {
   at = '\\%#.*{}$',
   input = '<End><Left><CR><Up><End><CR><C-g>u',
 }
+
+-- p
+local function define_p(filetype, input, input_after)
+  au('FileType', {
+    pattern = filetype,
+    callback = function()
+      add {
+        char = '<Space>',
+        at = [[^\s*p\%#]],
+        input = '<BS>' .. input,
+        input_after = input_after,
+        filetype = filetype,
+      }
+    end,
+  })
+end
+
+define_p('lua', 'vim.pretty_print(', ')')
+define_p({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, 'console.log(', ');')
+define_p('vim', 'PrettyPrint ', '')
