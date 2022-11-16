@@ -21,9 +21,6 @@ altercmd('git', 'Gin')
 altercmd('gy', 'Gina browse --yank --exact :')
 altercmd('pe', 'Partedit -filetype')
 altercmd('r\\%[un]', 'QuickRun')
-altercmd('cap\\%[ture]', 'Capture')
-altercmd('gy', 'Gina browse --yank --exact :')
-altercmd('git', 'Gin')
 
 au('FileType', {
   pattern = 'lua',
