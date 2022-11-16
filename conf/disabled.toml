@@ -11,6 +11,17 @@ autocmd FileType toml ++nested call timer_start(0, {id->s:dein_toml_syntax()})
 '''
 
 [[plugins]]
+comment = 'gin.vimの物を使うので'
+repo = 'itchyny/vim-gitbranch'
+
+[[plugins]]
+comment = 'cmdwinの絞り込みしか使ってない'
+repo = 'kuuote/vim-fuzzyhistory'
+hook_add = '''
+nmap <C-f> <Plug>(fuzzy-history)
+'''
+
+[[plugins]]
 comment = '''
 ddu-source-mr使ってるので
 '''
@@ -43,6 +54,10 @@ endfunction
 '''
 
 [[plugins]]
+comment = '消えた。悲しい'
+repo = 'ulwlu/elly.vim'
+
+[[plugins]]
 comment = '''
 ddudeinupdateを使うようになったので
 '''
@@ -50,8 +65,4 @@ repo = 'wsdjeg/dein-ui.vim'
 hook_add = '''
 autocmd FileType SpaceVimPlugManager autocmd TextChanged <buffer> normal! G
 '''
-
-[[plugins]]
-comment = '消えた。悲しい'
-repo = 'ulwlu/elly.vim'
 
