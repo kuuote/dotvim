@@ -10,12 +10,12 @@ local add = fn['lexima#add_rule']
 --     input = to,
 --   }
 -- end
--- 
+--
 -- hypermap(';s', [[<BS><C-r>=lexima#expand('(', 'i')<CR>]])
 local altercmd = require('vimrc.plug.lexima').altercmd
 
 altercmd('cap\\%[ture]', 'Capture')
-altercmd('d', 'Deol')
+altercmd('d', 'DeolCurrent')
 altercmd('ee', 'e!')
 altercmd('git', 'Gin')
 altercmd('gy', 'Gina browse --yank --exact :')
