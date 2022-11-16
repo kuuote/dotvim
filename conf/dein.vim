@@ -21,9 +21,13 @@ let g:vim_ui_select = [
 \   'telescope.nvim',
 \ ][1]
 
+let s:inline_tmp = '/tmp/vimrc_inline/'
+
 let s:conf = '~/.vim/conf/plug.toml'
 let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)
 if dein#load_state(s:dein_dir)
+  call delete(s:inline_tmp, 'rf')
+  call mkdir(s:inline_tmp, 'p')
   let s:profiles = {}
   let s:profiles['coc'] = 0
   let s:profiles['colorscheme'] = 1
@@ -46,7 +50,7 @@ if dein#load_state(s:dein_dir)
   let configs = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
   let configs2 = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
 
-  call dein#begin(s:dein_dir, flatten([g:vimrc, expand('<sfile>'), configs, configs2]))
+  call dein#begin(s:dein_dir, [g:vimrc, expand('<sfile>')])
   for toml in configs
     if getftype(toml) ==# 'file'
       call dein#load_toml(toml)
@@ -69,4 +73,20 @@ endif
 
 lua pcall(require, 'impatient')
 
-call dein#call_hook('source')
+let hook_source_cache = s:inline_tmp .. v:progname .. 'hook_source.vim'
+if !filereadable(hook_source_cache)
+  let lines = []
+  " from dein#util#_call_hook
+  let plugins = filter(dein#util#_tsort(
+        \ values(dein#get())),
+        \ { _, val ->
+        \    val.sourced && has_key(val, 'hook_source') && isdirectory(val.path)
+        \    && (!has_key(val, 'if') || eval(val.if))
+        \ })
+  for p in plugins
+    call extend(lines, split(p.hook_source, "\n"))
+  endfor
+  call writefile(lines, hook_source_cache)
+endif
+" call dein#call_hook('source')
+execute 'source' hook_source_cache

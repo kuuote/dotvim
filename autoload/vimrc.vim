@@ -4,16 +4,60 @@ function! vimrc#blocksort(finder, sorter) abort range
   call denops#request('vimrc', 'blockSort', [a:firstline, a:lastline, a:finder, a:sorter])
 endfunction
 
-" pathに指定したものをglobして:sourceする
-function! vimrc#load_scripts(path) abort
-  for f in sort(glob(a:path, v:true, v:true))
-    if f =~# '.lua$'
-      execute 'luafile' f
-    else
-      execute "source" f
+let s:cache_path = '/tmp/vimrc_inline/'
+
+function! s:collect_files(path, ...) abort
+  let inline = get(a:000, 0, v:true)
+  let cache = s:cache_path .. sha256(a:path)
+  if filereadable(cache)
+    return readfile(cache)
+  endif
+  let files = sort(glob(a:path, v:true, v:true))
+  call mkdir(s:cache_path, 'p')
+  if inline
+    let vim = []
+    let lua = []
+    for f in files
+      if f =~# '.lua$'
+        call extend(lua, readfile(f))
+      else
+        call extend(vim, readfile(f))
+      endif
+    endfor
+    let files = []
+    if !empty(vim)
+      let vimfile = s:cache_path .. sha256(a:path) .. '.vim'
+      call writefile(vim, vimfile)
+      call add(files, vimfile)
     endif
-  endfor
+    if !empty(lua)
+      let luafile = s:cache_path .. sha256(a:path) .. '.lua'
+      call writefile(lua, luafile)
+      call add(files, luafile)
+    endif
+  endif
+  call writefile(files, cache)
+  return files
 endfunction
+
+" pathに指定したものをglobして:sourceする
+if has('nvim')
+  function! vimrc#load_scripts(path) abort
+    for f in s:collect_files(a:path)
+      execute "source" f
+    endfor
+  endfunction
+else
+  function! vimrc#load_scripts(path) abort
+    for f in s:collect_files(a:path)
+      if f =~# '.lua$'
+        execute 'luafile' f
+      else
+        execute "source" f
+      endif
+    endfor
+  endfunction
+endif
 
 "
 function! vimrc#oresyntax(...) abort
