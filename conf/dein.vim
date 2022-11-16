@@ -16,6 +16,7 @@ let g:vimrc#ddc_source_options = {}
 
 " 気分で変えていくぞ
 let g:vim_ui_select = [
+\   'none',
 \   'ddu.vim',
 \   'fzyselect.vim',
 \   'telescope.nvim',
