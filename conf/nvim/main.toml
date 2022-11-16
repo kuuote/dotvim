@@ -82,7 +82,7 @@ call ddc#custom#patch_filetype('deol', 'sources', ['zsh', 'shell-history', 'arou
 " auto cdはEditバッファのみ有効なのでfileはこちら
 call ddc#custom#patch_filetype('zsh', 'sources', ['file', 'zsh', 'shell-history'])
 
-autocmd FileType deol tnoremap <buffer> <C-e> <C-\><C-N>G<Cmd>DeolEdit<CR>
+autocmd FileType deol tnoremap <buffer> <C-e> <C-\><C-N>G<Cmd>DeolEdit<CR><C-u>
 '''
 
 [[plugins]]
