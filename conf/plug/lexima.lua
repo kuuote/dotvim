@@ -84,6 +84,17 @@ au('FileType', {
   once = true,
 })
 
+au('FileType', {
+  pattern = 'rust',
+  callback = function()
+    add {
+      char = [[']],
+      at = [['\%#]],
+      input = '<BS>::',
+      filetype = 'rust',
+    }
+  end,
+})
 -- こっちは汎用の設定にしておく
 -- 末尾の {} に突入して改行するやつ
 add {
