@@ -24,38 +24,6 @@ nnoremap ! :!
 " from https://gist.github.com/tsukkee/1240267
 onoremap ( t(
 
-" 括弧とか打つのにShift押したくないでござる
-" genius maping by @KosukeMizuno
-" heavily modified by me
-
-" disabled some mappings because I'm using lexima.vim
-" see main.toml
-call hypermap#map(';a', '\')
-" call hypermap#map(';s', '(')
-call hypermap#map(';d', '=')
-" call hypermap#map(';f', ')')
-" call hypermap#map(';w', '{')
-call hypermap#map(';e', '+')
-" call hypermap#map(';r', '}')
-call hypermap#map(';x', '<')
-call hypermap#map(';c', '-')
-call hypermap#map(';v', '>')
-call hypermap#map(';q', '|')
-call hypermap#map(';z', '_')
-call hypermap#map(';;', ':')
-call hypermap#map(',q', '!')
-call hypermap#map(',w', '@')
-call hypermap#map(',e', '#')
-call hypermap#map(',r', '$')
-call hypermap#map(',a', '&')
-call hypermap#map(',s', '"')
-call hypermap#map(',d', '*')
-call hypermap#map(',f', '%')
-call hypermap#map(',z', '~')
-call hypermap#map(',x', "'")
-call hypermap#map(',c', "^")
-call hypermap#map(',v', "`")
-
 " sugoi undo
 nnoremap U <C-r>
 
@@ -64,3 +32,40 @@ nnoremap U <C-r>
 inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 
 tnoremap fj <C-\><C-N>
+
+function s:insert_map()
+  " 括弧とか打つのにShift押したくないでござる
+  " genius maping by @KosukeMizuno
+  " heavily modified by me
+
+  " disabled some mappings because I'm using lexima.vim
+  " see main.toml
+  call hypermap#map(';a', '\')
+  " call hypermap#map(';s', '(')
+  call hypermap#map(';d', '=')
+  " call hypermap#map(';f', ')')
+  " call hypermap#map(';w', '{')
+  call hypermap#map(';e', '+')
+  " call hypermap#map(';r', '}')
+  call hypermap#map(';x', '<')
+  call hypermap#map(';c', '-')
+  call hypermap#map(';v', '>')
+  call hypermap#map(';q', '|')
+  call hypermap#map(';z', '_')
+  call hypermap#map(';;', ':')
+  call hypermap#map(',q', '!')
+  call hypermap#map(',w', '@')
+  call hypermap#map(',e', '#')
+  call hypermap#map(',r', '$')
+  call hypermap#map(',a', '&')
+  call hypermap#map(',s', '"')
+  call hypermap#map(',d', '*')
+  call hypermap#map(',f', '%')
+  call hypermap#map(',z', '~')
+  call hypermap#map(',x', "'")
+  call hypermap#map(',c', "^")
+  call hypermap#map(',v', "`")
+endfunction
+
+" 遅いし必要ないので遅延
+autocmd CmdlineEnter,InsertEnter * ++once call s:insert_map()
