@@ -16,6 +16,7 @@ function! persist#run() abort
   redraw
   if confirm('Save changes?', "&Yes\n&No\n", 2) == 1
     call writefile(readfile(path), $HOME .. "/.vim/local/colors.vim")
+    call dein#clear_state()
   endif
 endfunction
 
