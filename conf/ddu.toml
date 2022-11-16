@@ -186,7 +186,8 @@ source ~/.vim/conf/plug/ddu.vim
 
 [[plugins]]
 repo = 'shun/ddu-rg'
-lua_add = '''
+on_cmd = 'DduRgLive'
+lua_source = '''
 local c = require('vimrc.command').define
 c('DduRgLive', function()
   require('ddu').start {

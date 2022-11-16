@@ -1,9 +1,14 @@
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
+on_source = 'ddu.vim'
+hook_source = '''
+let g:readme_viewer#plugin_manager = 'dein.vim'
+'''
 
 [[plugins]]
 repo = 'c000/rapidfire.vim'
-hook_add = '''
+on_cmd = 'Rapidfire'
+hook_source = '''
 function! s:rapidfire_search_config() abort
   let file = findfile('.rapidfire', '.;')
   if empty(file)
@@ -28,11 +33,15 @@ call hypermap#map(';r', "lexima#expand('}', 'i')", { 'eval': v:true })
 
 [[plugins]]
 repo = 'gw31415/fzyselect.vim'
-if = 'g:vim_ui_select ==# "fzyselect.vim"'
+on_lua = 'fzyselect'
+lua_add = '''
+if vim.fn.has('nvim') == 1 and vim.g.vim_ui_select == 'fzyselect.vim' then
+  vim.ui.select = function(a, b, c)
+    require('fzyselect').start(a, b, c)
+  end
+end
+'''
 lua_source = '''
--- if vim.fn.has('nvim') == 1 and vim.g.vim_ui_select == 'fzyselect.vim' then
-  vim.ui.select = require('fzyselect').start
--- end
 require('vimrc.compat.autocmd').define('FileType', {
   pattern = 'fzyselect',
   callback = function()
@@ -55,8 +64,18 @@ let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-lua_add = '''
+on_event = 'WinNew'
+hook_add = '''
+set laststatus=1
+set showtabline=1
+'''
+lua_source = '''
 local convert = require('vimrc.compat.convert').convert
+local let = require('vimrc.util').let
+local au = require('vimrc.compat.autocmd').define
+
+vim.go.laststatus = 2
+vim.go.showtabline = 2
 
 vim.g.lightline = convert {
   active = {
@@ -66,7 +85,7 @@ vim.g.lightline = convert {
     },
   },
   component_function = {
-    git_branch = 'gitbranch#name',
+    git_branch = 'gin#component#branch#ascii',
     git_status = 'gina#component#status#preset',
     skk_mode = 'g:lightline_skk#mode',
   },
@@ -83,41 +102,37 @@ vim.g.lightline = convert {
     },
   },
 }
+
+local special = {
+  ['catppuccin-latte'] = 'catppuccin',
+  ['catppuccin-mocha'] = 'catppuccin',
+  ['catppuccin-frappe'] = 'catppuccin',
+  ['catppuccin-macchiato'] = 'catppuccin',
+  ['gruvbox-material'] = 'gruvbox_material',
+}
+
+local function auto_colorscheme(name)
+  local colors = nil
+  if special[name] ~= nil then
+    colors = special[name]
+  elseif vim.fn.globpath(vim.go.runtimepath, ('autoload/lightline/colorscheme/%s.vim'):format(name)) ~= '' then
+    colors = name
+  end
+  let('g:lightline.colorscheme', colors)
+  if colors ~= nil then
+    -- edgeのような白黒共用のカラースキームを適用し直す
+    local path = vim.fn.globpath(vim.go.runtimepath, ('autoload/lightline/colorscheme/%s.vim'):format(colors), 1, 1)
+    if #path ~= 0 then
+      vim.cmd('source ' .. path[1])
+    end
+  end
+  vim.call('lightline#init')
+  vim.call('lightline#colorscheme')
+end
+
+auto_colorscheme(vim.g.colors_name)
+au('ColorScheme', { callback = function() auto_colorscheme(vim.fn.expand('<amatch>')) end })
 '''
-hook_add = '''
-let s:special = {
-\   'catppuccin-latte': { -> 'catppuccin' },
-\   'catppuccin-mocha': { -> 'catppuccin' },
-\   'catppuccin-frappe': { -> 'catppuccin' },
-\   'catppuccin-macchiato': { -> 'catppuccin' },
-\   'gruvbox-material': { -> 'gruvbox_material' },
-\ }
-
-" lightlineのカラースキームを自動で適用するやつ
-function! s:lightline_colorscheme(name) abort
-  if has_key(s:special, a:name)
-    let g:lightline.colorscheme = s:special[a:name]()
-  elseif globpath(&runtimepath, printf('autoload/lightline/colorscheme/%s.vim', a:name)) ==# ''
-    unlet g:lightline.colorscheme
-  else
-    let g:lightline.colorscheme = a:name
-  endif
-  if has_key(g:lightline, 'colorscheme')
-    " edgeのような白黒共用のカラースキームを適用し直す
-    let path = globpath(&runtimepath, printf('autoload/lightline/colorscheme/%s.vim', g:lightline.colorscheme), v:true, v:true)
-    if !empty(path)
-      execute 'source' path[0]
-    endif
-  endif
-  call lightline#init()
-  call lightline#colorscheme()
-endfunction
-
-autocmd ColorScheme * call s:lightline_colorscheme(expand('<amatch>'))
-'''
-
-[[plugins]]
-repo = 'itchyny/vim-gitbranch'
 
 [[plugins]]
 on_func = 'fzf#'
@@ -157,12 +172,6 @@ x = '<Plug>(textobj-line-'
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
-repo = 'kuuote/vim-fuzzyhistory'
-hook_add = '''
-nmap <C-f> <Plug>(fuzzy-history)
-'''
-
-[[plugins]]
 repo = 'lambdalisue/fern.vim'
 on_cmd = 'Fern'
 hook_add = '''
@@ -196,6 +205,7 @@ repo = 'lambdalisue/guise.vim'
 
 [[plugins]]
 repo = 'lambdalisue/mr.vim'
+on_event = 'BufReadPost'
 
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
@@ -253,6 +263,7 @@ endfunction
 
 [[plugins]]
 repo = 'machakann/vim-textobj-functioncall'
+on_source = 'vim-sandwich'
 hook_add = '''
 " from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
 let g:textobj_functioncall_no_default_key_mappings = 1
@@ -323,7 +334,8 @@ merged = 0
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
-hook_add = '''
+on_cmd = 'JunkfileOpen'
+hook_source = '''
 let g:junkfile#directory = '/data/junkfile'
 '''
 
@@ -339,9 +351,11 @@ repo = 'skk-dev/skktools'
 
 [[plugins]]
 repo = 'thinca/vim-localrc'
+on_event = ['BufNewFile', 'BufReadPost']
 
 [[plugins]]
 repo = 'thinca/vim-partedit'
+on_cmd = 'Partedit'
 
 [[plugins]]
 repo = 'thinca/vim-prettyprint'
@@ -349,21 +363,26 @@ on_cmd = 'PrettyPrint'
 
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
+on_cmd = 'Qfreplace'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
+on_cmd = 'QuickRun'
 
 [[plugins]]
 repo = 'thinca/vim-ref'
+on_cmd = 'Ref'
 
 [[plugins]]
 repo = 'thinca/vim-themis'
 
 [[plugins]]
 repo = 'tweekmonster/helpful.vim'
+if = 'v:false'
 
 [[plugins]]
 repo = 'tyru/capture.vim'
+on_cmd = 'Capture'
 
 [[plugins]]
 repo = 'uga-rosa/linkformat.vim'
@@ -457,13 +476,15 @@ augroup END
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
+on_cmd = 'FuzzyMotion'
 hook_add = '''
+nnoremap <Tab> <Cmd>FuzzyMotion<CR>
+'''
+hook_source = '''
 " from https://github.com/yuki-yano/dotfiles/blob/7f10462d12228f57ea3cf86d61f3b22d4728b6f1/.vimrc#L3030
 " 2個目の条件(foo.bar.bazみたいなのにマッチさせる設定)にスペースを増やした(コマンドにもヒットさせたかった)
 " 最後に行全体にマッチさせる設定を入れた(若干pounceっぽく使える気がする)
 let g:fuzzy_motion_word_regexp_list = ['[0-9a-zA-Z_-]+',  '([0-9a-zA-Z_-]|[. ])+', '([0-9a-zA-Z]|[()<>.-_#''"]|(\s=+\s)|(,\s)|(:\s)|(\s=>\s))+', '.+']
-
-nnoremap <Tab> <Cmd>FuzzyMotion<CR>
 '''
 
 [[plugins]]

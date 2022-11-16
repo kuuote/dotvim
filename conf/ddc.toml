@@ -142,6 +142,7 @@ luafile ~/.vim/conf/plug/ddc.lua
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
+on_ft = ['vim']
 hook_source = '''
 function! s:setup_necovim() abort
   call ddc#custom#patch_filetype(['vim', 'toml'], 'sources', g:vimrc#ddc_sources_front + ['necovim'] + g:vimrc#ddc_sources)
