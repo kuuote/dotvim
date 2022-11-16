@@ -55,10 +55,13 @@ require('vimrc.compat.autocmd').define('FileType', {
 '''
 
 [[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
+
+[[plugins]]
 repo = 'hrsh7th/vim-vsnip'
-on_map = {'i' = '<Plug>(vsnip'}
+on_event = 'InsertEnter'
 hook_add = '''
-imap <C-b> <Plug>(vsnip-expand-or-jump)
+inoremap <C-n> <Plug>(vsnip-jump-next)
 let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
 '''
 

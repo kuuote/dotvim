@@ -41,9 +41,9 @@ hook_source = '''
 " 次にバッファ固有の物、その後に通常という戦略で行く
 let g:vimrc#ddc_sources = ['around', 'buffer']
 if has('nvim')
-  let g:vimrc#ddc_sources_front = ['tsnip', 'file']
+  let g:vimrc#ddc_sources_front = ['tsnip', 'vsnip', 'file']
 else
-  let g:vimrc#ddc_sources_front = ['file']
+  let g:vimrc#ddc_sources_front = ['vsnip', 'file']
 endif
 " insert space for paragraph selector
 " vip => :!jq -S .
