@@ -55,3 +55,8 @@ set isfname&
 " Display an invisible letter with hex format.
 set display+=uhex
 
+" 手動補完の挙動を自動補完っぽく(自動ではない)
+set completeopt=menuone,noselect
+
+" セッション使っていき
+set sessionoptions=blank,curdir,tabpages
