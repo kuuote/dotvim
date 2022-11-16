@@ -199,7 +199,7 @@ c('DduRgLive', function()
         path = require('vimrc.util').find_root(),
       },
       sourceOptions = {
-        sorters = { 'sorter_alpha' },
+        sorters = require('vimrc.params').get('ddu_rg_live_sorters'),
       },
     },
     name = 'file',
