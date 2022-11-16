@@ -162,6 +162,9 @@ inoremap <C-q>   <Cmd>call pum#map#cancel()<CR>
 
 cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+
+tnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+tnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 '''
 
 [[plugins]]
