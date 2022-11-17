@@ -371,6 +371,15 @@ on_cmd = 'Qfreplace'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 on_cmd = 'QuickRun'
+lua_source = '''
+vim.g.quickrun_config = {
+  lua = {
+    command = 'nvim',
+    tempfile = '%{tempname()}.lua',
+    exec = [[%c --clean --headless -c 'source %s' -c 'cquit 0']],
+  },
+}
+'''
 
 [[plugins]]
 repo = 'thinca/vim-ref'
