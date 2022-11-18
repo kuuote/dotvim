@@ -11,6 +11,10 @@ autocmd FileType toml ++nested call timer_start(0, {id->s:dein_toml_syntax()})
 '''
 
 [[plugins]]
+comment = '本体に入ったので'
+repo = 'milisims/nvim-luaref'
+
+[[plugins]]
 comment = 'gin.vimの物を使うので'
 repo = 'itchyny/vim-gitbranch'
 

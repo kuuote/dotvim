@@ -6,9 +6,6 @@ rev = 'monster'
 repo = 'lewis6991/impatient.nvim'
 
 [[plugins]]
-repo = 'milisims/nvim-luaref'
-
-[[plugins]]
 repo = 'monaqa/dial.nvim'
 on_map = {"n" = "<Plug>(dial"}
 hook_add = '''
