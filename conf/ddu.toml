@@ -58,8 +58,8 @@ require('vimrc.compat.map').define('n', '<C-p>', function()
   require('ddu').start {
     {
       name = 'file_rec',
-      options = { path = require('vimrc.util').find_root() },
-      sourceOptions = {
+      options = {
+        path = require('vimrc.util').find_root(),
         sorters = { 'alpha' },
       },
     },
@@ -179,7 +179,7 @@ au('FileType', {
 
 [[plugins]]
 repo = 'Shougo/ddu.vim'
-on_func = 'ddu#'
+on_func = 'ddu#start'
 hook_source = '''
 source ~/.vim/conf/plug/ddu.vim
 '''
@@ -195,12 +195,10 @@ c('DduRgLive', function()
       name = 'rg',
       options = {
         matchers = {},
+        sorters = require('vimrc.params').get('ddu_rg_live_sorters'),
       },
       params = {
         path = require('vimrc.util').find_root(),
-      },
-      sourceOptions = {
-        sorters = require('vimrc.params').get('ddu_rg_live_sorters'),
       },
     },
     name = 'file',
