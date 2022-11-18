@@ -334,6 +334,18 @@ x = '<Plug>(textobj-string-'
 [[plugins]]
 repo = 'Shougo/dein.vim'
 merged = 0
+lua_add = '''
+require('vimrc.command').define('DduDein', function()
+  require('ddu').start {
+    {
+      name = 'dein',
+      options = {
+        sorters = { 'sorter_alpha_path' },
+      },
+    },
+  }
+end)
+'''
 
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
