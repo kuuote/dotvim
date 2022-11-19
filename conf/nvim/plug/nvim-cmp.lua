@@ -8,6 +8,11 @@ cmp.setup {
     end
     return false
   end,
+      snippet = {
+        expand = function(args)
+          vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        end,
+      },
   window = {
     completion = cmp.config.window.bordered {
       border = 'single',
@@ -29,6 +34,7 @@ cmp.setup {
   },
   sources = cmp.config.sources {
     { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
     {
       name = 'buffer',
       option = {

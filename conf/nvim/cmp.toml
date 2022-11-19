@@ -12,6 +12,7 @@ on_source = 'nvim-cmp'
 
 [[plugins]]
 repo = 'hrsh7th/cmp-nvim-lsp'
+on_lua = 'cmp_nvim_lsp'
 on_source = 'nvim-cmp'
 
 [[plugins]]
@@ -19,7 +20,12 @@ repo = 'hrsh7th/cmp-path'
 on_source = 'nvim-cmp'
 
 [[plugins]]
+repo = 'hrsh7th/cmp-vsnip'
+on_source = 'nvim-cmp'
+
+[[plugins]]
 repo = 'hrsh7th/nvim-cmp'
+on_lua = 'cmp'
 on_cmd = 'Cmp'
 lua_source = '''
 vim.api.nvim_create_user_command('Cmp', function()

@@ -25,6 +25,7 @@ call signature_help#enable()
 repo = 'neovim/nvim-lspconfig'
 on_ft = ['lua', 'typescript', 'typescriptreact', 'rust']
 lua_source = '''
+local c = require('cmp_nvim_lsp').default_capabilities()
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function()
     local opts = {
@@ -45,6 +46,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local lsp = require('lspconfig')
 
 lsp.sumneko_lua.setup {
+  capabilites = c,
   settings = {
     Lua = {
       runtime = {
