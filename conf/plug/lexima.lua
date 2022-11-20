@@ -122,3 +122,17 @@ end
 define_p('lua', 'vim.pretty_print(', ')')
 define_p({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, 'console.log(', ');')
 define_p('vim', 'PrettyPrint ', '')
+
+local pum_confirm = require('vimrc.util').pum_confirm
+
+-- pumとleximaを考慮したegg like return
+-- leximaのマッピングを上書きするための物なのでこちらに置いておく
+require('vimrc.compat.map').define('i', '<CR>', function()
+  return pum_confirm(function()
+    return vim.call('lexima#expand', '<CR>', 'i')
+  end)
+end, {
+  expr = true,
+  replace_keycodes = false,
+  silent = true,
+})
