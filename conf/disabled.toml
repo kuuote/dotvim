@@ -1,4 +1,13 @@
 [[plugins]]
+comment = '''
+nvimの方がVim対応したのでif_lua前提のうちの.vimだと使える
+'''
+repo = 'catppuccin/vim'
+name = 'catppuccin-vim'
+if = 'v:false && !has("nvim")'
+
+
+[[plugins]]
 comment = '本体に入ったので'
 repo = 'cespare/vim-toml'
 hook_add = '''
@@ -9,10 +18,6 @@ function! s:dein_toml_syntax() abort
 endfunction
 autocmd FileType toml ++nested call timer_start(0, {id->s:dein_toml_syntax()})
 '''
-
-[[plugins]]
-comment = '本体に入ったので'
-repo = 'milisims/nvim-luaref'
 
 [[plugins]]
 comment = 'gin.vimの物を使うので'
@@ -56,6 +61,10 @@ function! BMWorkDirFileLocation() abort
   return '/tmp/bookmarks/' .. root
 endfunction
 '''
+
+[[plugins]]
+comment = '本体に入ったので'
+repo = 'milisims/nvim-luaref'
 
 [[plugins]]
 comment = '消えた。悲しい'
