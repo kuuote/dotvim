@@ -350,6 +350,7 @@ end)
 [[plugins]]
 repo = 'Shougo/junkfile.vim'
 on_cmd = 'JunkfileOpen'
+on_func = 'ddu#start'
 hook_source = '''
 let g:junkfile#directory = '/data/junkfile'
 '''
