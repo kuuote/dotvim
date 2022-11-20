@@ -55,6 +55,17 @@ require('vimrc.compat.autocmd').define('FileType', {
 '''
 
 [[plugins]]
+repo = 'hrsh7th/vim-searchx'
+on_func = 'searchx#start'
+hook_add = '''
+let g:searchx = {'auto_accept': v:true}
+nnoremap / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+nnoremap ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+nnoremap s/ /
+nnoremap s? ?
+'''
+
+[[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
 
 [[plugins]]
