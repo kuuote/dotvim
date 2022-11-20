@@ -50,3 +50,8 @@ m('i', '<C-l>', function()
   vim.fn.cursor(pos[1], pos[2] + 1)
   vim.cmd('doautocmd <nomodeline> TextChangedI foo') -- 補完をトリガーする
 end)
+
+-- 楽なウィンドウ移動
+for _, k in ipairs({'h', 'j', 'k', 'l'}) do
+  m('n', '<C-' .. k .. '>', '<C-w>' .. k)
+end
