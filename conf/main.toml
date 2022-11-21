@@ -452,8 +452,8 @@ au('User', {
     vimeval('skkeleton#config', {
       eggLikeNewline = true,
       globalDictionaries = {
-        dictPath .. '/SKK-JISYO.edict2',
         dictPath .. '/SKK-JISYO.L',
+        dictPath .. '/SKK-JISYO.edict2',
       },
       registerConvertResult = true,
       showCandidatesCount = 1,
