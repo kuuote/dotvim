@@ -2,6 +2,9 @@
 repo = 'ayu-theme/ayu-vim'
 
 [[plugins]]
+repo = "NLKNguyen/papercolor-theme"
+
+[[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 
 [[plugins]]
