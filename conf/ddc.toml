@@ -94,8 +94,11 @@ let s:config_json =<< UNKO
       "forceCompletionPattern": "\\S/\\S*",
       "isVolatile": true,
       "mark": "F",
-      "minAutoCompleteLength": 1000
-      ,"sorters": ["sorter_file", "sorter_fuzzy"]
+      "minAutoCompleteLength": 1000,
+      "sorters": [
+        "sorter_file",
+        "sorter_fuzzy"
+      ]
     },
     "necovim": {
       "mark": "V"
@@ -119,7 +122,10 @@ let s:config_json =<< UNKO
   },
   "sourceParams": {
     "file": {
-      "filenameChars": "[:keyword:]."
+      "filenameChars": "[:keyword:].",
+      "projFromCwdMaxItems": [
+        0
+      ]
     }
   },
   "ui": "pum"
