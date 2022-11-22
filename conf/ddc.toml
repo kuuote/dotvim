@@ -36,6 +36,7 @@ repo = 'Shougo/ddc-ui-pum'
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
+on_event = ['CmdlineEnter', 'InsertEnter']
 hook_source = '''
 " frontは出現したら何よりも先に選びたいやつ
 " 次にバッファ固有の物、その後に通常という戦略で行く
@@ -136,8 +137,8 @@ let g:vimrc#ddc_config = s:config_json->join('')->json_decode()
 unlet s:config_json
 let g:vimrc#ddc_config['sources'] = g:vimrc#ddc_sources_front + g:vimrc#ddc_sources
 call ddc#custom#patch_global(g:vimrc#ddc_config)
-autocmd VimEnter * doautocmd <nomodeline> User vimrc-ddc
-autocmd VimEnter * call ddc#enable()
+doautocmd <nomodeline> User vimrc-ddc
+call ddc#enable()
 
 autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
 
