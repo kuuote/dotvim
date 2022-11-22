@@ -42,6 +42,15 @@ au('FileType', {
       input_after = '<CR>end',
       filetype = 'lua',
     }
+
+    -- add endwise rule `while`
+    add {
+      char = '<CR>',
+      at = '^\\s*while\\s.*\\%#',
+      input = ' do<CR>',
+      input_after = '<CR>end',
+      filetype = 'lua',
+    }
   end,
   once = true,
 })
