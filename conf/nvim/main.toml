@@ -53,7 +53,15 @@ if = 'g:vim_ui_select ==# "telescope.nvim"'
 on_lua = 'telescope'
 lua_add = '''
 vim.ui.select = function(items, opts, on_choice)
-	require("telescope").load_extension("ui-select")
+  local telescope = require('telescope')
+  telescope.setup {
+    extensions = {
+      ['ui-select'] = {
+        require('telescope.themes').get_dropdown {},
+      },
+    },
+  }
+  telescope.load_extension('ui-select')
   vim.ui.select(items, opts, on_choice)
 end
 '''
