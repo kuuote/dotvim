@@ -2,16 +2,14 @@ local au = require('vimrc.compat.autocmd').define
 local fn = require('vimrc.compat.convert').fn
 local add = fn['lexima#add_rule']
 
--- local function hypermap(from, to)
---   local fromlen = #from
---   add {
---     char = from:sub(fromlen, fromlen),
---     at = from:sub(1, fromlen - 1) .. [[\%#]],
---     input = to,
---   }
--- end
---
--- hypermap(';s', [[<BS><C-r>=lexima#expand('(', 'i')<CR>]])
+--@ ,を二度押すと左に移動する
+add {
+  char = ',',
+  at = [[,\%#]],
+  input = '<Left>',
+}
+
+--@ altercmd
 local altercmd = require('vimrc.plug.lexima').altercmd
 
 altercmd('cap\\%[ture]', 'Capture')
@@ -22,39 +20,7 @@ altercmd('gy', 'Gina browse --yank --exact :')
 altercmd('pe', 'Partedit -filetype')
 altercmd('r\\%[un]', 'QuickRun')
 
-au('FileType', {
-  pattern = 'lua',
-  callback = function()
-    -- add endwise rule `if`
-    add {
-      char = '<CR>',
-      at = '^\\s*if\\s.*\\%#',
-      input = ' then<CR>',
-      input_after = '<CR>end',
-      filetype = 'lua',
-    }
-
-    -- add endwise rule `for`
-    add {
-      char = '<CR>',
-      at = '^\\s*for\\s.*\\%#',
-      input = ' do<CR>',
-      input_after = '<CR>end',
-      filetype = 'lua',
-    }
-
-    -- add endwise rule `while`
-    add {
-      char = '<CR>',
-      at = '^\\s*while\\s.*\\%#',
-      input = ' do<CR>',
-      input_after = '<CR>end',
-      filetype = 'lua',
-    }
-  end,
-  once = true,
-})
-
+--@ Cっぽい言語
 local clike_filetype = {
   'c',
   'cpp',
@@ -93,17 +59,6 @@ au('FileType', {
   once = true,
 })
 
-au('FileType', {
-  pattern = 'rust',
-  callback = function()
-    add {
-      char = [[']],
-      at = [['\%#]],
-      input = '<BS>::',
-      filetype = 'rust',
-    }
-  end,
-})
 -- こっちは汎用の設定にしておく
 -- 末尾の {} に突入して改行するやつ
 add {
@@ -112,7 +67,68 @@ add {
   input = '<End><Left><CR><Up><End><CR><C-g>u',
 }
 
--- p
+--@ enter with pum
+local pum_confirm = require('vimrc.util').pum_confirm
+
+-- pumとleximaを考慮したegg like return
+-- leximaのマッピングを上書きするための物なのでこちらに置いておく
+require('vimrc.compat.map').define('i', '<CR>', function()
+  return pum_confirm(function()
+    return vim.call('lexima#expand', '<CR>', 'i')
+  end)
+end, {
+  expr = true,
+  replace_keycodes = false,
+  silent = true,
+})
+
+--@ hypermap (補完を破壊するので一旦無効化)
+-- local function hypermap(from, to)
+--   local fromlen = #from
+--   add {
+--     char = from:sub(fromlen, fromlen),
+--     at = from:sub(1, fromlen - 1) .. [[\%#]],
+--     input = to,
+--   }
+-- end
+--
+-- hypermap(';s', [[<BS><C-r>=lexima#expand('(', 'i')<CR>]])
+
+--@ Lua
+au('FileType', {
+  pattern = 'lua',
+  callback = function()
+    -- add endwise rule `if`
+    add {
+      char = '<CR>',
+      at = '^\\s*if\\s.*\\%#',
+      input = ' then<CR>',
+      input_after = '<CR>end',
+      filetype = 'lua',
+    }
+
+    -- add endwise rule `for`
+    add {
+      char = '<CR>',
+      at = '^\\s*for\\s.*\\%#',
+      input = ' do<CR>',
+      input_after = '<CR>end',
+      filetype = 'lua',
+    }
+
+    -- add endwise rule `while`
+    add {
+      char = '<CR>',
+      at = '^\\s*while\\s.*\\%#',
+      input = ' do<CR>',
+      input_after = '<CR>end',
+      filetype = 'lua',
+    }
+  end,
+  once = true,
+})
+
+--@ p
 local function define_p(filetype, input, input_after)
   au('FileType', {
     pattern = filetype,
@@ -129,19 +145,19 @@ local function define_p(filetype, input, input_after)
 end
 
 define_p('lua', 'vim.pretty_print(', ')')
-define_p({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, 'console.log(', ');')
 define_p('vim', 'PrettyPrint ', '')
+define_p({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, 'console.log(', ');')
 
-local pum_confirm = require('vimrc.util').pum_confirm
-
--- pumとleximaを考慮したegg like return
--- leximaのマッピングを上書きするための物なのでこちらに置いておく
-require('vimrc.compat.map').define('i', '<CR>', function()
-  return pum_confirm(function()
-    return vim.call('lexima#expand', '<CR>', 'i')
-  end)
-end, {
-  expr = true,
-  replace_keycodes = false,
-  silent = true,
+--@ Rust
+au('FileType', {
+  pattern = 'rust',
+  callback = function()
+    add {
+      char = [[']],
+      at = [['\%#]],
+      input = '<BS>::',
+      filetype = 'rust',
+    }
+  end,
 })
+
