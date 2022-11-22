@@ -1,0 +1,36 @@
+# vim: noexpandtab
+
+[[snippet]]
+key = 'autocmd'
+description = 'auto command definition'
+body = '''
+augroup ${1:group}
+	autocmd!
+	$0
+augroup END
+'''
+
+[[snippet]]
+key = 'debug'
+description = 'debug stuff'
+body = '''let g:hoge = add(get(g:, 'hoge', []), $0)'''
+
+[[snippet]]
+key = 'function'
+description = 'function definition'
+body = '''
+function! ${1:name}(${2:args}) abort
+	$0
+endfunction
+'''
+
+[[snippet]]
+key = 'globalset'
+description = 'global variable definition with default'
+body = '''let g:${1:name} = get(g:, '${1:name}', ${2:default})'''
+
+[[snippet]]
+key = 'scratch'
+description = 'change buffer to scratch'
+body = 'setlocal buftype=nofile bufhidden=hide noswapfile'
+

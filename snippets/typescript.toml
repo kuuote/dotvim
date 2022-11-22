@@ -1,0 +1,17 @@
+# vim: noexpandtab
+
+[[snippet]]
+key = 'arrow'
+description = 'arrow function'
+body = '($1)$2 => $0'
+
+[[snippet]]
+key = 'asyncarrow'
+description = 'async arrow function'
+body = 'async ($1)$2 => $0'
+
+[[snippet]]
+key = 'value'
+description = 'const'
+body = 'const $1 = $0'
+

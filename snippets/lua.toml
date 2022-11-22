@@ -1,0 +1,11 @@
+# vim: noexpandtab
+
+[[snippet]]
+key = 'thunk'
+description = 'function without args'
+body = '''
+function()
+	$0
+end
+'''
+
