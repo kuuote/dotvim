@@ -1,4 +1,8 @@
 [[plugins]]
+repo = '4513ECHO/denops-gitter.vim'
+on_path = 'gitter://'
+
+[[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
 on_source = 'ddu.vim'
 hook_source = '''
