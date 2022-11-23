@@ -13,7 +13,7 @@ const find = (haystack: string, needle: string): number[] => {
   const indexes = [...haystack].flatMap((c, i) => c === n ? [i] : []);
   return indexes
     .map((i) => {
-      let pos = i;
+      let pos = i + 1;
       const found = [i];
       let npos = 0;
       while (pos < haystack.length && npos < eedle.length) {
