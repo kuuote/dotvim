@@ -54,13 +54,6 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end,
   },
   sources = cmp.config.sources {
     { name = 'nvim_lsp' },
@@ -92,6 +85,28 @@ cmp.setup.cmdline(':', {
     },
   }),
 })
+
+local cm = require('vimrc.condmap').define
+
+cm {
+  mode = 'i',
+  lhs = '<CR>',
+  key = 'cmp',
+  cond = cmp.get_active_entry,
+  fn = function()
+    return vim.api.nvim_eval([["\<Cmd>lua require('cmp').confirm()\<CR>"]])
+  end,
+}
+
+cm {
+  mode = 'i',
+  lhs = '<Tab>',
+  key = 'cmp',
+  cond = cmp.visible,
+  fn = function()
+    return vim.api.nvim_eval([["\<Cmd>lua require('cmp').select_next_item()\<CR>"]])
+  end,
+}
 '''
 
 [[plugins]]

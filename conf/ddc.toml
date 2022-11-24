@@ -160,8 +160,6 @@ autocmd User vimrc-ddc call s:setup_necovim()
 [[plugins]]
 repo = 'Shougo/pum.vim'
 hook_source = '''
-inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 " inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 " inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
@@ -174,7 +172,43 @@ cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 " tnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 
 call pum#set_option('use_complete', v:true)
-autocmd CompleteDone * call timer_start(0, {...->execute('let v:completed_item = {}')}) " workaround for omit duplicate call
+" autocmd CompleteDone * call timer_start(0, {...->execute('let v:completed_item = {}')}) " workaround for omit duplicate call
+'''
+lua_source = '''
+local condmap = require('vimrc.condmap')
+local copy = require('kutil.function').copy
+local eval = vim.eval or vim.api.nvim_eval
+
+local function cm(opts)
+  opts = copy(opts)
+  opts.mode = 'i'
+  opts.key = 'pum.vim'
+  condmap.define(opts)
+end
+
+cm {
+  lhs = '<Tab>',
+  cond = vim.fn['pum#visible'],
+  fn = function()
+    return eval([["\<Cmd>call pum#map#insert_relative(1)\<CR>"]])
+  end,
+}
+
+cm {
+  lhs = '<S-Tab>',
+  cond = vim.fn['pum#visible'],
+  fn = function()
+    return eval([["\<Cmd>call pum#map#insert_relative(-1)\<CR>"]])
+  end,
+}
+
+cm {
+  lhs = '<CR>',
+  cond = vim.fn['pum#entered'],
+  fn = function()
+    return eval([["\<Cmd>call pum#map#confirm()\<CR>"]])
+  end,
+}
 '''
 
 [[plugins]]

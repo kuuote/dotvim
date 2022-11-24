@@ -1,6 +1,8 @@
 local au = require('vimrc.compat.autocmd').define
+local cm = require('vimrc.condmap')
 local fn = require('vimrc.compat.convert').fn
 local add = fn['lexima#add_rule']
+local eval = vim.eval or vim.api.nvim_eval
 
 --@ ,を二度押すと左に移動する
 add {
@@ -68,19 +70,16 @@ add {
 }
 
 --@ enter with pum
-local pum_confirm = require('vimrc.util').pum_confirm
 
--- pumとleximaを考慮したegg like return
--- leximaのマッピングを上書きするための物なのでこちらに置いておく
-require('vimrc.compat.map').define('i', '<CR>', function()
-  return pum_confirm(function()
-    return vim.call('lexima#expand', '<CR>', 'i')
-  end)
-end, {
-  expr = true,
-  replace_keycodes = false,
-  silent = true,
-})
+cm.define {
+  mode = 'i',
+  lhs = '<CR>',
+  key = 'lexima',
+  priority = cm.prior.fallback,
+  fn = function()
+    return eval([[lexima#expand('<CR>', 'i')]])
+  end,
+}
 
 --@ hypermap (補完を破壊するので一旦無効化)
 -- local function hypermap(from, to)
