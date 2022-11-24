@@ -159,6 +159,7 @@ autocmd User vimrc-ddc call s:setup_necovim()
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
+on_source = 'ddc.vim'
 hook_source = '''
 " inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 " inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
