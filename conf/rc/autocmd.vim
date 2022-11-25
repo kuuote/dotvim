@@ -27,5 +27,5 @@ augroup END
 " 挿入モードに入った時にカーソルをセンターに持ってくる
 " from https://twitter.com/verylargeboar/status/1501892456538771463
 " nnoremap o zzo
-autocmd vimrc InsertEnter * normal! zz
+" autocmd vimrc InsertEnter * normal! zz
 
