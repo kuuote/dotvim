@@ -59,6 +59,7 @@ require('vimrc.compat.autocmd').define('FileType', {
 '''
 
 [[plugins]]
+[[plugins]]
 repo = 'hrsh7th/vim-searchx'
 on_func = 'searchx#start'
 hook_add = '''
@@ -76,7 +77,8 @@ repo = 'hrsh7th/vim-vsnip-integ'
 repo = 'hrsh7th/vim-vsnip'
 on_event = 'InsertEnter'
 hook_add = '''
-inoremap <C-n> <Plug>(vsnip-jump-next)
+inoremap <C-f> <Plug>(vsnip-jump-next)
+snoremap <C-f> <Plug>(vsnip-jump-next)
 let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
 '''
 
@@ -429,6 +431,15 @@ repo = 'uga-rosa/linkformat.vim'
 on_cmd = 'LinkFormatPaste'
 hook_source = '''
 luafile ~/.vim/conf/plug/linkformat.lua
+'''
+
+[[plugins]]
+repo = 'uga-rosa/scorpeon.vim'
+on_cmd = 'ScorpenHighlightEnable'
+lua_source = '''
+vim.g.scorpeon_extensions_path = require('vimrc.compat.convert').convert {
+  '/usr/lib/code/extensions',
+}
 '''
 
 [[plugins]]
