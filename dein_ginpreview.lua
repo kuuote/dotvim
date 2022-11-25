@@ -47,9 +47,10 @@ setup(function(use)
   use { 'catppuccin/nvim', name = 'catppuccin', merged = 0 }
   use { 'vim-denops/denops.vim' }
   use { 'lambdalisue/gin.vim' }
+  use { '~/.vim/bundle/gin-preview.vim' }
 end)
 
 vim.call('dein#recache_runtimepath')
 vim.cmd('colorscheme catppuccin-latte')
-vim.cmd('source ~/.vim/plugin/gin_preview.vim')
+vim.cmd('runtime! plugin/gin_preview.vim')
 vim.cmd('GinPreview')
