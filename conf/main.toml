@@ -40,8 +40,8 @@ repo = 'gw31415/fzyselect.vim'
 on_lua = 'fzyselect'
 lua_add = '''
 if vim.fn.has('nvim') == 1 and vim.g.vim_ui_select == 'fzyselect.vim' then
-  vim.ui.select = function(a, b, c)
-    require('fzyselect').start(a, b, c)
+  vim.ui.select = function(...)
+    require('fzyselect').start(...)
   end
 end
 '''
