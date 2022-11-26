@@ -4,6 +4,7 @@ local callback = require('vimrc.callback')
 local M = {}
 
 -- autocmd用コンパチブルレイヤー
+-- TODO: そのうちautocmd_addを使った物に切り替える
 -- コールバックの引数は実装してないのでexpandで何とかしてくれ
 
 if vim.fn.has('nvim') == 1 then
@@ -27,6 +28,10 @@ else
     if type(pattern) == 'table' then
       pattern = table.concat(pattern, ':')
     end
+    local once = ''
+    if opts.once then
+      once = '++once'
+    end
     local command = opts.command
     if type(opts.callback) == 'string' then
       command = string.format('call %s()', opts.callback)
@@ -35,7 +40,7 @@ else
       local id = callback.register(opts.callback)
       command = string.format("lua require('vimrc.callback').call(%d)", id)
     end
-    local cmd = string.format('autocmd %s %s %s %s', group, event, pattern, command)
+    local cmd = string.format('autocmd %s %s %s %s %s', group, event, pattern, once, command)
     vim.command(cmd)
   end
 end
