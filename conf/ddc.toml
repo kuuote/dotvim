@@ -176,6 +176,7 @@ call pum#set_option('use_complete', v:true)
 " autocmd CompleteDone * call timer_start(0, {...->execute('let v:completed_item = {}')}) " workaround for omit duplicate call
 '''
 lua_source = '''
+local booled = require('vimrc.compat.convert').booled
 local condmap = require('vimrc.condmap')
 local copy = require('kutil.function').copy
 local eval = vim.eval or vim.api.nvim_eval
@@ -189,7 +190,7 @@ end
 
 cm {
   lhs = '<Tab>',
-  cond = vim.fn['pum#visible'],
+  cond = booled(vim.fn['pum#visible']),
   fn = function()
     return eval([["\<Cmd>call pum#map#insert_relative(1)\<CR>"]])
   end,
@@ -197,7 +198,7 @@ cm {
 
 cm {
   lhs = '<S-Tab>',
-  cond = vim.fn['pum#visible'],
+  cond = booled(vim.fn['pum#visible']),
   fn = function()
     return eval([["\<Cmd>call pum#map#insert_relative(-1)\<CR>"]])
   end,
@@ -205,7 +206,7 @@ cm {
 
 cm {
   lhs = '<CR>',
-  cond = vim.fn['pum#entered'],
+  cond = booled(vim.fn['pum#entered']),
   fn = function()
     return eval([["\<Cmd>call pum#map#confirm()\<CR>"]])
   end,

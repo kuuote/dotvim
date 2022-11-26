@@ -63,4 +63,12 @@ function M.call(fn, ...)
   return M.fn[fn](...)
 end
 
+-- if_luaでv:falseが0になってLuaでtrue扱いされるので変換するやつ
+M.booled = function(fn)
+  return function()
+    local ret = fn()
+    return ret ~= 0 and ret
+  end
+end
+
 return M
