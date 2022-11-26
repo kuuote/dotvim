@@ -33,14 +33,11 @@ local function setup(fn)
   vim.call('dein#end')
 end
 
-vim.keymap.set('n', 'R', function()
-  vim.call('dein#recache_runtimepath')
-  print('recached')
-end)
 for _, k in ipairs({'h', 'j', 'k', 'l'}) do
   vim.keymap.set('n', '<C-' .. k .. '>', '<C-w>' .. k)
 end
 vim.keymap.set('n', 'Q', '<Cmd>confirm qa<CR>')
+vim.keymap.set('n', '<Space>s', '<Cmd>update<CR>')
 
 setup(function(use)
   use { 'Shougo/dein.vim', merged = 0 }
