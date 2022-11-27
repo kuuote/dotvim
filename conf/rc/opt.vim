@@ -42,7 +42,6 @@ set ignorecase
 
 " 履歴を増やしてパスを変える
 set history=1000
-let &viminfo = "'1000,:1000" + ',n~/.vim/' .. g:vim_type .. '.info'
 
 " https://github.com/tsuyoshicho/vimrc-reading/blob/4037e59bdfaad9063c859e5fe724579623ef7836/.vimrc#L1294-L1298
 " ファイルパスの@を利用可能にする
