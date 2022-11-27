@@ -40,7 +40,10 @@ let s:config_json =<< UNKO
     "_": {
       "ignoreCase": true,
       "matchers": [
-        "matcher_fzf"
+        "matcher_approximate"
+      ],
+      "sorters": [
+        "sorter_distance"
       ]
     },
     "dein_update": {
