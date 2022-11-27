@@ -33,6 +33,7 @@ function M.define(opts)
     define(m, lhs, function()
       return require('vimrc.condmap').eval(m, lhs)
     end, {
+      desc = 'condmap ' .. lhs,
       expr = true,
       replace_keycodes = false,
       silent = true,
