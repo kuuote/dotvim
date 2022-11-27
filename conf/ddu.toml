@@ -132,6 +132,12 @@ au('FileType', {
         item_action { 'quickfix' }()
       end, opts)
     end
+    if vim.b.ddu_ui_name:match('^git') then
+      m('n', 'c', item_action { 'commit' }, opts)
+      m('n', 'h', item_action { 'add' }, opts)
+      m('n', 'l', item_action { 'reset' }, opts)
+      m('n', 'p', item_action { 'patch' }, opts)
+    end
     if isnvim then
       m('n', 'P', function()
         local preview = action('preview')
@@ -182,6 +188,7 @@ repo = 'Shougo/ddu.vim'
 on_func = 'ddu#start'
 hook_source = '''
 source ~/.vim/conf/plug/ddu.vim
+luafile ~/.vim/conf/plug/ddu.lua
 '''
 
 [[plugins]]
