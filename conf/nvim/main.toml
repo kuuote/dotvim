@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'hrsh7th/nvim-kit'
+
+[[plugins]]
 repo = 'kuuote/tsnip.nvim'
 rev = 'monster'
 
