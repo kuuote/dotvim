@@ -22,6 +22,12 @@ local function wipairs(tbl)
   end
 end
 
+---@class Iter
+---@field iter unknown
+---@field next fun(self: Iter, action: fun(unknown):unknown): Iter
+---@field collect fun(self: Iter): unknown[]
+
+---@type Iter
 Iter = {
   __index = function(_, key)
     return Iter[key]
