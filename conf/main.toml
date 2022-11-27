@@ -66,6 +66,8 @@ require('vimrc.compat.autocmd').define('FileType', {
 '''
 
 [[plugins]]
+repo = 'hrsh7th/completion-snippet'
+
 [[plugins]]
 repo = 'hrsh7th/vim-searchx'
 on_func = 'searchx#start'
@@ -83,10 +85,10 @@ repo = 'hrsh7th/vim-vsnip-integ'
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
 on_event = 'InsertEnter'
-hook_add = '''
+hook_source = '''
 inoremap <C-f> <Plug>(vsnip-jump-next)
 snoremap <C-f> <Plug>(vsnip-jump-next)
-let g:vsnip_snippet_dir = $HOME .. "/.vim/snippets"
+let g:vsnip_snippet_dirs = [$HOME .. "/.vim/snippets", dein#get('completion-snippet').path]
 '''
 
 [[plugins]]
