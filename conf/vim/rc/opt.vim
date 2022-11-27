@@ -10,5 +10,3 @@ endif
 if exists('$TMUX')
   set t_ZH=
 endif
-
-let &viminfo = "'1000,:1000" + ',n~/.vim/' .. g:vim_type .. '.info'

@@ -40,8 +40,8 @@ set ttimeoutlen=100
 " 検索の時にケースを無視
 set ignorecase
 
-" 履歴を増やしてパスを変える
-set history=1000
+" 履歴を増やす
+set history=10000
 
 " https://github.com/tsuyoshicho/vimrc-reading/blob/4037e59bdfaad9063c859e5fe724579623ef7836/.vimrc#L1294-L1298
 " ファイルパスの@を利用可能にする

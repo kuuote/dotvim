@@ -1,1 +1,0 @@
-set shadafile=~/.nvim.shada
