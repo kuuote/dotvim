@@ -372,7 +372,7 @@ require('vimrc.command').define('DduDein', function()
     {
       name = 'dein',
       options = {
-        sorters = { 'sorter_alpha_path' },
+        sorters = { 'sorter_alpha_path', 'sorter_distance' },
       },
     },
   }
