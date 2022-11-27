@@ -66,7 +66,7 @@ let s:config_json =<< UNKO
   ],
   "filterParams": {
     "matcher_substring": {
-      "highlightMatched": "Number"
+      "highlightMatched": "FuzzyAccent"
     }
   },
   "sourceOptions": {
