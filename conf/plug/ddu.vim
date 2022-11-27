@@ -1,5 +1,3 @@
-call ddu#custom#alias('filter', 'matcher_fzf_nosort', 'matcher_fzf')
-
 let s:config_json =<< UNKO
 
 {
@@ -118,6 +116,7 @@ function s:colorscheme()
 endfunction
 
 function! s:reset() abort
+  call ddu#custom#alias('filter', 'matcher_fzf_nosort', 'matcher_fzf')
   call s:set_size()
   call s:colorscheme()
   call ddu#custom#patch_global(s:config)
@@ -125,3 +124,4 @@ endfunction
 
 call s:reset()
 autocmd ColorScheme,VimResized * call s:reset()
+autocmd User DenopsPluginPost:ddu call s:reset()
