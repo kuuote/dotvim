@@ -44,6 +44,7 @@ local function floating(info, items)
       pos = 'center',
       minwidth = width,
       minheight = height,
+      zindex = 10000,
     })
   end
 end
