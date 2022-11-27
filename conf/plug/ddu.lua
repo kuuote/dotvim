@@ -25,7 +25,7 @@ au('User', {
     act('kind', 'git_file', 'patch', function(args)
       local worktree = get_worktree(args)
       for _, i in ipairs(args.items) do
-        cmd(('tabnew | tcd %s | GinPatch %s'):format(worktree, i.action.path))
+        cmd(('tabnew | tcd %s | GinPatch ++no-head %s'):format(worktree, i.action.path))
       end
     end)
   end
