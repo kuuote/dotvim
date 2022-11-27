@@ -1,1 +1,1 @@
-vim.opt.shadafile = '~/.nvim.shada'
+vim.opt.shadafile = vim.fn.expand('~/.nvim.shada')
