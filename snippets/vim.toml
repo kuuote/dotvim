@@ -13,6 +13,7 @@ augroup END
 [[snippet]]
 key = 'debug'
 description = 'debug stuff'
+prefix = 'hoge'
 body = '''let g:hoge = add(get(g:, 'hoge', []), $0)'''
 
 [[snippet]]
