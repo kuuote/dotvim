@@ -1,0 +1,9 @@
+[[snippet]]
+key = 'bash'
+description = 'bash shebang'
+body = '''
+#!/bin/bash -u
+
+$0
+'''
+
