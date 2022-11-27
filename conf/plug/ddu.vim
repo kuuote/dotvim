@@ -1,6 +1,11 @@
 let s:config_json =<< UNKO
 
 {
+  "actionOptions": {
+    "narrow": {
+      "quit": false
+    }
+  },
   "filterParams": {
     "matcher_fzf": {
       "highlightMatched": "DduMatch"
