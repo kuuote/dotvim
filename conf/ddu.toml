@@ -195,23 +195,57 @@ luafile ~/.vim/conf/plug/ddu.lua
 '''
 
 [[plugins]]
-repo = 'shun/ddu-rg'
+repo = 'shun/ddu-source-rg'
 on_cmd = 'DduRgLive'
 lua_source = '''
-local c = require('vimrc.command').define
-c('DduRgLive', function()
+local vimcall = require('vimrc.compat.convert').call
+
+require('vimrc.compat.autocmd').define('FileType', {
+  pattern = 'ddu-ff',
+  callback = function()
+    if vim.b.ddu_ui_name:match('#rg') then
+      require('vimrc.compat.map').define('n', 'm', function()
+        require('vimrc.menu').menu {
+          info = 'change sorter',
+          items = {
+            m = {
+              info = 'mtime order',
+              fn = function()
+                vimcall('ddu#ui#ff#do_action', 'updateOptions', {
+                  sourceOptions = {
+                    rg = {
+                      sorters = { 'sorter_alpha_path', 'sorter_mtime' },
+                    },
+                  },
+                })
+              end,
+            },
+          },
+        }
+      end, {
+        desc = 'ddu-source-rg:menu',
+        buffer = true,
+        nowait = true,
+      })
+    end
+  end,
+})
+require('vimrc.command').define('DduRgLive', function()
   require('ddu').start {
     {
       name = 'rg',
-      options = {
-        matchers = {},
-        sorters = require('vimrc.params').get('ddu_rg_live_sorters'),
-      },
       params = {
         path = require('vimrc.util').find_root(),
       },
     },
-    name = 'file',
+    name = 'file#rg',
+    sourceOptions = {
+      rg = {
+        converters = {},
+        matchers = {},
+        sorters = { 'sorter_alpha_path' },
+      },
+    },
     uiParams = {
       ff = {
         ignoreEmpty = false,
