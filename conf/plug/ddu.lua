@@ -23,9 +23,10 @@ au('User', {
       cmd('Gin commit')
     end)
     act('kind', 'git_file', 'patch', function(args)
-      local cmdargs = get_pathes(args)
-      table.insert(cmdargs, 1, 'GinPatch')
-      cmd(table.concat(cmdargs, ' '))
+      local worktree = get_worktree(args)
+      for _, i in ipairs(args.items) do
+        cmd(('tabnew | tcd %s | GinPatch %s'):format(worktree, i.action.path))
+      end
     end)
   end
 })
