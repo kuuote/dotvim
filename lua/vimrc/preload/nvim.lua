@@ -12,6 +12,9 @@ package.preload['vimrc.compat.convert'] = function()
     end,
     fn = vim.fn,
     call = vim.call,
+    booled = function(fn)
+      return fn
+    end
   }
 end
 
