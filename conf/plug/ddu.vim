@@ -22,6 +22,9 @@ let s:config_json =<< UNKO
     "file": {
       "defaultAction": "open"
     },
+    "git_file": {
+      "defaultAction": "add"
+    },
     "help": {
       "defaultAction": "tabopen"
     },
