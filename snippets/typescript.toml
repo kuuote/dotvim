@@ -15,3 +15,8 @@ key = 'value'
 description = 'const'
 body = 'const $1 = $0'
 
+[[snippet]]
+key = 'thunk'
+description = 'function without args'
+body = '() => $0'
+
