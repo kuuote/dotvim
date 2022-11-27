@@ -113,7 +113,10 @@ end
 au('FileType', {
   pattern = 'ddu-ff',
   callback = function()
+    -- カスタムアクションはddu側の設定に書いてる。
+    -- see ~/.vim/conf/plug/ddu.lua
     local opts = {
+      desc = 'ddu-ui-ff mappings',
       buffer = true,
       nowait = true,
     }
