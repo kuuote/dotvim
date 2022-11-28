@@ -1,4 +1,5 @@
-import { ActionData } from "../@ddu-kinds/git_file.ts";
+import { ActionData, PreviewType } from "../@ddu-kinds/git_file.ts";
+import { dirname } from "https://deno.land/std@0.160.0/path/mod.ts";
 import {
   GatherArguments,
   OnInitArguments,
@@ -8,7 +9,6 @@ import {
   Item,
   ItemHighlight,
 } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
-import { dirname } from "https://deno.land/std@0.160.0/path/mod.ts";
 
 type Params = Record<never, never>;
 
@@ -43,9 +43,7 @@ export class Source extends BaseSource<Params> {
       );
   }
 
-  override gather(
-    args: GatherArguments<Params>,
-  ): ReadableStream<Item<ActionData>[]> {
+  override gather(): ReadableStream<Array<Item<ActionData>>> {
     return new ReadableStream({
       start: async (controller) => {
         const status = await new Deno.Command("git", {
@@ -58,22 +56,35 @@ export class Source extends BaseSource<Params> {
           );
         controller.enqueue(status.map((line) => {
           const highlights: ItemHighlight[] = [];
+          let previewType: PreviewType = "never";
           // see :Man git-status
           if (line.match(/^[MTADRC]/)) {
+            previewType = "diff_cached";
             highlights.push({
               name: "git_status",
               "hl_group": "diffAdded",
               col: 1,
               width: 1,
             });
-          } else if (line.match(/^.[MTADRC]/)) {
+          }
+          if (line.match(/^.[MTADRC]/)) {
+            switch (line[1]) {
+              case "M":
+                previewType = "diff";
+                break;
+              case "A":
+                previewType = "file";
+                break;
+            }
             highlights.push({
               name: "git_status",
               "hl_group": "diffRemoved",
               col: 2,
               width: 1,
             });
-          } else if (line.match(/^\?\?/)) {
+          }
+          if (line.match(/^\?\?/)) {
+            previewType = "file";
             highlights.push({
               name: "git_status",
               "hl_group": "diffRemoved",
@@ -86,6 +97,7 @@ export class Source extends BaseSource<Params> {
             action: {
               worktree: this.worktree,
               path: line.slice(3),
+              previewType,
             },
             highlights,
           };
