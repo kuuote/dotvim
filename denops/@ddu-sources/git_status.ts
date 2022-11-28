@@ -47,7 +47,7 @@ export class Source extends BaseSource<Params> {
     return new ReadableStream({
       start: async (controller) => {
         const status = await new Deno.Command("git", {
-          args: ["-C", this.worktree, "status", "--porcelain=v1"],
+          args: ["-C", this.worktree, "status", "-uall", "--porcelain=v1"],
         }).output()
           .then(({ stdout }) =>
             new TextDecoder().decode(stdout)
