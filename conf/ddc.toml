@@ -173,6 +173,7 @@ cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 " tnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 
 call pum#set_option('use_complete', v:true)
+set shortmess+=c " suppress 'The only match'
 " autocmd CompleteDone * call timer_start(0, {...->execute('let v:completed_item = {}')}) " workaround for omit duplicate call
 '''
 lua_source = '''
