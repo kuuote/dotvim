@@ -42,8 +42,23 @@ export class Kind extends BaseKind<Params> {
       await run(["add"], args.items);
       return ActionFlags.RefreshItems;
     },
+    intent_to_add: async (args) => {
+      await run(["add", "-N"], args.items);
+      return ActionFlags.RefreshItems;
+    },
+    open: async (args) => {
+      const worktree = getWorktree(args.items[0]);
+      for (const filePath of getPathes(args.items)) {
+        await args.denops.cmd("edit " + path.join(worktree, filePath));
+      }
+      return ActionFlags.None;
+    },
     reset: async (args) => {
       await run(["reset"], args.items);
+      return ActionFlags.RefreshItems;
+    },
+    restore: async (args) => {
+      await run(["restore"], args.items);
       return ActionFlags.RefreshItems;
     },
   };
