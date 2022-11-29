@@ -13,6 +13,7 @@ on_path = 'gitter://'
 repo = '4513ECHO/vim-readme-viewer'
 on_source = 'ddu.vim'
 hook_source = '''
+" 指定していないと死ぬ
 let g:readme_viewer#plugin_manager = 'dein.vim'
 '''
 
@@ -401,7 +402,7 @@ repo = 'skk-dev/skktools'
 
 [[plugins]]
 repo = 'thinca/vim-localrc'
-on_event = ['BufNewFile', 'BufReadPost']
+# on_event = ['BufNewFile', 'BufReadPost']
 
 [[plugins]]
 repo = 'thinca/vim-partedit'

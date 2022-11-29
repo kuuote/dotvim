@@ -97,6 +97,7 @@ cm.define {
 au('FileType', {
   pattern = 'lua',
   callback = function()
+    -- if とかのthenとかdoを補ってくれるやつ
     -- add endwise rule `if`
     add {
       char = '<CR>',
@@ -128,6 +129,7 @@ au('FileType', {
 })
 
 --@ p
+-- `p hoge` みたいな感じでprint打てるようにする
 local function define_p(filetype, input, input_after)
   au('FileType', {
     pattern = filetype,
@@ -148,6 +150,7 @@ define_p('vim', 'PrettyPrint ', '')
 define_p({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, 'console.log(', ');')
 
 --@ Rust
+-- USキーボードで `::` が打ちづらいので改善
 au('FileType', {
   pattern = 'rust',
   callback = function()

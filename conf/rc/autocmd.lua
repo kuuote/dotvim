@@ -9,6 +9,7 @@ au('BufWritePost', {
     if fn.getline(1):sub(1, 2) == '#!' then
       local file = fn.expand('<afile>')
       local perm = fn.getfperm(file)
+      -- 面倒だしよくわからんので全体に権限与えている。やりすぎかもしれないけど知らん
       local newperm = string.format('%sx%sx%sx', perm:sub(1, 2), perm:sub(4, 5), perm:sub(7, 8))
       if perm ~= newperm then
         fn.setfperm(file, newperm)

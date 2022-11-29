@@ -1,4 +1,5 @@
 local au = require('vimrc.compat.autocmd').define
+local group = require('vimrc.compat.autocmd').group
 local map = require('vimrc.compat.map').define
 local vimcall = require('vimrc.compat.convert').call
 
@@ -19,26 +20,50 @@ local function reset()
   end
 end
 
+local toggroup = 'vimrc#completoggle'
+group(toggroup, {})
+
 -- resetter
-if is_nvim then
-  au({ 'CmdlineLeave', 'InsertLeave' }, {
-    callback = function()
-      vim.fn.timer_start(0, function()
-        if vim.fn.mode() == 'n' then
-          reset()
-        end
-      end)
-    end,
-  })
-else
-  au('SafeState', {
-    callback = function()
-      if vim.fn.mode() == 'n' then
-        reset()
-      end
-    end,
-  })
-end
+
+-- ソースの自動切り替えを一時的に止めたい
+local completoggle = (function()
+  local enabled = true
+  local enable
+  if is_nvim then
+    enable = function()
+      au({ 'CmdlineLeave', 'InsertLeave' }, {
+        group = toggroup,
+        callback = function()
+          vim.fn.timer_start(0, function()
+            if vim.fn.mode() == 'n' then
+              reset()
+            end
+          end)
+        end,
+      })
+    end
+  else
+    enable = function()
+      au('SafeState', {
+        group = toggroup,
+        callback = function()
+          if vim.fn.mode() == 'n' then
+            reset()
+          end
+        end,
+      })
+    end
+  end
+  enable()
+  return function()
+    group(toggroup, {})
+    enabled = not enabled
+    if enabled then
+      enable()
+    end
+    print('completoggle ' .. (enabled and 'enabled' or 'disabled'))
+  end
+end)()
 
 local function change_source(name)
   save()
@@ -88,6 +113,10 @@ map({ 'c', 'i' }, '<C-X>', function()
             },
           })
         end,
+      },
+      ['<C-R>'] = {
+        info = 'toggle reset at leave',
+        fn = completoggle,
       },
       ['<C-V>'] = {
         info = 'necovim',
