@@ -6,7 +6,6 @@ repo = 'catppuccin/vim'
 name = 'catppuccin-vim'
 if = 'v:false && !has("nvim")'
 
-
 [[plugins]]
 comment = '本体に入ったので'
 repo = 'cespare/vim-toml'
@@ -65,6 +64,26 @@ endfunction
 [[plugins]]
 comment = '本体に入ったので'
 repo = 'milisims/nvim-luaref'
+
+[[plugins]]
+comment = 'vim.ui.selectの仕様の1つに準拠していないため。dressing.nvimで置き換えられるため削除'
+repo = 'nvim-telescope/telescope-ui-select.nvim'
+if = 'g:vim_ui_select ==# "telescope.nvim"'
+on_lua = 'telescope'
+lua_add = '''
+vim.ui.select = function(items, opts, on_choice)
+  local telescope = require('telescope')
+  telescope.setup {
+    extensions = {
+      ['ui-select'] = {
+        require('telescope.themes').get_dropdown {},
+      },
+    },
+  }
+  telescope.load_extension('ui-select')
+  vim.ui.select(items, opts, on_choice)
+end
+'''
 
 [[plugins]]
 comment = '消えた。悲しい'

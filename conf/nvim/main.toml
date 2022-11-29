@@ -54,27 +54,7 @@ on_lua = 'plenary'
 repo = 'nvim-lua/popup.nvim'
 
 [[plugins]]
-repo = 'nvim-telescope/telescope-ui-select.nvim'
-if = 'g:vim_ui_select ==# "telescope.nvim"'
-on_lua = 'telescope'
-lua_add = '''
-vim.ui.select = function(items, opts, on_choice)
-  local telescope = require('telescope')
-  telescope.setup {
-    extensions = {
-      ['ui-select'] = {
-        require('telescope.themes').get_dropdown {},
-      },
-    },
-  }
-  telescope.load_extension('ui-select')
-  vim.ui.select(items, opts, on_choice)
-end
-'''
-
-[[plugins]]
 repo = 'nvim-telescope/telescope.nvim'
-# depends = ['telescope-ui-select.nvim']
 on_cmd = 'Telescope'
 on_lua = 'telescope'
 
@@ -101,6 +81,26 @@ repo = 'skanehira/jumpcursor.vim'
 on_map = '<Plug>'
 hook_add = '''
 nmap [j <Plug>(jumpcursor-jump)
+'''
+
+[[plugins]]
+repo = 'stevearc/dressing.nvim'
+lazy = 1
+lua_add = '''
+if vim.g.vim_ui_select:match('^dressing_') then
+  vim.ui.select = function(...)
+    vim.call('dein#source', 'dressing.nvim')
+    return vim.ui.select(...)
+  end
+end
+'''
+lua_source = '''
+require('dressing').setup {
+  select = {
+    enabled = true,
+    backend = { 'telescope' }
+  }
+}
 '''
 
 [[plugins]]
