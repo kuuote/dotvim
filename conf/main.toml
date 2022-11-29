@@ -40,6 +40,8 @@ call hypermap#map(';s', "lexima#expand('(', 'i')", { 'eval': v:true })
 call hypermap#map(';f', "lexima#expand(')', 'i')", { 'eval': v:true })
 call hypermap#map(';w', "lexima#expand('{', 'i')", { 'eval': v:true })
 call hypermap#map(';r', "lexima#expand('}', 'i')", { 'eval': v:true })
+call hypermap#map(',x', "lexima#expand(\"'\", 'i')", { 'eval': v:true })
+call hypermap#map(',s', "lexima#expand('\"', 'i')", { 'eval': v:true })
 '''
 
 [[plugins]]
