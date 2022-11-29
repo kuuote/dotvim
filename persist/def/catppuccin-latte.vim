@@ -1,7 +1,7 @@
 colorscheme catppuccin-latte
 
 lua <<EOF
-if isnvim then
+if is_nvim then
   local latte = require('catppuccin.palettes').get_palette('latte')
   vim.api.nvim_set_hl(0, 'FuzzyMotionChar', { fg = latte.red })
   vim.api.nvim_set_hl(0, 'FuzzyMotionSubChar', { fg = latte.teal })
