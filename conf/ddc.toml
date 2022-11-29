@@ -142,6 +142,7 @@ call ddc#enable()
 
 autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
 
+" acwriteセットされてるファイルで補完効かなくて困ることは無いと思う
 autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
 
 luafile ~/.vim/conf/plug/ddc.lua
@@ -174,7 +175,6 @@ cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 
 call pum#set_option('use_complete', v:true)
 set shortmess+=c " suppress 'The only match'
-" autocmd CompleteDone * call timer_start(0, {...->execute('let v:completed_item = {}')}) " workaround for omit duplicate call
 '''
 lua_source = '''
 local booled = require('vimrc.compat.convert').booled

@@ -15,6 +15,7 @@ repo = 'kuuote/ddu-source-mr'
 lua_add = '''
 local m = require('vimrc.compat.map').define
 
+-- ある意味覚えやすくていいマッピング
 for _, t in ipairs { 'mru', 'mrw', 'mrr' } do
   m('n', t, function()
     require('ddu').start {
