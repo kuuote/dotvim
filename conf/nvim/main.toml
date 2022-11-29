@@ -44,9 +44,6 @@ require('dial.config').augends:register_group {
 repo = 'MunifTanjim/nui.nvim'
 
 [[plugins]]
-repo = 'nanotee/luv-vimdocs'
-
-[[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 on_lua = 'plenary'
 

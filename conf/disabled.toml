@@ -7,6 +7,10 @@ name = 'catppuccin-vim'
 if = 'v:false && !has("nvim")'
 
 [[plugins]]
+comment = 'そういやこれも本体に入ったんだった'
+repo = 'nanotee/luv-vimdocs'
+
+[[plugins]]
 comment = '本体に入ったので'
 repo = 'cespare/vim-toml'
 hook_add = '''
