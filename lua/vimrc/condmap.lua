@@ -1,5 +1,8 @@
 local define = require('vimrc.compat.map').define
 
+-- 条件で評価対象が変わる複数のmapを同じキーに振れるようにする
+-- 今の所expr限定になっている
+
 local M = {
   prior = {
     high = 1, -- コンテキスト依存の上書きしたいやつ

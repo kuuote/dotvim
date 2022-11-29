@@ -38,7 +38,7 @@ function s:insert_map()
   " genius maping by @KosukeMizuno
   " heavily modified by me
 
-  " disabled some mappings because I'm using lexima.vim
+  " いくつかのマッピングはleximaに渡すためにこちらではやらない
   " see main.toml
   call hypermap#map(';a', '\')
   " call hypermap#map(';s', '(')
