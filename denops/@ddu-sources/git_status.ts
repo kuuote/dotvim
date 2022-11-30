@@ -1,7 +1,6 @@
 import { ActionData, PreviewType } from "../@ddu-kinds/git_file.ts";
 import { dirname } from "https://deno.land/std@0.160.0/path/mod.ts";
 import {
-  GatherArguments,
   OnInitArguments,
 } from "https://deno.land/x/ddu_vim@v2.0.0/base/source.ts";
 import {
@@ -11,6 +10,18 @@ import {
 } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
 
 type Params = Record<never, never>;
+
+const run = async (cmd: string[], cwd?: string): Promise<string> => {
+  if (cwd == null) {
+    cwd = Deno.cwd();
+  }
+  const proc = new Deno.Command(cmd[0], {
+    args: cmd.slice(1),
+    cwd,
+  });
+  const { stdout } = await proc.output();
+  return new TextDecoder().decode(stdout);
+};
 
 export class Source extends BaseSource<Params> {
   override kind = "git_file";
@@ -46,13 +57,16 @@ export class Source extends BaseSource<Params> {
   override gather(): ReadableStream<Array<Item<ActionData>>> {
     return new ReadableStream({
       start: async (controller) => {
-        const status = await new Deno.Command("git", {
-          args: ["-C", this.worktree, "status", "-uall", "--porcelain=v1"],
-        }).output()
-          .then(({ stdout }) =>
-            new TextDecoder().decode(stdout)
-              .split("\n")
-              .filter((line) => line.length !== 0)
+        const status = await run([
+          "git",
+          "-C",
+          this.worktree,
+          "status",
+          "-uall",
+          "--porcelain=v1",
+        ])
+          .then((output) =>
+            output.split("\n").filter((line) => line.length !== 0)
           );
         controller.enqueue(status.map((line) => {
           const highlights: ItemHighlight[] = [];

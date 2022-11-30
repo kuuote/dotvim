@@ -18,6 +18,18 @@ export type ActionData = {
 
 type Params = Record<never, never>;
 
+const run = async (cmd: string[], cwd?: string): Promise<string> => {
+  if (cwd == null) {
+    cwd = Deno.cwd();
+  }
+  const proc = new Deno.Command(cmd[0], {
+    args: cmd.slice(1),
+    cwd,
+  });
+  const { stdout } = await proc.output();
+  return new TextDecoder().decode(stdout);
+};
+
 const getWorktree = (item: DduItem): string => {
   return (item.action as ActionData).worktree;
 };
@@ -26,7 +38,10 @@ const getPathes = (items: DduItem[]): string[] => {
   return items.map((item) => (item.action as ActionData).path);
 };
 
-const run = (args: string[], items: DduItem[]): Promise<Deno.CommandOutput> => {
+const executeGit = (
+  args: string[],
+  items: DduItem[],
+): Promise<Deno.CommandOutput> => {
   return new Deno.Command("git", {
     args: args.concat(getPathes(items)),
     cwd: getWorktree(items[0]),
@@ -39,11 +54,11 @@ export class Kind extends BaseKind<Params> {
     (args: ActionArguments<Params>) => Promise<ActionFlags>
   > = {
     add: async (args) => {
-      await run(["add"], args.items);
+      await executeGit(["add"], args.items);
       return ActionFlags.RefreshItems;
     },
     intent_to_add: async (args) => {
-      await run(["add", "-N"], args.items);
+      await executeGit(["add", "-N"], args.items);
       return ActionFlags.RefreshItems;
     },
     open: async (args) => {
@@ -54,11 +69,11 @@ export class Kind extends BaseKind<Params> {
       return ActionFlags.None;
     },
     reset: async (args) => {
-      await run(["reset"], args.items);
+      await executeGit(["reset"], args.items);
       return ActionFlags.RefreshItems;
     },
     restore: async (args) => {
-      await run(["restore"], args.items);
+      await executeGit(["restore"], args.items);
       return ActionFlags.RefreshItems;
     },
   };
@@ -67,33 +82,44 @@ export class Kind extends BaseKind<Params> {
     args: GetPreviewerArguments,
   ): Promise<Previewer | undefined> {
     const action = args.item.action as ActionData;
-    if (action.previewType === "diff" || action.previewType === "diff_cached") {
-      // terminalで出すと微妙になるので出力decodeしてVimのdiff syntaxで出す
-      const cmd = new Deno.Command("git", {
-        args: [
-          ["--no-pager"],
-          ["-C", action.worktree],
-          ["diff"],
-          action.previewType === "diff_cached" ? ["--cached"] : [],
-          [action.path],
-        ].flat(),
-      });
-      const lines = await cmd.output()
-        .then(({ stdout }) =>
-          new TextDecoder().decode(stdout)
-            .trim()
-            .split("\n")
-        );
+    let diff = "";
+    const diffCached = await run([
+      "git",
+      "--no-pager",
+      "diff",
+      "--cached",
+      action.path,
+    ], action.worktree);
+    if (diffCached.trim() !== "") {
+      diff = diffCached;
+    }
+    if (diff === "") {
+      diff = await run([
+        "git",
+        "--no-pager",
+        "diff",
+        action.path,
+      ], action.worktree);
+    }
+    if (diff.trim() !== "") {
       return {
         kind: "nofile",
-        contents: lines,
+        contents: diff.split("\n"),
         syntax: "diff",
       };
-    } else if (action.previewType === "file") {
+    }
+    try {
+      const filePath = path.join(action.worktree, action.path)
+      const stat = await Deno.stat(filePath);
+      if (!stat.isFile) {
+        return;
+      }
       return {
         kind: "buffer",
-        path: path.join(action.worktree, action.path),
+        path: filePath,
       };
+    } catch {
+      return;
     }
   }
 
