@@ -37,11 +37,14 @@ vim.keymap.set('n', 'R', function()
   vim.call('dein#recache_runtimepath')
   print('recached')
 end)
+-- vim.keymap.set('n', 'Q', '<Cmd>cquit 0<CR>')
 vim.keymap.set('n', 'Q', '<Cmd>confirm qa<CR>')
+vim.keymap.set('n', ';', ':')
 
 setup(function(use)
   use { 'Shougo/dein.vim', merged = 0 }
   use { 'catppuccin/nvim', name = 'catppuccin', merged = 0 }
 end)
+-- vim.call('dein#recache_runtimepath')
 
 vim.cmd('colorscheme catppuccin-mocha')
