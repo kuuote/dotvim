@@ -14,7 +14,8 @@ package.preload['vimrc.compat.convert'] = function()
     call = vim.call,
     booled = function(fn)
       return fn
-    end
+    end,
+    iter = ipairs,
   }
 end
 

@@ -71,4 +71,21 @@ M.booled = function(fn)
   end
 end
 
+-- if_luaのイテレータとipairsのIFが違うので潰す
+-- ipairsの方が当然ながら速いしそっちに寄せる
+function M.iter(list)
+  if type(list) == 'table' then
+    return ipairs(list)
+  else
+    local iter = list()
+    return function()
+      local v = iter()
+      if v ~= nil then
+        return true, v
+      end
+      return nil, nil
+    end
+  end
+end
+
 return M
