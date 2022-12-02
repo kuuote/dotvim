@@ -20,16 +20,11 @@ let g:readme_viewer#plugin_manager = 'dein.vim'
 [[plugins]]
 repo = 'c000/rapidfire.vim'
 on_cmd = 'Rapidfire'
-hook_source = '''
-function! s:rapidfire_search_config() abort
-  let file = findfile('.rapidfire', '.;')
-  if empty(file)
-    let g:rapidfire#persistent_filename = '~/.vim/.rapidfire'
-  else
-    let g:rapidfire#persistent_filename = readfile(file)[0]
-  endif
-endfunction
-call s:rapidfire_search_config()
+lua_add = '''
+local m = require('vimrc.compat.map').define
+for i = 1, 9 do
+  m('n', '<CR>' .. i, '<Cmd>Rapidfire ' .. i .. '<CR>')
+end
 '''
 
 [[plugins]]
