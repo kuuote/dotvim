@@ -5,7 +5,7 @@ repo = 'hrsh7th/nvim-kit'
 repo = 'kuuote/tsnip.nvim'
 rev = 'monster'
 lua_add = '''
-vim.g.tsnip_use_nui = false
+-- vim.g.tsnip_use_nui = false
 '''
 
 [[plugins]]
