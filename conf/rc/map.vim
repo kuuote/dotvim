@@ -33,6 +33,9 @@ inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 
 tnoremap fj <C-\><C-N>
 
+" scroll to center
+inoremap <C-c> <Cmd>normal! zz<CR>
+
 function s:insert_map()
   " 括弧とか打つのにShift押したくないでござる
   " genius maping by @KosukeMizuno
