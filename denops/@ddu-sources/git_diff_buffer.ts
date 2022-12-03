@@ -72,7 +72,7 @@ export class Source extends BaseSource<Params> {
                     name: "abbr",
                     "hl_group": l.startsWith("-") ? "diffRemoved" : "diffAdded",
                     col: 1,
-                    width: l.length,
+                    width: new TextEncoder().encode(l).length,
                   }]
                   : [],
               }));
