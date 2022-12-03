@@ -103,7 +103,7 @@ require('dressing').setup {
 [[plugins]]
 repo = 'tamago324/lir.nvim'
 # :hが付いてると起動時のファイル開いてない時にカレントディレクトリに展開されちゃうので意味がなくなる
-on_if = 'isdirectory(expand("%:p"))'
+on_if = '!empty(bufname()) && isdirectory(expand("%:p:h"))'
 lua_source = '''
     local lir = require('lir')
     local actions = require('lir.actions')
