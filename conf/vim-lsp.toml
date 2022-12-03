@@ -1,6 +1,7 @@
 [[plugins]]
+if = 'v:false'
 repo = 'matsui54/denops-signature_help'
-hook_asource = '''
+hook_source = '''
 let g:signature_help_config = {
 \   'style': 'virtual',
 \ }
