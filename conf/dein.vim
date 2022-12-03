@@ -68,8 +68,7 @@ endif
 
 if !empty($plug)
   " $plugに何かセットされてたらカレントディレクトリをruntimepathの先頭に置く
-  " dd(c|u)は一番最後に現れた要素を使うので末尾にも置く
-  let &runtimepath = printf('%s,%s,%s', getcwd(), &runtimepath, getcwd())
+  let &runtimepath = printf('%s,%s', getcwd(), &runtimepath)
 endif
 
 lua pcall(require, 'impatient')
