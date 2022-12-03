@@ -79,6 +79,7 @@ nnoremap s? ?
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
+on_source = 'vim-vsnip'
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
@@ -327,6 +328,7 @@ xmap <silent> ag <Plug>(textobj-functioncall-generics-a)
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
+on_event = 'InsertEnter'
 hook_source = '''
 call popup_preview#enable()
 '''
