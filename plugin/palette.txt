@@ -1,9 +1,0 @@
-SKKTsuki | tabedit /data/memo/tsuki2-263.txt | vsplit
-e slack://history
-e slack://history/?unjoined
-e ~/.vim/plugin/palette.txt
-%!stylua -f ~/.vim/stylua.toml -
-'<,'>!stylua -f ~/.vim/stylua.toml -
-terminal deno run --unstable -A %
-terminal deno test --unstable -A %
-terminal deno check %
