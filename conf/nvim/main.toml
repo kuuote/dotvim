@@ -102,7 +102,8 @@ require('dressing').setup {
 
 [[plugins]]
 repo = 'tamago324/lir.nvim'
-on_if = 'isdirectory(expand("%:p:h"))'
+# :hが付いてると起動時のファイル開いてない時にカレントディレクトリに展開されちゃうので意味がなくなる
+on_if = 'isdirectory(expand("%:p"))'
 lua_source = '''
     local lir = require('lir')
     local actions = require('lir.actions')
@@ -153,8 +154,11 @@ ccc.setup {
 
 [[plugins]]
 repo = 'vim-skk/eskk.vim'
-if = 'v:false'
+on_func = 'eskk#enable'
 lua_add = '''
+vim.call('hypermap#map', 'zj', 'eskk#enable()', { eval = true })
+'''
+lua_source = '''
 -- use dotfiles dictionary
 vim.g['eskk#dictionary'] = { path = vim.env.HOME .. '/.vim/tmp/.skk-jisyo' }
 vim.g['eskk#large_dictionary'] = {
