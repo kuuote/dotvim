@@ -23,7 +23,9 @@ export class Source extends BaseSource<Params> {
           await Deno.writeTextFile(worktreeFile, wbuf.join("\n"));
 
           const path = String(
-            await denops.eval(`fnamemodify(bufname(${context.bufNr}), ':p')`),
+            await denops.eval(
+              `resolve(fnamemodify(bufname(${context.bufNr}), ':p'))`,
+            ),
           );
           const worktree = await new Deno.Command("git", {
             args: ["-C", dirname(path), "rev-parse", "--show-toplevel"],
