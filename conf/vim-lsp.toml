@@ -1,5 +1,5 @@
 [[plugins]]
-if = 'v:false'
+if = 0
 repo = 'matsui54/denops-signature_help'
 hook_source = '''
 let g:signature_help_config = {

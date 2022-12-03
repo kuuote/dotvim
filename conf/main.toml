@@ -435,7 +435,7 @@ repo = 'thinca/vim-themis'
 
 [[plugins]]
 repo = 'tweekmonster/helpful.vim'
-if = 'v:false'
+if = 0
 
 [[plugins]]
 repo = 'tyru/capture.vim'
