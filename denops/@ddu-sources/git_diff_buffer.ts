@@ -56,7 +56,11 @@ export class Source extends BaseSource<Params> {
               .trim()
               .split("\n")
           );
-          const data = parseDiff(splitAtFile(diff)[0]);
+          const splits = splitAtFile(diff);
+          if (splits.length === 0) {
+            return;
+          }
+          const data = parseDiff(splits[0]);
           controller.enqueue(data.lines.map((line, idx) => {
             const highlights: ItemHighlight[] = [];
             const hl = hls[line.text[0]];
