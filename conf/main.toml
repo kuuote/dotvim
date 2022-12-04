@@ -425,6 +425,12 @@ vim.g.quickrun_config = {
     tempfile = '%{tempname()}.lua',
     exec = [[%c --clean --headless -c 'source %s' -c 'cquit 0']],
   },
+  ['typescript/deno/test'] = {
+    command = 'deno',
+    cmdopt = '--no-check --allow-all --unstable',
+    tempfile = '%{tempname()}.ts',
+    exec = { '%c test %o %s' },
+  },
 }
 '''
 
