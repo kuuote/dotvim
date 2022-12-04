@@ -79,6 +79,8 @@ nnoremap s? ?
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
+# ddc.vimの通常ソースに指定してしまうとCmdline出しててもエラー吐くので(おま環？)読み込んでしまう
+on_event = 'CmdlineEnter'
 on_source = 'vim-vsnip'
 
 [[plugins]]
