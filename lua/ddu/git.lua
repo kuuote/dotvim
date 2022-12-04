@@ -14,4 +14,18 @@ function M.git_status()
   }
 end
 
+function M.git_diff()
+  require('ddu').start {
+    'git_diff_buffer',
+    name = 'file',
+    uiParams = {
+      ff = {
+        autoAction = {
+          name = 'preview',
+        },
+      },
+    },
+  }
+end
+
 return M
