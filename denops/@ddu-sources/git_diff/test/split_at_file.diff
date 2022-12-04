@@ -1,0 +1,41 @@
+diff --git a.diff a.diff
+new file mode 100644
+index 0000000..ae83731
+--- /dev/null
++++ a.diff
+@@ -0,0 +1,14 @@
++diff --git foo foo
++deleted file mode 100644
++index 257cc56..0000000
++--- foo
+++++ /dev/null
++@@ -1 +0,0 @@
++-foo
++diff --git hoge hoge
++index 2262de0..0ef7e93 100644
++--- hoge
+++++ hoge
++@@ -1 +1 @@
++-hoge
+++piyo
+diff --git b a r b a r
+new file mode 100644
+index 0000000..257cc56
+--- /dev/null
++++ b a r	
+@@ -0,0 +1 @@
++foo
+diff --git foo foo
+deleted file mode 100644
+index 257cc56..0000000
+--- foo
++++ /dev/null
+@@ -1 +0,0 @@
+-foo
+diff --git hoge hoge
+index 2262de0..0ef7e93 100644
+--- hoge
++++ hoge
+@@ -1 +1 @@
+-hoge
++piyo

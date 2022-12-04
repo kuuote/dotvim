@@ -2,9 +2,20 @@ import { dirname } from "https://deno.land/std@0.166.0/path/mod.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.3.2/file.ts";
 import { GatherArguments } from "https://deno.land/x/ddu_vim@v2.0.0/base/source.ts";
 import { fn } from "https://deno.land/x/ddu_vim@v2.0.0/deps.ts";
-import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
+import {
+  BaseSource,
+  Item,
+  ItemHighlight,
+} from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
+import { parseDiff, splitAtFile } from "./git_diff/git_diff.ts";
 
 type Params = Record<never, never>;
+
+const hls: Record<string, string> = {
+  "-": "diffRemoved",
+  "+": "diffAdded",
+  "@": "diffLine",
+};
 
 export class Source extends BaseSource<Params> {
   kind = "file";
@@ -45,39 +56,28 @@ export class Source extends BaseSource<Params> {
               .trim()
               .split("\n")
           );
-          const chunks = diff.flatMap((l, i) => l.startsWith("@") ? [i] : [])
-            .map((li, i, a) => diff.slice(li, a[i + 1]));
-          for (const chunk of chunks) {
-            const m = chunk[0].match(/\+(\d+)/);
-            if (m == null) {
-              throw Error("m == null");
+          const data = parseDiff(splitAtFile(diff)[0]);
+          controller.enqueue(data.lines.map((line, idx) => {
+            const highlights: ItemHighlight[] = [];
+            const hl = hls[line.text[0]];
+            if (hl != null) {
+              highlights.push({
+                name: "abbr",
+                "hl_group": hl,
+                col: 1,
+                width: new TextEncoder().encode(line.text).length,
+              });
             }
-            let linum = parseInt(m[0]);
-            const header: Item<ActionData> = {
-              word: chunk[0],
+            return {
+              word: line.text,
               action: {
                 bufNr: context.bufNr,
-                lineNr: linum,
+                lineNr: line.linum,
+                _git_diff: idx, // hack: suppress preview window closer
               },
+              highlights,
             };
-            const lines: Item<ActionData>[] = chunk.slice(1)
-              .map((l) => ({
-                word: l,
-                action: {
-                  bufNr: context.bufNr,
-                  lineNr: l.startsWith("-") ? linum : linum++,
-                },
-                highlights: l.match(/^[+-]/)
-                  ? [{
-                    name: "abbr",
-                    "hl_group": l.startsWith("-") ? "diffRemoved" : "diffAdded",
-                    col: 1,
-                    width: new TextEncoder().encode(l).length,
-                  }]
-                  : [],
-              }));
-            controller.enqueue([header].concat(lines));
-          }
+          }));
           controller.close();
         } catch (e: unknown) {
           console.log(e);

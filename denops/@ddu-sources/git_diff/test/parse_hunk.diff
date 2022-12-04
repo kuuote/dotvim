@@ -1,0 +1,13 @@
+diff --git test test
+index 0fdf397..0a50d52 100644
+--- test
++++ test
+@@ -1,6 +1,6 @@
+ a
+-b
+ c
++b
+ d
+-e
+ f
++e
