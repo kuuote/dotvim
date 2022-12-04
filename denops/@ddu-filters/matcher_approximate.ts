@@ -39,10 +39,14 @@ export class Filter extends BaseFilter<Params> {
       : args.input;
     return Promise.resolve(
       args.items.flatMap((item) => {
-        const found = find(
-          args.sourceOptions.ignoreCase ? item.word.toLowerCase() : item.word,
-          input,
-        );
+        const key = args.sourceOptions.ignoreCase
+          ? item.matcherKey.toLowerCase()
+          : item.matcherKey;
+        let display = item.display ?? item.word;
+        display = args.sourceOptions.ignoreCase
+          ? display.toLowerCase()
+          : display;
+        const found = find(key, input);
         if (found.length !== input.length) {
           return [];
         }
@@ -51,11 +55,11 @@ export class Filter extends BaseFilter<Params> {
           highlights: (item.highlights?.filter((hl) =>
             hl.name != "matched"
           ) ?? [])
-            .concat(found.map((i) => ({
+            .concat((key === display ? found : find(display, input)).map((i) => ({
               name: "matched",
               "hl_group": "Search",
-              col: charposToBytepos(item.word, i) + 1,
-              width: new TextEncoder().encode(item.word[i]).length,
+              col: charposToBytepos(display, i) + 1,
+              width: new TextEncoder().encode(display[i]).length,
             }))),
         }];
       }),
