@@ -3,6 +3,7 @@ local group = require('vimrc.compat.autocmd').group
 local map = require('vimrc.compat.map').define
 local vimcall = require('vimrc.compat.convert').call
 
+local resetters = {}
 local customs = {}
 
 local function save()
@@ -18,6 +19,10 @@ local function reset()
     vimcall('ddc#custom#set_buffer', customs[bufnr])
     customs[bufnr] = nil
   end
+  for _, cb in ipairs(resetters) do
+    cb()
+  end
+  resetters = {}
 end
 
 local toggroup = 'vimrc#completoggle'
@@ -74,14 +79,19 @@ local function change_source(name)
   })
 end
 
-local function set_list(candidates)
+local function set_list(candidates, callback)
   save()
+  local id = vim.call('denops#callback#register', callback or function() end)
+  table.insert(resetters, function()
+    vim.call('denops#callback#unregister', id)
+  end)
   vimcall('ddc#custom#set_buffer', {
     cmdlineSources = { 'list' },
     sources = { 'list' },
     sourceParams = {
       list = {
         candidates = candidates,
+        callback = id,
       },
     },
   })
@@ -123,6 +133,12 @@ map({ 'c', 'i' }, '<C-X>', function()
         fn = function()
           vimcall('dein#source', 'neco-vim')
           change_source('necovim')
+        end,
+      },
+      i = {
+        info = 'imports',
+        fn = function()
+          set_list(vim.fn.readfile(vim.fn.expand('~/.vim/conf/plug/compe/generated')))
         end,
       },
       p = {
