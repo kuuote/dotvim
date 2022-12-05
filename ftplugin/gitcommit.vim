@@ -1,7 +1,14 @@
-let s:cut = '# ------------------------ >8 ------------------------'
+let s:scissor = '# ------------------------ >8 ------------------------'
+function! s:delete() abort
+  call cursor(1, 1)
+  call search(s:scissor)
+  let scissorline = line('.') - 1
+  let lines = getbufline('%', 1, '$')->filter('v:val !~# "^#" || v:key >= scissorline')
+  call deletebufline('%', 1, '$')
+  call setbufline('%', 1, lines)
 
-let s:diff = systemlist('cd ' .. expand('%:p:h:h') .. ' ; git diff --cached')
-let s:log = systemlist('cd ' .. expand('%:p:h:h') .. ' ; git log --oneline')->map('"# " .. v:val')
+  let log = systemlist('cd ' .. expand('%:p:h:h') .. ' ; git log --oneline')->map('"# " .. v:val')
+  call setbufline('%', '$', log)
+endfunction
 
-call deletebufline('%', 2, '$')
-call setbufline('%', 2, flatten([s:cut, s:diff, s:log]))
+nnoremap <buffer> <CR>d <Cmd>call <SID>delete()<CR>
