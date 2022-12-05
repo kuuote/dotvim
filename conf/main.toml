@@ -214,6 +214,8 @@ on_cmd = ['Gin', 'GinBranch', 'GinBuffer', 'GinCd', 'GinChaperon', 'GinDiff', 'G
 hook_source = '''
 autocmd FileType gin-status nnoremap <buffer> ,c <Cmd>Gin commit<CR>
 autocmd User GinComponentPost redrawtabline
+" 遅延してるとDenopsPluginPostにフックが生えないので生やす"
+call gin#component#branch#ascii()
 '''
 
 [[plugins]]
