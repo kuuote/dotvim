@@ -9,8 +9,13 @@ import {
 import * as path from "https://deno.land/std@0.167.0/path/mod.ts";
 import { parseDiff, splitAtFile } from "./git_diff/git_diff.ts";
 
+type _ActionData = ActionData & {
+  _git_diff: number;
+};
+
 type Params = {
   cached?: boolean;
+  show?: boolean;
 };
 
 const hls: Record<string, string> = {
@@ -37,7 +42,8 @@ export class Source extends BaseSource<Params> {
   gather({
     context,
     denops,
-  }: GatherArguments<Params>): ReadableStream<Item<ActionData>[]> {
+    sourceParams,
+  }: GatherArguments<Params>): ReadableStream<Item<_ActionData>[]> {
     return new ReadableStream({
       async start(controller) {
         try {
@@ -57,7 +63,7 @@ export class Source extends BaseSource<Params> {
           const diff = (await run([
             [
               "git",
-              "diff",
+              sourceParams.show ? "show" : "diff",
               "--no-color",
               "--no-prefix",
               "--no-relative",

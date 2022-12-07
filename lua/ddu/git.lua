@@ -14,9 +14,15 @@ function M.git_status()
   }
 end
 
-function M.git_diff()
+function M.git_diff(opts)
+  opts = opts or {}
   require('ddu').start {
-    'git_diff',
+    {
+      name = 'git_diff',
+      params = {
+        show = opts.show or false,
+      },
+    },
     name = 'file',
     uiParams = {
       ff = {
