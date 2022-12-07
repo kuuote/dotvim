@@ -68,6 +68,9 @@ export class Source extends BaseSource<Params> {
               "--no-prefix",
               "--no-relative",
               "--no-renames",
+              ...((!sourceParams.show && sourceParams.cached)
+                ? ["--cached"]
+                : []),
             ],
             worktree,
           ].flat())).split("\n");
