@@ -1,7 +1,6 @@
 import { dirname } from "https://deno.land/std@0.166.0/path/mod.ts";
 import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.3.2/file.ts";
 import { GatherArguments } from "https://deno.land/x/ddu_vim@v2.0.0/base/source.ts";
-import { fn } from "https://deno.land/x/ddu_vim@v2.0.0/deps.ts";
 import {
   BaseSource,
   Item,
