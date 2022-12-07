@@ -14,9 +14,9 @@ type _ActionData = ActionData & {
 };
 
 type Params = {
-  cached?: boolean;
-  currentFile?: boolean;
-  show?: boolean;
+  cached: boolean;
+  currentFile: boolean;
+  show: boolean;
 };
 
 const hls: Record<string, string> = {
@@ -128,6 +128,10 @@ export class Source extends BaseSource<Params> {
   }
 
   params(): Params {
-    return {};
+    return {
+      cached: false,
+      currentFile: false,
+      show: false,
+    };
   }
 }
