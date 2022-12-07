@@ -15,6 +15,7 @@ type _ActionData = ActionData & {
 
 type Params = {
   cached?: boolean;
+  currentFile?: boolean;
   show?: boolean;
 };
 
@@ -47,20 +48,20 @@ export class Source extends BaseSource<Params> {
     return new ReadableStream({
       async start(controller) {
         try {
-          let worktree = String(
+          const currentFile = String(
             await denops.eval(
               `resolve(fnamemodify(bufname(${context.bufNr}), ':p'))`,
             ),
           );
-          worktree = Deno.statSync(worktree).isDirectory
-            ? worktree
-            : dirname(worktree);
-          worktree = (await run([
+          const currentDir = Deno.statSync(currentFile).isDirectory
+            ? currentFile
+            : dirname(currentFile);
+          const worktree = (await run([
             "git",
             "rev-parse",
             "--show-toplevel",
-          ], worktree)).trim();
-          const diff = (await run([
+          ], currentDir)).trim();
+          const diff = (await run(
             [
               "git",
               sourceParams.show ? "show" : "diff",
@@ -71,9 +72,10 @@ export class Source extends BaseSource<Params> {
               ...((!sourceParams.show && sourceParams.cached)
                 ? ["--cached"]
                 : []),
+              ...(sourceParams.currentFile ? [currentFile] : []),
             ],
             worktree,
-          ].flat())).split("\n");
+          )).split("\n");
           const splits = splitAtFile(diff);
           if (splits.length === 0) {
             return;
