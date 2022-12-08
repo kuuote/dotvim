@@ -61,8 +61,7 @@ let s:config_json =<< UNKO
   ],
   "backspaceCompletion": true,
   "cmdlineSources": [
-    "cmdline_help",
-    "mycmdline"
+    "cmdline"
   ],
   "filterParams": {
     "matcher_substring": {
@@ -87,6 +86,9 @@ let s:config_json =<< UNKO
     },
     "buffer": {
       "mark": "B"
+    },
+    "cmdline": {
+      "minAutoCompleteLength": 0
     },
     "cmdline_help": {
       "maxItems": 20
