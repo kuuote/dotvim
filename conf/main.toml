@@ -103,9 +103,11 @@ lua_source = '''
 local convert = require('vimrc.compat.convert').convert
 local let = require('vimrc.util').let
 local au = require('vimrc.compat.autocmd').define
+local cmd = vim.command or vim.cmd
+local eval = vim.eval or vim.api.nvim_eval
 
-vim.go.laststatus = 2
-vim.go.showtabline = 2
+cmd('setglobal laststatus=2')
+cmd('setglobal showtabline=2')
 
 vim.g.lightline = convert {
   active = {
@@ -145,15 +147,15 @@ local function auto_colorscheme(name)
   local colors = nil
   if special[name] ~= nil then
     colors = special[name]
-  elseif vim.fn.globpath(vim.go.runtimepath, ('autoload/lightline/colorscheme/%s.vim'):format(name)) ~= '' then
+  elseif vim.fn.globpath(eval('&runtimepath'), ('autoload/lightline/colorscheme/%s.vim'):format(name)) ~= '' then
     colors = name
   end
   let('g:lightline.colorscheme', colors)
   if colors ~= nil then
     -- edgeのような白黒共用のカラースキームを適用し直す
-    local path = vim.fn.globpath(vim.go.runtimepath, ('autoload/lightline/colorscheme/%s.vim'):format(colors), 1, 1)
+    local path = vim.fn.globpath(eval('&runtimepath'), ('autoload/lightline/colorscheme/%s.vim'):format(colors), 1, 1)
     if #path ~= 0 then
-      vim.cmd('source ' .. path[1])
+      cmd('source ' .. path[1])
     end
   end
   vim.call('lightline#init')
