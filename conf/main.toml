@@ -240,7 +240,7 @@ repo = 'lambdalisue/guise.vim'
 
 [[plugins]]
 repo = 'lambdalisue/mr.vim'
-on_event = 'BufReadPost'
+on_event = 'BufNewFile,BufRead'
 hook_source = '''
 let g:mr#mru#filename = '/data/mr/mru'
 let g:mr#mrw#filename = '/data/mr/mrw'
