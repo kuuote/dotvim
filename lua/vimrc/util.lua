@@ -1,5 +1,6 @@
 local M = {}
 
+local cmd = vim.command or vim.cmd
 local eval = vim.eval or vim.api.nvim_eval
 
 function M.find_root(path)
@@ -19,8 +20,8 @@ end
 -- 辞書の中に値を配置するやつ
 function M.let(path, obj)
   vim.g['LuaTemp'] = obj
-  vim.cmd(string.format('let %s = g:LuaTemp', path))
-  vim.cmd('unlet g:LuaTemp')
+  cmd(string.format('let %s = g:LuaTemp', path))
+  cmd('unlet g:LuaTemp')
 end
 
 return M
