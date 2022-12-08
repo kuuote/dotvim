@@ -2,9 +2,6 @@
 repo = 'ayu-theme/ayu-vim'
 
 [[plugins]]
-repo = "NLKNguyen/papercolor-theme"
-
-[[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 
 [[plugins]]
@@ -24,6 +21,10 @@ repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'cormacrelf/vim-colors-github'
+
+[[plugins]]
+repo = 'dracula/vim'
+name = 'dracula'
 
 [[plugins]]
 repo = 'EdenEast/nightfox.nvim'
@@ -79,4 +80,7 @@ repo = 'yasukotelin/shirotelin'
 
 [[plugins]]
 repo = 'yuttie/hydrangea-vim'
+
+[[plugins]]
+repo = "NLKNguyen/papercolor-theme"
 
