@@ -72,10 +72,11 @@ export class Source extends BaseSource<Params> {
           const highlights: ItemHighlight[] = [];
           let previewType: PreviewType = "never";
           // see :Man git-status
+          // ddu-ui-ffはVimにおいてhighlight nameが種類ごとに一意であることを要求する
           if (line.match(/^[MTADRC]/)) {
             previewType = "diff_cached";
             highlights.push({
-              name: "git_status",
+              name: "git_status_add",
               "hl_group": "diffAdded",
               col: 1,
               width: 1,
@@ -91,16 +92,16 @@ export class Source extends BaseSource<Params> {
                 break;
             }
             highlights.push({
-              name: "git_status",
+              name: "git_status_remove",
               "hl_group": "diffRemoved",
               col: 2,
               width: 1,
             });
           }
-          if (line.match(/^\?\?/)) {
+          if (line.startsWith("??")) {
             previewType = "file";
             highlights.push({
-              name: "git_status",
+              name: "git_status_remove",
               "hl_group": "diffRemoved",
               col: 1,
               width: 2,

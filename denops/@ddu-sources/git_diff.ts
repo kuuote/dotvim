@@ -102,7 +102,7 @@ export class Source extends BaseSource<Params> {
               const hl = hls[line.text[0]];
               if (hl != null) {
                 highlights.push({
-                  name: "abbr",
+                  name: "git_diff" + hl,
                   "hl_group": hl,
                   col: 1,
                   width: new TextEncoder().encode(line.text).length,
