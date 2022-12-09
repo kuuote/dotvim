@@ -141,6 +141,7 @@ au('FileType', {
       m('n', 'h', item_action { 'add' }, opts)
       m('n', 'l', item_action { 'reset' }, opts)
       m('n', 'p', item_action { 'patch' }, opts)
+      m('n', 'R', item_action { 'restore' }, opts)
     end
     if isnvim then
       m('n', 'P', function()
