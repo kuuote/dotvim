@@ -12,3 +12,5 @@ function! s:delete() abort
 endfunction
 
 nnoremap <buffer> <CR>d <Cmd>call <SID>delete()<CR>
+" VimでGin commitが上手く行かないのでwipe
+set bufhidden=wipe
