@@ -11,6 +11,9 @@ end)
 repo = 'kuuote/ddu-filter-fuse'
 
 [[plugins]]
+repo = 'kuuote/ddu-source-git_diff'
+
+[[plugins]]
 repo = 'kuuote/ddu-source-mr'
 lua_add = '''
 local m = require('vimrc.compat.map').define
