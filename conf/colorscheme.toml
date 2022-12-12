@@ -8,12 +8,13 @@ repo = 'bluz71/vim-nightfly-guicolors'
 repo = 'catppuccin/nvim'
 name = 'catppuccin'
 lua_source = '''
--- require('catppuccin').setup {
---   integrations = {
---     fern = true,
---     ts_rainbow = true,
---   },
--- }
+require('catppuccin').setup {
+  integrations = {
+    fern = true,
+    ts_rainbow = true,
+  },
+  term_colors = true,
+}
 '''
 
 [[plugins]]
