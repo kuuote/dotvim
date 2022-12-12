@@ -13,6 +13,12 @@ let s:config_json =<< UNKO
     "matcher_fzf_nosort": {
       "highlightMatched": "DduMatch",
       "sort": 0
+    },
+    "sorter_distance": {
+      "bonus": {
+        "sequence": 1
+      },
+      "highlightMatched": "DduMatch"
     }
   },
   "kindOptions": {

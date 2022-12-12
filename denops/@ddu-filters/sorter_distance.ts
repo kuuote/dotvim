@@ -5,32 +5,71 @@ import {
 } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
 import { Denops } from "https://deno.land/x/ddu_vim@v2.0.0/deps.ts";
 
-// 文字の距離を見るナイーブなsorter
+// 可能な歯抜けマッチの内最短距離を選ぶsorter
 
-type Params = Record<never, never>;
-
-const find = (haystack: string, needle: string): number[] => {
-  const n = needle[0];
-  const eedle = [...needle.slice(1)];
-  const indexes = [...haystack].flatMap((c, i) => c === n ? [i] : []);
-  return indexes
-    .map((i) => {
-      let pos = i + 1;
-      const found = [i];
-      let npos = 0;
-      while (pos < haystack.length && npos < eedle.length) {
-        if (haystack[pos] === eedle[npos]) {
-          found.push(pos);
-          npos += 1;
-        }
-        pos += 1;
-      }
-      return found;
-    })
-    .filter((found) => found.length === needle.length)
-    .sort((a, b) => (a.at(-1)! - a.at(0)!) - b.at(-1)! - b.at(0)!)[0] ?? [];
+type Bonus = {
+  sequence?: number;
 };
 
+type Params = {
+  highlightMatched?: string;
+  bonus?: Bonus;
+};
+
+type Result = {
+  distance: number;
+  score: number;
+  matches: number[];
+};
+
+function find(haystack: string, needle: string, bonus?: Bonus): Result {
+  const map: Record<string, number[]> = {};
+  for (let i = 0; i < haystack.length; i++) {
+    const c = haystack[i];
+    map[c] = map[c] ?? [];
+    map[c].push(i);
+  }
+  let current = Number.POSITIVE_INFINITY;
+  let score = 0;
+  let currentMatches: number[] = [];
+  const matches = Array.from(
+    Array(needle.length),
+    () => Number.NEGATIVE_INFINITY,
+  );
+  let pos = 0;
+  let npos = 0;
+  while (pos < haystack.length && npos < needle.length) {
+    if (haystack[pos] === needle[npos]) {
+      matches[npos++] = pos;
+      // 前回のマッチ結果を再利用する
+      // 現在のマッチより次のマッチが大きければ結果は変わらないので飛ばす
+      if (npos === needle.length || pos < matches[npos]) {
+        const distance = matches[needle.length - 1] - matches[0];
+        if (distance <= current) {
+          current = distance;
+          currentMatches = [...matches];
+        }
+        // マッチの先頭の直後からやり直し
+        pos = matches[0] + 1;
+        npos = 0;
+      }
+    }
+    pos++;
+  }
+  if (bonus?.sequence != null) {
+    const b = bonus.sequence;
+    for (let i = 0; i < currentMatches.length; i++) {
+      if (currentMatches[i] - currentMatches[i - 1] === 1) {
+        score += b;
+      }
+    }
+  }
+  return {
+    distance: current,
+    score,
+    matches: currentMatches,
+  };
+}
 const charposToBytepos = (input: string, pos: number): number => {
   return (new TextEncoder()).encode(input.slice(0, pos)).length;
 };
@@ -39,43 +78,54 @@ export class Filter extends BaseFilter<Params> {
   filter(args: {
     denops: Denops;
     sourceOptions: SourceOptions;
+    filterParams: Params;
     input: string;
     items: DduItem[];
   }): Promise<DduItem[]> {
     const input = args.sourceOptions.ignoreCase
       ? args.input.toLowerCase()
       : args.input;
+    const hl = args.filterParams.highlightMatched;
     return Promise.resolve(
       args.items.map((item) => {
-        const found = find(
+        const result = find(
           args.sourceOptions.ignoreCase ? item.word.toLowerCase() : item.word,
           input,
+          args.filterParams.bonus,
         );
-        const distance = found.length === 0
-          ? Number.POSITIVE_INFINITY
-          : found.at(-1)! - found.at(0)!;
         return {
           item: {
             ...item,
-            highlights: (item.highlights?.filter((hl) =>
-              hl.name != "matched"
-            ) ?? [])
-              .concat(found.map((i) => ({
-                name: "matched",
-                "hl_group": "Search",
-                col: charposToBytepos(item.word, i) + 1,
-                width: new TextEncoder().encode(item.word[i]).length,
-              }))),
+            highlights: hl
+              ? (item.highlights?.filter((hl) => hl.name !== "matched") ?? [])
+                .concat(result.matches.map((i) => ({
+                  name: "matched",
+                  "hl_group": "Search",
+                  col: charposToBytepos(item.word, i) + 1,
+                  width: new TextEncoder().encode(item.word[i]).length,
+                })))
+              : item.highlights,
           },
-          distance,
+          result,
         };
       })
-        .sort((a, b) => a.distance - b.distance)
+        .sort((a, b) => {
+          const score = b.result.score - a.result.score;
+          if (score !== 0) {
+            return score;
+          }
+          return a.result.distance - b.result.distance;
+        })
         .map(({ item }) => item),
     );
   }
 
   params(): Params {
-    return {};
+    return {
+      bonus: {},
+    };
   }
 }
+
+// 54 9 6 2 1
+// 性能悪くなってるので没
