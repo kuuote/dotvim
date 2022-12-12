@@ -2,6 +2,7 @@ local au = require('vimrc.compat.autocmd').define
 local group = require('vimrc.compat.autocmd').group
 local map = require('vimrc.compat.map').define
 local vimcall = require('vimrc.compat.convert').call
+local eval = vim.eval or vim.api.nvim_eval
 
 local resetters = {}
 local customs = {}
@@ -97,6 +98,26 @@ local function set_list(candidates, callback)
   })
 end
 
+local function set_eval(opts)
+  if opts.set_buffer then
+    save()
+    table.insert(resetters, function()
+      vimcall('vimrc#ddc#reset')
+    end)
+  end
+  vimcall('vimrc#ddc#reset')
+  opts = opts or {}
+  if opts.gather then
+    vim.g['vimrc#ddc#gather'] = opts.gather
+  end
+  if opts.get_complete_position then
+    vim.g['vimrc#ddc#get_complete_position'] = opts.get_complete_position
+  end
+  if opts.on_complete_done then
+    vim.g['vimrc#ddc#on_complete_done'] = opts.on_complete_done
+  end
+end
+
 map({ 'c', 'i' }, '<C-X>', function()
   require('vimrc.menu').menu {
     info = 'select completion source',
@@ -155,3 +176,44 @@ map({ 'c', 'i' }, '<C-X>', function()
     },
   }
 end)
+
+au('User', {
+  pattern = 'DenopsPluginPost:ddc',
+  callback = function()
+    vimcall('ddc#custom#set_context_global', function()
+      -- Vimは死ぬので
+      if not is_nvim then
+        return
+      end
+      if vim.fn.mode() == 'c' and vim.fn.getcmdtype() == ':' then
+        local line = vim.fn.getcmdline()
+        if line:match('he?l?p? %a+$') then
+          return {
+            cmdlineSources = { 'cmdline_help' },
+          }
+        end
+        if line:match('^%a*$') then
+          set_eval({
+            gather = function()
+              local i = require('kutil.iterate')
+              local cmds = i.new(eval('execute("command")->split("\\n")[1:]'))
+              :next(i.map(function(line)
+                return {
+                  word = line:sub(5):match('^%a+'),
+                }
+              end))
+              :next(i.filter(function(cand)
+                return cand.word ~= nil
+              end))
+              :collect()
+              return cmds
+            end,
+          })
+          return {
+            cmdlineSources = { 'eval' },
+          }
+        end
+      end
+    end)
+  end,
+})
