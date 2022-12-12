@@ -10,5 +10,8 @@
   },
   "skktools": {
     "script": "~/.vim/build/skktools.sh"
+  },
+  "tree-sitter-unifieddiff": {
+    "script": "~/.vim/build/tree-sitter-unifieddiff.sh"
   }
 }

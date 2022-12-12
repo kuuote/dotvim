@@ -10,5 +10,8 @@ if is_nvim then
   vim.api.nvim_set_hl(0, 'FuzzyMotionChar', { fg = mocha.green })
   vim.api.nvim_set_hl(0, 'FuzzyMotionSubChar', { fg = mocha.peach })
   vim.api.nvim_set_hl(0, 'FuzzyMotionMatch', { fg = mocha.blue })
+  vim.cmd('hi link @text.diff.delsign diffOldFile')
+  vim.cmd('hi link @text.diff.addsign diffNewFile')
+  vim.cmd('hi link @text.diff.indicator PmenuSbar')
 end
 EOF

@@ -1,28 +1,36 @@
 [[plugins]]
+repo = 'monaqa/tree-sitter-unifieddiff'
+
+[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 on_cmd = 'TSUpdate'
 on_event = 'BufRead'
+on_ft = 'diff'
 lua_source = '''
-require('nvim-treesitter.configs').setup({
+require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
-    disable = {'help'},
+    disable = { 'help' },
   },
-  parser_install_dir = '/data/vim/treesitter'
-})
+  parser_install_dir = '/data/vim/treesitter',
+}
 vim.o.runtimepath = vim.o.runtimepath .. ',/data/vim/treesitter'
+
+local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+parser_config.unifieddiff = {
+install_info = {},
+  filetype = 'diff', -- if filetype does not agrees with parser name
+}
 '''
 
 [[plugins]]
 repo = 'p00f/nvim-ts-rainbow'
 on_source = 'nvim-treesitter'
-hook_source = '''
-lua <<unko
-require'nvim-treesitter.configs'.setup {
+lua_source = '''
+require('nvim-treesitter.configs').setup {
   rainbow = {
     enable = true,
   },
 }
-unko
 '''
 
