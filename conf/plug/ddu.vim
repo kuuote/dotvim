@@ -16,6 +16,9 @@ let s:config_json =<< UNKO
     }
   },
   "kindOptions": {
+    "action": {
+      "defaultAction": "do"
+    },
     "command": {
       "defaultAction": "execute"
     },

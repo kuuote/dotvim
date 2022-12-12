@@ -56,6 +56,9 @@ repo = 'Shougo/ddu-kind-file'
 repo = 'Shougo/ddu-kind-word'
 
 [[plugins]]
+repo = 'Shougo/ddu-source-action'
+
+[[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 lua_add = '''
 require('vimrc.compat.map').define('n', '<C-p>', function()
@@ -126,6 +129,7 @@ au('FileType', {
     }
     m('n', '<CR>', action('itemAction'), opts)
     m('n', '<Space>', action('toggleSelectItem'), opts)
+    m('n', 'a', action('chooseAction'), opts)
     m('n', 'i', action('openFilterWindow'), opts)
     m('n', 'p', action('preview'), opts)
     m('n', 'q', action('quit'), opts)
