@@ -130,7 +130,11 @@ au('FileType', {
     m('n', '<CR>', action('itemAction'), opts)
     m('n', '<Space>', action('toggleSelectItem'), opts)
     m('n', 'a', action('chooseAction'), opts)
-    m('n', 'i', action('openFilterWindow'), opts)
+    m('n', 'i', function()
+      -- 自分の設定が悪いんだけどマッチ位置のハイライトがcursorlineに上書きされてしまうのでfilter開いてる間だけ切る
+      cmd('setlocal nocursorline')
+      action('openFilterWindow')()
+    end, opts)
     m('n', 'p', action('preview'), opts)
     m('n', 'q', action('quit'), opts)
     if vim.b.ddu_ui_name:match('^file') then
@@ -178,6 +182,7 @@ au('FileType', {
     m({ 'n', 'i' }, '<CR>', function()
       cmd('stopinsert')
       vim.call('ddu#ui#ff#close')
+      cmd('setlocal cursorline')
     end, opts)
     m('i', '<C-j>', function()
       vim.call('ddu#ui#ff#execute', [[call cursor(line('.')+1, 0)]])
