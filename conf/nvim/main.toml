@@ -70,7 +70,14 @@ call ddc#custom#patch_filetype('deol', 'sources', ['zsh', 'shell-history', 'arou
 " auto cdはEditバッファのみ有効なのでfileはこちら
 call ddc#custom#patch_filetype('zsh', 'sources', ['file', 'zsh', 'shell-history'])
 
-autocmd FileType deol tnoremap <buffer> <C-e> <C-\><C-N>G<Cmd>DeolEdit<CR><C-u>
+autocmd FileType deol tnoremap <buffer> <C-e> <C-\><C-N>G<Cmd>DeolEdit<CR><C-u><Cmd>call feedkeys("cd .\<lt>CR>")<CR>
+
+function! s:deol_ft_zsh() abort
+  nnoremap <buffer> <C-e> <Esc><Cmd>close<CR>i
+  inoremap <buffer> <C-e> <Esc><Cmd>close<CR>i
+endfunction
+
+autocmd FileType zsh if bufname() =~# '^deol-edit' | call s:deol_ft_zsh() | endif
 '''
 
 [[plugins]]
