@@ -70,9 +70,10 @@ function find(haystack: string, needle: string, bonus?: Bonus): Result {
     matches: currentMatches,
   };
 }
-const charposToBytepos = (input: string, pos: number): number => {
-  return (new TextEncoder()).encode(input.slice(0, pos)).length;
-};
+
+function byteLength(input: string): number {
+  return new TextEncoder().encode(input).length;
+}
 
 export class Filter extends BaseFilter<Params> {
   filter(args: {
@@ -101,8 +102,8 @@ export class Filter extends BaseFilter<Params> {
                 .concat(result.matches.map((i) => ({
                   name: "matched",
                   "hl_group": "Search",
-                  col: charposToBytepos(item.word, i) + 1,
-                  width: new TextEncoder().encode(item.word[i]).length,
+                  col: byteLength(item.word.slice(0, i)) + 1,
+                  width: byteLength(item.word[i]),
                 })))
               : item.highlights,
           },

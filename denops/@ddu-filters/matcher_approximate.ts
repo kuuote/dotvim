@@ -23,9 +23,9 @@ const find = (haystack: string, needle: string): number[] => {
   return found;
 };
 
-const charposToBytepos = (input: string, pos: number): number => {
-  return (new TextEncoder()).encode(input.slice(0, pos)).length;
-};
+function byteLength(input: string): number {
+  return new TextEncoder().encode(input).length;
+}
 
 export class Filter extends BaseFilter<Params> {
   filter(args: {
@@ -58,8 +58,8 @@ export class Filter extends BaseFilter<Params> {
             .concat((key === display ? found : find(display, input)).map((i) => ({
               name: "matched",
               "hl_group": "Search",
-              col: charposToBytepos(display, i) + 1,
-              width: new TextEncoder().encode(display[i]).length,
+              col: byteLength(display.slice(0, i)) + 1,
+              width: byteLength(display[i]),
             }))),
         }];
       }),
