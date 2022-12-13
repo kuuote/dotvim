@@ -464,7 +464,7 @@ luafile ~/.vim/conf/plug/linkformat.lua
 
 [[plugins]]
 repo = 'uga-rosa/scorpeon.vim'
-on_cmd = 'ScorpenHighlightEnable'
+on_cmd = 'ScorpeonHighlightEnable'
 lua_source = '''
 vim.g.scorpeon_extensions_path = require('vimrc.compat.convert').convert {
   '/usr/lib/code/extensions',
