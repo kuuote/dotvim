@@ -127,6 +127,3 @@ export class Filter extends BaseFilter<Params> {
     };
   }
 }
-
-// 54 9 6 2 1
-// 性能悪くなってるので没
