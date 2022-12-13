@@ -2,13 +2,6 @@
 repo = 'hrsh7th/nvim-kit'
 
 [[plugins]]
-repo = 'kuuote/tsnip.nvim'
-rev = 'monster'
-lua_add = '''
--- vim.g.tsnip_use_nui = false
-'''
-
-[[plugins]]
 repo = 'lewis6991/impatient.nvim'
 
 [[plugins]]
@@ -199,5 +192,11 @@ endfunction
 augroup vimrc
   autocmd User eskk-initialize-pre call s:eskk_initialize_pre()
 augroup END
+'''
+
+[[plugins]]
+repo = 'yuki-yano/tsnip.nvim'
+lua_add = '''
+-- vim.g.tsnip_use_nui = false
 '''
 
