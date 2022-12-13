@@ -433,6 +433,10 @@ vim.g.quickrun_config = {
     tempfile = '%{tempname()}.ts',
     exec = { '%c test %o %s' },
   },
+  -- from @ycino
+  yq = {
+    exec = 'cat %s | yq eval --output-format=json'
+  },
 }
 '''
 
