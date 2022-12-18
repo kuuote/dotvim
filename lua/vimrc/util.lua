@@ -20,8 +20,14 @@ end
 -- 辞書の中に値を配置するやつ
 function M.let(path, obj)
   vim.g['LuaTemp'] = obj
-  cmd(string.format('let %s = g:LuaTemp', path))
-  cmd('unlet g:LuaTemp')
+  cmd(([[
+if exists('g:LuaTemp')
+  let %s = g:LuaTemp
+  unlet g:LuaTemp
+else
+  unlet %s
+endif
+  ]]):format(path, path))
 end
 
 return M
