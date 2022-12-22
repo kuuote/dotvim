@@ -26,6 +26,10 @@ repo = 'cormacrelf/vim-colors-github'
 [[plugins]]
 repo = 'dracula/vim'
 name = 'dracula'
+lazy = 1
+hook_add = '''
+autocmd ColorSchemePre dracula ++once call dein#source('dracula')
+'''
 
 [[plugins]]
 repo = 'EdenEast/nightfox.nvim'
