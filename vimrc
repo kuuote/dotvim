@@ -26,5 +26,5 @@ if getftype(g:dotvim .. '/local.vim') ==# 'file'
 endif
 
 if empty(get(g:, 'colors_name', ''))
-  colorscheme morning
+  colorscheme habamax
 endif
