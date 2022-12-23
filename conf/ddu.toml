@@ -11,6 +11,9 @@ end)
 repo = 'kuuote/ddu-filter-fuse'
 
 [[plugins]]
+repo = '4513ECHO/ddu-source-colorscheme'
+
+[[plugins]]
 repo = 'kuuote/ddu-source-git_diff'
 
 [[plugins]]
