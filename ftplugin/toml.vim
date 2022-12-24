@@ -1,13 +1,16 @@
-function! s:select_block() abort
+command! -buffer Sortoml call denops#request('vimrc', 'blockSort', [1, line('$'), '..plugins]]', 'repo.*'])
+
+" dein.vimのtomlのhook_addなどをparteditでいじるやつ
+function! s:partedit() abort
   let view = winsaveview()
-  keeppatterns ?'''\zs
-  execute "normal! j\<Home>o"
-  keeppatterns /'''
-  execute "normal! k\<End>ozz"
+  let start = search('\v^%(hook|lua)_', 'bc')
+  let end = search("^'''")
+  if start == 0 || end == 0
+    return
+  endif
+  call winrestview(view)
+  let ft = getline(start) =~# 'lua' ? 'lua' : 'vim'
+  execute printf('%d,%dPartedit -opener new -filetype %s', start + 1, end - 1, ft)
 endfunction
 
-" inner hook
-" parteditするためにhook部分を選択する
-xnoremap <buffer> ih <Cmd>call <SID>select_block()<CR>
-
-command! -buffer Sortoml call denops#request('vimrc', 'blockSort', [1, line('$'), '..plugins]]', 'repo.*'])
+nnoremap <buffer> mp <Cmd>call <SID>partedit()<CR>
