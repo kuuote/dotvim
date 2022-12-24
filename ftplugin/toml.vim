@@ -3,7 +3,7 @@ command! -buffer Sortoml call denops#request('vimrc', 'blockSort', [1, line('$')
 " dein.vimのtomlのhook_addなどをparteditでいじるやつ
 function! s:partedit() abort
   let view = winsaveview()
-  let start = search('\v^%(hook|lua)_', 'bc')
+  let start = search("\\v^%(hook|lua)_.*'''$", 'bc')
   let end = search("^'''")
   if start == 0 || end == 0
     return
