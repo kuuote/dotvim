@@ -25,6 +25,9 @@ let s:config_json =<< UNKO
     "action": {
       "defaultAction": "do"
     },
+    "colorscheme": {
+      "defaultAction": "set"
+    },
     "command": {
       "defaultAction": "execute"
     },
