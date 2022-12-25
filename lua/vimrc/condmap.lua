@@ -16,7 +16,7 @@ local map = {}
 -- cond must be returns bool value
 -- fn must be returns string value as <expr> result
 function M.define(opts)
-  local mode = opts.mode or error()
+  local mode = opts.mode or { 'i' }
   local key = opts.key or error()
   local lhs = opts.lhs or error()
   local cond = opts.cond or function() return true end
