@@ -9,7 +9,7 @@ const deinHook: Snippet = {
       type: "single_line",
     },
   ],
-  render: ({ name }) => {
+  render: ({ name }, ctx) => {
     let text = name?.text ?? "";
     if (text[0] === "h") {
       text = "hook_" + text.slice(1);
@@ -17,7 +17,7 @@ const deinHook: Snippet = {
     if (text[0] === "l") {
       text = "lua_" + text.slice(1);
     }
-    return `${text} = '''\n\t{{_cursor_}}\n'''`;
+    return `${text} = '''\n${ctx.postCursor}\n'''`;
   },
 };
 

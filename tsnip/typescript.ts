@@ -13,7 +13,7 @@ const tsnip: Snippet = {
       type: "multi_line",
     },
   ],
-  render: (input) => {
+  render: (input, ctx) => {
     const name = input.name?.text ?? "";
     const paramsStr = input.params?.text ?? "";
     const params = String(paramsStr).split("\n")
@@ -37,7 +37,7 @@ const tsnip: Snippet = {
     const footer = [
       "\t],",
       `\trender: ({ ${params.map((p) => p.name).join(", ")} }) => {`,
-      "\t\t{{_cursor_}}",
+      `\t\t${ctx.postCursor}}`,
       "\t},",
       "}",
     ];
@@ -49,6 +49,45 @@ const tsnip: Snippet = {
   },
 };
 
+const arrowFunction: Snippet = {
+  name: "arrowFunction",
+  text:
+    "Arrow Function expander\ne.g. 'a; Promise<string>; text.string' to async (text: string): Promise<string> => |",
+  params: [
+    {
+      name: "parameters",
+      type: "single_line",
+    },
+  ],
+  render: ({ parameters }, ctx) => {
+    const [flag, _returnType, ...splits] = String(parameters?.text).split(";");
+    const asyncText = flag.includes("a") ? "async " : "";
+    let returnType = (_returnType ?? "").trim();
+    returnType = returnType === "" ? "" : ": " + returnType;
+    const params = splits.map((p) => p.trim().replace(/\./, ": ")).join(", ");
+    return `${asyncText}(${params})${returnType} => ${ctx.postCursor}`;
+  },
+};
+
+const try_snip: Snippet = {
+  name: "try_snip",
+  params: [
+    {
+      name: "flags",
+      type: "single_line",
+    },
+  ],
+  render: ({ flags }, ctx) => {
+    const base = `try {\n\t${ctx.postCursor}\n}`;
+    const caught = flags?.text?.includes("c") ? " catch (e: unknown) {\n}" : "";
+    const final = flags?.text?.includes("f") ? " finally {\n}" : "";
+    return base + caught + final;
+  },
+};
+
+
 export default {
+  arrowFunction,
+  try_snip,
   tsnip,
 };

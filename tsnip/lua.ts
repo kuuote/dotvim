@@ -13,10 +13,10 @@ export const func: Snippet = {
       type: "single_line",
     },
   ],
-  render: ({ name, args }) => {
+  render: ({ name, args }, ctx) => {
     return [
       `function${name?.text ? " " + name.text : ""}(${args?.text ?? ""})`,
-      "\t{{_cursor_}}",
+      `\t${ctx.postCursor}`,
       "end",
     ].join("\n");
   },
