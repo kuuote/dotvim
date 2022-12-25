@@ -1,9 +1,7 @@
 [[plugins]]
 repo = '~/.vim/bundle/gin-preview.vim'
+depends = 'gin.vim'
 on_cmd = 'GinPreview'
-hook_source = '''
-call dein#source('gin.vim')
-'''
 
 [[plugins]]
 repo = '4513ECHO/denops-gitter.vim'
