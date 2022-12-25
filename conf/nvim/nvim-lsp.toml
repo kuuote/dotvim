@@ -24,7 +24,18 @@ call signature_help#enable()
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-on_ft = ['lua', 'typescript', 'typescriptreact', 'rust']
+lazy = 1
+lua_add = '''
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
+  pattern = {
+    '*.lua',
+    '*.ts',
+    '*.tsx',
+    '*.rs',
+  },
+  command = 'call dein#source("nvim-lspconfig")',
+})
+'''
 lua_source = '''
 local c = require('cmp_nvim_lsp').default_capabilities()
 vim.api.nvim_create_autocmd('LspAttach', {
