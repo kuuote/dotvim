@@ -36,6 +36,9 @@ end
 for _, k in ipairs({'h', 'j', 'k', 'l'}) do
   vim.keymap.set('n', '<C-' .. k .. '>', '<C-w>' .. k)
 end
+vim.keymap.set('n', '1', '1<C-w><C-w>')
+vim.keymap.set('n', '2', '2<C-w><C-w>')
+vim.keymap.set('n', '3', '3<C-w><C-w>')
 vim.keymap.set('n', 'Q', '<Cmd>confirm qa<CR>')
 vim.keymap.set('n', '<Space>s', '<Cmd>update<CR>')
 
