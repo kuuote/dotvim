@@ -90,6 +90,7 @@ let g:vsnip_snippet_dirs = [$HOME .. "/.vim/snippets", dein#get('completion-snip
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+depends = 'lightline_skk.vim'
 on_event = 'WinNew'
 hook_add = '''
 set laststatus=1
@@ -538,6 +539,7 @@ endfunction
 
 [[plugins]]
 repo = 'yasunori-kirin0418/lightline_skk.vim'
+lazy = 1
 
 [[plugins]]
 repo = 'yuki-yano/fern-preview.vim'
