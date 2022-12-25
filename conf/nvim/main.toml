@@ -55,7 +55,7 @@ repo = 'rcarriga/nvim-notify'
 repo = 'Shougo/deol.nvim'
 on_cmd = 'Deol'
 hook_add = '''
-command! DeolCurrent execute printf('Deol -cwd=%s', isdirectory(expand('%')) ? expand('%') : expand('%:h'))
+command! DeolCurrent execute printf('Deol -cwd=%s', isdirectory(expand('%')) ? expand('%') : getftype(expand('%')) == 'file' ? expand('%:h') : getcwd())
 '''
 hook_source = '''
 call ddc#custom#patch_filetype(['deol', 'zsh'], 'specialBufferCompletion', v:true)
