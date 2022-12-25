@@ -222,3 +222,6 @@ repo = 'takker99/ddc-bitap'
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
 
+[[plugins]]
+repo = 'tani/ddc-onp'
+
