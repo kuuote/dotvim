@@ -1,3 +1,4 @@
+local au = require('vimrc.compat.autocmd').define
 local m = require('vimrc.compat.map').define
 local cmd = vim.cmd or vim.command
 
@@ -39,13 +40,40 @@ m('n', '<Space>tp', function()
   transparent('NormalNC')
 end)
 
-m('i', '<C-l>', function()
-  local pos = vim.fn.searchpos([=[\v%(\)|]|}|'|"|`|<end\a*)]=], 'cez')
-  vim.fn.cursor(pos[1], pos[2] + 1)
-  vim.cmd('doautocmd <nomodeline> TextChangedI foo') -- 補完をトリガーする
-end)
-
 -- 楽なウィンドウ移動
-for _, k in ipairs({'h', 'j', 'k', 'l'}) do
+for _, k in ipairs({ 'h', 'j', 'k', 'l' }) do
   m('n', '<C-' .. k .. '>', '<C-w>' .. k)
 end
+
+-- 挿入モード
+au('InsertEnter', {
+  once = true,
+  callback = function()
+    -- 括弧などから抜ける
+    m('i', '<C-l>', function()
+      local pos = vim.fn.searchpos([=[\v%(\)|]|}|'|"|`|<end\a*)]=], 'cez')
+      vim.fn.cursor(pos[1], pos[2] + 1)
+      vim.cmd('doautocmd <nomodeline> TextChangedI foo') -- 補完をトリガーする
+    end)
+
+    local condmap = require('vimrc.condmap')
+
+    condmap.define {
+      key = 'fallback',
+      lhs = '<Tab>',
+      priority = condmap.prior.fallback,
+      fn = function()
+        return '\x14' -- <C-t>
+      end
+    }
+
+    condmap.define {
+      key = 'fallback',
+      lhs = '<S-Tab>',
+      priority = condmap.prior.fallback,
+      fn = function()
+        return '\x04' -- <C-d>
+      end
+    }
+  end
+})
