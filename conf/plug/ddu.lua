@@ -10,24 +10,27 @@ end
 
 local function get_pathes(args)
   return it.new(args.items)
-      :next(it.map(function(item)
-        return item.action.path
-      end))
-      :collect()
+    :next(it.map(function(item)
+      return item.action.path
+    end))
+    :collect()
+end
+
+local function config()
+  -- git
+  act('kind', 'git_file', 'commit', function()
+    cmd('Gin commit')
+  end)
+  act('kind', 'git_file', 'patch', function(args)
+    local worktree = get_worktree(args)
+    for _, i in iter(args.items) do
+      cmd(('tabnew | tcd %s | GinPatch ++no-head %s'):format(worktree, i.action.path))
+    end
+  end)
 end
 
 au('User', {
   pattern = 'DenopsPluginPost:ddu',
-  callback = function()
-    -- git
-    act('kind', 'git_file', 'commit', function()
-      cmd('Gin commit')
-    end)
-    act('kind', 'git_file', 'patch', function(args)
-      local worktree = get_worktree(args)
-      for _, i in iter(args.items) do
-        cmd(('tabnew | tcd %s | GinPatch ++no-head %s'):format(worktree, i.action.path))
-      end
-    end)
-  end
+  callback = config,
 })
+config()
