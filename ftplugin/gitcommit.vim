@@ -8,7 +8,7 @@ function! s:delete() abort
   call setbufline('%', 1, lines)
 
   let log = systemlist('cd ' .. expand('%:p:h:h') .. ' ; git log --oneline')->map('"# " .. v:val')
-  call setbufline('%', '$', log)
+  call appendbufline('%', '$', log)
 endfunction
 
 nnoremap <buffer> <CR>d <Cmd>call <SID>delete()<CR>
