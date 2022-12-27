@@ -47,7 +47,7 @@ else
   let g:vimrc#ddc_sources_front = ['vsnip', 'file']
 endif
 " insert space for paragraph selector
-" vip => :!jq -S .
+" vip => pe json => mf
 let s:config_json =<< UNKO
 
 {

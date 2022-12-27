@@ -1,3 +1,5 @@
+" insert space for paragraph selector
+" vip => pe json => mf
 let s:config_json =<< UNKO
 
 {

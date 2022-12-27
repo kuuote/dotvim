@@ -1,6 +1,16 @@
-import { Denops, vars } from "./deps.ts";
+import { Denops, fn } from "./deps.ts";
 import { uu } from "./deps.ts";
-import { defineCommand } from "./util.ts";
+import * as mfn from "./mfn.ts";
+import { assertString } from "https://deno.land/x/unknownutil@v2.1.0/mod.ts";
+
+// from https://qiita.com/usoda/items/dbedc06fd4bf38a59c48
+const stringifyReplacer = (_: unknown, v: unknown) =>
+  (!(v instanceof Array || v === null) && typeof v == "object")
+    ? Object.keys(v).sort().reduce((r, k) => {
+      r[k] = (v as Record<string, unknown>)[k];
+      return r;
+    }, {} as Record<string, unknown>)
+    : v;
 
 export async function main(denops: Denops) {
   denops.dispatcher = {
@@ -61,6 +71,14 @@ export async function main(denops: Denops) {
           return `hi! ${name} ${params}`;
         });
       return defs;
+    },
+    async formatJSON() {
+      // => ~/.vim/ftplugin/json.vim
+      const lines = await fn.getline(denops, 1, "$");
+      const obj = JSON.parse(lines.join(""));
+      const json = JSON.stringify(obj, stringifyReplacer, 2);
+      await mfn.deletebufline(denops, "%", 1, "$");
+      await fn.setbufline(denops, "%", 1, json.split("\n"));
     },
   };
 
