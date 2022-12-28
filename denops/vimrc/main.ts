@@ -80,6 +80,22 @@ export async function main(denops: Denops) {
       await mfn.deletebufline(denops, "%", 1, "$");
       await fn.setbufline(denops, "%", 1, json.split("\n"));
     },
+    async jsonYAML() {
+      const lines = await fn.getline(denops, 1, "$");
+      const obj = JSON.parse(lines.join(""));
+      const yaml = YAML.stringify(obj);
+      await mfn.deletebufline(denops, "%", 1, "$");
+      await fn.setbufline(denops, "%", 1, yaml.split("\n"));
+      await opt.filetype.setLocal(denops, "yaml");
+    },
+    async yamlJSON() {
+      const lines = await fn.getline(denops, 1, "$");
+      const obj = YAML.parse(lines.join("\n")); // YAMLは改行に意味がある
+      const json = JSON.stringify(obj, stringifyReplacer, 2);
+      await mfn.deletebufline(denops, "%", 1, "$");
+      await fn.setbufline(denops, "%", 1, json.split("\n"));
+      await opt.filetype.setLocal(denops, "json");
+    },
   };
 
   await denops.cmd(
