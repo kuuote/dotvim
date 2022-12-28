@@ -585,9 +585,6 @@ nnoremap <silent> <fzf-p>l <Cmd>FzfPreviewLinesRpc<CR>
 nnoremap <silent> <fzf-p>p :<C-u>FzfPreviewProjectGrep --experimental-fast<Space>
 nnoremap <silent> <fzf-p>s <Cmd>FzfPreviewGitStatusRpc<CR>
 nnoremap <silent> <fzf-p>w <Cmd>FzfPreviewProjectMrwFilesRpc --add-fzf-arg=--no-sort<CR>
-
-" non prefix shortcut
-nnoremap gs :FzfPreviewGitStatusRpc<CR>
 '''
 
 [[plugins]]
