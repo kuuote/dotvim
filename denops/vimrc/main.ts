@@ -1,6 +1,5 @@
-import { Denops, fn } from "./deps.ts";
-import { uu } from "./deps.ts";
 import * as mfn from "./mfn.ts";
+import { Denops, fn, opt, uu, YAML } from "./deps.ts";
 import { assertString } from "https://deno.land/x/unknownutil@v2.1.0/mod.ts";
 
 // from https://qiita.com/usoda/items/dbedc06fd4bf38a59c48
