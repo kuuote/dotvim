@@ -4,7 +4,7 @@ repo = 'monaqa/tree-sitter-unifieddiff'
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 on_cmd = 'TSUpdate'
-on_event = 'BufRead'
+on_event = 'BufReadPost'
 on_ft = 'diff'
 lua_source = '''
 require('nvim-treesitter.configs').setup {
