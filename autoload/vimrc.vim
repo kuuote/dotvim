@@ -20,7 +20,7 @@ function! s:collect_files(path, ...) abort
     for f in files
       if f =~# '.lua$'
         call extend(lua, readfile(f))
-      else
+      elseif f =~# '.vim$'
         call extend(vim, readfile(f))
       endif
     endfor
