@@ -12,3 +12,10 @@ autocmd FileType molder call s:map_molder()
 let g:molder_show_hidden = 1
 '''
 
+[[plugins]]
+repo = 'mattn/vim-notification'
+lua_add = '''
+vim.notify = function(msg)
+  vim.call('notification#show', msg)
+end
+'''
