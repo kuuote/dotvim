@@ -11,6 +11,9 @@
   "skktools": {
     "script": "~/.vim/build/skktools.sh"
   },
+  "telescope-fzf-native.nvim": {
+    "script": "~/.vim/build/telescope-fzf-native.sh"
+  },
   "tree-sitter-unifieddiff": {
     "script": "~/.vim/build/tree-sitter-unifieddiff.sh"
   }
