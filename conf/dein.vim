@@ -19,8 +19,10 @@ let g:vim_ui_select = [
 \   'none',
 \   'ddu.vim',
 \   'fzyselect.vim',
+\   'dressing_fzf',
+\   'dressing_fzf_lua',
 \   'dressing_telescope',
-\ ][1]
+\ ][3]
 
 let s:inline_tmp = '/tmp/vimrc_inline/'
 

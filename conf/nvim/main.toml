@@ -82,22 +82,23 @@ nmap [j <Plug>(jumpcursor-jump)
 
 [[plugins]]
 repo = 'stevearc/dressing.nvim'
-lazy = 1
+on_lua = 'dressing'
 lua_add = '''
-if vim.g.vim_ui_select:match('^dressing_') then
+local m = vim.g.vim_ui_select:match('^dressing_(.*)')
+if m then
+  local dressing_backend = m
   vim.ui.select = function(...)
-    vim.call('dein#source', 'dressing.nvim')
+    if m == 'fzf' then
+      vim.call('dein#source', 'fzf')
+    end
+    require('dressing').setup {
+      select = {
+        backend = { dressing_backend },
+      },
+    }
     return vim.ui.select(...)
   end
 end
-'''
-lua_source = '''
-require('dressing').setup {
-  select = {
-    enabled = true,
-    backend = { 'telescope' }
-  }
-}
 '''
 
 [[plugins]]
