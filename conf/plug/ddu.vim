@@ -97,7 +97,7 @@ let s:config = s:config_json->join('')->json_decode()
 
 " border idea by @eetann
 
-let g:vimrc#ddu_highlights = "NormalFloat:DduFloat,CursorLine:DduCursorLine,EndOfBuffer:DduEnd,Search:DduMatch"
+let g:vimrc#ddu_highlights = ""
 let s:config['uiParams']['ff']['floatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "DduBorder"]')
 let s:config['uiParams']['ff']['previewFloating'] = has('nvim')
 let s:config['uiParams']['ff']['previewFloatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "DduBorder"]')
@@ -130,9 +130,9 @@ function s:colorscheme()
     hi DduBorder guibg=#f0f0ff guifg=#6060ff
     hi DduMatch ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE
     hi DduCursorLine ctermfg=205 ctermbg=225 guifg=#ff6060 guibg=#ffe8e8 cterm=NONE gui=NONE
-    let g:vimrc#ddu_highlights = "NormalFloat:DduFloat,CursorLine:DduCursorLine,EndOfBuffer:DduEnd,Search:DduMatch"
+    let g:vimrc#ddu_highlights = "DduFloat,CursorLine:DduCursorLine,EndOfBuffer:DduEnd,Search:DduMatch"
   else
-    let g:vimrc#ddu_highlights = 'NormalFloat:Normal,DduBorder:Normal,DduMatch:Search'
+    let g:vimrc#ddu_highlights = 'Normal,DduBorder:Normal,DduMatch:Search'
   endif
   let s:config['uiParams']['ff']['highlights']['floating'] = g:vimrc#ddu_highlights
 endfunction
