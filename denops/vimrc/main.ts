@@ -97,9 +97,18 @@ export async function main(denops: Denops) {
     },
   };
 
-  await denops.cmd(
-    `command! Test let hoge = denops#request('${denops.name}', 'dumpColors', [])`,
-  );
-
-  await Promise.resolve();
+  for await (
+    const p of Deno.readDir(new URL("./plugin", import.meta.url).pathname)
+  ) {
+    if (p.isFile) {
+      try {
+        const m = await import(
+          new URL("./plugin/" + p.name, import.meta.url).pathname
+        );
+        await m.main(denops);
+      } catch (e: unknown) {
+        console.log(e);
+      }
+    }
+  }
 }
