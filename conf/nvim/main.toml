@@ -68,6 +68,15 @@ on_lua = 'telescope'
 
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
+lua_add = '''
+vim.notify = function(...)
+  vim.notify = require('notify')
+  vim.notify.setup {
+    background_colour = '#000000'
+    }
+  vim.notify(...)
+end
+'''
 
 [[plugins]]
 repo = 'Shougo/deol.nvim'
