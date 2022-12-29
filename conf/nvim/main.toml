@@ -2,6 +2,12 @@
 repo = 'hrsh7th/nvim-kit'
 
 [[plugins]]
+repo = 'ibhagwan/fzf-lua'
+if = 'has("nvim")'
+on_cmd = 'FzfLua'
+on_lua = 'fzf-lua'
+
+[[plugins]]
 repo = 'lewis6991/impatient.nvim'
 
 [[plugins]]
