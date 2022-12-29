@@ -10,6 +10,11 @@ vim.types = {
   dictionary = 6,
   float = 3
 }
+vim.empty_dict = function()
+  return {
+    [vim.type_idx] = vim.types.dictionary
+  }
+end
 
 local M = {}
 

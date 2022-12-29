@@ -91,11 +91,13 @@ end)
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-lua_add = '''
+on_source = 'ddu.vim'
+lua_source = '''
 local au = require('vimrc.compat.autocmd').define
 local aug = require('vimrc.compat.autocmd').group
 local cmd = vim.cmd or vim.command
 local fn = require('vimrc.compat.convert').fn
+local call = require('vimrc.compat.convert').call
 local isnvim = vim.fn.has('nvim') == 1
 local m = require('vimrc.compat.map').define
 local part = require('kutil.function').partition_keyvalue
@@ -143,7 +145,7 @@ au('FileType', {
       m('n', '<C-q>', function()
         do_action('clearSelectAllItems')
         do_action('toggleAllItems')
-        item_action { 'quickfix' }()
+        item_action { 'quickfix' } ()
       end, opts)
     end
     if vim.b.ddu_ui_name:match('^git') then
@@ -153,21 +155,28 @@ au('FileType', {
       m('n', 'p', item_action { 'patch' }, opts)
       m('n', 'R', item_action { 'restore' }, opts)
     end
-    if isnvim then
-      m('n', 'P', function()
-        local preview = action('preview')
-        local bufnr = vim.api.nvim_get_current_buf()
-        local group = 'ddu-ui-auto_action' -- ddu-ui-ffが内部で使っているグループ名
-        aug(group, {})
-        au('CursorMoved', {
-          group = group,
-          buffer = 0,
-          callback = function()
-            preview()
-          end,
-        })
-      end, opts)
-    end
+    m('n', 'P', function()
+      do_action('updateOptions', {
+        uiParams = {
+          ff = {
+            autoAction = {
+              name = 'preview',
+              params = vim.empty_dict(),
+            }
+          }
+        }
+      })
+      -- ddu-ui-ffのupdateOptionsはUIのredrawを行う
+      -- autoActionはwindowの作成時に適用されるため通常のredrawでは反映されない
+      -- redrawしたらwindowは作成されるので一度閉じてしまう
+      -- updateOptionsの後に配置するのはactionを実行するのにwindowが必要なため
+      if isnvim then
+        cmd('close')
+      else
+        -- Vimではsplitをnoにしているのでbufferを裏にやる
+        cmd('enew')
+      end
+    end, opts)
   end,
 })
 
