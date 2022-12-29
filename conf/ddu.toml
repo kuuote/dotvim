@@ -50,6 +50,9 @@ end)
 '''
 
 [[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
 
 [[plugins]]
