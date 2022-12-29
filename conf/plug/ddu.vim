@@ -1,9 +1,15 @@
 " insert space for paragraph selector
 " vip => pe json => mf
+
+"" actionOptions.do.quit = false
+" 閉じるか否かは本来のアクションに任せるべきなのでこちらは無効化
 let s:config_json =<< UNKO
 
 {
   "actionOptions": {
+    "do": {
+      "quit": false
+    },
     "narrow": {
       "quit": false
     }
