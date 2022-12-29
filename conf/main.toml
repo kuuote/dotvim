@@ -53,11 +53,11 @@ require('vimrc.compat.autocmd').define('FileType', {
   pattern = 'fzyselect',
   callback = function()
     local map = require('vimrc.compat.map').define
-    local opts = {buffer = true}
+    local opts = { buffer = true }
     map('n', 'i', '<Plug>(fzyselect-fzy)', opts)
     map('n', '<CR>', '<Plug>(fzyselect-retu)', opts)
     map('n', '<Esc>', '<Cmd>close<CR>', opts)
-  end
+  end,
 })
 '''
 

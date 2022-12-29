@@ -1,5 +1,8 @@
 [[plugins]]
-repo = '4513echo/ddu-source-source'
+repo = '4513ECHO/ddu-source-colorscheme'
+
+[[plugins]]
+repo = '4513ECHO/ddu-source-source'
 lua_add = '''
 local c = require('vimrc.command').define
 c('DduSourceSource', function()
@@ -9,9 +12,6 @@ end)
 
 [[plugins]]
 repo = 'kuuote/ddu-filter-fuse'
-
-[[plugins]]
-repo = '4513ECHO/ddu-source-colorscheme'
 
 [[plugins]]
 repo = 'kuuote/ddu-source-git_diff'
