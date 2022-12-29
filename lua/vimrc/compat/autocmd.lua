@@ -1,10 +1,9 @@
-local nvim = vim.fn.has('nvim') == 1
 local callback = require('vimrc.callback')
+local vimcall = require('vimrc.compat.convert').call
 
 local M = {}
 
 -- autocmd用コンパチブルレイヤー
--- TODO: そのうちautocmd_addを使った物に切り替える
 -- コールバックの引数は実装してないのでexpandで何とかしてくれ
 
 if vim.fn.has('nvim') == 1 then
@@ -19,19 +18,7 @@ else
     vim.command('augroup END')
   end
   function M.define(event, opts)
-    if type(event) == 'table' then
-      event = table.concat(event, ',')
-    end
-    opts = opts or {}
-    local group = opts.group or ''
-    local pattern = opts.pattern or '*'
-    if type(pattern) == 'table' then
-      pattern = table.concat(pattern, ':')
-    end
-    local once = ''
-    if opts.once then
-      once = '++once'
-    end
+    opts = require('kutil.function').copy(opts or {})
     local command = opts.command
     if type(opts.callback) == 'string' then
       command = string.format('call %s()', opts.callback)
@@ -40,8 +27,9 @@ else
       local id = callback.register(opts.callback)
       command = string.format("lua require('vimrc.callback').call(%d)", id)
     end
-    local cmd = string.format('autocmd %s %s %s %s %s', group, event, pattern, once, command)
-    vim.command(cmd)
+    opts.event = event
+    opts.cmd = command
+    vimcall('autocmd_add', {opts})
   end
 end
 
