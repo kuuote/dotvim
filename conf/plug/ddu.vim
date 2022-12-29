@@ -145,7 +145,11 @@ endfunction
 
 function! s:reset() abort
   call ddu#custom#alias('filter', 'matcher_fzf_nosort', 'matcher_fzf')
-  call s:set_size()
+  if has('nvim')
+    call s:set_size()
+  else
+    let s:config['uiParams']['ff']['previewWidth'] = &columns / 2
+  endif
   call s:colorscheme()
   call ddu#custom#patch_global(s:config)
 endfunction
