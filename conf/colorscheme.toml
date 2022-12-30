@@ -7,11 +7,12 @@ repo = 'bluz71/vim-nightfly-guicolors'
 [[plugins]]
 repo = 'catppuccin/nvim'
 name = 'catppuccin'
-on_lua = 'catppuccin'
+lazy = 1
 lua_add = '''
 require('vimrc.compat.autocmd').define('ColorSchemePre', {
   pattern = 'catppuccin*',
   callback = function()
+    vim.call('dein#source', 'catppuccin')
     require('catppuccin').setup {
       integrations = {
         fern = true,
