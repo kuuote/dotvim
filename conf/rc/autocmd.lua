@@ -6,7 +6,7 @@ local cmd = vim.cmd or vim.command
 au('BufWritePost', {
   group = 'vimrc',
   callback = function()
-    if fn.getline(1):sub(1, 2) == '#!' then
+    if fn.getline(1):sub(1, 3) == '#!/' then
       local file = fn.expand('<afile>')
       local perm = fn.getfperm(file)
       -- 面倒だしよくわからんので全体に権限与えている。やりすぎかもしれないけど知らん
