@@ -75,9 +75,8 @@ nnoremap s? <Cmd>call searchx#start({ 'dir': 0 })<CR>
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
-# ddc.vimの通常ソースに指定してしまうとCmdline出しててもエラー吐くので(おま環？)読み込んでしまう
-on_event = 'CmdlineEnter'
-on_source = 'vim-vsnip'
+depends = 'vim-vsnip'
+on_source = ['ddc.vim', 'cmp-vsnip']
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
