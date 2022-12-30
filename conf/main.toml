@@ -94,7 +94,8 @@ depends = 'lightline_skk.vim'
 on_event = 'WinNew'
 hook_add = '''
 set laststatus=1
-set showtabline=1
+" やたら遅いし既定値よく見たら1だったのでやめる
+" set showtabline=1
 '''
 lua_source = '''
 local convert = require('vimrc.compat.convert').convert
@@ -311,7 +312,7 @@ endfunction
 [[plugins]]
 repo = 'machakann/vim-textobj-functioncall'
 on_source = 'vim-sandwich'
-hook_add = '''
+hook_source = '''
 " from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
 let g:textobj_functioncall_no_default_key_mappings = 1
 omap <silent> if <Plug>(textobj-functioncall-innerparen-i)
@@ -348,7 +349,8 @@ call popup_preview#enable()
 
 [[plugins]]
 repo = 'mattn/vim-sonictemplate'
-on_func = 'sonictemplate#'
+on_cmd = 'Template'
+on_func = 'sonictemplate#postfix'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = $HOME .. '/.vim/template'
 call hypermap#map(';b',"\<C-r>=sonictemplate#postfix()\<CR>")

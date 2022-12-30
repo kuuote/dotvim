@@ -14,9 +14,15 @@ m('n', "'", '<Nop>')
 m('n', 's', '<Nop>')
 
 -- Window移動
-for _, k in ipairs { 'h', 'j', 'k', 'l' } do
-  m('n', 's' .. k, '<C-w>' .. k)
-end
+au('WinNew', {
+  once = true,
+  callback = function()
+    for _, k in ipairs { 'h', 'j', 'k', 'l' } do
+      m('n', 's' .. k, '<C-w>' .. k)
+      m('n', '<C-' .. k .. '>', '<C-w>' .. k)
+    end
+  end
+})
 
 -- 設定開くマン
 m('n', '<Space>.', '<Cmd>edit ~/.vim/conf<CR>')
@@ -39,11 +45,6 @@ m('n', '<Space>tp', function()
   transparent('Normal')
   transparent('NormalNC')
 end)
-
--- 楽なウィンドウ移動
-for _, k in ipairs({ 'h', 'j', 'k', 'l' }) do
-  m('n', '<C-' .. k .. '>', '<C-w>' .. k)
-end
 
 -- 挿入モード
 au('InsertEnter', {
