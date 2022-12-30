@@ -342,7 +342,7 @@ xmap <silent> ag <Plug>(textobj-functioncall-generics-a)
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
-on_event = 'InsertEnter'
+on_event = 'TextChangedI'
 hook_source = '''
 call popup_preview#enable()
 '''
