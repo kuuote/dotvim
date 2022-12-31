@@ -111,7 +111,7 @@ export class Source extends BaseSource<Params> {
             word: line,
             action: {
               worktree: this.worktree,
-              path: line.slice(3),
+              path: line.replace(/^..."?/, "").replace(/"?$/, ""),
               previewType,
             },
             highlights,
