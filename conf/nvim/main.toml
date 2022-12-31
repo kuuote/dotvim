@@ -144,14 +144,19 @@ lua_add = '''
 local autocmd = require('vimrc.compat.autocmd')
 local group = 'vimrc#lir'
 autocmd.group(group, {})
-autocmd.define('BufEnter', {
+autocmd.define({ 'BufEnter' }, {
   group = group,
   callback = function()
     if vim.fn.isdirectory(vim.fn.expand('%:p')) == 1 then
       autocmd.group(group, {})
-      require('lir').init()
+      if vim.fn.has('vim_starting') == 1 then
+        require('lir').init()
+      else
+        -- augroupの名前がlirである限りdein.vimの機構が定義したautocmdを実行するのでinit()は呼ばない
+        require('lir')
+      end
     end
-  end
+  end,
 })
 '''
 lua_source = '''
