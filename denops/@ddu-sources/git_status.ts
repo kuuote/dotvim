@@ -9,7 +9,9 @@ import {
   ItemHighlight,
 } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
 
-type Params = Record<never, never>;
+type Params = {
+  worktree?: string;
+};
 
 const run = async (cmd: string[], cwd?: string): Promise<string> => {
   if (cwd == null) {
@@ -28,8 +30,11 @@ export class Source extends BaseSource<Params> {
 
   private worktree = "";
 
-  override async onInit({ denops }: OnInitArguments<Params>): Promise<void> {
-    const cfile = String(await denops.call("expand", "%:p"));
+  override async onInit({
+    denops,
+    sourceParams,
+  }: OnInitArguments<Params>): Promise<void> {
+    const cfile = sourceParams.worktree ?? String(await denops.call("expand", "%:p"));
     const type = await Deno.stat(cfile)
       .then((info) => info.isFile ? "file" : "dir")
       .catch(() => "nil");
