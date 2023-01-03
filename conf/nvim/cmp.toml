@@ -87,7 +87,7 @@ cmp.setup.cmdline(':', {
   }),
 })
 
-local condmap = require('vimrc.condmap').define
+local condmap = require('vimrc.condmap')
 
 condmap.define {
   mode = 'i',
