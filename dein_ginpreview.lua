@@ -33,7 +33,7 @@ local function setup(fn)
   vim.call('dein#end')
 end
 
-for _, k in ipairs({'h', 'j', 'k', 'l'}) do
+for _, k in ipairs { 'h', 'j', 'k', 'l' } do
   vim.keymap.set('n', '<C-' .. k .. '>', '<C-w>' .. k)
 end
 vim.keymap.set('n', '1', '1<C-w><C-w>')
@@ -44,13 +44,24 @@ vim.keymap.set('n', '<Space>s', '<Cmd>update<CR>')
 
 setup(function(use)
   use { 'Shougo/dein.vim', merged = 0 }
-  use { 'catppuccin/nvim', name = 'catppuccin', merged = 0 }
-  use { 'vim-denops/denops.vim' }
+  use {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    merged = 0,
+    hook_source = function()
+      -- gin.vimの色付けのために必要
+      require('catppuccin').setup {
+        term_colors = true,
+      }
+      vim.cmd.colorscheme('catppuccin-latte')
+    end,
+  }
   use { 'lambdalisue/gin.vim' }
+  use { 'vim-denops/denops.vim' }
   use { '~/.vim/bundle/gin-preview.vim' }
 end)
 
 vim.call('dein#recache_runtimepath')
-vim.cmd('colorscheme catppuccin-latte')
+vim.call('dein#call_hook', 'source')
 vim.cmd('runtime! plugin/gin_preview.vim')
 vim.cmd('GinPreview')
