@@ -80,11 +80,6 @@ let s:config_json =<< UNKO
       "matchers": [
         "matcher_fuse"
       ]
-    },
-    "mr": {
-      "matchers": [
-        "matcher_fzf_nosort"
-      ]
     }
   },
   "ui": "ff",
