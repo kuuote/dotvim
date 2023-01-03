@@ -5,9 +5,10 @@ local define = require('vimrc.compat.map').define
 
 local M = {
   prior = {
-    high = 1, -- コンテキスト依存の上書きしたいやつ
-    normal = 2, -- 普通のやつ
-    fallback = 3, -- フォールバック用(condが絶対trueになるとか)
+    vsnip = 1,
+    completion = 2,
+    lexima = 3,
+    fallback = 9999,
   }
 }
 

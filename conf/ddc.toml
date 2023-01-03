@@ -188,6 +188,7 @@ local function cm(opts)
   opts = copy(opts)
   opts.mode = 'i'
   opts.key = 'pum.vim'
+  opts.priority = condmap.prior.completion
   condmap.define(opts)
 end
 

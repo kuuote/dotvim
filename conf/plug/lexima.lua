@@ -76,7 +76,7 @@ cm.define {
   mode = 'i',
   lhs = '<CR>',
   key = 'lexima',
-  priority = cm.prior.fallback,
+  priority = cm.prior.lexima,
   fn = function()
     return eval([[lexima#expand('<CR>', 'i')]])
   end,

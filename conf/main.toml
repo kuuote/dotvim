@@ -86,6 +86,22 @@ inoremap <C-f> <Plug>(vsnip-jump-next)
 snoremap <C-f> <Plug>(vsnip-jump-next)
 let g:vsnip_snippet_dirs = [$HOME .. "/.vim/snippets", dein#get('completion-snippet').path]
 '''
+lua_source = '''
+local booled = require('vimrc.compat.convert').booled
+local condmap = require('vimrc.condmap')
+local eval = vim.eval or vim.api.nvim_eval
+condmap.define {
+  lhs = '<CR>',
+  cond = booled(function()
+    return vim.call('vsnip#jumpable', 1) ~= 0
+  end),
+  key = 'vsnip',
+  priority = condmap.prior.vsnip,
+  fn = function()
+    return eval([["\<Plug>(vsnip-jump-next)"]])
+  end
+}
+'''
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'

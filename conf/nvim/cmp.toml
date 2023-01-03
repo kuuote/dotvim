@@ -87,23 +87,25 @@ cmp.setup.cmdline(':', {
   }),
 })
 
-local cm = require('vimrc.condmap').define
+local condmap = require('vimrc.condmap').define
 
-cm {
+condmap.define {
   mode = 'i',
   lhs = '<CR>',
   key = 'cmp',
   cond = cmp.get_active_entry,
+  priority = condmap.prior.completion,
   fn = function()
     return vim.api.nvim_eval([["\<Cmd>lua require('cmp').confirm()\<CR>"]])
   end,
 }
 
-cm {
+condmap.define {
   mode = 'i',
   lhs = '<Tab>',
   key = 'cmp',
   cond = cmp.visible,
+  priority = condmap.prior.completion,
   fn = function()
     return vim.api.nvim_eval([["\<Cmd>lua require('cmp').select_next_item()\<CR>"]])
   end,
