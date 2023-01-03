@@ -147,7 +147,7 @@ local function define_p(filetype, input, input_after)
 end
 
 define_p('lua', 'vim.pretty_print(', ')')
-define_p('vim', 'PrettyPrint ', '')
+define_p('vim', 'call PrettyPrint(', ')')
 define_p({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, 'console.log(', ');')
 
 --@ Rust
