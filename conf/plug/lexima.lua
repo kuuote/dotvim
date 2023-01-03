@@ -45,7 +45,7 @@ au('FileType', {
     for _, stmt in ipairs { 'if', 'for', 'while' } do
       add {
         char = '(',
-        at = [[^\s*]] .. stmt .. [[\s\%#]],
+        at = [[^\s*\%(}\s\+else\s\+\)\?]] .. stmt .. [[\s\%#]],
         input = '(',
         input_after = ') {}',
         filetype = clike_filetype,
