@@ -34,9 +34,9 @@ export class Filter extends BaseFilter<Params> {
     input: string;
     items: DduItem[];
   }): Promise<DduItem[]> {
-    const input = args.sourceOptions.ignoreCase
-      ? args.input.toLowerCase()
-      : args.input;
+    const inputs =
+      (args.sourceOptions.ignoreCase ? args.input.toLowerCase() : args.input)
+        .split(/\s+/);
     return Promise.resolve(
       args.items.flatMap((item) => {
         const key = args.sourceOptions.ignoreCase
@@ -46,21 +46,27 @@ export class Filter extends BaseFilter<Params> {
         display = args.sourceOptions.ignoreCase
           ? display.toLowerCase()
           : display;
-        const found = find(key, input);
-        if (found.length !== input.length) {
-          return [];
+        const founds: number[] = [];
+        for (const input of inputs) {
+          const found = find(key, input);
+          if (found.length !== input.length) {
+            return [];
+          }
+          founds.push(...found);
         }
         return [{
           ...item,
           highlights: (item.highlights?.filter((hl) =>
             hl.name != "matched"
           ) ?? [])
-            .concat((key === display ? found : find(display, input)).map((i) => ({
-              name: "matched",
-              "hl_group": "Search",
-              col: byteLength(display.slice(0, i)) + 1,
-              width: byteLength(display[i]),
-            }))),
+            .concat(
+              [...new Set(founds)].map((i) => ({
+                name: "matched",
+                "hl_group": "Search",
+                col: byteLength(display.slice(0, i)) + 1,
+                width: byteLength(display[i]),
+              })),
+            ),
         }];
       }),
     );

@@ -83,23 +83,31 @@ export class Filter extends BaseFilter<Params> {
     input: string;
     items: DduItem[];
   }): Promise<DduItem[]> {
-    const input = args.sourceOptions.ignoreCase
-      ? args.input.toLowerCase()
-      : args.input;
+    const inputs =
+      (args.sourceOptions.ignoreCase ? args.input.toLowerCase() : args.input)
+        .split(/\s+/);
     const hl = args.filterParams.highlightMatched;
     return Promise.resolve(
       args.items.map((item) => {
-        const result = find(
-          args.sourceOptions.ignoreCase ? item.word.toLowerCase() : item.word,
-          input,
-          args.filterParams.bonus,
-        );
+        const word = args.sourceOptions.ignoreCase
+          ? item.word.toLowerCase()
+          : item.word;
+        const matches: number[] = [];
+        let result: Result = {
+          matches: [],
+          distance: Number.POSITIVE_INFINITY,
+          score: Number.NEGATIVE_INFINITY,
+        };
+        for (const input of inputs) {
+          result = find(word, input, args.filterParams.bonus);
+          matches.push(...result.matches);
+        }
         return {
           item: {
             ...item,
             highlights: hl
               ? (item.highlights?.filter((hl) => hl.name !== "matched") ?? [])
-                .concat(result.matches.map((i) => ({
+                .concat([...new Set(matches)].map((i) => ({
                   name: "matched",
                   "hl_group": "Search",
                   col: byteLength(item.word.slice(0, i)) + 1,
