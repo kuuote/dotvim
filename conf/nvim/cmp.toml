@@ -55,37 +55,13 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
   },
-  sources = cmp.config.sources {
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    {
-      name = 'buffer',
-      option = {
-        get_bufnrs = function()
-          local bufs = {}
-          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-            bufs[vim.api.nvim_win_get_buf(win)] = true
-          end
-          return vim.tbl_keys(bufs)
-        end,
-      },
-    },
-    { name = 'skkeleton' },
-  },
 }
 
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' },
-    { name = 'skkeleton' },
-  }, {
-    {
-      name = 'cmdline',
-      max_item_count = 20,
-    },
-  }),
 })
+
+require('vimrc.plug.cmp').change_sources('default')
 
 local condmap = require('vimrc.condmap')
 

@@ -549,18 +549,25 @@ call hypermap#map(';j', 'eval(maparg("<Plug>(skkeleton-enable)", mode()))', {'ev
 
 autocmd User skkeleton-enable-pre call s:skkeleton_pre()
 function! s:skkeleton_pre() abort
-  " Save current sources
-  let b:skkeleton_ddc_sources_backup = get(ddc#custom#get_current(), 'sources', [])
-  let sources = get(b:, 'skkeleton_ddc_sources', ['skkeleton'])
-  call ddc#custom#patch_buffer('sources', sources)
-  call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
-  " call pum#set_option('setline_insert', v:true)
+  if dein#is_sourced('ddc.vim')
+    let b:skkeleton_ddc_backup = ddc#custom#get_buffer()
+    let sources = get(b:, 'skkeleton_ddc_sources', ['skkeleton'])
+    call ddc#custom#patch_buffer('sources', sources)
+    call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
+  endif
+  if dein#is_sourced('nvim-cmp')
+    lua require('vimrc.plug.cmp').change_sources('skkeleton')
+  endif
 endfunction
 autocmd User skkeleton-disable-pre call s:skkeleton_post()
 function! s:skkeleton_post() abort
   " Restore current sources
-  call ddc#custom#patch_buffer('sources', b:skkeleton_ddc_sources_backup)
-  call pum#set_option('setline_insert', v:false)
+  if exists('b:skkeleton_ddc_backup')
+    call ddc#custom#set_buffer(b:skkeleton_ddc_backup)
+  endif
+  if dein#is_sourced('nvim-cmp')
+    lua require('vimrc.plug.cmp').change_sources('default')
+  endif
 endfunction
 '''
 
