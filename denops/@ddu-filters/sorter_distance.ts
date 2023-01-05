@@ -23,12 +23,6 @@ type Result = {
 };
 
 function find(haystack: string, needle: string, bonus?: Bonus): Result {
-  const map: Record<string, number[]> = {};
-  for (let i = 0; i < haystack.length; i++) {
-    const c = haystack[i];
-    map[c] = map[c] ?? [];
-    map[c].push(i);
-  }
   let current = Number.POSITIVE_INFINITY;
   let score = 0;
   let currentMatches: number[] = [];
