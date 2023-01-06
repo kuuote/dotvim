@@ -90,11 +90,7 @@ lsp.denols.setup {
     lint = true,
     unstable = true,
   },
-  root_dir = function()
-    local pat = require('lspconfig.util').root_pattern { '.git', 'deno.json', 'deno.jsonc' }
-    local dir = vim.fn.expand('%:p:h')
-    return pat(dir) or dir
-  end,
+  single_file_support = true,
 }
 '''
 
