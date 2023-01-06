@@ -531,8 +531,8 @@ au('User', {
       registerConvertResult = true,
       showCandidatesCount = 1,
       -- from shougo-s-github
-      markerHenkan = '<>',
-      markerHenkanSelect = '>>',
+      markerHenkan = '',
+      markerHenkanSelect = '',
     })
     -- USキーボードの n' で「ん」を打てるやつをJISキーボードでもやる
     vimeval('skkeleton#register_kanatable', 'rom', {
