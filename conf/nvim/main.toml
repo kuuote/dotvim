@@ -149,10 +149,13 @@ autocmd.define({ 'BufEnter' }, {
   callback = function()
     if vim.fn.isdirectory(vim.fn.expand('%:p')) == 1 then
       autocmd.group(group, {})
+      -- dein.vimはVimEnter以降にdein#source()を使用した際
+      -- 正規化されたプラグイン名をキーとしてBufEnterを含む一部autocmdを呼び出す
       if vim.fn.has('vim_starting') == 1 then
         require('lir').init()
       else
-        -- augroupの名前がlirである限りdein.vimの機構が定義したautocmdを実行するのでinit()は呼ばない
+        -- augroupの名前がlirである限りdein.vimの機構が定義したautocmdを実行する
+        -- その際にinit()は呼ばれるので呼ばない
         require('lir')
       end
     end
