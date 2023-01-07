@@ -33,10 +33,7 @@ local cmp = require('cmp')
 -- Global setup.
 cmp.setup {
   enabled = function()
-    if vim.g.cmp then
-      return true
-    end
-    return false
+    return vim.g.cmp
   end,
   snippet = {
     expand = function(args)
