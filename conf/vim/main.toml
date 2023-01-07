@@ -1,6 +1,21 @@
 [[plugins]]
 repo = 'mattn/vim-molder'
+lazy = 1
 hook_add = '''
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+function s:init()
+  if isdirectory(expand('%:p'))
+    call dein#source('vim-molder')
+    call molder#init()
+    autocmd! vimrc_molder
+  endif
+endfunction
+augroup vimrc_molder
+  autocmd BufEnter * call s:init()
+augroup END
+'''
+hook_source = '''
 function! s:map_molder() abort
   nnoremap <buffer> <nowait> f <Cmd>call vimrc#fzf#ff#run()<CR>
   nmap <buffer> <silent> <nowait> h <plug>(molder-up)
