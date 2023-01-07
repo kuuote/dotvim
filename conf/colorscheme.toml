@@ -16,6 +16,7 @@ require('vimrc.compat.autocmd').define('ColorSchemePre', {
     require('catppuccin').setup {
       integrations = {
         fern = true,
+        notify = true,
         ts_rainbow = true,
       },
       term_colors = true,
