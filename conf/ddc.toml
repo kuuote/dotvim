@@ -147,6 +147,9 @@ autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
 " acwriteセットされてるファイルで補完効かなくて困ることは無いと思う
 autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
 
+" deflicker echo area
+set noshowmode
+
 luafile ~/.vim/conf/plug/ddc.lua
 '''
 

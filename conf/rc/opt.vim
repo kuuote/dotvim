@@ -26,9 +26,6 @@ set hidden
 " マウスでスクロールできるようにする
 set mouse=nvr
 
-" ddc.vimを使用しているとモード表示がちらつくので切る
-set noshowmode
-
 " フルカラーは人権
 set termguicolors
 
