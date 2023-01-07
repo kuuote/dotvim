@@ -3,13 +3,17 @@ repo = 'gamoutatsumi/ddu-source-nvim-lsp'
 
 [[plugins]]
 repo = 'j-hui/fidget.nvim'
-on_event = 'LspAttach'
-lua_source = '''
-require('fidget').setup {
-  text = {
-    spinner = 'moon', -- 月が綺麗ですね
-  },
-}
+lua_add = '''
+vim.api.nvim_create_autocmd('LspAttach', {
+  once = true,
+  callback = function()
+    require('fidget').setup {
+      text = {
+        spinner = 'moon', -- 月が綺麗ですね
+      },
+    }
+  end,
+})
 '''
 
 [[plugins]]
