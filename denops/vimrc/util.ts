@@ -16,4 +16,24 @@ export function notify(denops: Denops, msg: string) {
     msg,
   }).catch(() => console.log(msg));
 }
+
+export function nvimSelect(
+  denops: Denops,
+  items: string[],
+): Promise<string | undefined> {
+  return new Promise((resolve) => {
+    const callback = anonymous.once(denops, resolve as () => unknown)[0];
+    denops.call(
+      "luaeval",
+      `
+      vim.ui.select(_A.items, {}, function(item)
+        vim.call('denops#notify', '${denops.name}', _A.callback, { item })
+      end)
+                `,
+      {
+        items,
+        callback,
+      },
+    );
+  });
 }
