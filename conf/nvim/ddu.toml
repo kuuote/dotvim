@@ -1,4 +1,0 @@
-[[plugins]]
-if = 'g:vim_ui_select ==# "ddu.vim"'
-repo = 'matsui54/ddu-vim-ui-select'
-
