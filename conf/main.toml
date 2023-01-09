@@ -277,23 +277,12 @@ on_cmd = ['SudaRead', 'SudaWrite']
 repo = 'machakann/vim-sandwich'
 on_map = ['<Plug>(sandwich-', '<Plug>(textobj-sandwich-']
 hook_add = '''
+au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-sandwich')
 nnoremap sa  <Plug>(sandwich-add)
 nnoremap sd  <Plug>(sandwich-delete)
 nnoremap sdb <Plug>(sandwich-delete-auto)
 nnoremap sr  <Plug>(sandwich-replace)
 nnoremap srb <Plug>(sandwich-replace-auto)
-onoremap ab  <Plug>(textobj-sandwich-auto-a)
-onoremap as  <Plug>(textobj-sandwich-query-a)
-onoremap ib  <Plug>(textobj-sandwich-auto-i)
-onoremap is  <Plug>(textobj-sandwich-query-i)
-onoremap sa  <Plug>(sandwich-add)
-xnoremap ab  <Plug>(textobj-sandwich-auto-a)
-xnoremap as  <Plug>(textobj-sandwich-query-a)
-xnoremap ib  <Plug>(textobj-sandwich-auto-i)
-xnoremap is  <Plug>(textobj-sandwich-query-i)
-xnoremap sa  <Plug>(sandwich-add)
-xnoremap sd  <Plug>(sandwich-delete)
-xnoremap sr  <Plug>(sandwich-replace)
 '''
 hook_source = '''
 " from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
@@ -325,7 +314,10 @@ endfunction
 
 [[plugins]]
 repo = 'machakann/vim-textobj-functioncall'
-on_source = 'vim-sandwich'
+lazy = 1
+hook_add = '''
+au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-textobj-functioncall')
+'''
 hook_source = '''
 " from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
 let g:textobj_functioncall_no_default_key_mappings = 1
