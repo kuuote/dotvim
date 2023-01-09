@@ -275,7 +275,7 @@ on_cmd = ['SudaRead', 'SudaWrite']
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
-on_map = ['<Plug>(sandwich-', '<Plug>(textobj-sandwich-']
+on_map = '<Plug>(sandwich-'
 hook_add = '''
 au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-sandwich')
 nnoremap sa  <Plug>(sandwich-add)
