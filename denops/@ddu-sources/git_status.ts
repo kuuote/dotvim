@@ -10,7 +10,7 @@ import {
 } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
 
 type Params = {
-  worktree?: string;
+  worktree: string;
 };
 
 const run = async (cmd: string[], cwd?: string): Promise<string> => {
@@ -34,17 +34,16 @@ export class Source extends BaseSource<Params> {
     denops,
     sourceParams,
   }: OnInitArguments<Params>): Promise<void> {
-    const cfile = sourceParams.worktree ?? String(await denops.call("expand", "%:p"));
-    const type = await Deno.stat(cfile)
+    const type = await Deno.stat(sourceParams.worktree)
       .then((info) => info.isFile ? "file" : "dir")
       .catch(() => "nil");
     let dir: string;
     switch (type) {
       case "file":
-        dir = dirname(cfile);
+        dir = dirname(sourceParams.worktree);
         break;
       case "dir":
-        dir = cfile;
+        dir = sourceParams.worktree;
         break;
       default:
         dir = String(await denops.call("getcwd"));
@@ -128,6 +127,8 @@ export class Source extends BaseSource<Params> {
   }
 
   override params(): Params {
-    return {};
+    return {
+      worktree: "",
+    };
   }
 }

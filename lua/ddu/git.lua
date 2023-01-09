@@ -4,6 +4,11 @@ function M.git_status()
   require('ddu').start {
     'git_status',
     name = 'git',
+    sourceParams = {
+      git_status = {
+        worktree = vim.fn.expand('%:p'),
+      },
+    },
     uiParams = {
       ff = {
         autoAction = {
