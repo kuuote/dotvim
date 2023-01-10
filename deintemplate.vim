@@ -1,3 +1,4 @@
+set nocompatible
 let g:vimrc = expand('<sfile>:p')
 let s:dir = '/data/vim'
 
@@ -26,3 +27,6 @@ nnoremap Q <Cmd>confirm qa<CR>
 
 set background=light
 colorscheme edge
+
+filetype plugin indent on
+syntax on
