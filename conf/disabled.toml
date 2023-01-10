@@ -102,3 +102,14 @@ hook_add = '''
 autocmd FileType SpaceVimPlugManager autocmd TextChanged <buffer> normal! G
 '''
 
+[[plugins]]
+comment = '自分の作業スタイルと根本から合ってない気がする'
+repo = 'c000/rapidfire.vim'
+on_cmd = 'Rapidfire'
+lua_add = '''
+local m = require('vimrc.compat.map').define
+for i = 1, 9 do
+  m('n', '<CR>' .. i, '<Cmd>Rapidfire ' .. i .. '<CR>')
+end
+'''
+

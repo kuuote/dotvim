@@ -16,16 +16,6 @@ let g:readme_viewer#plugin_manager = 'dein.vim'
 '''
 
 [[plugins]]
-repo = 'c000/rapidfire.vim'
-on_cmd = 'Rapidfire'
-lua_add = '''
-local m = require('vimrc.compat.map').define
-for i = 1, 9 do
-  m('n', '<CR>' .. i, '<Cmd>Rapidfire ' .. i .. '<CR>')
-end
-'''
-
-[[plugins]]
 repo = 'cohama/lexima.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_source = '''
