@@ -187,7 +187,7 @@ au('User', {
       end
       if vim.fn.mode() == 'c' and vim.fn.getcmdtype() == ':' then
         local line = vim.fn.getcmdline()
-        if line:match('he?l?p? %a+$') then
+        if line:match('he?l?p? %a*$') then
           return {
             cmdlineSources = { 'cmdline_help' },
           }
