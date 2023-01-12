@@ -25,7 +25,7 @@ if exists('g:LuaTemp')
   let %s = g:LuaTemp
   unlet g:LuaTemp
 else
-  unlet %s
+  silent! unlet %s
 endif
   ]]):format(path, path))
 end
