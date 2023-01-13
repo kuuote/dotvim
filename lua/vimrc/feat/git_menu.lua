@@ -2,6 +2,8 @@
 -- original idea from denite-gitto
 -- https://github.com/hrsh7th/vim-denite-gitto
 
+local cmd = vim.command or vim.cmd
+
 local function format(entry)
   return entry[1]
 end
@@ -55,7 +57,7 @@ return function()
         local log = vim.fn.system(('git -C %s log --no-color --oneline @{upstream}..'):format(worktree))
         print(log)
         if vim.fn.confirm(vim.fn.trim(log) .. '\n以上の内容がpushされます、よろしいですか？', '&Yes\n&No', 2) == 1 then
-          (vim.command or vim.cmd)('GitPush')
+          cmd('GitPush')
         end
       end,
     })
