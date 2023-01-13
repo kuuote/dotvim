@@ -18,3 +18,6 @@ function! s:dirpath() abort
 endfunction
 
 nnoremap <buffer> <nowait> <C-p> <Cmd>call <SID>dirpath()<CR>
+
+call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
+call ddc#custom#patch_buffer('sources', ['cmdline'])
