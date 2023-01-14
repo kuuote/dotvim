@@ -524,7 +524,7 @@ au('User', {
 '''
 hook_add = '''
 
-call hypermap#map(';j', 'eval(maparg("<Plug>(skkeleton-enable)", mode()))', {'eval': v:true})
+call hypermap#map(';j', "\<Cmd>call skkeleton#handle('enable', {})\<CR>")
 " call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
 
 
