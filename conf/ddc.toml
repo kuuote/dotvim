@@ -88,7 +88,7 @@ let s:config_json =<< UNKO
       "mark": "B"
     },
     "cmdline": {
-      "minAutoCompleteLength": 0
+      "minAutoCompleteLength": 1
     },
     "cmdline_help": {
       "maxItems": 20
