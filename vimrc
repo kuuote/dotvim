@@ -20,6 +20,7 @@ syntax enable
 
 call vimrc#load_scripts('~/.vim/conf/rc/**/*')
 call vimrc#load_scripts(printf('~/.vim/conf/%s/rc/**/*', g:vim_type))
+call vimrc#load_scripts('/tmp/vimrc/*')
 
 if getftype(g:dotvim .. '/local.vim') ==# 'file'
   source ~/.vim/local.vim
