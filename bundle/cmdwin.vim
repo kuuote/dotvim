@@ -7,17 +7,16 @@ nnoremap <buffer> <nowait> <CR> <Esc><Cmd>let g:cmdwin_cmd = getline('.')<CR><Cm
 inoremap <buffer> <nowait> <CR> <Esc><Cmd>let g:cmdwin_cmd = getline('.')<CR><Cmd>tabclose<CR><Cmd>if g:cmdwin_cmd !~# '^:' <Bar> call histadd(':', g:cmdwin_cmd) <Bar> endif<CR><Cmd>execute g:cmdwin_cmd<CR>
 
 function! s:dirpath() abort
+  call ddc#custom#set_buffer(#{sources: ['file'], specialBufferCompletion: v:true})
   let c = fnamemodify(bufname('#'), ':p')
   if !isdirectory(c)
     let c = fnamemodify(c, ':h')
   endif
   let c = substitute(c, '/*$', '/', '')
-  call ddc#custom#set_buffer(#{sources: ['file'], specialBufferCompletion: v:true})
-  call setline('.', ':e ' .. c)
-  call feedkeys('A', 'n')
+  call feedkeys(c, 'n')
 endfunction
 
-nnoremap <buffer> <nowait> <C-p> <Cmd>call <SID>dirpath()<CR>
+inoremap <buffer> <nowait> <C-p> <Cmd>call <SID>dirpath()<CR>
 
 call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
 call ddc#custom#patch_buffer('sources', ['cmdline'])
