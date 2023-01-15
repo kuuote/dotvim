@@ -274,11 +274,24 @@ nnoremap sdb <Plug>(sandwich-delete-auto)
 nnoremap sr  <Plug>(sandwich-replace)
 nnoremap srb <Plug>(sandwich-replace-auto)
 '''
+
+[[plugins]]
+_sortkey = 'functioncall'
+repo = 'machakann/vim-textobj-functioncall'
+lazy = 1
+hook_add = '''
+au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-textobj-functioncall')
+'''
+
+[[plugins]]
+_sortkey = 'functioncall'
+repo = 'yuki-yano/vim-textobj-generics'
+on_source = 'vim-textobj-functioncall'
 hook_source = '''
-" from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
-let g:sandwich#recipes = g:sandwich#default_recipes + [
+" from readme
+let g:sandwich#recipes = get(g:, 'sandwich#recipes', []) + [
 \ {
-\   'buns': ['InputGenerics()', '">"'],
+\   'buns': ['textobj#generics#input_generics()', '">"'],
 \   'expr': 1,
 \   'cursor': 'inner_tail',
 \   'kind': ['add', 'replace'],
@@ -286,54 +299,12 @@ let g:sandwich#recipes = g:sandwich#default_recipes + [
 \   'input': ['g']
 \ },
 \ {
-\   'external': ['i<', "\<Plug>(textobj-functioncall-generics-a)"],
+\   'external': ['i<', "\<Plug>(textobj-generics-a)"],
 \   'noremap': 0,
 \   'kind': ['delete', 'replace', 'query'],
 \   'input': ['g']
 \ },
 \ ]
-
-function! InputGenerics() abort
-  let genericsname = input('Generics Name: ', '')
-  if genericsname ==# ''
-    throw 'OperatorSandwichCancel'
-  endif
-  return genericsname . '<'
-endfunction
-'''
-
-[[plugins]]
-repo = 'machakann/vim-textobj-functioncall'
-lazy = 1
-hook_add = '''
-au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-textobj-functioncall')
-'''
-hook_source = '''
-" from https://scrapbox.io/vim-jp/sandwich,_textobj%E3%81%A7Generics%E3%82%92%E6%89%B1%E3%81%86
-let g:textobj_functioncall_no_default_key_mappings = 1
-omap <silent> if <Plug>(textobj-functioncall-innerparen-i)
-xmap <silent> if <Plug>(textobj-functioncall-innerparen-i)
-omap <silent> af <Plug>(textobj-functioncall-i)
-xmap <silent> af <Plug>(textobj-functioncall-i)
-
-let g:textobj_functioncall_generics_patterns = [
-\ {
-\   'header' : '\<\%(\h\k*\.\)*\h\k*',
-\   'bra'    : '<',
-\   'ket'    : '>',
-\   'footer' : '',
-\ },
-\ ]
-
-onoremap <silent> <Plug>(textobj-functioncall-generics-i) :<C-u>call textobj#functioncall#ip('o', g:textobj_functioncall_generics_patterns)<CR>
-xnoremap <silent> <Plug>(textobj-functioncall-generics-i) :<C-u>call textobj#functioncall#ip('x', g:textobj_functioncall_generics_patterns)<CR>
-onoremap <silent> <Plug>(textobj-functioncall-generics-a) :<C-u>call textobj#functioncall#i('o', g:textobj_functioncall_generics_patterns)<CR>
-xnoremap <silent> <Plug>(textobj-functioncall-generics-a) :<C-u>call textobj#functioncall#i('x', g:textobj_functioncall_generics_patterns)<CR>
-
-omap <silent> ig <Plug>(textobj-functioncall-generics-i)
-xmap <silent> ig <Plug>(textobj-functioncall-generics-i)
-omap <silent> ag <Plug>(textobj-functioncall-generics-a)
-xmap <silent> ag <Plug>(textobj-functioncall-generics-a)
 '''
 
 [[plugins]]
