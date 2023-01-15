@@ -150,24 +150,14 @@ define_p('lua', 'vim.pretty_print(', ')')
 define_p('vim', 'call PrettyPrint(', ')')
 define_p({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, 'console.log(', ');')
 
---@ Rust
--- USキーボードで `::` が打ちづらいので改善
-au('FileType', {
-  pattern = 'rust',
-  callback = function()
-    add {
-      char = [[']],
-      at = [['\%#]],
-      input = '<BS>::',
-      filetype = 'rust',
-    }
-  end,
-})
-
 --@ 一部の条件以外でシングルクォートをコロンにする
+-- 条件:
+--   スペースの後 ( var hoge = 'fuga' )
+--   括弧の後 ( foo('bar') hoge['piyo'] spam = {'ham'} など )
+--   シングルクォートの後 ( tomlの ''' )
 add {
   char = [[']],
-  at = [=[[^ [({]\%#\%\([^']\|$\)]=],
+  at = [=[[^ [({']\%#\%\([^']\|$\)]=],
   input = ':',
   priority = 1,
 }
