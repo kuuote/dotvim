@@ -464,37 +464,8 @@ set helplang=ja
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
-lua_add = '''
-local au = require('vimrc.compat.autocmd').define
-local vimeval = require('vimrc.compat.convert').call
-
-local dictPath = vimeval('dein#get', 'dict').path
-
-vim.g['skkeleton#debug'] = false
-
-au('User', {
-  pattern = 'skkeleton-initialize-pre',
-  callback = function()
-    vimeval('skkeleton#config', {
-      eggLikeNewline = true,
-      globalDictionaries = {
-        dictPath .. '/SKK-JISYO.L',
-      },
-      registerConvertResult = true,
-      showCandidatesCount = 1,
-      -- from shougo-s-github
-      markerHenkan = '',
-      markerHenkanSelect = '',
-    })
-    -- USキーボードの n' で「ん」を打てるやつをJISキーボードでもやる
-    vimeval('skkeleton#register_kanatable', 'rom', {
-      ['n:'] = { 'ん', '' },
-    })
-  end,
-})
-'''
 hook_add = '''
-
+autocmd User skkeleton-initialize-pre ++once ++nested luafile ~/.vim/conf/plug/skkeleton.lua
 call hypermap#map(';j', "\<Cmd>call skkeleton#handle('enable', {})\<CR>")
 " call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
 
