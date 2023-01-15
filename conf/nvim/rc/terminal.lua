@@ -11,7 +11,7 @@ vim.keymap.set('n', 'T', function()
   vim.api.nvim_open_win(buf, true, {
     relative = 'editor',
     style = 'minimal',
-    width = vim.opt.lines:get(),
+    width = vim.opt.columns:get(),
     height = 1,
     row = vim.opt.lines:get() / 2,
     col = 0,
