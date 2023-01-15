@@ -309,9 +309,10 @@ let g:sandwich#recipes = get(g:, 'sandwich#recipes', []) + [
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
-on_event = 'TextChangedI'
-hook_source = '''
-call popup_preview#enable()
+hook_add = '''
+" plugin無いしこの遅延方法でよさそう
+" on_eventでhookかけるとVimで入力文字を吸うのでこれでいい
+autocmd TextChangedI * ++once ++nested call popup_preview#enable()
 '''
 
 [[plugins]]
