@@ -117,7 +117,7 @@ let s:config_json =<< UNKO
     "skkeleton": {
       "converters": [],
       "isVolatile": true,
-      "mark": "漢",
+      "mark": "変",
       "matchers": [
         "skkeleton"
       ],
