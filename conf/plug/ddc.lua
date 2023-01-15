@@ -5,21 +5,11 @@ local vimcall = require('vimrc.compat.convert').call
 local eval = vim.eval or vim.api.nvim_eval
 
 local resetters = {}
-local customs = {}
 
-local function save()
-  local bufnr = vim.fn.bufnr()
-  if customs[bufnr] == nil then
-    customs[bufnr] = vimcall('ddc#custom#get_buffer')
-  end
-end
+local save = require('vimrc.plug.ddc').save_buffer
 
 local function reset()
-  local bufnr = vim.fn.bufnr()
-  if customs[bufnr] ~= nil then
-    vimcall('ddc#custom#set_buffer', customs[bufnr])
-    customs[bufnr] = nil
-  end
+  require('vimrc.plug.ddc').reset_buffer()
   for _, cb in ipairs(resetters) do
     cb()
   end
@@ -33,34 +23,18 @@ group(toggroup, {})
 
 -- ソースの自動切り替えを一時的に止めたい
 local completoggle = (function()
-  local enabled = true
-  local enable
-  if is_nvim then
-    enable = function()
-      au({ 'CmdlineLeave', 'InsertLeave' }, {
-        group = toggroup,
-        callback = function()
-          vim.fn.timer_start(0, function()
-            if vim.fn.mode() == 'n' then
-              reset()
-            end
-          end)
-        end,
-      })
-    end
-  else
-    enable = function()
-      au('SafeState', {
-        group = toggroup,
-        callback = function()
-          if vim.fn.mode() == 'n' then
-            reset()
-          end
-        end,
-      })
-    end
+  group(toggroup, {})
+  local function enable()
+    au('User', {
+      group = toggroup,
+      pattern = require('vimrc.autocmd.insert_end'),
+      callback = function()
+        reset()
+      end,
+    })
   end
   enable()
+  local enabled = true
   return function()
     group(toggroup, {})
     enabled = not enabled
@@ -193,22 +167,22 @@ au('User', {
           }
         end
         if line:match('^%a*$') then
-          set_eval({
+          set_eval {
             gather = function()
               local i = require('kutil.iterate')
               local cmds = i.new(eval('execute("command")->split("\\n")[1:]'))
-              :next(i.map(function(line)
-                return {
-                  word = line:sub(5):match('^%a+'),
-                }
-              end))
-              :next(i.filter(function(cand)
-                return cand.word ~= nil
-              end))
-              :collect()
+                :next(i.map(function(line)
+                  return {
+                    word = line:sub(5):match('^%a+'),
+                  }
+                end))
+                :next(i.filter(function(cand)
+                  return cand.word ~= nil
+                end))
+                :collect()
               return cmds
             end,
-          })
+          }
           return {
             cmdlineSources = { 'eval' },
           }
