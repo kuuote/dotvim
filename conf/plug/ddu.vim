@@ -51,6 +51,9 @@ let s:config_json =<< UNKO
     "help": {
       "defaultAction": "tabopen"
     },
+    "readme_viewer": {
+      "defaultAction": "open"
+    },
     "source": {
       "defaultAction": "execute"
     },
