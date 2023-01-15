@@ -501,7 +501,7 @@ lazy = 1
 
 [[plugins]]
 repo = 'yuki-yano/fern-preview.vim'
-on_cmd = 'Fern'
+on_source = 'fern.vim'
 hook_add = '''
 function! s:fern_preview_map() abort
   nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
