@@ -286,10 +286,11 @@ au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-textobj-funct
 [[plugins]]
 _sortkey = 'functioncall'
 repo = 'yuki-yano/vim-textobj-generics'
+depends = 'vim-sandwich'
 on_source = 'vim-textobj-functioncall'
 hook_source = '''
 " from readme
-let g:sandwich#recipes = get(g:, 'sandwich#recipes', []) + [
+let g:sandwich#recipes = get(g:, 'sandwich#recipes', g:sandwich#default_recipes) + [
 \ {
 \   'buns': ['textobj#generics#input_generics()', '">"'],
 \   'expr': 1,
