@@ -65,6 +65,11 @@ local lsp = require('lspconfig')
 
 lsp.sumneko_lua.setup {
   capabilites = c,
+  on_attach = function()
+    vim.keymap.set('n', 'mf', '<Cmd>KeepCursor %!stylua -f ~/.vim/stylua.toml -<CR>', {
+      buffer = true,
+    })
+  end,
   settings = {
     Lua = {
       runtime = {
