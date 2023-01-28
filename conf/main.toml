@@ -215,6 +215,9 @@ nnoremap <Space>f <Cmd>Fern . -reveal=%:p<CR>
 
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
+on_func = 'gin#component*'
+on_cmd = ['Gin', 'Gin*']
+denops_wait = false
 hook_source = '''
 autocmd FileType gin-status nnoremap <buffer> ,c <Cmd>Gin commit<CR>
 autocmd User GinComponentPost redrawtabline
