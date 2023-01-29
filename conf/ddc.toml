@@ -121,7 +121,7 @@ let s:config_json =<< UNKO
       "matchers": [
         "skkeleton"
       ],
-      "maxCandidates": 50,
+      "maxItems": 50,
       "minAutoCompleteLength": 2,
       "sorters": []
     }
