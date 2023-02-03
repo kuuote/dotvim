@@ -1,4 +1,4 @@
-import { Param, Snippet } from "https://deno.land/x/tsnip_vim@v0.4/mod.ts";
+import { Snippet, Param } from "https://deno.land/x/tsnip_vim@v0.5/mod.ts";
 
 const tsnip: Snippet = {
   name: "tsnip",
@@ -84,7 +84,6 @@ const try_snip: Snippet = {
     return base + caught + final;
   },
 };
-
 
 export default {
   arrowFunction,

@@ -1,5 +1,4 @@
-import { Snippet } from "https://deno.land/x/tsnip_vim@v0.4/mod.ts";
-import * as lua from "./lua.ts";
+import { Snippet } from "https://deno.land/x/tsnip_vim@v0.5/mod.ts";
 
 const deinHook: Snippet = {
   name: "deinHook",
@@ -23,6 +22,4 @@ const deinHook: Snippet = {
 
 export default {
   "dein_hook": deinHook,
-  "lua_function": lua.func,
-  "lua_require": lua.require,
 };

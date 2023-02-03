@@ -1,6 +1,6 @@
-import { Snippet } from "https://deno.land/x/tsnip_vim@v0.4/mod.ts";
+import { Snippet } from "https://deno.land/x/tsnip_vim@v0.5/mod.ts";
 
-export const func: Snippet = {
+const func: Snippet = {
   name: "func",
   text: "function ${1:name}(${2:args})\n\t$0\nend",
   params: [
@@ -22,7 +22,7 @@ export const func: Snippet = {
   },
 };
 
-export const require: Snippet = {
+const require: Snippet = {
   name: "require",
   params: [
     {

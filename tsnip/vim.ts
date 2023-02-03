@@ -1,4 +1,4 @@
-import { Snippet } from "https://deno.land/x/tsnip_vim@v0.4/mod.ts";
+import { Snippet } from "../bundle/tsnip/denops/tsnip/mod.ts";
 
 const suggestFunctionName = (name?: string) => {
   if (name == null) {
@@ -30,14 +30,31 @@ const fn: Snippet = {
       type: "single_line",
     },
   ],
-  render: ({ name, args }) =>
+  render: ({ name, args }, ctx) =>
     [
       `function! ${suggestFunctionName(name?.text)}(${args?.text ?? ""}) abort`,
-      "\t{{_cursor_}}",
+      `\t${ctx.postCursor}`,
       "endfunction",
     ].join("\n"),
 };
 
+const try_snip: Snippet = {
+  name: "try_snip",
+  params: [
+    {
+      name: "flags",
+      type: "single_line",
+    },
+  ],
+  render: ({ flags }, ctx) => {
+    const base = `try\n\t${ctx.postCursor}\n`;
+    const caught = flags?.text?.includes("c") ? "catch\n" : "";
+    const final = flags?.text?.includes("f") ? "finally\n" : "";
+    return base + caught + final + "endtry";
+  },
+};
+
 export default {
   "function_snip": fn,
+  try_snip,
 };
