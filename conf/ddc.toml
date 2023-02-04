@@ -145,6 +145,7 @@ call ddc#custom#patch_global(g:vimrc#ddc_config)
 doautocmd <nomodeline> User vimrc-ddc
 call ddc#enable()
 
+autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
 autocmd User DenopsPluginPost:ddc call ddc#enable_cmdline_completion()
 
 " acwriteセットされてるファイルで補完効かなくて困ることは無いと思う
