@@ -10,9 +10,10 @@ let g:dein#install_check_diff = v:true
 let g:dein#install_progress_type = 'floating'
 let g:dein#cache_directory = '/tmp/dein/cache/' .. v:argv[0]
 
-" 共通で使われる要素を先に初期化しておく
+" 事前に定義しておく必要があるものとか
 let g:vimrc#ddc_sources = []
 let g:vimrc#ddc_source_options = {}
+set rtp+=/data/vim/repos/github.com/tani/vim-artemis
 
 " 気分で変えていくぞ
 let g:vim_ui_select = [

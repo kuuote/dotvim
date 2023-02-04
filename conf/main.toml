@@ -4,6 +4,10 @@ depends = 'gin.vim'
 on_cmd = 'GinPreview'
 
 [[plugins]]
+repo = 'tani/vim-artemis'
+if = 0 # dein.vim読み込み前に自前で読んでるので無効化しておく
+
+[[plugins]]
 repo = '4513ECHO/denops-gitter.vim'
 on_path = 'gitter://'
 
@@ -136,16 +140,13 @@ set laststatus=1
 " set showtabline=1
 '''
 lua_source = '''
-local convert = require('vimrc.compat.convert').convert
+local vimx = require('artemis')
 local let = require('vimrc.util').let
-local au = require('vimrc.compat.autocmd').define
-local cmd = vim.command or vim.cmd
-local eval = vim.eval or vim.api.nvim_eval
 
-cmd('setglobal laststatus=2')
-cmd('setglobal showtabline=2')
+vimx.go.laststatus = 2
+vimx.go.showtabline = 2
 
-vim.g.lightline = convert {
+vimx.g.lightline = {
   active = {
     left = {
       { 'mode', 'paste', 'skk_mode' },
@@ -166,7 +167,7 @@ vim.g.lightline = convert {
       { 'tabs' },
     },
     right = {
-      {'git_branch', 'git_status'},
+      { 'git_branch', 'git_status' },
     },
   },
 }
@@ -183,15 +184,15 @@ local function auto_colorscheme(name)
   local colors = nil
   if special[name] ~= nil then
     colors = special[name]
-  elseif vim.fn.globpath(eval('&runtimepath'), ('autoload/lightline/colorscheme/%s.vim'):format(name)) ~= '' then
+  elseif vim.fn.globpath(vimx.go.runtimepath, ('autoload/lightline/colorscheme/%s.vim'):format(name)) ~= '' then
     colors = name
   end
   let('g:lightline.colorscheme', colors)
   if colors ~= nil then
     -- edgeのような白黒共用のカラースキームを適用し直す
-    local path = vim.fn.globpath(eval('&runtimepath'), ('autoload/lightline/colorscheme/%s.vim'):format(colors), 1, 1)
+    local path = vim.fn.globpath(vimx.go.runtimepath, ('autoload/lightline/colorscheme/%s.vim'):format(colors), 1, 1)
     if #path ~= 0 then
-      cmd('source ' .. path[1])
+      vimx.cmd.source(path[1])
     end
   end
   vim.call('lightline#init')
@@ -199,7 +200,11 @@ local function auto_colorscheme(name)
 end
 
 auto_colorscheme(vim.g.colors_name)
-au('ColorScheme', { callback = function() auto_colorscheme(vim.fn.expand('<amatch>')) end })
+vimx.create_autocmd('ColorScheme', {
+  callback = function()
+    auto_colorscheme(vim.fn.expand('<amatch>'))
+  end,
+})
 '''
 
 [[plugins]]
@@ -262,14 +267,14 @@ call gin#component#branch#ascii()
 repo = 'lambdalisue/gina.vim'
 on_cmd = 'Gina'
 lua_source = '''
-local vimeval = require('vimrc.compat.convert').call
-vimeval('gina#custom#mapping#nmap', 'status', ',c', '<Cmd>Gina commit -v --opener=tabedit<CR>', {
+local vimx = require('artemis')
+vimx.eval('gina#custom#mapping#nmap', 'status', ',c', '<Cmd>Gina commit -v --opener=tabedit<CR>', {
   noremap = true,
   nowait = true,
   silent = true,
 })
-if vimeval('dein#tap', 'ddc.vim') == 1 then
-  vimeval('ddc#custom#patch_filetype', 'gina-commit', 'specialBufferCompletion', true)
+if vimx.eval('dein#tap', 'ddc.vim') == 1 then
+  vimx.eval('ddc#custom#patch_filetype', 'gina-commit', 'specialBufferCompletion', true)
 end
 '''
 
