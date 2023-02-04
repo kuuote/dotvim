@@ -23,8 +23,9 @@ export async function main(denops: Denops) {
       uu.assertNumber(end);
       uu.assertString(findRegExpStr);
       uu.assertString(keyRegExpStr);
-      const findRegExp = new RegExp(findRegExpStr);
-      const keyRegExp = new RegExp(keyRegExpStr);
+      // 複数行に跨るのでdotAllを入れておく
+      const findRegExp = new RegExp(findRegExpStr, "s");
+      const keyRegExp = new RegExp(keyRegExpStr, "s");
       const lines = await denops.call(
         "getbufline",
         "%",

@@ -29,6 +29,39 @@ call hypermap#map(',s', "lexima#expand('\"', 'i')", { 'eval': v:true })
 '''
 
 [[plugins]]
+_sortkey_repo = 'functioncall'
+repo = 'machakann/vim-textobj-functioncall'
+lazy = 1
+hook_add = '''
+au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-textobj-functioncall')
+'''
+
+[[plugins]]
+_sortkey_repo = 'functioncall'
+repo = 'yuki-yano/vim-textobj-generics'
+depends = 'vim-sandwich'
+on_source = 'vim-textobj-functioncall'
+hook_source = '''
+" from readme
+let g:sandwich#recipes = get(g:, 'sandwich#recipes', g:sandwich#default_recipes) + [
+\ {
+\   'buns': ['textobj#generics#input_generics()', '">"'],
+\   'expr': 1,
+\   'cursor': 'inner_tail',
+\   'kind': ['add', 'replace'],
+\   'action': ['add'],
+\   'input': ['g']
+\ },
+\ {
+\   'external': ['i<', "\<Plug>(textobj-generics-a)"],
+\   'noremap': 0,
+\   'kind': ['delete', 'replace', 'query'],
+\   'input': ['g']
+\ },
+\ ]
+'''
+
+[[plugins]]
 repo = 'gw31415/fzyselect.vim'
 on_lua = 'fzyselect'
 lua_add = '''
@@ -170,8 +203,8 @@ au('ColorScheme', { callback = function() auto_colorscheme(vim.fn.expand('<amatc
 '''
 
 [[plugins]]
-on_func = 'fzf#'
 repo = 'junegunn/fzf'
+on_func = 'fzf#'
 
 [[plugins]]
 repo = 'kana/vim-operator-user'
@@ -276,39 +309,6 @@ nnoremap sd  <Plug>(sandwich-delete)
 nnoremap sdb <Plug>(sandwich-delete-auto)
 nnoremap sr  <Plug>(sandwich-replace)
 nnoremap srb <Plug>(sandwich-replace-auto)
-'''
-
-[[plugins]]
-_sortkey = 'functioncall'
-repo = 'machakann/vim-textobj-functioncall'
-lazy = 1
-hook_add = '''
-au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-textobj-functioncall')
-'''
-
-[[plugins]]
-_sortkey = 'functioncall'
-repo = 'yuki-yano/vim-textobj-generics'
-depends = 'vim-sandwich'
-on_source = 'vim-textobj-functioncall'
-hook_source = '''
-" from readme
-let g:sandwich#recipes = get(g:, 'sandwich#recipes', g:sandwich#default_recipes) + [
-\ {
-\   'buns': ['textobj#generics#input_generics()', '">"'],
-\   'expr': 1,
-\   'cursor': 'inner_tail',
-\   'kind': ['add', 'replace'],
-\   'action': ['add'],
-\   'input': ['g']
-\ },
-\ {
-\   'external': ['i<', "\<Plug>(textobj-generics-a)"],
-\   'noremap': 0,
-\   'kind': ['delete', 'replace', 'query'],
-\   'input': ['g']
-\ },
-\ ]
 '''
 
 [[plugins]]
