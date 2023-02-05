@@ -91,13 +91,6 @@ function alignment(
     score += adjacent * 10;
   }
 
-  if (haystack === "unreftimer" || haystack === "utime") {
-    console.log(haystack);
-    console.log({
-      matches: [...match].sort((a, b) => a - b),
-      score,
-    });
-  }
   return {
     matches: [...match].sort((a, b) => a - b),
     score,
