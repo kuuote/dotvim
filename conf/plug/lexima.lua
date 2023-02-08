@@ -4,6 +4,8 @@ local fn = require('vimrc.compat.convert').fn
 local add = fn['lexima#add_rule']
 local eval = vim.eval or vim.api.nvim_eval
 
+-- call vimrc#blocksort('^--@', '.*')
+
 --@ ,を二度押すと左に移動する
 add {
   char = ',',
