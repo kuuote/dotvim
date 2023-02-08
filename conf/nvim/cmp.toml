@@ -35,6 +35,9 @@ cmp.setup {
   enabled = function()
     return vim.g.cmp
   end,
+  experimental = {
+    ghost_text = true,
+  },
   snippet = {
     expand = function(args)
       vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
@@ -84,6 +87,10 @@ condmap.define {
   end,
 }
 '''
+
+[[plugins]]
+repo = 'tamago324/cmp-zsh'
+on_source = 'nvim-cmp'
 
 [[plugins]]
 repo = 'uga-rosa/cmp-skkeleton'
