@@ -107,18 +107,29 @@ let s:config['uiParams']['ff']['previewFloating'] = has('nvim')
 let s:config['uiParams']['ff']['previewFloatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "DduBorder"]')
 let s:config['uiParams']['ff']['split'] = has('nvim') ? 'floating' : 'no'
 
+" percent => [x, y, width, height]
+function! s:rect(percent) abort
+  let l:mcolumns = 1.0 * &columns * a:percent
+  let l:mlines = 1.0 * &lines * a:percent
+  let l:width = float2nr(mcolumns)
+  let l:height = float2nr(mlines)
+  let l:x = float2nr((&columns - mcolumns) / 2)
+  let l:y = float2nr((&lines - mlines) / 2)
+  return [l:x, l:y, l:width, l:height]
+endfunction
+
 function! s:set_size() abort
-  let winCol = &columns / 8
-  let winWidth = (&columns - (&columns / 4)) / 2
-  let winRow = &lines / 8
-  let winHeight = &lines - (&lines / 4)
+  let [l:winCol, l:winRow, l:winWidth, l:winHeight] = s:rect(0.9)
   let s:config['uiParams']['ff']['winCol'] = winCol
   let s:config['uiParams']['ff']['winWidth'] = winWidth
   let s:config['uiParams']['ff']['winRow'] = winRow
   let s:config['uiParams']['ff']['winHeight'] = winHeight
 
   " fzf-previewやtelescopeみたいなpreviewの出し方をする
-  let s:config['uiParams']['ff']['previewWidth'] = winWidth
+  let s:config['uiParams']['ff']['previewWidth'] = winWidth / 2
+  let s:config['uiParams']['ff']['previewCol'] = 0
+  let s:config['uiParams']['ff']['previewRow'] = 0
+  let s:config['uiParams']['ff']['previewHeight'] = 0
 endfunction
 
 function s:colorscheme()
