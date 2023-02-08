@@ -94,7 +94,12 @@ let s:config_json =<< UNKO
       "minAutoCompleteLength": 1
     },
     "cmdline_help": {
-      "maxItems": 20
+      "converters": [],
+      "matchers": [],
+      "maxItems": 20,
+      "sorters": [
+        "sorter_alignment"
+      ]
     },
     "file": {
       "forceCompletionPattern": "\\S/\\S*",
@@ -110,9 +115,14 @@ let s:config_json =<< UNKO
       "mark": "V"
     },
     "nvim-lsp": {
+      "converters": [],
       "forceCompletionPattern": "\\.\\w*|:\\w*|->\\w*",
       "mark": "lsp",
-      "minAutoCompleteLength": 1
+      "matchers": [],
+      "minAutoCompleteLength": 1,
+      "sorters": [
+        "sorter_alignment"
+      ]
     },
     "skkeleton": {
       "converters": [],
