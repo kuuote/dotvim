@@ -129,16 +129,16 @@ au('FileType', {
   once = true,
 })
 
---@ p
--- `p hoge` みたいな感じでprint打てるようにする
+--@ Rubyはいいぞ
+-- `pp hoge` みたいな感じでprint打てるようにする
 local function define_p(filetype, input, input_after)
   au('FileType', {
     pattern = filetype,
     callback = function()
       add {
         char = '<Space>',
-        at = [[^\s*p\%#]],
-        input = '<BS>' .. input,
+        at = [[^\s*pp\%#]],
+        input = '<C-w>' .. input,
         input_after = input_after,
         filetype = filetype,
       }
