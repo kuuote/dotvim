@@ -69,6 +69,9 @@ if dein#load_state(s:dein_dir)
   call dein#save_state()
 endif
 
+" auto recache時には働いてほしくないのでここ
+let g:dein#enable_notification = v:true
+
 if !empty($plug)
   " $plugに何かセットされてたらカレントディレクトリをruntimepathの先頭に置く
   let &runtimepath = printf('%s,%s', getcwd(), &runtimepath)
