@@ -311,6 +311,24 @@ nnoremap sdb <Plug>(sandwich-delete-auto)
 nnoremap sr  <Plug>(sandwich-replace)
 nnoremap srb <Plug>(sandwich-replace-auto)
 '''
+lua_post_source = '''
+local vimx = require('artemis')
+-- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L451-L458
+-- console.log() などをまとめて指定できるやつ
+vim.g['sandwich#magicchar#f#patterns'] = {
+  {
+    header = [[\<\%(\h\k*\.\)*\h\k*]],
+    bra = '(',
+    ket = ')',
+    footer = '',
+  },
+}
+-- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L485-L487
+-- saa( などで空白を含めないようにするやつ
+vimx.fn.operator.sandwich.set('add', 'char', 'skip_space', 1)
+vim.cmd([[autocmd ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)]])
+vim.cmd([[autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)]])
+'''
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
