@@ -29,7 +29,7 @@ let s:inline_tmp = '/tmp/vimrc_inline/'
 
 let s:conf = '~/.vim/conf/plug.toml'
 let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)
-if dein#load_state(s:dein_dir)
+if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   call delete(s:inline_tmp, 'rf')
   call mkdir(s:inline_tmp, 'p')
   let s:profiles = {}
