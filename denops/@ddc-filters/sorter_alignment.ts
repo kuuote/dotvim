@@ -10,6 +10,11 @@ type MatchResult = {
   score: number;
 };
 
+// pre allocate memory for minimize GC
+// slab idea from fzf, size too.
+const slab = new Uint16Array(100 * 1024);
+
+// 多分アルファベットと数字しか打たないのでこれだけでいい
 function charClass(c: string): number {
   if (c.match(/[a-z]/)) {
     return 0;
@@ -23,6 +28,7 @@ function charClass(c: string): number {
   return -1;
 }
 
+// 計算量を減らすため2つの文字列間でマッチしない文字を取り除く
 export function commonString(haystack: string, needle: string): string {
   const matches: string[] = [];
   let pos = 0;
@@ -44,13 +50,19 @@ function alignment(
 ): MatchResult {
   const h = haystack.length + 1;
   const n = needle.length + 1;
-  const matrix = Array(h * n).fill(0);
+  let matrix: Uint16Array;
+  if (h * n <= slab.length) {
+    matrix = slab.fill(0);
+  } else {
+    matrix = new Uint16Array(h * n);
+  }
 
   for (let i = 1; i < h; i++) {
     for (let j = 1; j < n; j++) {
       const imjm = (i - 1) + (j - 1) * h;
       const ij = i + j * h;
       const match = haystack[i - 1] === needle[j - 1];
+      // 連続マッチのみを処理するように簡略化している
       matrix[ij] = match ? matrix[imjm] + 1 + bonus[i - 1] : 0;
     }
   }
@@ -131,26 +143,23 @@ export class Filter extends BaseFilter<Params> {
         matches,
         score,
       };
-    });
+    }).sort((a, b) => b.score - a.score || b.matches.length - a.matches.length);
+
     const highlight = args.filterParams.highlightMatched;
     if (highlight !== "") {
-      return scored.sort((a, b) =>
-        b.score - a.score || b.matches.length - a.matches.length
-      )
-        .map((s) => ({
-          ...s.item,
-          highlights: (s.item.highlights ?? [])
-            .concat(s.matches.map((i) => ({
-              name: "matched",
-              type: "abbr",
-              "hl_group": highlight,
-              col: byteLength(s.item.word.slice(0, i)),
-              width: byteLength(s.item.word[i]),
-            }))),
-        }));
+      return scored.map((s) => ({
+        ...s.item,
+        highlights: (s.item.highlights ?? [])
+          .concat(s.matches.map((i) => ({
+            name: "matched",
+            type: "abbr",
+            "hl_group": highlight,
+            col: byteLength(s.item.word.slice(0, i)),
+            width: byteLength(s.item.word[i]),
+          }))),
+      }));
     } else {
-      return scored.sort((a, b) => b.score - a.score)
-        .map((s) => s.item);
+      return scored.map((s) => s.item);
     }
   }
 
