@@ -103,9 +103,15 @@ let s:config_json =<< UNKO
       ]
     },
     "file": {
+      "converters": [
+        "converter_fuzzy"
+      ],
       "forceCompletionPattern": "\\S/\\S*",
       "isVolatile": true,
       "mark": "F",
+      "matchers": [
+        "matcher_fuzzy"
+      ],
       "minAutoCompleteLength": 1000,
       "sorters": [
         "sorter_file",
