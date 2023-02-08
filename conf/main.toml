@@ -242,6 +242,9 @@ x = '<Plug>(textobj-line-'
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
+repo = 'kuuote/jsonyaml.vim'
+
+[[plugins]]
 repo = 'lambdalisue/fern.vim'
 on_cmd = 'Fern'
 hook_add = '''
