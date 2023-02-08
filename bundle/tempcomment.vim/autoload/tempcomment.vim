@@ -1,3 +1,5 @@
+" 一括で後で消すやつ
+
 let s:comment = '_後で消す_'
 let s:commentlater = '_ここまで後で消す_'
 
@@ -36,6 +38,7 @@ function! tempcomment#init() abort
     autocmd!
     autocmd BufWritePost * call s:on_save()
   augroup END
+  command! TempCommentDelete call tempcomment#remove()
 endfunction
 
 function! tempcomment#expr() abort
