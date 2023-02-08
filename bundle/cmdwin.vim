@@ -15,7 +15,7 @@ nnoremap <buffer> <nowait> <CR> <Esc><Cmd>call <SID>execute()<CR>
 inoremap <buffer> <nowait> <CR> <Esc><Cmd>call <SID>execute()<CR>
 
 function! s:dirpath() abort
-  call ddc#custom#set_buffer(#{sources: ['file'], specialBufferCompletion: v:true})
+  call ddc#custom#set_buffer(#{sources: ['file'], specialBufferCompletion: v:true, sourceOptions: #{file: #{converters: [], matchers: [], sorters: ['sorter_alignment']}}})
   let c = fnamemodify(bufname('#'), ':p')
   if !isdirectory(c)
     let c = fnamemodify(c, ':h')
