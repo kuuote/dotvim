@@ -109,7 +109,7 @@ let s:config['uiParams']['ff']['split'] = has('nvim') ? 'floating' : 'no'
 
 function! s:set_size() abort
   let winCol = &columns / 8
-  let winWidth = &columns - (&columns / 4)
+  let winWidth = (&columns - (&columns / 4)) / 2
   let winRow = &lines / 8
   let winHeight = &lines - (&lines / 4)
   let s:config['uiParams']['ff']['winCol'] = winCol
@@ -118,13 +118,7 @@ function! s:set_size() abort
   let s:config['uiParams']['ff']['winHeight'] = winHeight
 
   " fzf-previewやtelescopeみたいなpreviewの出し方をする
-  " - winWidthの部分が内部コードに依存してるのでアレ
-  " (previewVerticalの時、絶対位置にwinWidthを足して出しているのでその分を引き去る)
-  " よってpreviewVertical = trueじゃないと動かない
-  let s:config['uiParams']['ff']['previewCol'] = winCol + (winWidth / 2) - winWidth
-  let s:config['uiParams']['ff']['previewWidth'] = winWidth / 2
-  let s:config['uiParams']['ff']['previewRow'] = winRow
-  let s:config['uiParams']['ff']['previewHeight'] = winHeight
+  let s:config['uiParams']['ff']['previewWidth'] = winWidth
 endfunction
 
 function s:colorscheme()
