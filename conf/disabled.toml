@@ -1,4 +1,25 @@
 [[plugins]]
+comment = 'dial.nvimを使っている'
+repo = 'monaqa/dps-dial.vim'
+hook_add = '''
+nmap  <C-a>  <Plug>(dps-dial-increment)
+nmap  <C-x>  <Plug>(dps-dial-decrement)
+xmap  <C-a>  <Plug>(dps-dial-increment)
+xmap  <C-x>  <Plug>(dps-dial-decrement)
+xmap g<C-a> g<Plug>(dps-dial-increment)
+xmap g<C-x> g<Plug>(dps-dial-decrement)
+'''
+
+[[plugins]]
+comment = 'ほぼdein.vim自身のdduソースで賄える'
+repo = '4513ECHO/vim-readme-viewer'
+on_source = 'ddu.vim'
+hook_source = '''
+" 指定していないと死ぬ
+let g:readme_viewer#plugin_manager = 'dein.vim'
+'''
+
+[[plugins]]
 comment = '''
 nvimの方がVim対応したのでif_lua前提のうちの.vimだと使える
 '''
