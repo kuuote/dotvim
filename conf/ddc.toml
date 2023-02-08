@@ -1,5 +1,6 @@
 [[plugins]]
 repo = '~/.vim/bundle/ddc-filter-diff'
+merged = 1
 
 [[plugins]]
 repo = 'kuuote/ddc-source-suconv'
