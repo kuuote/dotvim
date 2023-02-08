@@ -253,6 +253,12 @@ augroup END
 '''
 
 [[plugins]]
+repo = 'yuki-yano/highlight-undo.nvim'
+lua_source = '''
+require('highlight-undo').setup {}
+'''
+
+[[plugins]]
 repo = 'yuki-yano/tsnip.nvim'
 lua_add = '''
 -- vim.g.tsnip_use_nui = false
