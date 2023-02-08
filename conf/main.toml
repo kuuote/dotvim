@@ -104,8 +104,6 @@ on_source = ['ddc.vim', 'cmp-vsnip']
 repo = 'hrsh7th/vim-vsnip'
 on_event = 'InsertEnter'
 hook_source = '''
-inoremap <C-f> <Plug>(vsnip-jump-next)
-snoremap <C-f> <Plug>(vsnip-jump-next)
 let g:vsnip_snippet_dirs = [$HOME .. "/.vim/snippets", dein#get('completion-snippet').path]
 '''
 lua_source = '''
@@ -246,7 +244,7 @@ repo = 'kuuote/jsonyaml.vim'
 repo = 'lambdalisue/fern.vim'
 on_cmd = 'Fern'
 hook_add = '''
-nnoremap <Space>f <Cmd>Fern . -reveal=%:p<CR>
+nnoremap <Space>F <Cmd>Fern . -reveal=%:p<CR>
 '''
 
 [[plugins]]
