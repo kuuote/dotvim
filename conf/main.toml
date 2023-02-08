@@ -15,14 +15,6 @@ repo = '4513ECHO/denops-gitter.vim'
 on_path = 'gitter://'
 
 [[plugins]]
-repo = '4513ECHO/vim-readme-viewer'
-on_source = 'ddu.vim'
-hook_source = '''
-" 指定していないと死ぬ
-let g:readme_viewer#plugin_manager = 'dein.vim'
-'''
-
-[[plugins]]
 repo = 'cohama/lexima.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_source = '''
