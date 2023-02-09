@@ -96,7 +96,9 @@ let s:config_json =<< UNKO
     },
     "cmdline_help": {
       "converters": [],
-      "matchers": [],
+      "matchers": [
+        "matcher_gaps"
+      ],
       "maxItems": 20,
       "sorters": [
         "sorter_alignment"
