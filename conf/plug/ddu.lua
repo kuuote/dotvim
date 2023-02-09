@@ -4,6 +4,8 @@ local cmd = vim.cmd or vim.command
 local it = require('kutil.iterate')
 local iter = require('vimrc.compat.convert').iter
 
+-- kind_git_status
+
 local function get_worktree(args)
   return args.items[1].action.worktree
 end
@@ -17,11 +19,10 @@ local function get_pathes(args)
 end
 
 local function config()
-  -- git
-  act('kind', 'git_file', 'commit', function()
+  act('kind', 'git_status', 'commit', function()
     cmd('Gin commit')
   end)
-  act('kind', 'git_file', 'patch', function(args)
+  act('kind', 'git_status', 'patch', function(args)
     local worktree = get_worktree(args)
     for _, i in iter(args.items) do
       cmd(('tabnew | tcd %s | GinPatch ++no-head %s'):format(worktree, i.action.path))

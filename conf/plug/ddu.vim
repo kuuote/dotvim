@@ -45,7 +45,7 @@ let s:config_json =<< UNKO
     "file": {
       "defaultAction": "open"
     },
-    "git_file": {
+    "git_status": {
       "defaultAction": "open"
     },
     "help": {

@@ -1,4 +1,4 @@
-import { ActionData, PreviewType } from "../@ddu-kinds/git_file.ts";
+import { ActionData, PreviewType } from "../@ddu-kinds/git_status.ts";
 import { dirname } from "https://deno.land/std@0.160.0/path/mod.ts";
 import {
   OnInitArguments,
@@ -26,7 +26,7 @@ const run = async (cmd: string[], cwd?: string): Promise<string> => {
 };
 
 export class Source extends BaseSource<Params> {
-  override kind = "git_file";
+  override kind = "git_status";
 
   private worktree = "";
 
