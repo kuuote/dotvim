@@ -288,6 +288,12 @@ end
 '''
 
 [[plugins]]
+repo = 'lambdalisue/kensaku.vim'
+hook_add = '''
+let g:kensaku_dictionary_cache = '/data/vim/cache/kensaku_dict'
+'''
+
+[[plugins]]
 repo = 'lambdalisue/mr.vim'
 on_event = 'BufNewFile,BufRead'
 hook_source = '''
@@ -546,6 +552,8 @@ hook_source = '''
 " 2個目の条件(foo.bar.bazみたいなのにマッチさせる設定)にスペースを増やした(コマンドにもヒットさせたかった)
 " 最後に行全体にマッチさせる設定を入れた(若干pounceっぽく使える気がする)
 let g:fuzzy_motion_word_regexp_list = ['[0-9a-zA-Z_-]+',  '([0-9a-zA-Z_-]|[. ])+', '([0-9a-zA-Z]|[()<>.-_#''"]|(\s=+\s)|(,\s)|(:\s)|(\s=>\s))+', '.+']
+
+let g:fuzzy_motion_matchers = ['fzf', 'kensaku']
 '''
 
 [[plugins]]
