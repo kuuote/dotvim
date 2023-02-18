@@ -1,10 +1,5 @@
 -- which key like menu for Vim(if_lua)/Neovim
 
----@class Menu
----@field info string
----@field fn fun() | nil
----@field items table<string, Menu> | nil
-
 local it = require('kutil.iterate')
 local M = {}
 local pum = nil
@@ -60,8 +55,7 @@ local function close()
   end
 end
 
----@param defs Menu
-function M.menu(defs)
+function M.which(defs)
   close()
   local items = {}
   defs.items = defs.items or {}
@@ -80,12 +74,31 @@ function M.menu(defs)
   end
   local item = defs.items[k]
   if item == nil then
-    return M.menu(defs)
+    return M.which(defs)
   end
   if item.fn ~= nil then
     return item.fn()
   end
-  return M.menu(item)
+  return M.which(item)
+end
+
+local function format(entry)
+  return entry[1]
+end
+
+function M.select(entries)
+  vim.ui.select(entries, {
+    format_item = format,
+  }, function(entry)
+    if entry == nil then
+      return
+    end
+    if entry.callback ~= nil then
+      entry.callback()
+    elseif entry.menu ~= nil then
+      select(entry.menu)
+    end
+  end)
 end
 
 return M

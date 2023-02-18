@@ -241,7 +241,7 @@ require('vimrc.compat.autocmd').define('FileType', {
   callback = function()
     if vim.b.ddu_ui_name:match('#rg') then
       require('vimrc.compat.map').define('n', 'm', function()
-        require('vimrc.menu').menu {
+        require('vimrc.menu').which {
           info = 'change sorter',
           items = {
             m = {

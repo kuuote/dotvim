@@ -4,10 +4,6 @@
 
 local cmd = vim.command or vim.cmd
 
-local function format(entry)
-  return entry[1]
-end
-
 local function find_worktree()
   local current = vim.fn.expand('%:p:h')
   if vim.fn.getftype(current) ~= 'dir' then
@@ -17,21 +13,6 @@ local function find_worktree()
   local file = vim.fn.findfile('.git', current .. ';')
   local result = #dir < #file and file or dir
   return vim.fn.fnamemodify(result, ':p'):gsub('%.git/?$', '')
-end
-
-local function menu(entries)
-  vim.ui.select(entries, {
-    format_item = format,
-  }, function(entry)
-    if entry == nil then
-      return
-    end
-    if entry.callback ~= nil then
-      entry.callback()
-    elseif entry.menu ~= nil then
-      menu(entry.menu)
-    end
-  end)
 end
 
 return function()
@@ -62,5 +43,5 @@ return function()
       end,
     })
   end
-  menu(commands)
+  require('vimrc.menu').select(commands)
 end

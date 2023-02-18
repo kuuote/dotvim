@@ -93,7 +93,7 @@ local function set_eval(opts)
 end
 
 map({ 'c', 'i' }, '<C-X>', function()
-  require('vimrc.menu').menu {
+  require('vimrc.menu').which {
     info = 'select completion source',
     items = {
       ['<C-F>'] = {
