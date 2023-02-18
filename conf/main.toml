@@ -263,14 +263,14 @@ call gin#component#branch#ascii()
 repo = 'lambdalisue/gina.vim'
 on_cmd = 'Gina'
 lua_source = '''
-local vimx = require('artemis')
-vimx.eval('gina#custom#mapping#nmap', 'status', ',c', '<Cmd>Gina commit -v --opener=tabedit<CR>', {
+local call = require('vimrc.compat.convert').call
+call('gina#custom#mapping#nmap', 'status', ',c', '<Cmd>Gina commit -v --opener=tabedit<CR>', {
   noremap = true,
   nowait = true,
   silent = true,
 })
-if vimx.eval('dein#tap', 'ddc.vim') == 1 then
-  vimx.eval('ddc#custom#patch_filetype', 'gina-commit', 'specialBufferCompletion', true)
+if call('dein#tap', 'ddc.vim') == 1 then
+  call('ddc#custom#patch_filetype', 'gina-commit', 'specialBufferCompletion', true)
 end
 '''
 
