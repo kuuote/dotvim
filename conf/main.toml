@@ -562,6 +562,7 @@ on_cmd = 'FzfPreview*'
 hook_add = '''
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort=path --with-filename'
 
+nnoremap <silent> gs <Cmd>FzfPreviewGitStatusRpc<CR>
 nnoremap <fzf-p> <Nop>
 nmap 'z <fzf-p>
 " nnoremap <silent> <C-p> <Cmd>FzfPreviewDirectoryFilesRpc<CR>
