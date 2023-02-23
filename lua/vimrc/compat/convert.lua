@@ -83,10 +83,12 @@ function M.iter(list)
     return ipairs(list)
   else
     local iter = list()
+    local count = 0
     return function()
       local v = iter()
       if v ~= nil then
-        return true, v
+        count = count + 1
+        return count, v
       end
       return nil, nil
     end
