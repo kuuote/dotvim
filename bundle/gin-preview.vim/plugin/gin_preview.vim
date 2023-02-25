@@ -1,3 +1,5 @@
+autocmd User gin-preview:* :
+
 function s:open(curwin) abort
   " in before VimEnter, do lazy evaluation
   " because gin.vim is using denops.vim
@@ -38,6 +40,7 @@ function s:open(curwin) abort
   execute 'resize' &lines / 3
   " define handler
   autocmd gin-preview CursorMoved <buffer> ++nested call s:moved()
+  doautocmd <nomodeline> User gin-preview:open
 endfunction
 
 function! s:moved() abort
@@ -56,11 +59,13 @@ function! s:moved() abort
   diffoff!
   let file = fnamemodify(line[3:], ':p')
   call win_execute(t:gin_preview.worktree, 'edit ' .. file .. ' | diffthis')
+  call win_execute(t:gin_preview.worktree, 'doautocmd <nomodeline> User gin-preview:worktree')
   if line =~# '^??'
     call win_execute(t:gin_preview.index, 'call s:open_not_index(' .. string(file) ..')')
   else
     call win_execute(t:gin_preview.index, 'GinEdit ' .. file .. ' | diffthis')
   endif
+  call win_execute(t:gin_preview.index, 'doautocmd <nomodeline> User gin-preview:index')
   call win_execute(t:gin_preview.worktree, 'set wrap')
   call win_execute(t:gin_preview.index, 'set wrap')
 endfunction
