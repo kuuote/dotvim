@@ -90,7 +90,7 @@ let s:config_json =<< UNKO
     "ff": {
       "highlights": {},
       "previewFloatingZindex": 100,
-      "previewVertical": true
+      "previewSplit": "vertical"
     }
   }
 }
