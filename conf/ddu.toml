@@ -2,11 +2,6 @@
 repo = '4513ECHO/ddu-source-colorscheme'
 
 [[plugins]]
-repo = 'kuuote/ddu-vim-ui-select'
-if = '!has("nvim") || g:vim_ui_select ==# "ddu.vim"'
-rev = 'vim_compat'
-
-[[plugins]]
 repo = '4513ECHO/ddu-source-source'
 lua_add = '''
 local c = require('vimrc.command').define
@@ -292,6 +287,9 @@ require('vimrc.command').define('DduRgLive', function()
   }
 end)
 '''
+
+[[plugins]]
+repo = 'tennashi/ddu-source-git_ref'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
