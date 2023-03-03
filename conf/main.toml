@@ -2,6 +2,23 @@
 repo = '~/.vim/bundle/gin-preview.vim'
 depends = 'gin.vim'
 on_cmd = 'GinPreview'
+lua_source = '''
+local vimx = require('artemis')
+
+vimx.create_autocmd('User', {
+  pattern = 'gin-preview:index',
+  callback = function()
+    local opts = {
+      buffer = true,
+    }
+    vimx.keymap.set('n', '<C-j>', ']czz', opts)
+    vimx.keymap.set('n', '<C-k>', '[czz', opts)
+    vimx.keymap.set('n', '<C-h>', 'do', opts)
+    vimx.keymap.set('n', '<C-l>', 'dp', opts)
+    vimx.keymap.set('n', '<Space>s', '<Cmd>update<CR><C-w>k', opts)
+  end,
+})
+'''
 
 [[plugins]]
 repo = '~/.vim/bundle/tempcomment.vim'
