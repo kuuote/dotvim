@@ -13,6 +13,7 @@ nnoremap th <Cmd>tabprevious<CR>
 nnoremap tl <Cmd>tabnext<CR>
 nnoremap tq <Cmd>tabclose<CR>
 nnoremap tt <Cmd>tab split<CR>
+nnoremap tT <Cmd>tab split<CR><Cmd>tcd %:p:h<CR>
 
 " <C-l>にハイライト消去・ファイル変更適用効果を追加
 " from https://github.com/takker99/dotfiles/blob/9ebeede1a43f7900c4c35e2d1af4c0468565bee9/nvim/userautoload/init/mapping.vim#L34-L35
@@ -34,7 +35,7 @@ inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 tnoremap fj <C-\><C-N>
 
 " scroll to center
-inoremap <C-c> <Cmd>normal! zz<CR>
+ inoremap <C-j> <Cmd>normal! zz<CR>
 
 function s:insert_map()
   " 括弧とか打つのにShift押したくないでござる
