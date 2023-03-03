@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local lsp = require('lspconfig')
 
-lsp.sumneko_lua.setup {
+lsp.lua_ls.setup {
   capabilites = c,
   on_attach = function()
     vim.keymap.set('n', 'mf', '<Cmd>KeepCursor %!stylua -f ~/.vim/stylua.toml -<CR>', {
