@@ -204,7 +204,7 @@ au('FileType', {
     }
     m({ 'n', 'i' }, '<CR>', function()
       cmd('stopinsert')
-      vim.call('ddu#ui#ff#close')
+      action('closeFilterWindow')()
     end, opts)
     m('i', '<C-j>', function()
       vim.call('ddu#ui#ff#execute', [[call cursor(line('.')+1, 0)]])
