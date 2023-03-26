@@ -110,7 +110,7 @@ local isnvim = vim.fn.has('nvim') == 1
 local m = require('vimrc.compat.map').define
 local part = require('kutil.function').partition_keyvalue
 
-local do_action = fn['ddu#ui#ff#do_action']
+local do_action = fn['ddu#ui#do_action']
 
 local function action(name)
   return function()
