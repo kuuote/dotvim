@@ -143,6 +143,7 @@ au('FileType', {
     m('n', '<CR>', action('itemAction'), opts)
     m('n', '<Space>', action('toggleSelectItem'), opts)
     m('n', 'a', action('chooseAction'), opts)
+    m('n', 'A', action('inputAction'), opts)
     m('n', 'i', action('openFilterWindow'), opts)
     m('n', 'q', action('quit'), opts)
     -- preview
