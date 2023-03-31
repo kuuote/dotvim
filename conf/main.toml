@@ -415,6 +415,7 @@ on_if = 'bufname() =~# "^gh://"'
 
 [[plugins]]
 repo = 'skk-dev/dict'
+if = 0
 
 [[plugins]]
 repo = 'skk-dev/skktools'
