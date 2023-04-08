@@ -269,18 +269,14 @@ require('vimrc.compat.autocmd').define('FileType', {
 })
 require('vimrc.command').define('DduRgLive', function()
   require('ddu').start {
-    {
-      name = 'rg',
-      params = {
-        path = require('vimrc.util').find_root(),
-      },
-    },
+    'rg',
     name = 'file#rg',
     sourceOptions = {
       rg = {
         converters = {},
         matchers = {},
         sorters = { 'sorter_alpha_path' },
+        path = require('vimrc.util').find_root(),
       },
     },
     uiParams = {
