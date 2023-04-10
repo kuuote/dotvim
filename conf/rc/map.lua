@@ -78,3 +78,6 @@ au('InsertEnter', {
     }
   end
 })
+
+-- cmdlineでキャンセルした際に履歴を残さない
+m('c', '<Esc>', '<C-u><C-c>')
