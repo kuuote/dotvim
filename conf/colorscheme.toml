@@ -68,6 +68,9 @@ repo = 'kuuote/github-light.vim'
 repo = 'lifepillar/vim-solarized8'
 
 [[plugins]]
+repo = 'machakann/vim-colorscheme-snowtrek'
+
+[[plugins]]
 repo = 'Rigellute/rigel'
 
 [[plugins]]
