@@ -55,7 +55,7 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   let configs = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
   let configs2 = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
 
-  call dein#begin(s:dein_dir, [g:vimrc, expand('<sfile>')])
+  call dein#begin(s:dein_dir, [$VIMRC, expand('<sfile>')])
   for toml in configs
     if getftype(toml) ==# 'file'
       call dein#load_toml(toml)

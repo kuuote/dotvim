@@ -2,8 +2,8 @@ augroup vimrc
   autocmd!
 augroup END
 
-let g:dotvim = expand('<sfile>:p:h')
-let g:vimrc = expand('<sfile>:p')
+let $DOTVIM = expand('<sfile>:p:h')
+let $VIMRC = expand('<sfile>:p')
 
 let g:vim_type = has('nvim') ? 'nvim' : 'vim'
 let g:mapleader = "'"
@@ -22,7 +22,7 @@ call vimrc#load_scripts('~/.vim/conf/rc/**/*')
 call vimrc#load_scripts(printf('~/.vim/conf/%s/rc/**/*', g:vim_type))
 call vimrc#load_scripts('/tmp/vimrc/*')
 
-if getftype(g:dotvim .. '/local.vim') ==# 'file'
+if getftype($DOTVIM .. '/local.vim') ==# 'file'
   source ~/.vim/local.vim
 endif
 
