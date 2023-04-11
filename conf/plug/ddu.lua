@@ -34,6 +34,7 @@ local function config()
   act('ui', 'ff', 'inputAction', function(args)
     local item = vimx.fn['ddu#ui#get_item']()
     local actions = vimx.fn['ddu#get_item_actions'](args.options.name, { item })
+    local opt = vimx.fn['ddc#custom#get_buffer']()
     vimx.fn['ddc#custom#set_buffer'] {
       cmdlineSources = { 'list' },
       sources = { 'list' },
@@ -49,11 +50,17 @@ local function config()
       },
     }
     local action = vim.fn.input('action:')
-    if action ~= '' then
-      vimx.fn['ddu#ui#do_action']('itemAction', {
-        name = action,
-      })
+    vimx.fn['ddc#custom#set_buffer'](opt)
+    for _, a in ipairs(actions) do
+      if action == a then
+        vimx.fn['ddu#ui#do_action']('itemAction', {
+          name = action,
+        })
+        return
+      end
     end
+    print(('`%s`?知らない子ですねぇ'):format(action))
+  end)
   end)
 end
 
