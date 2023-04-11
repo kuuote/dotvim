@@ -3,7 +3,6 @@ local M = {}
 local cmd = vim.command or vim.cmd
 
 function M._get_current_dir(path)
-  path = path or vim.fn.expand('%:p')
   if not path:match('^/') then
     path = vim.fn.getcwd() -- 実パスを指してなければcwdと置換
   elseif vim.fn.isdirectory(path) == 0 then
@@ -44,6 +43,15 @@ function M.remove_root(recursive)
 end
 
 function M.find_root(path)
+  if path == nil then
+    path = vim.fn.expand('%:p')
+  end
+  -- gin.vim
+  local match = path:match('gin%a+://([^;]+)')
+  if match ~= nil then
+    return match
+  end
+
   local dir = M._get_current_dir(path)
   for _, r in ipairs(temporaly_roots) do
     if dir:sub(1, #r) == r then
