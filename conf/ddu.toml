@@ -277,6 +277,7 @@ require('vimrc.command').define('DduRgLive', function()
         matchers = {},
         sorters = { 'sorter_alpha_path' },
         path = require('vimrc.util').find_root(),
+        volatile = true,
       },
     },
     uiParams = {
@@ -285,7 +286,6 @@ require('vimrc.command').define('DduRgLive', function()
         autoResize = false,
       },
     },
-    volatile = true,
   }
 end)
 '''
