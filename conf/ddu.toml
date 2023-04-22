@@ -267,7 +267,13 @@ require('vimrc.compat.autocmd').define('FileType', {
     end
   end,
 })
-require('vimrc.command').define('DduRgLive', function()
+require('artemis').create_command('DduRgLive', function(a)
+  local root
+  if a.args:match('current') then
+    root = vim.fn.expand('%:p:h')
+  else
+  root = require('vimrc.util').find_root()
+  end
   require('ddu').start {
     'rg',
     name = 'file#rg',
@@ -276,7 +282,7 @@ require('vimrc.command').define('DduRgLive', function()
         converters = {},
         matchers = {},
         sorters = { 'sorter_alpha_path' },
-        path = require('vimrc.util').find_root(),
+        path = root,
         volatile = true,
       },
     },
@@ -287,7 +293,9 @@ require('vimrc.command').define('DduRgLive', function()
       },
     },
   }
-end)
+end, {
+  nargs = '*',
+})
 '''
 
 [[plugins]]
