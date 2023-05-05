@@ -1,5 +1,5 @@
 [[plugins]]
-repo = '4513ECHO/elly.vim'
+repo = 'kuuote/elly.vim'
 
 [[plugins]]
 repo = 'ayu-theme/ayu-vim'
