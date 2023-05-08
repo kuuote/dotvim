@@ -6,7 +6,7 @@ command! -nargs=+ KeepCursor call vimrc#keep_cursor(<q-args>)
 " Show 'runtimepath'.
 command! -bar RTP echo substitute(&runtimepath, ',', "\n", 'g')
 
-command! DeleteIt :!trash-put %
+command! DeleteIt :!trash-put "%"
 
 " from defaults.vim
 command! DiffOrig tab split | vert new | set buftype=nofile | read ++edit # | 0d_
