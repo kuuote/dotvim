@@ -312,7 +312,7 @@ let g:kensaku_dictionary_cache = '/data/vim/cache/kensaku_dict'
 
 [[plugins]]
 repo = 'lambdalisue/mr.vim'
-on_event = 'BufNewFile,BufRead'
+on_event = 'BufNewFile,BufReadPre,BufWritePre' # 事前に読むためPreに引っ掛ける必要がある
 hook_source = '''
 let g:mr#mru#filename = '/data/mr/mru'
 let g:mr#mrw#filename = '/data/mr/mrw'
