@@ -11,7 +11,7 @@ export class Config extends BaseConfig {
     const border = [".", ".", ".", ":", ":", ".", ":", ":"]
       .map((c) => [c, "DduBorder"]);
     const nvim = args.denops.meta.host === "nvim";
-    args.contextBuilder.setGlobal({
+    args.contextBuilder.patchGlobal({
       actionOptions: {
         do: { quit: false },
         narrow: { quit: false },
