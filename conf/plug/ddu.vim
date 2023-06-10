@@ -61,3 +61,12 @@ endfunction
 call s:reset()
 autocmd ColorScheme,VimResized * call s:reset()
 autocmd User DenopsPluginPost:ddu call s:config()
+
+autocmd User DenopsReady call ddu#start(#{
+      \     ui: 'ff',
+      \     uiParams: #{
+      \       ff: #{
+      \         ignoreEmpty: v:true,
+      \       },
+      \     },
+      \   })
