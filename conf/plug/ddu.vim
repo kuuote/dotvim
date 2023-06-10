@@ -3,10 +3,6 @@ let s:config = {'uiParams':{'ff':{'highlights': {}}}}
 " border idea by @eetann
 
 let g:vimrc#ddu_highlights = ""
-let s:config['uiParams']['ff']['floatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "DduBorder"]')
-let s:config['uiParams']['ff']['previewFloating'] = has('nvim')
-let s:config['uiParams']['ff']['previewFloatingBorder'] = ['.', '.', '.', ':', ':', '.', ':', ':']->map('[v:val, "DduBorder"]')
-let s:config['uiParams']['ff']['split'] = has('nvim') ? 'floating' : 'no'
 
 " percent => [x, y, width, height]
 function! s:rect(percent) abort
@@ -48,7 +44,6 @@ function s:colorscheme()
 endfunction
 
 function! s:reset() abort
-  call ddu#custom#alias('filter', 'matcher_fzf_nosort', 'matcher_fzf')
   if has('nvim')
     call s:set_size()
   else
@@ -58,6 +53,11 @@ function! s:reset() abort
   call ddu#custom#patch_global(s:config)
 endfunction
 
+function! s:config() abort
+  call ddu#custom#load_config(expand('$DOTVIM/conf/plug/ddu.ts'))
+  call s:reset()
+endfunction
+
 call s:reset()
 autocmd ColorScheme,VimResized * call s:reset()
-autocmd User DenopsPluginPost:ddu call s:reset()
+autocmd User DenopsPluginPost:ddu call s:config()

@@ -99,7 +99,6 @@ end)
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-on_source = 'ddu.vim'
 lua_source = '''
 local au = require('vimrc.compat.autocmd').define
 local aug = require('vimrc.compat.autocmd').group
@@ -225,10 +224,9 @@ au('FileType', {
 
 [[plugins]]
 repo = 'Shougo/ddu.vim'
-on_func = 'ddu#start'
 hook_source = '''
-source ~/.vim/conf/plug/ddu.vim
-luafile ~/.vim/conf/plug/ddu.lua
+source $DOTVIM/conf/plug/ddu.vim
+luafile $DOTVIM/conf/plug/ddu.lua
 '''
 
 [[plugins]]
@@ -300,6 +298,9 @@ end, {
 
 [[plugins]]
 repo = 'tennashi/ddu-source-git_ref'
+
+[[plugins]]
+repo = 'uga-rosa/ddu-source-lsp'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
