@@ -58,9 +58,8 @@ function! s:config() abort
   call s:reset()
 endfunction
 
-call s:reset()
 autocmd ColorScheme,VimResized * call s:reset()
-autocmd User DenopsPluginPost:ddu call s:config()
+call s:config()
 
 autocmd User DenopsReady call ddu#start(#{
       \     ui: 'ff',
