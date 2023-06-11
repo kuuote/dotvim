@@ -5,9 +5,60 @@ import {
 } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 import { ConfigArguments } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/config.ts";
 import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
+import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
+import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
+import * as opt from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
+import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+
+async function calculateUiSize(
+  denops: Denops,
+  percent: number,
+): Promise<[x: number, y: number, width: number, height: number]> {
+  const columns = await opt.columns.get(denops);
+  const lines = await opt.lines.get(denops);
+  const pc = columns * percent;
+  const pl = lines * percent;
+  const width = Math.floor(pc);
+  const height = Math.floor(pl);
+  const x = Math.floor((columns - pc) / 2);
+  const y = Math.floor((lines - pl) / 2);
+  return [x, y, width, height];
+}
+
+async function setUiSize(args: ConfigArguments) {
+  if (args.denops.meta.host === "vim") {
+    args.contextBuilder.patchGlobal({
+      uiParams: {
+        ff: {
+          previewWidth: Math.floor(await opt.columns.get(args.denops)),
+        },
+      },
+    });
+  }
+  const [winCol, winRow, winWidth, winHeight] = await calculateUiSize(
+    args.denops,
+    0.9,
+  );
+  args.contextBuilder.patchGlobal({
+    uiParams: {
+      ff: {
+        winCol,
+        winRow,
+        winWidth,
+        winHeight,
+        // fzf-previewやtelescopeみたいなpreviewの出し方をする
+        previewWidth: Math.floor(winWidth / 2),
+        previewCol: 0,
+        previewRow: 0,
+        previewHeight: 0,
+      } satisfies Partial<DduUiFFParams>,
+    },
+  });
+}
 
 export class Config extends BaseConfig {
-  override config(args: ConfigArguments): Promise<void> {
+  override async config(args: ConfigArguments): Promise<void> {
+    // border idea by @eetann
     const border = [".", ".", ".", ":", ":", ".", ":", ":"]
       .map((c) => [c, "DduBorder"]);
     const nvim = args.denops.meta.host === "nvim";
@@ -63,7 +114,6 @@ export class Config extends BaseConfig {
       uiParams: {
         ff: {
           floatingBorder: border as any, // そのうち直す
-          highlights: {},
           previewFloating: nvim,
           previewFloatingBorder: border as any, // そのうち直す
           previewFloatingZindex: 100,
@@ -72,6 +122,16 @@ export class Config extends BaseConfig {
         } satisfies Partial<DduUiFFParams>,
       },
     });
-    return Promise.resolve();
+    // floatwinのサイズをセットするやつ
+    const id = lambda.register(args.denops, () => setUiSize(args));
+    await autocmd.group(args.denops, "vimrc#ddu.ts", (helper) => {
+      helper.remove("*");
+      helper.define(
+        "VimResized",
+        "*",
+        `call denops#notify('ddu', '${id}', [])`,
+      );
+    });
+    await setUiSize(args);
   }
 }
