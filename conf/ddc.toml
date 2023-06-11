@@ -40,7 +40,6 @@ repo = 'Shougo/ddc-ui-pum'
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-on_event = ['CmdlineEnter', 'InsertEnter']
 hook_source = '''
 " frontは出現したら何よりも先に選びたいやつ
 " 次にバッファ固有の物、その後に通常という戦略で行く
@@ -50,11 +49,14 @@ if has('nvim')
 else
   let g:vimrc#ddc_sources_front = ['vsnip', 'file']
 endif
+autocmd User DenopsPluginPost:ddc call dein#source('vim-vsnip')
+autocmd User DenopsPluginPost:ddc call dein#source('vim-vsnip-integ')
 
-call ddc#custom#load_config(expand('$DOTVIM/conf/plug/ddc.ts'))
-call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_front + g:vimrc#ddc_sources)
 doautocmd <nomodeline> User vimrc-ddc
 call ddc#enable()
+call ddc#custom#patch_global('ui', 'pum')
+call ddc#custom#load_config(expand('$DOTVIM/conf/plug/ddc.ts'))
+call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_front + g:vimrc#ddc_sources)
 
 autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
 autocmd User DenopsPluginPost:ddc call ddc#enable_cmdline_completion()
@@ -80,7 +82,6 @@ autocmd User vimrc-ddc call s:setup_necovim()
 
 [[plugins]]
 repo = 'Shougo/pum.vim'
-on_source = 'ddc.vim'
 hook_source = '''
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
