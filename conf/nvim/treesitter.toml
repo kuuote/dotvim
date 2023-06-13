@@ -22,14 +22,3 @@ install_info = {},
 }
 '''
 
-[[plugins]]
-repo = 'p00f/nvim-ts-rainbow'
-on_source = 'nvim-treesitter'
-lua_source = '''
-require('nvim-treesitter.configs').setup {
-  rainbow = {
-    enable = true,
-  },
-}
-'''
-
