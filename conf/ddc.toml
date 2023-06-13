@@ -54,7 +54,6 @@ autocmd User DenopsPluginPost:ddc call dein#source('vim-vsnip-integ')
 
 doautocmd <nomodeline> User vimrc-ddc
 call ddc#enable()
-call ddc#custom#patch_global('ui', 'pum')
 call ddc#custom#load_config(expand('$DOTVIM/conf/plug/ddc.ts'))
 call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_front + g:vimrc#ddc_sources)
 
