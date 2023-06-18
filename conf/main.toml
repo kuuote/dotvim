@@ -372,6 +372,7 @@ call hypermap#map(';b',"\<C-r>=sonictemplate#postfix()\<CR>")
 
 [[plugins]]
 repo = 'rbtnn/vim-layout'
+on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = 'layout#*'
 
 [[plugins]]
