@@ -477,6 +477,9 @@ if = 0
 [[plugins]]
 repo = 'tyru/capture.vim'
 on_cmd = 'Capture'
+hook_add = '''
+cnoremap <C-c> <Home>Capture <CR>
+'''
 
 [[plugins]]
 repo = 'uga-rosa/linkformat.vim'
