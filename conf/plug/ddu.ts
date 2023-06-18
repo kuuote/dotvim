@@ -12,16 +12,14 @@ import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/de
 
 async function calculateUiSize(
   denops: Denops,
-  percent: number,
 ): Promise<[x: number, y: number, width: number, height: number]> {
   const columns = await opt.columns.get(denops);
   const lines = await opt.lines.get(denops);
-  const pc = columns * percent;
-  const pl = lines * percent;
-  const width = Math.floor(pc);
-  const height = Math.floor(pl);
-  const x = Math.floor((columns - pc) / 2);
-  const y = Math.floor((lines - pl) / 2);
+  // -2は枠の分
+  const width = columns - 8 - 2;
+  const height = lines - 4 - 2;
+  const x = 4;
+  const y = 2;
   return [x, y, width, height];
 }
 
@@ -37,7 +35,6 @@ async function setUiSize(args: ConfigArguments) {
   }
   const [winCol, winRow, winWidth, winHeight] = await calculateUiSize(
     args.denops,
-    0.9,
   );
   args.contextBuilder.patchGlobal({
     uiParams: {
@@ -49,7 +46,7 @@ async function setUiSize(args: ConfigArguments) {
         // fzf-previewやtelescopeみたいなpreviewの出し方をする
         previewWidth: Math.floor(winWidth / 2),
         previewCol: 0,
-        previewRow: 0,
+        previewRow: winRow + 1,
         previewHeight: 0,
       } satisfies Partial<DduUiFFParams>,
     },
@@ -133,5 +130,6 @@ export class Config extends BaseConfig {
       );
     });
     await setUiSize(args);
+    await args.denops.call("ddu#util#print_error", "loaded ddu settings");
   }
 }
