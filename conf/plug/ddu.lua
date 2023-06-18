@@ -61,7 +61,6 @@ local function config()
     end
     print(('`%s`?知らない子ですねぇ'):format(action))
   end)
-  end)
 end
 
 au('User', {
