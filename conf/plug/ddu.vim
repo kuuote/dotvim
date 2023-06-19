@@ -16,12 +16,3 @@ endfunction
 
 autocmd ColorScheme * call s:colorscheme()
 call ddu#custom#load_config(expand('$DOTVIM/conf/plug/ddu.ts'))
-
-autocmd User DenopsReady call ddu#start(#{
-      \     ui: 'ff',
-      \     uiParams: #{
-      \       ff: #{
-      \         ignoreEmpty: v:true,
-      \       },
-      \     },
-      \   })
