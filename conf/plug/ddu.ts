@@ -45,7 +45,7 @@ async function setUiSize(args: ConfigArguments) {
         winHeight,
         // fzf-previewやtelescopeみたいなpreviewの出し方をする
         previewWidth: Math.floor(winWidth / 2),
-        previewCol: 0,
+        previewCol: winCol + 1,
         previewRow: winRow + 1,
         previewHeight: 0,
       } satisfies Partial<DduUiFFParams>,
