@@ -92,8 +92,8 @@ export class Config extends BaseConfig {
       sourceOptions: {
         _: {
           ignoreCase: true,
-          matchers: ["matcher_approximate"],
-          sorters: ["sorter_distance"],
+          matchers: ["matcher_fzf"],
+          sorters: ["sorter_fzf"],
         },
         dein_update: {
           matchers: ["matcher_dein_update"],
@@ -106,6 +106,9 @@ export class Config extends BaseConfig {
         git_status: {
           converters: ["git_status_highlight"],
         },
+        line: {
+          //matcherKey: "display",
+        }
       },
       ui: "ff",
       uiParams: {
