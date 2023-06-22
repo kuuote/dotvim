@@ -297,9 +297,6 @@ end, {
 '''
 
 [[plugins]]
-repo = 'tennashi/ddu-source-git_ref'
-
-[[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
 
 [[plugins]]

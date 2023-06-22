@@ -1,16 +1,4 @@
 [[plugins]]
-comment = 'dial.nvimを使っている'
-repo = 'monaqa/dps-dial.vim'
-hook_add = '''
-nmap  <C-a>  <Plug>(dps-dial-increment)
-nmap  <C-x>  <Plug>(dps-dial-decrement)
-xmap  <C-a>  <Plug>(dps-dial-increment)
-xmap  <C-x>  <Plug>(dps-dial-decrement)
-xmap g<C-a> g<Plug>(dps-dial-increment)
-xmap g<C-x> g<Plug>(dps-dial-decrement)
-'''
-
-[[plugins]]
 comment = 'ほぼdein.vim自身のdduソースで賄える'
 repo = '4513ECHO/vim-readme-viewer'
 on_source = 'ddu.vim'
@@ -20,16 +8,23 @@ let g:readme_viewer#plugin_manager = 'dein.vim'
 '''
 
 [[plugins]]
+comment = '自分の作業スタイルと根本から合ってない気がする'
+repo = 'c000/rapidfire.vim'
+on_cmd = 'Rapidfire'
+lua_add = '''
+local m = require('vimrc.compat.map').define
+for i = 1, 9 do
+  m('n', '<CR>' .. i, '<Cmd>Rapidfire ' .. i .. '<CR>')
+end
+'''
+
+[[plugins]]
 comment = '''
 nvimの方がVim対応したのでif_lua前提のうちの.vimだと使える
 '''
 repo = 'catppuccin/vim'
 name = 'catppuccin-vim'
 if = 'v:false && !has("nvim")'
-
-[[plugins]]
-comment = 'そういやこれも本体に入ったんだった'
-repo = 'nanotee/luv-vimdocs'
 
 [[plugins]]
 comment = '本体に入ったので'
@@ -91,6 +86,22 @@ comment = '本体に入ったので'
 repo = 'milisims/nvim-luaref'
 
 [[plugins]]
+comment = 'dial.nvimを使っている'
+repo = 'monaqa/dps-dial.vim'
+hook_add = '''
+nmap  <C-a>  <Plug>(dps-dial-increment)
+nmap  <C-x>  <Plug>(dps-dial-decrement)
+xmap  <C-a>  <Plug>(dps-dial-increment)
+xmap  <C-x>  <Plug>(dps-dial-decrement)
+xmap g<C-a> g<Plug>(dps-dial-increment)
+xmap g<C-x> g<Plug>(dps-dial-decrement)
+'''
+
+[[plugins]]
+comment = 'そういやこれも本体に入ったんだった'
+repo = 'nanotee/luv-vimdocs'
+
+[[plugins]]
 comment = 'vim.ui.selectの仕様の1つに準拠していないため。dressing.nvimで置き換えられるため削除'
 repo = 'nvim-telescope/telescope-ui-select.nvim'
 if = 'g:vim_ui_select ==# "telescope.nvim"'
@@ -111,6 +122,10 @@ end
 '''
 
 [[plugins]]
+comment = '音楽性が違うので多分自作した方が楽。とりあえず勝手に通信しないで欲しい'
+repo = 'tennashi/ddu-source-git_ref'
+
+[[plugins]]
 comment = '消えた。悲しい'
 repo = 'ulwlu/elly.vim'
 
@@ -121,16 +136,5 @@ ddudeinupdateを使うようになったので
 repo = 'wsdjeg/dein-ui.vim'
 hook_add = '''
 autocmd FileType SpaceVimPlugManager autocmd TextChanged <buffer> normal! G
-'''
-
-[[plugins]]
-comment = '自分の作業スタイルと根本から合ってない気がする'
-repo = 'c000/rapidfire.vim'
-on_cmd = 'Rapidfire'
-lua_add = '''
-local m = require('vimrc.compat.map').define
-for i = 1, 9 do
-  m('n', '<CR>' .. i, '<Cmd>Rapidfire ' .. i .. '<CR>')
-end
 '''
 
