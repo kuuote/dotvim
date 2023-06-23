@@ -7,13 +7,19 @@ import {
   DduItem,
   Previewer,
 } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
+import {
+  ensure,
+  isArrayOf,
+  isObjectOf,
+  isString,
+} from "https://deno.land/x/unknownutil@v3.0.0/mod.ts";
 
 export type PreviewType = "diff" | "diff_cached" | "file" | "never";
 
 export type ActionData = {
-  worktree: string;
-  path: string;
-  previewType: PreviewType;
+  status: string; // like "MM "
+  path: string; // relative path from worktree
+  worktree: string; // path to worktree
 };
 
 type Params = Record<never, never>;
@@ -55,6 +61,16 @@ export class Kind extends BaseKind<Params> {
   > = {
     add: async (args) => {
       await executeGit(["add"], args.items);
+      return ActionFlags.RefreshItems;
+    },
+    executeGit: async (args) => {
+      const gitArgs = ensure(
+        args.actionParams,
+        isObjectOf({
+          args: isArrayOf(isString),
+        }),
+      ).args;
+      await executeGit(gitArgs, args.items);
       return ActionFlags.RefreshItems;
     },
     intent_to_add: async (args) => {
@@ -109,7 +125,7 @@ export class Kind extends BaseKind<Params> {
       };
     }
     try {
-      const filePath = path.join(action.worktree, action.path)
+      const filePath = path.join(action.worktree, action.path);
       const stat = await Deno.stat(filePath);
       if (!stat.isFile) {
         return;

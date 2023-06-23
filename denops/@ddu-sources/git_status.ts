@@ -1,17 +1,13 @@
-import { ActionData, PreviewType } from "../@ddu-kinds/git_status.ts";
+import { ActionData } from "../@ddu-kinds/git_status.ts";
 import { dirname } from "https://deno.land/std@0.160.0/path/mod.ts";
-import {
-  OnInitArguments,
-} from "https://deno.land/x/ddu_vim@v2.0.0/base/source.ts";
-import {
-  BaseSource,
-  Item,
-  ItemHighlight,
-} from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
+import { OnInitArguments } from "https://deno.land/x/ddu_vim@v2.0.0/base/source.ts";
+import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
 
-type Params = {
-  worktree: string;
+const defaultParams = {
+  worktree: "",
 };
+
+type Params = typeof defaultParams;
 
 const run = async (cmd: string[], cwd?: string): Promise<string> => {
   if (cwd == null) {
@@ -73,52 +69,15 @@ export class Source extends BaseSource<Params> {
             output.split("\n").filter((line) => line.length !== 0)
           );
         controller.enqueue(status.map((line) => {
-          const highlights: ItemHighlight[] = [];
-          let previewType: PreviewType = "never";
-          // see :Man git-status
-          // ddu-ui-ffはVimにおいてhighlight nameが種類ごとに一意であることを要求する
-          if (line.match(/^[MTADRC]/)) {
-            previewType = "diff_cached";
-            highlights.push({
-              name: "git_status_add",
-              "hl_group": "diffAdded",
-              col: 1,
-              width: 1,
-            });
-          }
-          if (line.match(/^.[MTADRC]/)) {
-            switch (line[1]) {
-              case "M":
-                previewType = "diff";
-                break;
-              case "A":
-                previewType = "file";
-                break;
-            }
-            highlights.push({
-              name: "git_status_remove",
-              "hl_group": "diffRemoved",
-              col: 2,
-              width: 1,
-            });
-          }
-          if (line.startsWith("??")) {
-            previewType = "file";
-            highlights.push({
-              name: "git_status_remove",
-              "hl_group": "diffRemoved",
-              col: 1,
-              width: 2,
-            });
-          }
+          const path = line.replace(/^..."?/, "").replace(/"?$/, "");
           return {
-            word: line,
+            word: path,
             action: {
+              path,
+              //previewType,
               worktree: this.worktree,
-              path: line.replace(/^..."?/, "").replace(/"?$/, ""),
-              previewType,
+              status: line.slice(0, 3),
             },
-            highlights,
           };
         }));
         controller.close();
@@ -127,8 +86,6 @@ export class Source extends BaseSource<Params> {
   }
 
   override params(): Params {
-    return {
-      worktree: "",
-    };
+    return defaultParams;
   }
 }
