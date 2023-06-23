@@ -53,6 +53,11 @@ async function setUiSize(args: ConfigArguments) {
   });
 }
 
+async function setupGitStatus(args: ConfigArguments) {
+  args.setAlias("action", "add", "executeGit");
+  args.contextBuilder.patchGlobal({});
+}
+
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
     // border idea by @eetann
@@ -104,11 +109,11 @@ export class Config extends BaseConfig {
           sorters: ["sorter_alignment"],
         },
         git_status: {
-          converters: ["git_status_highlight"],
+          converters: ["converter_git_status"],
         },
         line: {
           //matcherKey: "display",
-        }
+        },
       },
       ui: "ff",
       uiParams: {
