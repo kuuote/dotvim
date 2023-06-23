@@ -163,12 +163,12 @@ au('FileType', {
         item_action { 'quickfix' } ()
       end, opts)
     end
-    if vim.b.ddu_ui_name:match('^git') then
+    if vim.b.ddu_ui_name:match('^git_status') then
       m('n', 'c', item_action { 'commit' }, opts)
       m('n', 'h', item_action { 'add' }, opts)
       m('n', 'l', item_action { 'reset' }, opts)
       m('n', 'p', item_action { 'patch' }, opts)
-      m('n', 'R', item_action { 'restore' }, opts)
+      -- m('n', 'R', item_action { 'restore' }, opts)
     end
     m('n', 'P', function()
       do_action('updateOptions', {
@@ -216,8 +216,8 @@ au('FileType', {
     end, opts)
     -- for fzf and jis keyboard
     m('i', ':', [[']], { buffer = true })
-    -- 'のルール追加するくらいならlexima無効化する
-    vim.b.lexima_disabled = true
+    -- leximaが'を展開しちゃうので上書き
+    m('i', [[']], [[']], { buffer = true })
   end,
 })
 '''

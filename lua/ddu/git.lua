@@ -1,54 +1,36 @@
+local extend = require('kutil.function').deep_extend
+local ddu = require('ddu')
+
 local M = {}
 
 function M.git_status()
-  require('ddu').start {
+  ddu.start(extend({
     'git_status',
-    name = 'git',
+    name = 'git_status',
     sourceParams = {
       git_status = {
         worktree = vim.fn.expand('%:p'),
       },
     },
-    uiParams = {
-      ff = {
-        autoAction = {
-          name = 'preview',
-        },
-      },
-    },
-  }
+  }, ddu.preset.auto_preview))
 end
 
 function M.git_diff(params)
   params = params or {}
-  require('ddu').start {
+  ddu.start(extend({
     {
       name = 'git_diff',
       params = params,
     },
     name = 'file',
-    uiParams = {
-      ff = {
-        autoAction = {
-          name = 'preview',
-        },
-      },
-    },
-  }
+  }, ddu.preset.auto_preview))
 end
 
 function M.git_diff_buffer()
-  require('ddu').start {
+  ddu.start(extend({
     'git_diff_buffer',
     name = 'file',
-    uiParams = {
-      ff = {
-        autoAction = {
-          name = 'preview',
-        },
-      },
-    },
-  }
+  }, ddu.preset.auto_preview))
 end
 
 return M
