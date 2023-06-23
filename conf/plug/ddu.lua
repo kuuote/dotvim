@@ -22,12 +22,14 @@ end
 local function config()
   act('kind', 'git_status', 'commit', function()
     cmd('Gin commit')
+    return 0
   end)
   act('kind', 'git_status', 'patch', function(args)
     local worktree = get_worktree(args)
     for _, i in iter(args.items) do
       cmd(('tabnew | tcd %s | GinPatch ++no-head %s'):format(worktree, i.action.path))
     end
+    return 0
   end)
 
   -- ui_ff
