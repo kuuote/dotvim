@@ -99,127 +99,8 @@ end)
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-lua_source = '''
-local au = require('vimrc.compat.autocmd').define
-local aug = require('vimrc.compat.autocmd').group
-local cmd = vim.cmd or vim.command
-local fn = require('vimrc.compat.convert').fn
-local call = require('vimrc.compat.convert').call
-local isnvim = vim.fn.has('nvim') == 1
-local m = require('vimrc.compat.map').define
-local part = require('kutil.function').partition_keyvalue
-
-local do_action = fn['ddu#ui#do_action']
-
-local function action(name)
-  return function()
-    do_action(name)
-  end
-end
-
-local function item_action(tbl)
-  local args, params = part(tbl)
-  params[vim.type_idx] = vim.types.dictionary
-  local farg = {
-    name = args[1],
-    params = params,
-  }
-  return function()
-    do_action('itemAction', farg)
-  end
-end
-
-au('FileType', {
-  pattern = 'ddu-ff',
-  callback = function()
-    -- カスタムアクションはddu側の設定に書いてる。
-    -- see ~/.vim/conf/plug/ddu.lua
-    local opts = {
-      desc = 'ddu-ui-ff mappings',
-      buffer = true,
-      nowait = true,
-    }
-    m('n', '<CR>', action('itemAction'), opts)
-    m('n', '<Space>', action('toggleSelectItem'), opts)
-    m('n', 'a', action('chooseAction'), opts)
-    m('n', 'A', action('inputAction'), opts)
-    m('n', 'i', action('openFilterWindow'), opts)
-    m('n', 'q', action('quit'), opts)
-    -- preview
-    m('n', 'p', action('preview'), opts)
-    m('n', 'd', function()
-      require('vimrc.feat.preview_action').act('normal! \x04') -- <C-d>
-    end, opts)
-    m('n', 'u', function()
-      require('vimrc.feat.preview_action').act('normal! \x15') -- <C-u>
-    end, opts)
-    if vim.b.ddu_ui_name:match('^file') then
-      m('n', 't', item_action { 'open', command = 'tabedit' }, opts)
-      m('n', 's', item_action { 'open', command = 'split' }, opts)
-      m('n', 'v', item_action { 'open', command = 'vsplit' }, opts)
-      m('n', '<C-q>', function()
-        do_action('clearSelectAllItems')
-        do_action('toggleAllItems')
-        item_action { 'quickfix' } ()
-      end, opts)
-    end
-    if vim.b.ddu_ui_name:match('^git_status') then
-      m('n', 'c', item_action { 'commit' }, opts)
-      m('n', 'h', item_action { 'add' }, opts)
-      m('n', 'l', item_action { 'reset' }, opts)
-      m('n', 'p', item_action { 'patch' }, opts)
-      -- m('n', 'R', item_action { 'restore' }, opts)
-    end
-    m('n', 'P', function()
-      do_action('updateOptions', {
-        uiParams = {
-          ff = {
-            autoAction = {
-              name = 'preview',
-              params = vim.empty_dict(),
-            }
-          }
-        }
-      })
-      -- ddu-ui-ffのupdateOptionsはUIのredrawを行う
-      -- autoActionはwindowの作成時に適用されるため通常のredrawでは反映されない
-      -- redrawしたらwindowは作成されるので一度閉じてしまう
-      -- updateOptionsの後に配置するのはactionを実行するのにwindowが必要なため
-      if isnvim then
-        cmd('close')
-      else
-        -- Vimではsplitをnoにしているのでbufferを裏にやる
-        cmd('enew')
-      end
-    end, opts)
-  end,
-})
-
-au('FileType', {
-  pattern = 'ddu-ff-filter',
-  callback = function()
-    local opts = {
-      buffer = true,
-      nowait = true,
-    }
-    m({ 'n', 'i' }, '<CR>', function()
-      cmd('stopinsert')
-      action('closeFilterWindow')()
-    end, opts)
-    m('i', '<C-j>', function()
-      vim.call('ddu#ui#ff#execute', [[call cursor(line('.')+1, 0)]])
-      cmd('redraw!')
-    end, opts)
-    m('i', '<C-k>', function()
-      vim.call('ddu#ui#ff#execute', [[call cursor(line('.')-1, 0)]])
-      cmd('redraw!')
-    end, opts)
-    -- for fzf and jis keyboard
-    m('i', ':', [[']], { buffer = true })
-    -- leximaが'を展開しちゃうので上書き
-    m('i', [[']], [[']], { buffer = true })
-  end,
-})
+hook_add = '''
+autocmd FileType ddu-ff ++once ++nested luafile $DOTVIM/conf/plug/ddu_ui_ff.lua
 '''
 
 [[plugins]]
@@ -235,46 +116,42 @@ on_cmd = 'DduRgLive'
 lua_source = '''
 local vimcall = require('vimrc.compat.convert').call
 
-require('vimrc.compat.autocmd').define('FileType', {
-  pattern = 'ddu-ff',
-  callback = function()
-    if vim.b.ddu_ui_name:match('#rg') then
-      require('vimrc.compat.map').define('n', 'm', function()
-        require('vimrc.menu').which {
-          info = 'change sorter',
-          items = {
-            m = {
-              info = 'mtime order',
-              fn = function()
-                vimcall('ddu#ui#ff#do_action', 'updateOptions', {
-                  sourceOptions = {
-                    rg = {
-                      sorters = { 'sorter_alpha_path', 'sorter_mtime' },
-                    },
-                  },
-                })
-              end,
-            },
-          },
-        }
-      end, {
-        desc = 'ddu-source-rg:menu',
-        buffer = true,
-        nowait = true,
-      })
-    end
-  end,
-})
+require('vimrc.plug.ddu_ui_ff').setup_table['rg'] = function()
+  require('vimrc.compat.map').define('n', 'm', function()
+    require('vimrc.menu').which {
+      info = 'change sorter',
+      items = {
+        m = {
+          info = 'mtime order',
+          fn = function()
+            vimcall('ddu#ui#ff#do_action', 'updateOptions', {
+              sourceOptions = {
+                rg = {
+                  sorters = { 'sorter_alpha_path', 'sorter_mtime' },
+                },
+              },
+            })
+          end,
+        },
+      },
+    }
+  end, {
+    desc = 'ddu-source-rg:menu',
+    buffer = true,
+    nowait = true,
+  })
+end
+
 require('artemis').create_command('DduRgLive', function(a)
   local root
   if a.args:match('current') then
     root = vim.fn.expand('%:p:h')
   else
-  root = require('vimrc.util').find_root()
+    root = require('vimrc.util').find_root()
   end
   require('ddu').start {
     'rg',
-    name = 'file#rg',
+    name = 'file:rg',
     sourceOptions = {
       rg = {
         converters = {},
