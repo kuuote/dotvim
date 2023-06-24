@@ -19,6 +19,12 @@ local function initialize()
   -- USキーボードの n' で「ん」を打てるやつをJISキーボードでもやる
   vimeval('skkeleton#register_kanatable', 'rom', {
     ['n:'] = { 'ん', '' },
+    ['xx'] = 'purgeCandidate',
+    ['z '] = { '　', '' },
+  })
+  -- from https://github.com/yasunori-kirin0418/dotfiles/blob/c586342802c1c43fb7b89b314bdd9d17b5f0c7f3/config/nvim/autoload/vimrc.vim
+  vimeval('skkeleton#register_kanatable', 'rom', {
+    ['z0'] = { '○', '' },
   })
 end
 
