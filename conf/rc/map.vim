@@ -9,9 +9,12 @@ nnoremap <Space>s <Cmd>update<CR>
 nnoremap <Space>w <C-w>
 
 " タブ関連
+nnoremap td <Cmd>tcd %:p:h<CR>
 nnoremap th <Cmd>tabprevious<CR>
 nnoremap tl <Cmd>tabnext<CR>
 nnoremap tq <Cmd>tabclose<CR>
+nnoremap tn <Cmd>-tab split<CR><Cmd>tcd %:p:h<CR>
+nnoremap ts <Cmd>-tab split<CR>
 nnoremap tt <Cmd>tab split<CR>
 nnoremap tT <Cmd>tab split<CR><Cmd>tcd %:p:h<CR>
 
