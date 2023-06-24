@@ -34,6 +34,32 @@ autocmd.define('User', {
 
 local set
 local reset
+
+local function get_text()
+  local state = vim.g['skkeleton#state']
+  if state == nil then
+    return ''
+  end
+  local text = ''
+  if state.phase == 'input:okurinasi' then
+    if vim.fn['skkeleton#mode']() == 'abbrev' then
+      text = '/'
+    else
+      text = '>'
+    end
+  end
+  if state.phase == 'input:okuriari' then
+    text = '*'
+  end
+  if state.phase == 'henkan' then
+    text = '<'
+  end
+  if text == '' then
+    return vim.fn['skkeleton#mode']()
+  end
+  return text
+end
+
 if is_nvim then
   local ns = vim.api.nvim_create_namespace('skkeleton')
   local id = 1234321
@@ -48,7 +74,7 @@ if is_nvim then
   set = function()
     vim.api.nvim_buf_set_extmark(0, ns, line(), col(), {
       id = id,
-      virt_text = { { vim.fn['skkeleton#mode'](), 'PMenuSel' } },
+      virt_text = { { get_text(), 'PMenuSel' } },
       virt_text_pos = 'eol',
     })
   end
@@ -65,7 +91,7 @@ else
     reset()
     fn.prop_add(fn.line('.'), 0, {
       type = prop_type,
-      text = ' ' .. fn['skkeleton#mode'](),
+      text = ' ' .. get_text(),
       text_align = 'after',
     })
   end
@@ -77,8 +103,8 @@ autocmd.define('User', {
   pattern = 'skkeleton-enable-post',
   callback = function()
     autocmd.group('skkeleton-show-mode', { clear = true })
-    autocmd.define('CursorMovedI', {
-      pattern = '*',
+    autocmd.define('User', {
+      pattern = 'skkeleton-handled',
       group = 'skkeleton-show-mode',
       callback = set,
     })
