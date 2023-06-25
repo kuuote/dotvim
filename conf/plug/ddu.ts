@@ -70,6 +70,9 @@ export class Config extends BaseConfig {
         narrow: { quit: false },
       },
       filterParams: {
+        converter_hl_dir: {
+          hlGroup: "String",
+        },
         matcher_fzf: {
           highlightMatched: "DduMatch",
         },
@@ -109,10 +112,13 @@ export class Config extends BaseConfig {
           sorters: ["sorter_alignment"],
         },
         git_status: {
-          converters: ["converter_git_status"],
+          converters: [
+            "converter_hl_dir",
+            "converter_git_status",
+          ],
         },
-        line: {
-          //matcherKey: "display",
+        mr: {
+          converters: ["converter_hl_dir"],
         },
       },
       ui: "ff",

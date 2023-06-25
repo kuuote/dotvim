@@ -38,6 +38,9 @@ if = '!has("nvim") || g:vim_ui_select ==# "ddu.vim"'
 rev = 'vim_compat'
 
 [[plugins]]
+repo = 'kyoh86/ddu-filter-converter_hl_dir'
+
+[[plugins]]
 repo = 'matsui54/ddu-source-dein_update'
 lua_add = '''
 local c = require('vimrc.command').define
