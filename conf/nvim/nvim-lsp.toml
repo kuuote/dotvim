@@ -2,18 +2,15 @@
 repo = 'gamoutatsumi/ddu-source-nvim-lsp'
 
 [[plugins]]
+if = 0
 repo = 'j-hui/fidget.nvim'
-lua_add = '''
-vim.api.nvim_create_autocmd('LspAttach', {
-  once = true,
-  callback = function()
-    require('fidget').setup {
-      text = {
-        spinner = 'moon', -- 月が綺麗ですね
-      },
-    }
-  end,
-})
+on_event = 'LspAttach'
+lua_source = '''
+require('fidget').setup {
+  text = {
+    spinner = 'moon', -- 月が綺麗ですね
+  },
+}
 '''
 
 [[plugins]]
@@ -32,10 +29,11 @@ lazy = 1
 lua_add = '''
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
   pattern = {
+    '*.go',
     '*.lua',
+    '*.rs',
     '*.ts',
     '*.tsx',
-    '*.rs',
   },
   command = 'call dein#source("nvim-lspconfig")',
 })
@@ -58,6 +56,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+
+    -- fzf-preview
+    vim.keymap.set('n', 'gd', '<cmd>FzfPreviewNvimLspDefinitionRpc<CR>', opts)
+    vim.keymap.set('n', 'mre', '<cmd>FzfPreviewNvimLspReferencesRpc<CR>', opts)
+    vim.keymap.set('n', 'md', '<cmd>FzfPreviewNvimLspDiagnosticsRpc<CR>', opts)
   end,
 })
 
@@ -94,11 +97,47 @@ lsp.lua_ls.setup {
 
 lsp.rust_analyzer.setup {}
 
+lsp.gopls.setup {}
+
+local function handleno(method, if_deno, fallback)
+  return function()
+    local params = vim.lsp.util.make_position_params()
+    local response = vim.lsp.buf_request_sync(0, method, params, 1000)
+    vim.pretty_print(response)
+    local foundeno = false
+    for _, rs in pairs(response) do
+      if type(rs.result) == 'table' then
+        for _, r in pairs(rs.result) do
+          if r.targetUri and r.targetUri:find('deno:') then
+            foundeno = true
+          end
+        end
+      end
+    end
+    return foundeno and if_deno() or fallback()
+  end
+end
+
 lsp.denols.setup {
   init_options = {
     lint = true,
     unstable = true,
+    documentPreloadLimit = 0,
   },
+  on_attach = function(client)
+    client.server_capabilities.semanticTokensProvider = nil
+    local opts = {
+      buffer = true,
+      noremap = true,
+      silent = true,
+    }
+    vim.keymap.set(
+      'n',
+      'gd',
+      handleno('textDocument/definition', vim.lsp.buf.definition, vim.cmd.FzfPreviewNvimLspDefinitionRpc),
+      opts
+    )
+  end,
   single_file_support = true,
 }
 '''
