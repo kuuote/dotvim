@@ -21,7 +21,7 @@ au('WinNew', {
       m('n', 's' .. k, '<C-w>' .. k)
       m('n', '<C-' .. k .. '>', '<C-w>' .. k)
     end
-  end
+  end,
 })
 
 -- 設定開くマン
@@ -65,7 +65,7 @@ au('InsertEnter', {
       priority = condmap.prior.fallback,
       fn = function()
         return '\x14' -- <C-t>
-      end
+      end,
     }
 
     condmap.define {
@@ -74,10 +74,23 @@ au('InsertEnter', {
       priority = condmap.prior.fallback,
       fn = function()
         return '\x04' -- <C-d>
-      end
+      end,
     }
-  end
+  end,
 })
 
 -- cmdlineでキャンセルした際に履歴を残さない
 m('c', '<Esc>', '<C-u><C-c>')
+
+-- cmdlineでフルパス入れるやつ
+m('c', '<C-p>', function()
+  local pos = vim.fn.getcmdpos()
+  local left = vim.fn.getcmdline():sub(pos - 1, pos)
+  local k
+  if left == '/' then
+    k = vim.fn.expand('%:p:t')
+  else
+    k = vim.fn.expand('%:p:h') .. '/'
+  end
+  vim.fn.feedkeys(k, 'n')
+end)
