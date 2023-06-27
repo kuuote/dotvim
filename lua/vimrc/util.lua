@@ -44,7 +44,7 @@ end
 
 function M.find_root(path)
   if path == nil then
-    path = vim.fn.expand('%:p')
+    path = vim.fn.bufname('%')
   end
   -- gin.vim
   local match = path:match('gin%a+://([^;]+)')
