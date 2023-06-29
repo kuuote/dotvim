@@ -2,13 +2,13 @@ import {
   ActionArguments,
   ActionFlags,
   BaseConfig,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
-import { ConfigArguments } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/config.ts";
-import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
-import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
-import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
-import * as opt from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+} from "../../deno/ddu.vim/denops/ddu/types.ts";
+import { ConfigArguments } from "../../deno/ddu.vim/denops/ddu/base/config.ts";
+import { Params as DduUiFFParams } from "../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
+import * as autocmd from "../../deno/denops_std/denops_std/autocmd/mod.ts";
+import * as lambda from "../../deno/denops_std/denops_std/lambda/mod.ts";
+import * as opt from "../../deno/denops_std/denops_std/option/mod.ts";
+import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 
 async function calculateUiSize(
   denops: Denops,

@@ -1,4 +1,4 @@
-import { BaseFilter, Item } from "https://deno.land/x/ddc_vim@v3.1.0/types.ts";
+import { BaseFilter, Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
 
 const rank: Record<string, number> = {
   dir: 1,

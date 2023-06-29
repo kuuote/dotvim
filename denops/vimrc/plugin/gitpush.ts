@@ -1,5 +1,5 @@
-import { Denops, fn } from "../deps.ts";
-import * as mfn from "../mfn.ts";
+import * as fn from "../../../deno/denops_std/denops_std/function/mod.ts";
+import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
 import * as util from "../util.ts";
 
 export async function main(denops: Denops) {
@@ -8,7 +8,7 @@ export async function main(denops: Denops) {
       "resolve(expand(isdirectory(expand('%:p')) ? '%:p' : '%:p:h'))",
     ) as string;
     if (await Deno.stat(path).then((i) => !i.isDirectory).catch(() => true)) {
-      path = await mfn.getcwd(denops);
+      path = await fn.getcwd(denops);
     }
     const p = Deno.run({
       cmd: ["git", "push"],

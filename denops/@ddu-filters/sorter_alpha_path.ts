@@ -1,8 +1,8 @@
 import {
   BaseFilter,
   DduItem,
-} from "https://deno.land/x/ddu_vim@v1.13.0/types.ts";
-import { ActionData } from "https://deno.land/x/ddu_kind_file@v0.3.1/file.ts?source";
+} from "../../deno/ddu.vim/denops/ddu/types.ts";
+import { ActionData } from "../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
 
 type Params = Record<never, never>;
 

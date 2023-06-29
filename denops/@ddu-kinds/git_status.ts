@@ -1,20 +1,17 @@
-import * as path from "https://deno.land/std@0.160.0/path/mod.ts";
-import { GetPreviewerArguments } from "https://deno.land/x/ddu_vim@v2.0.0/base/kind.ts";
+import * as path from "https://deno.land/std@0.192.0/path/mod.ts";
+import { BaseKind, GetPreviewerArguments } from "https://deno.land/x/ddu_vim@v3.2.7/base/kind.ts";
 import {
   ActionArguments,
   ActionFlags,
-  BaseKind,
   DduItem,
   Previewer,
-} from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
+} from "https://deno.land/x/ddu_vim@v3.2.7/types.ts";
 import {
   ensure,
   isArrayOf,
   isObjectOf,
   isString,
-} from "https://deno.land/x/unknownutil@v3.0.0/mod.ts";
-
-export type PreviewType = "diff" | "diff_cached" | "file" | "never";
+} from "https://deno.land/x/unknownutil@v3.2.0/mod.ts";
 
 export type ActionData = {
   status: string; // like "MM "

@@ -1,11 +1,12 @@
-import { anonymous, Denops } from "./deps.ts";
+import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
+import * as lambda from "../../deno/denops_std/denops_std/lambda/mod.ts";
 
 export async function defineCommand(
   denops: Denops,
   name: string,
   fn: () => unknown,
 ) {
-  const id = anonymous.add(denops, fn)[0];
+  const id = lambda.register(denops, fn);
   await denops.cmd(
     `command! ${name} call denops#request('${denops.name}', '${id}', [])`,
   );
@@ -22,7 +23,7 @@ export function nvimSelect(
   items: string[],
 ): Promise<string | undefined> {
   return new Promise((resolve) => {
-    const callback = anonymous.once(denops, resolve as () => unknown)[0];
+    const callback = lambda.register(denops, resolve as () => unknown)[0];
     denops.call(
       "luaeval",
       `

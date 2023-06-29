@@ -1,11 +1,8 @@
 import {
   BaseFilter,
-  DduItem,
-} from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
-import { Denops } from "https://deno.land/x/ddu_vim@v2.0.0/deps.ts";
-import {
   FilterArguments,
-} from "https://deno.land/x/ddu_vim@v2.0.0/base/filter.ts";
+} from "../../deno/ddu.vim/denops/ddu/base/filter.ts";
+import { DduItem } from "../../deno/ddu.vim/denops/ddu/types.ts";
 
 type Params = {
   highlightMatched: string;

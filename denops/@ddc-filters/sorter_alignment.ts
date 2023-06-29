@@ -1,5 +1,8 @@
-import { FilterArguments } from "https://deno.land/x/ddc_vim@v3.1.0/base/filter.ts";
-import { BaseFilter, Item } from "https://deno.land/x/ddc_vim@v3.1.0/types.ts";
+import {
+  BaseFilter,
+  FilterArguments,
+} from "../../deno/ddc.vim/denops/ddc/base/filter.ts";
+import { Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
 
 type Params = {
   highlightMatched: string;

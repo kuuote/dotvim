@@ -1,8 +1,8 @@
-import { FilterArguments } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/filter.ts";
 import {
   BaseFilter,
-  DduItem,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
+  FilterArguments,
+} from "../../deno/ddu.vim/denops/ddu/base/filter.ts";
+import { DduItem } from "../../deno/ddu.vim/denops/ddu/types.ts";
 
 type Params = Record<never, never>;
 

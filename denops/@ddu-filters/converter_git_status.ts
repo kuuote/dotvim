@@ -1,10 +1,10 @@
 import { ActionData } from "../@ddu-kinds/git_status.ts";
-import { FilterArguments } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/filter.ts";
+import { FilterArguments } from "../../deno/ddu.vim/denops/ddu/base/filter.ts";
 import {
   BaseFilter,
   DduItem,
   Item,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
+} from "../../deno/ddu.vim/denops/ddu/types.ts";
 
 type Params = Record<never, never>;
 

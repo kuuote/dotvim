@@ -66,6 +66,9 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
       call dein#load_toml(toml)
     endif
   endfor
+  for s in glob('$DOTVIM/conf/recache/**/*.vim', v:true, v:true)
+    execute 'source' s
+  endfor
   call dein#end()
   call dein#save_state()
 endif

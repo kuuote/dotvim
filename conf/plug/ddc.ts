@@ -1,7 +1,7 @@
 import {
   BaseConfig,
   ConfigArguments,
-} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/config.ts";
+} from "../../deno/ddc.vim/denops/ddc/base/config.ts";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {

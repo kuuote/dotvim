@@ -3,7 +3,7 @@ import {
   Item,
   PumHighlight,
   SourceOptions,
-} from "https://deno.land/x/ddc_vim@v3.1.0/types.ts";
+} from "../../deno/ddc.vim/denops/ddc/types.ts";
 
 type Params = {
   highlightMatched: string;

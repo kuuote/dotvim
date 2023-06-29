@@ -1,7 +1,10 @@
 import { ActionData } from "../@ddu-kinds/git_status.ts";
-import { dirname } from "https://deno.land/std@0.160.0/path/mod.ts";
-import { OnInitArguments } from "https://deno.land/x/ddu_vim@v2.0.0/base/source.ts";
-import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
+import { dirname } from "https://deno.land/std@0.192.0/path/mod.ts";
+import {
+  BaseSource,
+  OnInitArguments,
+} from "https://deno.land/x/ddu_vim@v3.2.7/base/source.ts";
+import { Item } from "https://deno.land/x/ddu_vim@v3.2.7/types.ts";
 
 const defaultParams = {
   worktree: "",

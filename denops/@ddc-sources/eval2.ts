@@ -3,9 +3,9 @@ import {
   BaseSource,
   GatherArguments,
   GetCompletePositionArguments,
-OnCompleteDoneArguments,
-} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/source.ts";
-import { Item } from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/types.ts";
+  OnCompleteDoneArguments,
+} from "../../deno/ddc.vim/denops/ddc/base/source.ts";
+import { Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
 
 type Params = {
   gather: string;

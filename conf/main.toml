@@ -141,6 +141,22 @@ condmap.define {
 '''
 
 [[plugins]]
+comment = '''
+dotvimに埋めてるdenops系のあれこれの設定でimportしたい
+一々依存を更新するのはおつらいのでこうする
+'''
+repo = 'https://github.com/denoland/deno_std'
+if = 0
+
+[[plugins]]
+comment = '''
+dotvimに埋めてるdenops系のあれこれの設定でimportしたい
+一々依存を更新するのはおつらいのでこうする
+'''
+repo = 'https://github.com/vim-denops/deno-denops-std'
+if = 0
+
+[[plugins]]
 repo = 'itchyny/lightline.vim'
 depends = 'lightline_skk.vim'
 on_event = 'WinNew'

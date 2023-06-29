@@ -1,8 +1,8 @@
 import {
   GatherArguments,
   OnCompleteDoneArguments,
-} from "https://deno.land/x/ddc_vim@v3.2.0/base/source.ts";
-import { BaseSource, Item } from "https://deno.land/x/ddc_vim@v3.2.0/types.ts";
+} from "../../deno/ddc.vim/denops/ddc/base/source.ts";
+import { BaseSource, Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
 
 type Params = {
   candidates: string[];

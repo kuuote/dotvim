@@ -3,8 +3,8 @@ import {
   GatherArguments,
   GetCompletePositionArguments,
   OnCompleteDoneArguments,
-} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/source.ts";
-import { Item } from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/types.ts";
+} from "../../deno/ddc.vim/denops/ddc/base/source.ts";
+import { Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
 import { isNumber } from "https://deno.land/x/unknownutil@v2.0.0/mod.ts";
 
 type Params = Record<never, never>;

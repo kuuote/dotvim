@@ -1,6 +1,8 @@
-import * as mfn from "./mfn.ts";
-import { Denops, fn, opt, uu, YAML } from "./deps.ts";
-import { assertString } from "https://deno.land/x/unknownutil@v2.1.0/mod.ts";
+import * as YAML from "../../deno/deno_std/yaml/mod.ts";
+import * as fn from "../../deno/denops_std/denops_std/function/mod.ts";
+import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
+import * as opt from "../../deno/denops_std/denops_std/option/mod.ts";
+import * as uu from "https://deno.land/x/unknownutil@v3.2.0/mod.ts";
 
 // from https://qiita.com/usoda/items/dbedc06fd4bf38a59c48
 const stringifyReplacer = (_: unknown, v: unknown) =>
@@ -19,10 +21,10 @@ export async function main(denops: Denops) {
       findRegExpStr: unknown,
       keyRegExpStr: unknown,
     ) {
-      uu.assertNumber(start);
-      uu.assertNumber(end);
-      uu.assertString(findRegExpStr);
-      uu.assertString(keyRegExpStr);
+      uu.assert(start, uu.isNumber);
+      uu.assert(end, uu.isNumber);
+      uu.assert(findRegExpStr, uu.isString);
+      uu.assert(keyRegExpStr, uu.isString);
       // 複数行に跨るのでdotAllを入れておく
       const findRegExp = new RegExp(findRegExpStr, "s");
       const keyRegExp = new RegExp(keyRegExpStr, "s");
@@ -77,14 +79,14 @@ export async function main(denops: Denops) {
       const lines = await fn.getline(denops, 1, "$");
       const obj = JSON.parse(lines.join(""));
       const json = JSON.stringify(obj, stringifyReplacer, 2);
-      await mfn.deletebufline(denops, "%", 1, "$");
+      await fn.deletebufline(denops, "%", 1, "$");
       await fn.setbufline(denops, "%", 1, json.split("\n"));
     },
     async jsonYAML() {
       const lines = await fn.getline(denops, 1, "$");
       const obj = JSON.parse(lines.join(""));
       const yaml = YAML.stringify(obj);
-      await mfn.deletebufline(denops, "%", 1, "$");
+      await fn.deletebufline(denops, "%", 1, "$");
       await fn.setbufline(denops, "%", 1, yaml.split("\n"));
       await opt.filetype.setLocal(denops, "yaml");
     },
@@ -92,7 +94,7 @@ export async function main(denops: Denops) {
       const lines = await fn.getline(denops, 1, "$");
       const obj = YAML.parse(lines.join("\n")); // YAMLは改行に意味がある
       const json = JSON.stringify(obj, stringifyReplacer, 2);
-      await mfn.deletebufline(denops, "%", 1, "$");
+      await fn.deletebufline(denops, "%", 1, "$");
       await fn.setbufline(denops, "%", 1, json.split("\n"));
       await opt.filetype.setLocal(denops, "json");
     },
@@ -108,6 +110,7 @@ export async function main(denops: Denops) {
         );
         await m.main(denops);
       } catch (e: unknown) {
+        console.log(`can't load ${p.name} by`);
         console.log(e);
       }
     }

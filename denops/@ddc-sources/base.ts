@@ -2,8 +2,8 @@ import {
   BaseSource,
   GatherArguments,
   GetCompletePositionArguments,
-} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/source.ts";
-import { Item } from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/types.ts";
+} from "../../deno/ddc.vim/denops/ddc/base/source.ts";
+import { Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
 
 type Params = {
   _?: unknown;

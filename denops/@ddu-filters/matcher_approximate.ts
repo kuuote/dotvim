@@ -2,8 +2,8 @@ import {
   BaseFilter,
   DduItem,
   SourceOptions,
-} from "https://deno.land/x/ddu_vim@v2.0.0/types.ts";
-import { Denops } from "https://deno.land/x/ddu_vim@v2.0.0/deps.ts";
+} from "../../deno/ddu.vim/denops/ddu/types.ts";
+import { Denops } from "../../deno/ddu.vim/denops/ddu/deps.ts";
 
 // 単純な歯抜けフィルター
 
