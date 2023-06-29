@@ -154,7 +154,7 @@ export class Filter extends BaseFilter<Params> {
             name: "matched",
             type: "abbr",
             "hl_group": highlight,
-            col: byteLength(s.item.word.slice(0, i)),
+            col: byteLength(s.item.word.slice(0, i)) + 1,
             width: byteLength(s.item.word[i]),
           }))),
       }));
