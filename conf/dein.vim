@@ -95,6 +95,9 @@ if !filereadable(hook_source_cache)
         \ })
   for p in plugins
     call extend(lines, split(p.hook_source, "\n"))
+    " suppress duplicate hook call
+    call extend(lines, [printf('let s:plugin = dein#get("%s")', p.name)])
+    call extend(lines, ['let s:plugin.hook_source = ""'])
   endfor
   call writefile(lines, hook_source_cache)
 endif
