@@ -6,11 +6,10 @@ local cmd = vim.cmd or vim.command
 m({ 'n', 'x', 'o' }, 'Q', '<Cmd>confirm qa<CR>')
 
 -- VimはUSキーボードに優しくないよね
-m({ 'n', 'x' }, ';', ':')
-m('n', 'q;', 'q:')
+m({ 'n', 'x' }, "'", ':')
+m('n', "q'", 'q:')
 
 -- Prefixの開放
-m('n', "'", '<Nop>')
 m('n', 's', '<Nop>')
 
 -- Window移動
