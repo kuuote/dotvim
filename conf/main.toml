@@ -113,13 +113,8 @@ nnoremap s? <Cmd>call searchx#start({ 'dir': 0 })<CR>
 '''
 
 [[plugins]]
-repo = 'hrsh7th/vim-vsnip-integ'
-depends = 'vim-vsnip'
-on_source = ['ddc.vim', 'cmp-vsnip']
-
-[[plugins]]
 repo = 'hrsh7th/vim-vsnip'
-on_event = 'InsertEnter'
+on_func = 'vsnip#*'
 hook_source = '''
 let g:vsnip_snippet_dirs = [$HOME .. "/.vim/snippets", dein#get('completion-snippet').path]
 '''

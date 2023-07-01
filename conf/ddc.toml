@@ -3,6 +3,9 @@ repo = '~/.vim/bundle/ddc-filter-diff'
 merged = 1
 
 [[plugins]]
+repo = 'uga-rosa/ddc-source-vsnip'
+
+[[plugins]]
 repo = 'kuuote/ddc-source-bufferline'
 
 [[plugins]]
