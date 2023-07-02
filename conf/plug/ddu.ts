@@ -3,8 +3,6 @@ import {
   isArrayOf,
   isString,
 } from "https://deno.land/x/unknownutil@v3.2.0/mod.ts";
-import { Params as DduUiFFParams } from "../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
-import { ConfigArguments } from "../../deno/ddu.vim/denops/ddu/base/config.ts";
 import {
   ActionArguments,
   ActionFlags,
