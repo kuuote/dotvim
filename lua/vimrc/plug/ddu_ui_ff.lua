@@ -50,6 +50,7 @@ M.setup_table = {
     n('a', action('chooseAction'))
     n('A', action('inputAction'))
     n('i', action('openFilterWindow'))
+    n('K', action('useKensaku'))
     n('q', action('quit'))
     -- preview
     n('p', action('preview'))

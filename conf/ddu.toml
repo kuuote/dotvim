@@ -58,6 +58,9 @@ end)
 '''
 
 [[plugins]]
+repo = 'Milly/ddu-filter-kensaku'
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 
 [[plugins]]
