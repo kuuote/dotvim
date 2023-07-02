@@ -110,7 +110,24 @@ export class Config extends BaseConfig {
         dein_update: { defaultAction: "viewDiff" },
         file: { defaultAction: "open" },
         git_branch: { defaultAction: "switch" },
-        git_status: { defaultAction: "open" },
+        git_status: {
+          actions: {
+            commit: async () => {
+              await args.denops.cmd("Gin commit");
+              return ActionFlags.None;
+            },
+            patch: async (args: ActionArguments<Params>) => {
+              for (const item of args.items) {
+                const action = item.action as GitStatusActionData;
+                await args.denops.cmd("tabnew");
+                await args.denops.cmd("tcd " + action.worktree);
+                await args.denops.cmd("GinPatch ++no-head " + action.path);
+              }
+              return ActionFlags.None;
+            },
+          },
+          defaultAction: "open",
+        },
         git_tag: { defaultAction: "switch" },
         help: { defaultAction: "tabopen" },
         source: { defaultAction: "execute" },
