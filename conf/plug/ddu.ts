@@ -7,7 +7,6 @@ import {
   ActionArguments,
   ActionFlags,
   BaseConfig,
-  DduOptions,
   UiActionArguments,
 } from "../../deno/ddu.vim/denops/ddu/types.ts";
 import { ConfigArguments } from "../../deno/ddu.vim/denops/ddu/base/config.ts";
@@ -61,13 +60,6 @@ async function setUiSize(args: ConfigArguments) {
       } satisfies Partial<DduUiFFParams>,
     },
   });
-}
-
-async function updateOptions(
-  args: ConfigArguments,
-  options: Partial<DduOptions>,
-) {
-  await args.denops.call("ddu#ui#do_action", "updateOptions", options);
 }
 
 async function setupGitStatus(args: ConfigArguments) {
@@ -172,8 +164,8 @@ export class Config extends BaseConfig {
       uiOptions: {
         ff: {
           actions: {
-            useKensaku: async () => {
-              await updateOptions(args, {
+            useKensaku: async (args: UiActionArguments<Params>) => {
+              args.ddu.updateOptions({
                 sourceOptions: {
                   _: {
                     matchers: ["matcher_kensaku"],
