@@ -1,18 +1,15 @@
+import { DdcOptions } from "../../deno/ddc.vim/denops/ddc/types.ts";
 import { ActionData as KindFileActionData } from "../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
-import {
-  ensure,
-  isArrayOf,
-  isString,
-} from "https://deno.land/x/unknownutil@v3.2.0/mod.ts";
+import { Params as DduUiFFParams } from "../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
+import { ConfigArguments } from "../../deno/ddu.vim/denops/ddu/base/config.ts";
 import {
   ActionArguments,
   ActionFlags,
   BaseConfig,
   UiActionArguments,
 } from "../../deno/ddu.vim/denops/ddu/types.ts";
-import { ConfigArguments } from "../../deno/ddu.vim/denops/ddu/base/config.ts";
-import { Params as DduUiFFParams } from "../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
 import * as autocmd from "../../deno/denops_std/denops_std/autocmd/mod.ts";
+import * as fn from "../../deno/denops_std/denops_std/function/mod.ts";
 import * as lambda from "../../deno/denops_std/denops_std/lambda/mod.ts";
 import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 import * as opt from "../../deno/denops_std/denops_std/option/mod.ts";
@@ -208,6 +205,69 @@ export class Config extends BaseConfig {
       uiOptions: {
         ff: {
           actions: {
+            myInputAction: async (args: UiActionArguments<Params>) => {
+              const denops = args.denops;
+              // get actions
+              const items = await ddu.uiGetSelectedItems();
+              const actions = await ddu.getItemActions(
+                args.options.name,
+                items,
+              );
+              // setup ddc
+              const bufnr = await fn.bufnr(denops);
+              const custom = await denops.dispatch(
+                "ddc",
+                "getBuffer",
+                bufnr,
+              ) as Record<number, DdcOptions>;
+
+              try {
+                await denops.dispatch(
+                  "ddc",
+                  "setBuffer",
+                  {
+                    cmdlineSources: [{
+                      name: "list",
+                      options: {
+                        minAutoCompleteLength: 0,
+                      },
+                      params: {
+                        candidates: actions,
+                      },
+                    }],
+                  } satisfies Partial<DdcOptions>,
+                  bufnr,
+                );
+
+                await autocmd.define(
+                  denops,
+                  "CmdlineEnter",
+                  "*",
+                  "call ddc#map#manual_complete()",
+                  {
+                    once: true,
+                  },
+                );
+                // action
+                const action = await fn.input(denops, "action: ");
+                await ddu.itemAction(
+                  args.options.name,
+                  action,
+                  items,
+                  {},
+                );
+              } finally {
+                // restore ddc custom
+                await denops.dispatch(
+                  "ddc",
+                  "setBuffer",
+                  custom[bufnr] ?? {},
+                  bufnr,
+                );
+              }
+
+              return ActionFlags.Persist;
+            },
             useKensaku: async (args: UiActionArguments<Params>) => {
               args.ddu.updateOptions({
                 sourceOptions: {

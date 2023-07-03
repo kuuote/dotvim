@@ -119,7 +119,6 @@ autocmd FileType ddu-ff ++once ++nested luafile $DOTVIM/conf/plug/ddu_ui_ff.lua
 repo = 'Shougo/ddu.vim'
 hook_source = '''
 source $DOTVIM/conf/plug/ddu.vim
-luafile $DOTVIM/conf/plug/ddu.lua
 '''
 
 [[plugins]]

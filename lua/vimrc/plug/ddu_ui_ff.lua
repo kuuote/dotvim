@@ -48,7 +48,7 @@ M.setup_table = {
     n('<CR>', action('itemAction'))
     n('<Space>', action('toggleSelectItem'))
     n('a', action('chooseAction'))
-    n('A', action('inputAction'))
+    n('A', action('myInputAction'))
     n('i', action('openFilterWindow'))
     n('K', action('useKensaku'))
     n('q', action('quit'))
