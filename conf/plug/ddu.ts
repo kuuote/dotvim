@@ -1,3 +1,4 @@
+import { ActionData as KindFileActionData } from "../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
 import {
   ensure,
   isArrayOf,
@@ -16,6 +17,7 @@ import * as lambda from "../../deno/denops_std/denops_std/lambda/mod.ts";
 import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 import * as opt from "../../deno/denops_std/denops_std/option/mod.ts";
 import { ActionData as GitStatusActionData } from "../../denops/@ddu-kinds/git_status.ts";
+import { dduHelper } from "./ddu/helper.ts";
 
 type Params = Record<never, never>;
 
@@ -67,12 +69,32 @@ async function setupGitStatus(args: ConfigArguments) {
   args.contextBuilder.patchGlobal({});
 }
 
+function setupMRR(args: ConfigArguments) {
+  args.setAlias("source", "mrr", "mr");
+  args.contextBuilder.patchGlobal({
+    sourceOptions: {
+      mrr: {
+        defaultAction: "file_rec",
+      },
+    },
+    sourceParams: {
+      mrr: {
+        kind: "mrr",
+      },
+    },
+  });
+}
+
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
+    const ddu = dduHelper(args.denops);
     // border idea by @eetann
     const border = [".", ".", ".", ":", ":", ".", ":", ":"]
       .map((c) => [c, "DduBorder"]);
     const nvim = args.denops.meta.host === "nvim";
+    // default options
+    const defaultMatchers = ["matcher_fzf"];
+    const defaultSorters = ["sorter_fzf"];
     args.contextBuilder.patchGlobal({
       actionOptions: {
         do: { quit: false },
@@ -100,7 +122,23 @@ export class Config extends BaseConfig {
         colorscheme: { defaultAction: "set" },
         command: { defaultAction: "execute" },
         dein_update: { defaultAction: "viewDiff" },
-        file: { defaultAction: "open" },
+        file: {
+          actions: {
+            file_rec: async (args: ActionArguments<Params>) => {
+              const data = args.items[0].action as KindFileActionData;
+              await ddu.start({
+                sources: [{
+                  name: "file_rec",
+                  options: {
+                    path: data.path,
+                  },
+                }],
+              });
+              return ActionFlags.None;
+            },
+          },
+          defaultAction: "open",
+        },
         git_branch: { defaultAction: "switch" },
         git_status: {
           actions: {
@@ -129,8 +167,11 @@ export class Config extends BaseConfig {
       sourceOptions: {
         _: {
           ignoreCase: true,
-          matchers: ["matcher_fzf"],
-          sorters: ["sorter_fzf"],
+          matchers: defaultMatchers,
+          sorters: defaultSorters,
+        },
+        dein: {
+          defaultAction: "file_rec",
         },
         dein_update: {
           matchers: ["matcher_dein_update"],
@@ -139,6 +180,9 @@ export class Config extends BaseConfig {
           converters: [],
           matchers: [],
           sorters: ["sorter_alignment"],
+        },
+        file_rec: {
+          sorters: ["sorter_alpha_path"].concat(defaultSorters),
         },
         git_status: {
           converters: [
@@ -179,6 +223,9 @@ export class Config extends BaseConfig {
         },
       },
     });
+
+    setupMRR(args);
+
     // floatwinのサイズをセットするやつ
     const id = lambda.register(args.denops, () => setUiSize(args));
     await autocmd.group(args.denops, "vimrc#ddu.ts", (helper) => {

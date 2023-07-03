@@ -19,17 +19,23 @@ repo = 'kuuote/ddu-source-git_diff'
 [[plugins]]
 repo = 'kuuote/ddu-source-mr'
 lua_add = '''
-local m = require('vimrc.compat.map').define
+local vimx = require('artemis')
 
 -- ある意味覚えやすくていいマッピング
-for _, t in ipairs { 'mru', 'mrw', 'mrr' } do
-  m('n', t, function()
+for _, t in ipairs { 'mru', 'mrw' } do
+  vimx.keymap.set('n', t, function()
     require('ddu').start {
       { name = 'mr', params = { kind = t } },
       name = 'file',
     }
   end)
 end
+vimx.keymap.set('n', 'mrr', function()
+  require('ddu').start {
+    'mrr',
+    name = 'file',
+  }
+end)
 '''
 
 [[plugins]]
