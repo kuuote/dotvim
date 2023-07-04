@@ -168,6 +168,15 @@ export class Config extends BaseConfig {
           sorters: defaultSorters,
         },
         dein: {
+          actions: {
+            update: async (args: ActionArguments<Params>) => {
+              await args.denops.call(
+                "dein#update",
+                args.items.map((item) => item.word),
+              );
+              return ActionFlags.None;
+            },
+          },
           defaultAction: "file_rec",
         },
         dein_update: {
