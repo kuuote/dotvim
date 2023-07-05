@@ -298,6 +298,15 @@ export class Config extends BaseConfig {
       );
     });
     await setUiSize(args);
-    await args.denops.call("ddu#util#print_error", "loaded ddu settings");
+    
+    // 設定読み込みまで起動を遅延するための仕込み
+    // original: https://github.com/4513ECHO/dotfiles/commit/ac9499019f62d6ec0fee9f2b008610077f7dee9a
+    await args.denops.cmd("let g:ddu_config_loaded = v:true")
+    await autocmd.define(args.denops, "User", "DduConfigLoaded", ":", {
+      once: true,
+    });
+    await autocmd.emit(args.denops, "User", "DduConfigLoaded", {
+      nomodeline: true,
+    });
   }
 }

@@ -1,6 +1,6 @@
 -- ddu adapter by me
 
-local vimcall = require('vimrc.compat.convert').call
+local vimx = require('artemis')
 
 local M = {}
 
@@ -30,7 +30,20 @@ function M.start(config)
   end
 
   tableconfig.sources = sources
-  vimcall('ddu#start', tableconfig)
+  -- 設定読み込みまで起動を遅延する
+  -- ddu.tsも参照
+  -- original: https://github.com/4513ECHO/dotfiles/commit/ac9499019f62d6ec0fee9f2b008610077f7dee9a
+  if not vim.g.ddu_config_loaded then
+    vimx.create_autocmd('User', {
+      pattern = 'DduConfigLoaded',
+      callback = function()
+        vimx.fn.ddu.start(tableconfig)
+      end,
+      once = true,
+    })
+  else
+    vimx.fn.ddu.start(tableconfig)
+  end
 end
 
 return M
