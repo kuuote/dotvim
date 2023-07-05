@@ -167,18 +167,7 @@ export class Config extends BaseConfig {
           matchers: defaultMatchers,
           sorters: defaultSorters,
         },
-        dein: {
-          actions: {
-            update: async (args: ActionArguments<Params>) => {
-              await args.denops.call(
-                "dein#update",
-                args.items.map((item) => item.word),
-              );
-              return ActionFlags.None;
-            },
-          },
-          defaultAction: "file_rec",
-        },
+        dein: { defaultAction: "file_rec" },
         dein_update: {
           matchers: ["matcher_dein_update"],
         },
