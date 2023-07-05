@@ -9,6 +9,7 @@ M.preset = {}
 M.preset.auto_preview = {
   uiParams = {
     ff = {
+      startAutoAction = true,
       autoAction = {
         name = 'preview',
       },

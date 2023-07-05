@@ -56,28 +56,7 @@ M.setup_table = {
     n('p', action('preview'))
     n('d', action('previewExecute', { command = 'normal! \x04' })) -- <C-d>
     n('u', action('previewExecute', { command = 'normal! \x15' })) -- <C-u>
-    n('P', function()
-      do_action('updateOptions', {
-        uiParams = {
-          ff = {
-            autoAction = {
-              name = 'preview',
-              params = vim.empty_dict(),
-            },
-          },
-        },
-      })
-      -- ddu-ui-ffのupdateOptionsはUIのredrawを行う
-      -- autoActionはwindowの作成時に適用されるため通常のredrawでは反映されない
-      -- redrawしたらwindowは作成されるので一度閉じてしまう
-      -- updateOptionsの後に配置するのはactionを実行するのにwindowが必要なため
-      if isnvim then
-        vimx.cmd('close')
-      else
-        -- Vimではsplitをnoにしているのでbufferを裏にやる
-        vimx.cmd('enew')
-      end
-    end)
+    n('P', action('toggleAutoAction'))
   end,
 }
 

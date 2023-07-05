@@ -192,6 +192,9 @@ export class Config extends BaseConfig {
       ui: "ff",
       uiParams: {
         ff: {
+          autoAction: {
+            name: "preview",
+          },
           floatingBorder: border as any, // そのうち直す
           previewFloating: nvim,
           previewFloatingBorder: border as any, // そのうち直す
