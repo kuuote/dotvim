@@ -44,6 +44,8 @@ async function setUiSize(args: ConfigArguments) {
   const [winCol, winRow, winWidth, winHeight] = await calculateUiSize(
     args.denops,
   );
+  const halfWidth = Math.floor(winWidth / 2);
+  const pileBorder = true; // 外枠と重ねるか否か
   args.contextBuilder.patchGlobal({
     uiParams: {
       ff: {
@@ -52,10 +54,10 @@ async function setUiSize(args: ConfigArguments) {
         winWidth,
         winHeight,
         // fzf-previewやtelescopeみたいなpreviewの出し方をする
-        previewWidth: Math.floor(winWidth / 2),
-        previewCol: 0,
-        previewRow: 0,
-        previewHeight: 0,
+        previewWidth: halfWidth,
+        previewCol: winCol + winWidth - halfWidth - (pileBorder ? 0 : 1),
+        previewRow: winRow + (pileBorder ? 0 : 1),
+        previewHeight: winHeight - (pileBorder ? 0 : 2),
       } satisfies Partial<DduUiFFParams>,
     },
   });
