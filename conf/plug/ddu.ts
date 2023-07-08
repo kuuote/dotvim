@@ -88,7 +88,13 @@ export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
     const ddu = dduHelper(args.denops);
     // border idea by @eetann
-    const border = [".", ".", ".", ":", ":", ".", ":", ":"]
+    // const border = [".", ".", ".", ":", ":", ".", ":", ":"]
+    //   .map((c) => [c, "DduBorder"]);
+
+    // +-------------------+
+    // | ASCII罫線はいいぞ |
+    // +-------------------+
+    const border = ["+", "-", "+", "|", "+", "-", "+", "|"]
       .map((c) => [c, "DduBorder"]);
     const nvim = args.denops.meta.host === "nvim";
     // default options
