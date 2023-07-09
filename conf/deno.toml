@@ -1,0 +1,12 @@
+[[plugins]]
+repo = 'denoland/deno_std'
+if = 0
+
+[[plugins]]
+repo = 'lambdalisue/deno-unknownutil'
+if = 0
+
+[[plugins]]
+repo = 'vim-denops/deno-denops-std'
+if = 0
+

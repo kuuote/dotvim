@@ -15,6 +15,7 @@ import * as fn from "../../deno/denops_std/denops_std/function/mod.ts";
 import * as lambda from "../../deno/denops_std/denops_std/lambda/mod.ts";
 import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 import * as opt from "../../deno/denops_std/denops_std/option/mod.ts";
+import * as u from "../../deno/unknownutil/mod.ts";
 import { dduHelper } from "./ddu/helper.ts";
 
 type Params = Record<never, never>;
@@ -86,12 +87,14 @@ function setupGitStatus(args: ConfigArguments) {
             const action = args.items[0].action as GitStatusActionData;
             const path = stdpath.join(action.worktree, action.path);
             await ddu.start({
+              name: "file:git_diff",
               sources: [{
-                name: "file:git_diff",
+                name: "git_diff",
                 options: {
                   path,
                 },
                 params: {
+                  ...u.maybe(args.actionParams, u.isRecord) ?? {},
                   onlyFile: true,
                 },
               }],
@@ -108,7 +111,7 @@ function setupGitStatus(args: ConfigArguments) {
             return ActionFlags.None;
           },
         },
-        defaultAction: "diff",
+        defaultAction: "open",
       },
     },
   });

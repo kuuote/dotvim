@@ -38,6 +38,10 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   let s:profiles['colorscheme'] = 1
   let s:profiles['ddc'] = 1
   let s:profiles['ddu'] = 1
+  " denoの依存
+  " dotvimに埋めてるdenops系のあれこれの設定でimportしたい
+  " 一々依存を更新するのはおつらいのでこうする
+  let s:profiles['deno'] = 1
   let s:profiles['filetype'] = 1
   let s:profiles['main'] = 1
   let s:profiles['treesitter'] = 1

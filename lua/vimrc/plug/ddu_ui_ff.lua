@@ -54,8 +54,8 @@ M.setup_table = {
     n('q', action('quit'))
     -- preview
     n('p', action('preview'))
-    n('d', action('previewExecute', { command = 'normal! \x04' })) -- <C-d>
-    n('u', action('previewExecute', { command = 'normal! \x15' })) -- <C-u>
+    n('[', action('previewExecute', { command = 'normal! \x15' })) -- <C-u>
+    n(']', action('previewExecute', { command = 'normal! \x04' })) -- <C-d>
     n('P', action('toggleAutoAction'))
   end,
 }
@@ -73,6 +73,8 @@ end
 
 M.setup_table.git_status = function()
   n('c', item_action { 'commit' })
+  n('d', item_action { 'diff' })
+  n('D', item_action { 'diff', { cached = true } })
   n('h', item_action { 'add' })
   n('l', item_action { 'reset' })
   n('p', item_action { 'patch' })
