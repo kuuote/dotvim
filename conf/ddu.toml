@@ -58,7 +58,7 @@ end)
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
 lua_add = '''
-require('vimrc.compat.map').define('n', '<Space>fh', function()
+require('artemis').keymap.set('n', 'dh', function()
   require('ddu').start { 'help' }
 end)
 '''
@@ -104,8 +104,11 @@ repo = 'Shougo/ddu-source-file'
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
 lua_add = '''
-require('vimrc.compat.map').define('n', '<Space>fl', function()
-  require('ddu').start { 'line' }
+require('artemis').keymap.set('n', 'dl', function()
+  require('ddu').start {
+    'line',
+    name = 'file',
+  }
 end)
 '''
 
