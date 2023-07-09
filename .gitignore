@@ -1,5 +1,6 @@
 /.rapidfire
 /build.sh
+/cache
 /load_nvim.vim
 /load_vim.vim
 /local.vim
