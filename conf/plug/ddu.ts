@@ -64,9 +64,54 @@ async function setUiSize(args: ConfigArguments) {
   });
 }
 
-async function setupGitStatus(args: ConfigArguments) {
-  args.setAlias("action", "add", "executeGit");
-  args.contextBuilder.patchGlobal({});
+function setupGitStatus(args: ConfigArguments) {
+  const ddu = dduHelper(args.denops);
+  args.contextBuilder.patchGlobal({
+    sourceOptions: {
+      git_status: {
+        converters: [
+          "converter_hl_dir",
+          "converter_git_status",
+        ],
+      },
+    },
+    kindOptions: {
+      git_status: {
+        actions: {
+          commit: async () => {
+            await args.denops.cmd("Gin commit");
+            return ActionFlags.None;
+          },
+          diff: async (args) => {
+            const action = args.items[0].action as GitStatusActionData;
+            const path = stdpath.join(action.worktree, action.path);
+            await ddu.start({
+              sources: [{
+                name: "file:git_diff",
+                options: {
+                  path,
+                },
+                params: {
+                  onlyFile: true,
+                },
+              }],
+            });
+            return ActionFlags.None;
+          },
+          patch: async (args: ActionArguments<Params>) => {
+            for (const item of args.items) {
+              const action = item.action as GitStatusActionData;
+              await args.denops.cmd("tabnew");
+              await args.denops.cmd("tcd " + action.worktree);
+              await args.denops.cmd("GinPatch ++no-head " + action.path);
+            }
+            return ActionFlags.None;
+          },
+        },
+        defaultAction: "diff",
+      },
+    },
+  });
 }
 
 function setupMRR(args: ConfigArguments) {
@@ -145,41 +190,6 @@ export class Config extends BaseConfig {
           },
           defaultAction: "open",
         },
-        git_branch: { defaultAction: "switch" },
-        git_status: {
-          actions: {
-            commit: async () => {
-              await args.denops.cmd("Gin commit");
-              return ActionFlags.None;
-            },
-            diff: async (args) => {
-              const action = args.items[0].action as GitStatusActionData;
-              const path = stdpath.join(action.worktree, action.path);
-              await ddu.start({
-                sources: [{
-                  name: "file:git_diff",
-                  options: {
-                    path,
-                  },
-                  params: {
-                    onlyFile: true,
-                  },
-                }],
-              });
-              return ActionFlags.None;
-            },
-            patch: async (args: ActionArguments<Params>) => {
-              for (const item of args.items) {
-                const action = item.action as GitStatusActionData;
-                await args.denops.cmd("tabnew");
-                await args.denops.cmd("tcd " + action.worktree);
-                await args.denops.cmd("GinPatch ++no-head " + action.path);
-              }
-              return ActionFlags.None;
-            },
-          },
-          defaultAction: "diff",
-        },
         git_tag: { defaultAction: "switch" },
         help: { defaultAction: "tabopen" },
         source: { defaultAction: "execute" },
@@ -203,12 +213,6 @@ export class Config extends BaseConfig {
         },
         file_rec: {
           sorters: ["sorter_alpha_path"].concat(defaultSorters),
-        },
-        git_status: {
-          converters: [
-            "converter_hl_dir",
-            "converter_git_status",
-          ],
         },
         mr: {
           converters: ["converter_hl_dir"],
@@ -311,6 +315,7 @@ export class Config extends BaseConfig {
     });
 
     setupMRR(args);
+    setupGitStatus(args);
 
     // floatwinのサイズをセットするやつ
     const id = lambda.register(args.denops, () => setUiSize(args));
