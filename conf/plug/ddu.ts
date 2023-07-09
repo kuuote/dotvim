@@ -1,5 +1,6 @@
 import { DdcOptions } from "../../deno/ddc.vim/denops/ddc/types.ts";
 import { ActionData as KindFileActionData } from "../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
+import { ActionData as GitStatusActionData } from "../../deno/ddu-source-git_status/denops/@ddu-kinds/git_status.ts";
 import { Params as DduUiFFParams } from "../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
 import { ConfigArguments } from "../../deno/ddu.vim/denops/ddu/base/config.ts";
 import {
@@ -8,12 +9,12 @@ import {
   BaseConfig,
   UiActionArguments,
 } from "../../deno/ddu.vim/denops/ddu/types.ts";
+import * as stdpath from "../../deno/deno_std/path/mod.ts";
 import * as autocmd from "../../deno/denops_std/denops_std/autocmd/mod.ts";
 import * as fn from "../../deno/denops_std/denops_std/function/mod.ts";
 import * as lambda from "../../deno/denops_std/denops_std/lambda/mod.ts";
 import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 import * as opt from "../../deno/denops_std/denops_std/option/mod.ts";
-import { ActionData as GitStatusActionData } from "../../denops/@ddu-kinds/git_status.ts";
 import { dduHelper } from "./ddu/helper.ts";
 
 type Params = Record<never, never>;
@@ -151,6 +152,22 @@ export class Config extends BaseConfig {
               await args.denops.cmd("Gin commit");
               return ActionFlags.None;
             },
+            diff: async (args) => {
+              const action = args.items[0].action as GitStatusActionData;
+              const path = stdpath.join(action.worktree, action.path);
+              await ddu.start({
+                sources: [{
+                  name: "file:git_diff",
+                  options: {
+                    path,
+                  },
+                  params: {
+                    onlyFile: true,
+                  },
+                }],
+              });
+              return ActionFlags.None;
+            },
             patch: async (args: ActionArguments<Params>) => {
               for (const item of args.items) {
                 const action = item.action as GitStatusActionData;
@@ -161,7 +178,7 @@ export class Config extends BaseConfig {
               return ActionFlags.None;
             },
           },
-          defaultAction: "open",
+          defaultAction: "diff",
         },
         git_tag: { defaultAction: "switch" },
         help: { defaultAction: "tabopen" },
