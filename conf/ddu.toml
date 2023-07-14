@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'kuuote/ddu-source-git_status'
+
+[[plugins]]
 repo = '4513ECHO/ddu-source-colorscheme'
 
 [[plugins]]

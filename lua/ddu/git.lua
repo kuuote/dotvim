@@ -7,9 +7,9 @@ function M.git_status()
   ddu.start(extend({
     'git_status',
     name = 'git_status',
-    sourceParams = {
+    sourceOptions = {
       git_status = {
-        worktree = vim.fn.expand('%:p'),
+        path = vim.fn.expand('%:p'),
       },
     },
   }, ddu.preset.auto_preview))
