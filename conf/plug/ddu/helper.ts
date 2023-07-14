@@ -10,7 +10,9 @@ class Helper {
     this.denops = denops;
   }
   start(options: Partial<DduOptions>) {
-    return this.denops.call("ddu#start", options);
+    // return this.denops.call("ddu#start", options);
+    // こうしておくとその場でカスタムアクションとか作って渡せるはず
+    return this.denops.dispatcher.start(options);
   }
   getItemActions(name: string, items: DduItem[]): Promise<string[]> {
     return this.denops.call(
