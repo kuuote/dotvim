@@ -117,6 +117,10 @@ repo = 'hrsh7th/vim-vsnip'
 on_func = 'vsnip#*'
 hook_source = '''
 let g:vsnip_snippet_dirs = [$HOME .. "/.vim/snippets", dein#get('completion-snippet').path]
+if empty(getftype(expand('$DOTVIM/snippets/clean')))
+	call system(printf('deno run -A %s %s', expand('$DOTVIM/snippets/convert.ts'), expand('$DOTVIM/snippets')))
+	call writefile([], expand('$DOTVIM/snippets/clean'))
+endif
 '''
 lua_source = '''
 local booled = require('vimrc.compat.convert').booled

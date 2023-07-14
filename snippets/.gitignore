@@ -1,2 +1,3 @@
 # jsonはtomlから生成する
 /*.json
+/clean

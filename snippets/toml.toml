@@ -1,0 +1,11 @@
+[[snippet]]
+key = 'snippet'
+description = 'snippet of snippet'
+body = """
+[[snippet]]
+key = '$1'
+body = '''
+$0
+'''
+"""
+
