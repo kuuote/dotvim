@@ -16,9 +16,10 @@ export class Config extends BaseConfig {
           "CmdlineChanged",
         ],
         backspaceCompletion: true,
-        cmdlineSources: [
-          "cmdline",
-        ],
+        cmdlineSources: {
+          ":": ["cmdline"],
+          "@": ["input"],
+        },
         filterParams: {
           matcher_substring: {
             highlightMatched: "FuzzyAccent",
@@ -57,6 +58,10 @@ export class Config extends BaseConfig {
               "sorter_file",
               "sorter_fuzzy",
             ],
+          },
+          input: {
+            isVolatile: true,
+            mark: "I",
           },
           necovim: {
             mark: "V",

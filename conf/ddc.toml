@@ -3,9 +3,6 @@ repo = '~/.vim/bundle/ddc-filter-diff'
 merged = 1
 
 [[plugins]]
-repo = 'uga-rosa/ddc-source-vsnip'
-
-[[plugins]]
 repo = 'kuuote/ddc-source-bufferline'
 
 [[plugins]]
@@ -28,6 +25,9 @@ repo = 'Shougo/ddc-source-around'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-input'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-line'
@@ -149,4 +149,7 @@ repo = 'tani/ddc-fuzzy'
 
 [[plugins]]
 repo = 'tani/ddc-onp'
+
+[[plugins]]
+repo = 'uga-rosa/ddc-source-vsnip'
 
