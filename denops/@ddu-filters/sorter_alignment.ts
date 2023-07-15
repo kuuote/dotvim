@@ -173,7 +173,7 @@ export class Filter extends BaseFilter<Params> {
           ...s.item,
           highlights: (s.item.highlights ?? [])
             .concat([...m].map((i) => ({
-              name: "matched",
+              name: "ddu-filter-sorter_alignment",
               type: "abbr",
               "hl_group": highlight,
               col: byteLength(s.item.matcherKey.slice(0, i)) + 1,

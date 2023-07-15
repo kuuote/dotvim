@@ -102,7 +102,7 @@ export class Filter extends BaseFilter<Params> {
             highlights: hl
               ? (item.highlights?.filter((hl) => hl.name !== "matched") ?? [])
                 .concat([...new Set(matches)].map((i) => ({
-                  name: "matched",
+                  name: "ddu-filter-sorter_distance",
                   "hl_group": "Search",
                   col: byteLength(item.word.slice(0, i)) + 1,
                   width: byteLength(item.word[i]),

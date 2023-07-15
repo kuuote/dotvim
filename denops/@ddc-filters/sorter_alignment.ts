@@ -154,7 +154,7 @@ export class Filter extends BaseFilter<Params> {
         ...s.item,
         highlights: (s.item.highlights ?? [])
           .concat(s.matches.map((i) => ({
-            name: "matched",
+            name: "ddc-filter-sorter_alignment",
             type: "abbr",
             "hl_group": highlight,
             col: byteLength(s.item.word.slice(0, i)) + 1,
