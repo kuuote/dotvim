@@ -18,7 +18,6 @@ local altercmd = require('vimrc.plug.lexima').altercmd
 
 altercmd('cap\\%[ture]', 'Capture')
 altercmd('d', 'DeolCurrent')
-altercmd('dd', 'DduDein')
 altercmd('ee', 'e!')
 altercmd('git', 'Gin')
 altercmd('gy', 'Gina browse --yank --exact :')
