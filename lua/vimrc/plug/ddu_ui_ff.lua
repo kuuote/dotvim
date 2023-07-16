@@ -47,10 +47,10 @@ M.setup_table = {
   _ = function()
     n('<CR>', action('itemAction'))
     n('<Space>', action('toggleSelectItem'))
-    n('a', action('chooseAction'))
-    n('A', action('myInputAction'))
-    n('i', action('openFilterWindow'))
+    n('>', action('chooseAction'))
     n('K', action('useKensaku'))
+    n('a', action('myInputAction'))
+    n('i', action('openFilterWindow'))
     n('q', action('quit'))
     -- preview
     n('p', action('preview'))
