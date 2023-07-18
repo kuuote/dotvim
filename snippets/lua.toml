@@ -9,3 +9,10 @@ function()
 end
 '''
 
+[[snippet]]
+key = 'vimx'
+description = 'require vim-artemis'
+body = '''
+local vimx = require('artemis')
+'''
+
