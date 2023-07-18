@@ -1,15 +1,19 @@
+local vimx = require('artemis')
+
 -- change cmp <=> ddc
 
 local current = 'ddc'
+local ddc_config
 
 vim.keymap.set('n', '<C-c>', function()
   require('cmp')
   if current == 'ddc' then
-    vim.call('ddc#custom#patch_global', {ui = 'none'})
+    ddc_config = vimx.fn.ddc.custom.get_global()
+    vimx.fn.ddc.custom.set_global({ui = 'none'})
     vim.g.cmp = true
     current = 'cmp'
   else
-    vim.call('ddc#custom#patch_global', {ui = 'pum'})
+    vimx.fn.ddc.custom.set_global(ddc_config)
     vim.g.cmp = false
     current = 'ddc'
   end
