@@ -19,13 +19,13 @@ function M.git_diff(params)
   params = params or {}
   ddu.start(extend({
     {
-      name = 'file:git_diff',
+      name = 'git_diff',
       params = params,
       options = {
         path = vim.fn.expand('%:p'),
       },
     },
-    name = 'file',
+    name = 'file:git_diff',
   }, ddu.preset.auto_preview))
 end
 

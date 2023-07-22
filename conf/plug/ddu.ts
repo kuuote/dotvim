@@ -181,6 +181,7 @@ export class Config extends BaseConfig {
             file_rec: async (args: ActionArguments<Params>) => {
               const data = args.items[0].action as KindFileActionData;
               await ddu.start({
+                name: "file:file_rec",
                 sources: [{
                   name: "file_rec",
                   options: {
