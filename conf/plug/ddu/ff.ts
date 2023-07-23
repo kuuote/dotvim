@@ -11,10 +11,10 @@ import * as lambda from "../../../deno/denops_std/denops_std/lambda/mod.ts";
 import * as mapping from "../../../deno/denops_std/denops_std/mapping/mod.ts";
 import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
 import * as opt from "../../../deno/denops_std/denops_std/option/mod.ts";
-import { map } from "../../../denops/@vimrc/lambda.ts";
-import { dduHelper } from "./helper.ts";
 import * as u from "../../../deno/unknownutil/mod.ts";
 import { generateDenopsRequest } from "../../../denops/@vimrc/denopscall.ts";
+import { map } from "../../../denops/@vimrc/lambda.ts";
+import { dduHelper } from "./helper.ts";
 
 type Never = Record<never, never>;
 
@@ -67,33 +67,72 @@ async function setUiSize(args: ConfigArguments) {
 
 type DenopsFn = (denops: Denops) => Promise<unknown>;
 
+// patchLocalしてるnameをマッピングテーブル用の定義に直すためのテーブル
+const aliases: Record<string, string> = {};
+
 async function setupAutocmd(args: ConfigArguments) {
+  /* helper共 */
+
   const denops = args.denops;
   const ddu = dduHelper(denops);
 
   const action = (name: string, params: Record<string, unknown> = {}) => () =>
     ddu.uiSyncAction(name, params);
 
-  const nno = {
-    mode: ["n"],
+  const opts = {
     buffer: true,
     noremap: true,
   } as mapping.MapOptions;
+
+  const nno = {
+    ...opts,
+    mode: ["n"],
+  } as mapping.MapOptions;
+
+  /* ここから実際の定義 */
 
   const setupTable: Record<string, lambda.Fn> = {
     _: async () => {
       await map(denops, "<CR>", action("itemAction"), nno);
     },
   };
-  const filterTable: Record<string, lambda.Fn> = {};
+  const setupFilterTable: Record<string, lambda.Fn> = {
+    _: async () => {
+      await map(denops, "<CR>", async () => {
+        await denops.cmd("stopinsert");
+        await ddu.uiSyncAction("closeFilterWindow");
+      }, {
+        ...opts,
+        mode: ["n", "i"],
+      });
+    },
+  };
   const ddu_ff = lambda.register(denops, async (name: unknown) => {
     await setupTable["_"]?.();
+    u.assert(name, u.isString);
+    const names = (aliases[name] ?? name).split(/:/g);
+    for (const name of names) {
+      await setupTable[name]?.();
+    }
+  });
+  const ddu_ff_filter = lambda.register(denops, async (name: unknown) => {
+    await setupFilterTable["_"]?.();
+    u.assert(name, u.isString);
+    const names = (aliases[name] ?? name).split(/:/g);
+    for (const name of names) {
+      await setupFilterTable[name]?.();
+    }
   });
   await autocmd.group(denops, "vimrc.ddu.ff", (helper) => {
     helper.define(
       "FileType",
       "ddu-ff",
       "call " + generateDenopsRequest(denops, ddu_ff, "[b:ddu_ui_name]"),
+    );
+    helper.define(
+      "FileType",
+      "ddu-ff-filter",
+      "call " + generateDenopsRequest(denops, ddu_ff_filter, "[b:ddu_ui_name]"),
     );
   });
 }

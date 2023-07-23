@@ -92,10 +92,10 @@ end
 
 M.setup_filter_table = {
   _ = function()
-    vimx.keymap.set({ 'n', 'i' }, '<CR>', function()
-      vimx.cmd('stopinsert')
-      action('closeFilterWindow')()
-    end, mapopts)
+    -- vimx.keymap.set({ 'n', 'i' }, '<CR>', function()
+    --   vimx.cmd('stopinsert')
+    --   action('closeFilterWindow')()
+    -- end, mapopts)
     i('<C-j>', function()
       vim.call('ddu#ui#ff#execute', [[call cursor(line('.')+1, 0)]])
       vimx.cmd('redraw!')
