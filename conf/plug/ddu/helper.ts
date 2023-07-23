@@ -29,6 +29,9 @@ class Helper {
   ) {
     return this.denops.call("ddu#item_action", name, action, items, params);
   }
+  uiSyncAction(name: string, params: Record<string, unknown> = {}) {
+    return this.denops.call("ddu#ui#sync_action", name, params);
+  }
   uiGetSelectedItems() {
     return this.denops.call("ddu#ui#get_selected_items") as Promise<DduItem[]>;
   }

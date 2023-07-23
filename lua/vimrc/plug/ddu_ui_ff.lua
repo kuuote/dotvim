@@ -45,7 +45,7 @@ local M = {}
 
 M.setup_table = {
   _ = function()
-    n('<CR>', action('itemAction'))
+    -- n('<CR>', action('itemAction'))
     n('<Space>', action('toggleSelectItem'))
     n('>', action('chooseAction'))
     n('K', action('useKensaku'))
