@@ -76,3 +76,6 @@ endfunction
 
 " 遅いし必要ないので遅延
 autocmd CmdlineEnter,InsertEnter * ++once call s:insert_map()
+
+" undoをpreviewするやつ
+nnoremap <Space>u <Cmd>call vimrc#feat#undo#preview()<CR>
