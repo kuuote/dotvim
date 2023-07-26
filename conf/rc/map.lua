@@ -81,10 +81,20 @@ au('InsertEnter', {
 -- cmdlineでキャンセルした際に履歴を残さない
 m('c', '<Esc>', '<C-u><C-c>')
 
--- cmdlineでフルパス入れるやつ
-m('c', '<C-p>', function()
-  local pos = vim.fn.getcmdpos()
-  local left = vim.fn.getcmdline():sub(pos - 1, pos)
+-- フルパス入れるやつ
+-- 何も無い所で実行するとディレクトリを入力
+-- その直後(正確にはパス区切りがカーソルの前にある状況)で実行するとファイル部分を入力する
+m({'c', 'i'}, '<C-p>', function()
+  local pos, line
+  if vim.fn.mode() == 'c' then
+    pos = vim.fn.getcmdpos()
+    line = vim.fn.getcmdline()
+  else
+    pos = vim.fn.col('.')
+    line = vim.fn.getline('.')
+  end
+  local left = line:sub(pos - 1, pos)
+
   local k
   if left == '/' then
     k = vim.fn.expand('%:p:t')
