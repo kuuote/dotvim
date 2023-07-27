@@ -1,5 +1,0 @@
-{
-  "imports": {
-    "plug": "./plug/if.ts"
-  }
-}
