@@ -83,6 +83,15 @@ let g:dein#enable_notification = v:true
 if !empty($plug)
   " $plugに何かセットされてたらカレントディレクトリをruntimepathの先頭に置く
   let &runtimepath = printf('%s,%s', getcwd(), &runtimepath)
+  if getftype('/tmp/templug') == 'dir' && empty($noautoload)
+    " templugの下に何かあったらruntimepathの先頭に置く
+    let s:plugins = glob('/tmp/templug/*', 1, 1)
+    if !empty(s:plugins)
+      let &runtimepath = s:plugins->join(',') .. ',' .. &runtimepath
+    endif
+    " お掃除コマンドも定義しておく
+    command! TemplugClean call delete('/tmp/templug', 'rf')
+  endif
 endif
 
 lua pcall(require, 'impatient')

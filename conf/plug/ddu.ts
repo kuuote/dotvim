@@ -158,7 +158,34 @@ export class Config extends BaseConfig {
           matchers: defaultMatchers,
           sorters: defaultSorters,
         },
-        dein: { defaultAction: "file_rec" },
+        dein: {
+          actions: {
+            rsync: async (args) => {
+              for (const item of args.items) {
+                const data = item.action as KindFileActionData;
+                const dest = "/tmp/templug/" + item.word;
+                await new Deno.Command("rsync", {
+                  args: [
+                    "--mkpath",
+                    "-a",
+                    "--delete-before",
+                    (data.path ?? "/dev/null") + "/",
+                    dest,
+                  ],
+                }).output();
+                await args.denops.cmd("tabedit " + dest);
+              }
+              return ActionFlags.None;
+            },
+            templug: async (args) => {
+              for (const item of args.items) {
+                await args.denops.cmd("tabedit /tmp/templug/" + item.word);
+              }
+              return ActionFlags.None;
+            },
+          },
+          defaultAction: "file_rec",
+        },
         dein_update: {
           matchers: ["matcher_dein_update"],
         },
