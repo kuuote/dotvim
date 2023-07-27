@@ -1,10 +1,12 @@
 import { ActionData as KindFileActionData } from "../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
+import { Params as DduUiFFParams } from "../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
 import { ActionData as GitStatusActionData } from "../../deno/ddu-source-git_status/denops/@ddu-kinds/git_status.ts";
 import { ConfigArguments } from "../../deno/ddu.vim/denops/ddu/base/config.ts";
 import {
   ActionArguments,
   ActionFlags,
   BaseConfig,
+  DduOptions,
 } from "../../deno/ddu.vim/denops/ddu/types.ts";
 import * as stdpath from "../../deno/deno_std/path/mod.ts";
 import * as u from "../../deno/unknownutil/mod.ts";
@@ -35,7 +37,7 @@ function setupGitStatus(args: ConfigArguments) {
             const action = args.items[0].action as GitStatusActionData;
             const path = stdpath.join(action.worktree, action.path);
             await ddu.start({
-              name: "file:git_diff",
+              name: "git_diff",
               sources: [{
                 name: "git_diff",
                 options: {
@@ -80,6 +82,17 @@ function setupMRR(args: ConfigArguments) {
     },
   });
 }
+
+const locals: Record<string, Partial<DduOptions>> = {
+  git_diff: {
+    uiParams: {
+      ff: {
+        // どう考えてもでかい差分作る俺が悪いんだが、ハイライト無いと見づらい
+        maxHighlightItems: 1000,
+      } satisfies Partial<DduUiFFParams>,
+    },
+  },
+};
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
@@ -166,6 +179,10 @@ export class Config extends BaseConfig {
     await setupFF(args);
     setupMRR(args);
     setupGitStatus(args);
+
+    for (const [name, options] of Object.entries(locals)) {
+      args.contextBuilder.setLocal(name, options);
+    }
 
     await args.denops.call("ddu#util#print_error", "loaded ddu settings");
   }

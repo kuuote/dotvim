@@ -25,7 +25,7 @@ function M.git_diff(params)
         path = vim.fn.expand('%:p'),
       },
     },
-    name = 'file:git_diff',
+    name = 'git_diff',
   }, ddu.preset.auto_preview))
 end
 

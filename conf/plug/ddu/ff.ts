@@ -68,7 +68,9 @@ async function setUiSize(args: ConfigArguments) {
 type DenopsFn = (denops: Denops) => Promise<unknown>;
 
 // patchLocalしてるnameをマッピングテーブル用の定義に直すためのテーブル
-const aliases: Record<string, string> = {};
+const aliases: Record<string, string> = {
+  git_diff: 'file:git_diff'
+};
 
 async function setupAutocmd(args: ConfigArguments) {
   /* helper共 */
