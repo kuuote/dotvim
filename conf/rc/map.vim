@@ -31,14 +31,7 @@ onoremap ( t(
 " sugoi undo
 nnoremap U <C-r>
 
-" thanks monaqa and tsuyoshicho
-"" code input advanced in insert mode
-inoremap <C-v>u <C-r>=nr2char(0x)<Left>
-
 tnoremap fj <C-\><C-N>
-
-" scroll to center
- inoremap <C-j> <Cmd>normal! zz<CR>
 
 function s:insert_map()
   " 括弧とか打つのにShift押したくないでござる
@@ -47,31 +40,33 @@ function s:insert_map()
 
   " いくつかのマッピングはleximaに渡すためにこちらではやらない
   " see main.toml
-  call hypermap#map(';a', '\')
-  " call hypermap#map(';s', '(')
-  call hypermap#map(';d', '=')
-  " call hypermap#map(';f', ')')
-  " call hypermap#map(';w', '{')
-  call hypermap#map(';e', '+')
-  " call hypermap#map(';r', '}')
-  call hypermap#map(';x', '<')
-  call hypermap#map(';c', '-')
-  call hypermap#map(';v', '>')
-  call hypermap#map(';q', '|')
-  call hypermap#map(';z', '_')
-  call hypermap#map(';;', ':')
-  call hypermap#map(',q', '!')
-  call hypermap#map(',w', '@')
-  call hypermap#map(',e', '#')
-  call hypermap#map(',r', '$')
-  call hypermap#map(',a', '&')
-  " call hypermap#map(',s', '"')
-  call hypermap#map(',d', '*')
-  call hypermap#map(',f', '%')
-  call hypermap#map(',z', '~')
-  " call hypermap#map(',x', "'")
-  call hypermap#map(',c', "^")
-  call hypermap#map(',v', "`")
+  call hypermap#map(',q', '|')
+  call hypermap#map(',a', '\')
+  call hypermap#map(',z', '_')
+  call hypermap#map(',e', '+')
+  call hypermap#map(',d', '=')
+
+  " from shougo-s-github
+  " Sticky shift in English keyboard.
+  " Sticky key.
+  inoremap <expr> ;  vimrc#sticky#func()
+  cnoremap <expr> ;  vimrc#sticky#func()
+  snoremap <expr> ;  vimrc#sticky#func()
+  tnoremap <expr> ;  vimrc#sticky#func()
+
+  " scroll to up with 2 margin
+  inoremap H <Cmd>normal! zt<C-y><C-y><CR>
+  " scroll to center
+  inoremap M <Cmd>normal! zz<CR>
+
+  " thanks monaqa and tsuyoshicho
+  "" code input advanced in insert mode
+  inoremap <C-v>u <C-r>=nr2char(0x)<Left>
+
+  " escape from parentheses
+  inoremap ER <Esc><Cmd>call search('}', 'cez')<CR>a
+  inoremap EF <Esc><Cmd>call search(')', 'cez')<CR>a
+  inoremap EB <Esc><Cmd>call search(']', 'cez')<CR>a
 endfunction
 
 " 遅いし必要ないので遅延

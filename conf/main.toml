@@ -514,8 +514,9 @@ set helplang=ja
 repo = 'vim-skk/skkeleton'
 hook_add = '''
 autocmd User skkeleton-initialize-pre ++once ++nested luafile ~/.vim/conf/plug/skkeleton.lua
-call hypermap#map(';j', "\<Cmd>call skkeleton#handle('enable', {})\<CR>")
-" call hypermap#map('jj', 'eval(maparg("<Plug>(skkeleton-toggle)", mode()))', {'eval': v:true})
+autocmd SourcePost *vimrc/sticky.vim call vimrc#sticky#register("\<Space>", "\<Plug>(skkeleton-enable)")
+
+tnoremap <C-z> <Plug>(skkeleton-enable)
 
 autocmd User DenopsPluginPost:skkeleton call skkeleton#initialize()
 autocmd User skkeleton-enable-pre call s:skkeleton_pre()
