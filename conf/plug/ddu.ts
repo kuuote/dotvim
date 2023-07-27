@@ -102,6 +102,7 @@ export class Config extends BaseConfig {
     const defaultSorters = ["sorter_fzf"];
     args.contextBuilder.patchGlobal({
       actionOptions: {
+        applyPatch: { quit: false },
         do: { quit: false },
         narrow: { quit: false },
       },
