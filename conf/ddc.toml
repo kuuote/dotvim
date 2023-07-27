@@ -33,7 +33,7 @@ repo = 'Shougo/ddc-source-input'
 repo = 'Shougo/ddc-source-line'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-zsh'
+repo = 'Shougo/ddc-source-shell-native'
 
 [[plugins]]
 repo = 'Shougo/ddc-ui-native'

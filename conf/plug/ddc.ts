@@ -74,6 +74,9 @@ export class Config extends BaseConfig {
             minAutoCompleteLength: 1,
             sorters: ["sorter_alignment"],
           },
+          "shell-native": {
+            mark: "殻",
+          },
           skkeleton: {
             converters: [],
             isVolatile: true,
@@ -88,6 +91,9 @@ export class Config extends BaseConfig {
           file: {
             filenameChars: "[:keyword:].",
             projFromCwdMaxItems: [0],
+          },
+          "shell-native": {
+            "shell": "fish",
           },
         },
         ui: "pum",

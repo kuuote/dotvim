@@ -14,7 +14,7 @@ local convert = require('vimrc.compat.convert')
 map({'n', 'i'}, '<C-e>', '<Cmd>xall<CR>')
 
 convert.call('ddc#custom#set_buffer', {
-  sources = { 'file', 'zsh', 'around' },
+  sources = { 'file', 'shell-native', 'around' },
   sourceOptions = {
     zsh = {
       minAutoCompleteLength = 1,
