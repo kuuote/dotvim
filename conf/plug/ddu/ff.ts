@@ -65,11 +65,9 @@ async function setUiSize(args: ConfigArguments) {
 
 // side Vim
 
-type DenopsFn = (denops: Denops) => Promise<unknown>;
-
 // patchLocalしてるnameをマッピングテーブル用の定義に直すためのテーブル
 const aliases: Record<string, string> = {
-  git_diff: 'file:git_diff'
+  git_diff: "file:git_diff",
 };
 
 async function setupAutocmd(args: ConfigArguments) {
@@ -84,6 +82,7 @@ async function setupAutocmd(args: ConfigArguments) {
   const opts = {
     buffer: true,
     noremap: true,
+    nowait: true,
   } as mapping.MapOptions;
 
   const nno = {
@@ -96,6 +95,17 @@ async function setupAutocmd(args: ConfigArguments) {
   const setupTable: Record<string, lambda.Fn> = {
     _: async () => {
       await map(denops, "<CR>", action("itemAction"), nno);
+      await map(denops, "<Tab>", async () => {
+        await action("toggleSelectItem")();
+        await action("cursorNext")();
+      }, nno);
+    },
+    git_diff: async () => {
+      await map(denops, "p", async () => {
+        const view = await fn.winsaveview(denops);
+        await action("itemAction", { name: "applyPatch" })();
+        await fn.winrestview(denops, view);
+      });
     },
   };
   const setupFilterTable: Record<string, lambda.Fn> = {
