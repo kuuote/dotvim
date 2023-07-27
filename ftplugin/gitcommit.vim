@@ -23,11 +23,6 @@ set filetype=diff
 let s:exe = expand('%:p:h') .. '/vim'
 let s:root = expand('%:p:h:h')
 
-function s:killwin(winid)
-  call win_gotoid(a:winid)
-  " bdelete!
-endfunction
-
 if executable(s:exe)
   let win = win_getid()
   botright 10new
