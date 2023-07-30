@@ -1,0 +1,4 @@
+主にgin.vimをfloatwinで走らせたいという目的
+autoloadかlua以下に置いておけばいい
+floatwinを出して、alternate bufferにlcdしてコマンドを走らせる
+	これcurrentでよかった。floatwinにbuffer指定できるので

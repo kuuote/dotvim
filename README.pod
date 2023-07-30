@@ -1,0 +1,9 @@
+=encoding UTF-8
+
+=head1 これは何？
+
+Issueです。Wikiっぽく書きたいのでブランチ切ってます
+
+=head1 何でGitHub Issue使わないの？
+
+あれ使いづらいじゃん、データの管理しづらいし。それにVimで書きたい

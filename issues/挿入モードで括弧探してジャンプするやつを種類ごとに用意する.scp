@@ -1,0 +1,8 @@
+[Shougoさんのsticky設定ぶっこむ]ことでスペース空いてるのでそこに設置する
+E Prefixで置くとどうだろう
+	[@file:escape.vim]
+		" escape from parentheses
+		inoremap ER <Esc><Cmd>call search('}', 'cez')<CR>a
+		inoremap EF <Esc><Cmd>call search(')', 'cez')<CR>a
+		inoremap EB <Esc><Cmd>call search(']', 'cez')<CR>a
+	[@end]
