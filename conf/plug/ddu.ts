@@ -12,6 +12,7 @@ import * as stdpath from "../../deno/deno_std/path/mod.ts";
 import * as u from "../../deno/unknownutil/mod.ts";
 import { setupFF } from "./ddu/ff.ts";
 import { dduHelper } from "./ddu/helper.ts";
+import { setupSelector } from "./ddu/selector.ts";
 
 type Params = Record<never, never>;
 
@@ -125,6 +126,7 @@ export class Config extends BaseConfig {
       },
       kindOptions: {
         action: { defaultAction: "do" },
+        callback: { defaultAction: "call" },
         colorscheme: { defaultAction: "set" },
         command: { defaultAction: "execute" },
         dein_update: { defaultAction: "viewDiff" },
@@ -207,6 +209,7 @@ export class Config extends BaseConfig {
     await setupFF(args);
     setupMRR(args);
     setupGitStatus(args);
+    await setupSelector(args);
 
     for (const [name, options] of Object.entries(locals)) {
       args.contextBuilder.setLocal(name, options);
