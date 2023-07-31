@@ -24,6 +24,9 @@ export class Config extends BaseConfig {
           matcher_substring: {
             highlightMatched: "FuzzyAccent",
           },
+          sorter_alignment: {
+            highlightMatched: "FuzzyAccent",
+          },
         },
         sourceOptions: {
           _: {

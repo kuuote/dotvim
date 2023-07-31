@@ -45,7 +45,8 @@ export function commonString(haystack: string, needle: string): string {
   return matches.join("");
 }
 
-// Smith-Waterman algorithm based sequence alignment function
+// シーケンスアライメントに基づきなるべく連続した部分を抽出する
+// fzfで使われているSmith-Watermanのアルゴリズムを用途に合わせて簡略化した物
 function alignment(
   haystack: string,
   needle: string,
@@ -60,6 +61,7 @@ function alignment(
     matrix = new Uint16Array(h * n);
   }
 
+  // 表を埋める
   for (let i = 1; i < h; i++) {
     for (let j = 1; j < n; j++) {
       const imjm = (i - 1) + (j - 1) * h;
@@ -70,7 +72,21 @@ function alignment(
     }
   }
 
+  // if (false) {
+  //   console.log(" " + [...haystack].map((s) => "  " + s).join(""));
+  //   for (let n = 0; n < needle.length; n++) {
+  //     const start = (n + 1) * h + 1;
+  //     console.log(
+  //       needle[n] +
+  //         [...matrix.slice(start, start + haystack.length)].map((n) =>
+  //           ("" + n).padStart(3)
+  //         ).join(""),
+  //     );
+  //   }
+  // }
+
   // trace back
+  // 末尾からスコア高そうな部分を拾っていく
   const match = new Set<number>();
   let score = 0;
   let hmax = haystack.length - 1;
@@ -103,6 +119,7 @@ function alignment(
       npos--;
       hmax = hpos;
     }
+    // 隣接を優先するために雑に高いスコアを与えている
     score += adjacent * 10;
   }
 
@@ -168,7 +185,7 @@ export class Filter extends BaseFilter<Params> {
 
   params(): Params {
     return {
-      highlightMatched: "diffAdded",
+      highlightMatched: "",
     };
   }
 }

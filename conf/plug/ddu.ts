@@ -117,6 +117,9 @@ export class Config extends BaseConfig {
         matcher_kensaku: {
           highlightMatched: "DduMatch",
         },
+        sorter_alignment: {
+          highlightMatched: "DduMatch",
+        },
         sorter_distance: {
           bonus: {
             sequence: 1,
