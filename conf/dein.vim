@@ -94,8 +94,6 @@ if !empty($plug)
   endif
 endif
 
-lua pcall(require, 'impatient')
-
 let hook_source_cache = s:inline_tmp .. v:progname .. 'hook_source.vim'
 if !filereadable(hook_source_cache)
   let lines = []
