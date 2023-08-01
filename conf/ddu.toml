@@ -1,7 +1,4 @@
 [[plugins]]
-repo = 'kuuote/ddu-source-git_status'
-
-[[plugins]]
 repo = '4513ECHO/ddu-source-colorscheme'
 
 [[plugins]]
@@ -18,6 +15,9 @@ repo = 'kuuote/ddu-filter-fuse'
 
 [[plugins]]
 repo = 'kuuote/ddu-source-git_diff'
+
+[[plugins]]
+repo = 'kuuote/ddu-source-git_status'
 
 [[plugins]]
 repo = 'kuuote/ddu-source-mr'
@@ -50,6 +50,12 @@ rev = 'vim_compat'
 repo = 'kyoh86/ddu-filter-converter_hl_dir'
 
 [[plugins]]
+repo = 'kyoh86/ddu-source-git_diff_tree'
+
+[[plugins]]
+repo = 'kyoh86/ddu-source-git_log'
+
+[[plugins]]
 repo = 'matsui54/ddu-source-dein_update'
 lua_add = '''
 local c = require('vimrc.command').define
@@ -68,6 +74,12 @@ end)
 
 [[plugins]]
 repo = 'Milly/ddu-filter-kensaku'
+
+[[plugins]]
+repo = 'peacock0803sz/ddu-source-git_stash'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_relative'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
