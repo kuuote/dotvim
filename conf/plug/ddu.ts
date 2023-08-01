@@ -73,6 +73,7 @@ function setupMRR(args: ConfigArguments) {
   args.contextBuilder.patchGlobal({
     sourceOptions: {
       mrr: {
+        converters: ["converter_hl_dir"],
         defaultAction: "file_rec",
       },
     },
