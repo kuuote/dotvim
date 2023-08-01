@@ -21,6 +21,8 @@ import { dduHelper } from "./lib/helper.ts";
 
 type Never = Record<never, never>;
 
+const augroup = "vimrc.ddu.ui.ff";
+
 async function calculateUiSize(
   denops: Denops,
 ): Promise<[x: number, y: number, width: number, height: number]> {
@@ -73,7 +75,7 @@ const aliases: Record<string, string> = {
   git_diff: "file:git_diff",
 };
 
-async function setupAutocmd(args: ConfigArguments) {
+async function setupFileTypeAutocmd(args: ConfigArguments) {
   /* helper共 */
 
   const denops = args.denops;
@@ -138,7 +140,8 @@ async function setupAutocmd(args: ConfigArguments) {
       await setupFilterTable[name]?.();
     }
   });
-  await autocmd.group(denops, "vimrc.ddu.ff", (helper) => {
+  await autocmd.group(denops, augroup, (helper) => {
+    // configの方で消してるのでこっちではしない
     helper.define(
       "FileType",
       "ddu-ff",
@@ -262,7 +265,7 @@ export class Config extends BaseConfig {
     });
     // floatwinのサイズをセットするやつ
     const id = lambda.register(args.denops, () => setUiSize(args));
-    await autocmd.group(args.denops, "vimrc#ddu.ts", (helper) => {
+    await autocmd.group(args.denops, augroup, (helper) => {
       helper.remove("*");
       helper.define(
         "VimResized",
@@ -271,6 +274,6 @@ export class Config extends BaseConfig {
       );
     });
     await setUiSize(args);
-    await setupAutocmd(args);
+    await setupFileTypeAutocmd(args);
   }
 }
