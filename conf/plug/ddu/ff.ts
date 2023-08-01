@@ -1,6 +1,9 @@
 import { DdcOptions } from "../../../deno/ddc.vim/denops/ddc/types.ts";
 import { Params as DduUiFFParams } from "../../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
-import { ConfigArguments } from "../../../deno/ddu.vim/denops/ddu/base/config.ts";
+import {
+  BaseConfig,
+  ConfigArguments,
+} from "../../../deno/ddu.vim/denops/ddu/base/config.ts";
 import {
   ActionFlags,
   UiActionArguments,
@@ -14,7 +17,7 @@ import * as opt from "../../../deno/denops_std/denops_std/option/mod.ts";
 import * as u from "../../../deno/unknownutil/mod.ts";
 import { generateDenopsRequest } from "../../../denops/@vimrc/denopscall.ts";
 import { map } from "../../../denops/@vimrc/lambda.ts";
-import { dduHelper } from "./helper.ts";
+import { dduHelper } from "./lib/helper.ts";
 
 type Never = Record<never, never>;
 
@@ -105,7 +108,7 @@ async function setupAutocmd(args: ConfigArguments) {
         const view = await fn.winsaveview(denops);
         await action("itemAction", { name: "applyPatch" })();
         await fn.winrestview(denops, view);
-      });
+      }, nno);
     },
   };
   const setupFilterTable: Record<string, lambda.Fn> = {
@@ -149,123 +152,125 @@ async function setupAutocmd(args: ConfigArguments) {
   });
 }
 
-export async function setupFF(args: ConfigArguments) {
-  const ddu = dduHelper(args.denops);
-  // border idea by @eetann
-  // const border = [".", ".", ".", ":", ":", ".", ":", ":"]
-  //   .map((c) => [c, "DduBorder"]);
+export class Config extends BaseConfig {
+  override async config(args: ConfigArguments): Promise<void> {
+    const ddu = dduHelper(args.denops);
+    // border idea by @eetann
+    // const border = [".", ".", ".", ":", ":", ".", ":", ":"]
+    //   .map((c) => [c, "DduBorder"]);
 
-  // +-------------------+
-  // | ASCII罫線はいいぞ |
-  // +-------------------+
-  const border = ["+", "-", "+", "|", "+", "-", "+", "|"]
-    .map((c) => [c, "DduBorder"]);
-  const nvim = args.denops.meta.host === "nvim";
-  args.contextBuilder.patchGlobal({
-    uiParams: {
-      ff: {
-        autoAction: {
-          name: "preview",
-        },
-        floatingBorder: border as any, // そのうち直す
-        previewFloating: nvim,
-        previewFloatingBorder: border as any, // そのうち直す
-        previewFloatingZindex: 100,
-        previewSplit: "vertical",
-        split: "floating",
-      } satisfies Partial<DduUiFFParams>,
-    },
-    uiOptions: {
-      ff: {
-        actions: {
-          myInputAction: async (args: UiActionArguments<Never>) => {
-            const denops = args.denops;
-            // get actions
-            const items = await ddu.uiGetSelectedItems();
-            const actions = await ddu.getItemActions(
-              args.options.name,
-              items,
-            );
-            // setup ddc
-            const bufnr = await fn.bufnr(denops);
-            const custom = await denops.dispatch(
-              "ddc",
-              "getBuffer",
-              bufnr,
-            ) as Record<number, DdcOptions>;
-
-            try {
-              await denops.dispatch(
-                "ddc",
-                "setBuffer",
-                {
-                  cmdlineSources: [{
-                    name: "list",
-                    options: {
-                      minAutoCompleteLength: 0,
-                    },
-                    params: {
-                      candidates: actions,
-                    },
-                  }],
-                } satisfies Partial<DdcOptions>,
-                bufnr,
-              );
-
-              await autocmd.define(
-                denops,
-                "CmdlineEnter",
-                "*",
-                "call ddc#map#manual_complete()",
-                {
-                  once: true,
-                },
-              );
-              // action
-              const action = await fn.input(denops, "action: ");
-              await ddu.itemAction(
-                args.options.name,
-                action,
-                items,
-                {},
-              );
-            } finally {
-              // restore ddc custom
-              await denops.dispatch(
-                "ddc",
-                "setBuffer",
-                custom[bufnr] ?? {},
-                bufnr,
-              );
-            }
-
-            return ActionFlags.Persist;
+    // +-------------------+
+    // | ASCII罫線はいいぞ |
+    // +-------------------+
+    const border = ["+", "-", "+", "|", "+", "-", "+", "|"]
+      .map((c) => [c, "DduBorder"]);
+    const nvim = args.denops.meta.host === "nvim";
+    args.contextBuilder.patchGlobal({
+      uiParams: {
+        ff: {
+          autoAction: {
+            name: "preview",
           },
-          useKensaku: async (args: UiActionArguments<Never>) => {
-            args.ddu.updateOptions({
-              sourceOptions: {
-                _: {
-                  matchers: ["matcher_kensaku"],
+          floatingBorder: border as any, // そのうち直す
+          previewFloating: nvim,
+          previewFloatingBorder: border as any, // そのうち直す
+          previewFloatingZindex: 100,
+          previewSplit: "vertical",
+          split: "floating",
+        } satisfies Partial<DduUiFFParams>,
+      },
+      uiOptions: {
+        ff: {
+          actions: {
+            myInputAction: async (args: UiActionArguments<Never>) => {
+              const denops = args.denops;
+              // get actions
+              const items = await ddu.uiGetSelectedItems();
+              const actions = await ddu.getItemActions(
+                args.options.name,
+                items,
+              );
+              // setup ddc
+              const bufnr = await fn.bufnr(denops);
+              const custom = await denops.dispatch(
+                "ddc",
+                "getBuffer",
+                bufnr,
+              ) as Record<number, DdcOptions>;
+
+              try {
+                await denops.dispatch(
+                  "ddc",
+                  "setBuffer",
+                  {
+                    cmdlineSources: [{
+                      name: "list",
+                      options: {
+                        minAutoCompleteLength: 0,
+                      },
+                      params: {
+                        candidates: actions,
+                      },
+                    }],
+                  } satisfies Partial<DdcOptions>,
+                  bufnr,
+                );
+
+                await autocmd.define(
+                  denops,
+                  "CmdlineEnter",
+                  "*",
+                  "call ddc#map#manual_complete()",
+                  {
+                    once: true,
+                  },
+                );
+                // action
+                const action = await fn.input(denops, "action: ");
+                await ddu.itemAction(
+                  args.options.name,
+                  action,
+                  items,
+                  {},
+                );
+              } finally {
+                // restore ddc custom
+                await denops.dispatch(
+                  "ddc",
+                  "setBuffer",
+                  custom[bufnr] ?? {},
+                  bufnr,
+                );
+              }
+
+              return ActionFlags.Persist;
+            },
+            useKensaku: async (args: UiActionArguments<Never>) => {
+              args.ddu.updateOptions({
+                sourceOptions: {
+                  _: {
+                    matchers: ["matcher_kensaku"],
+                  },
                 },
-              },
-            });
-            await args.denops.cmd("echomsg 'change to kensaku matcher'");
-            return ActionFlags.Persist;
+              });
+              await args.denops.cmd("echomsg 'change to kensaku matcher'");
+              return ActionFlags.Persist;
+            },
           },
         },
       },
-    },
-  });
-  // floatwinのサイズをセットするやつ
-  const id = lambda.register(args.denops, () => setUiSize(args));
-  await autocmd.group(args.denops, "vimrc#ddu.ts", (helper) => {
-    helper.remove("*");
-    helper.define(
-      "VimResized",
-      "*",
-      `call denops#notify('ddu', '${id}', [])`,
-    );
-  });
-  await setUiSize(args);
-  await setupAutocmd(args);
+    });
+    // floatwinのサイズをセットするやつ
+    const id = lambda.register(args.denops, () => setUiSize(args));
+    await autocmd.group(args.denops, "vimrc#ddu.ts", (helper) => {
+      helper.remove("*");
+      helper.define(
+        "VimResized",
+        "*",
+        `call denops#notify('ddu', '${id}', [])`,
+      );
+    });
+    await setUiSize(args);
+    await setupAutocmd(args);
+  }
 }

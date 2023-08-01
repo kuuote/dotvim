@@ -21,5 +21,11 @@ function s:colorscheme()
   call ddu#custom#patch_global({'uiParams': {'ff': {'highlights': highlights}}})
 endfunction
 
+function! LoadDduConfig() abort
+  call ddu#custom#load_config(expand('$DOTVIM/conf/plug/ddu/ddu.ts'))
+  call ddu#custom#load_config(expand('$DOTVIM/conf/plug/ddu/ff.ts'))
+  call ddu#custom#load_config(expand('$DOTVIM/conf/plug/ddu/selector.ts'))
+endfunction
+
 autocmd ColorScheme * call s:colorscheme()
-call ddu#custom#load_config(expand('$DOTVIM/conf/plug/ddu.ts'))
+call LoadDduConfig()

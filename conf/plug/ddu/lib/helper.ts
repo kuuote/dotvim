@@ -1,5 +1,5 @@
-import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
-import { DduItem, DduOptions } from "../../../deno/ddu.vim/denops/ddu/types.ts";
+import { Denops } from "../../../../deno/denops_std/denops_std/mod.ts";
+import { DduItem, DduOptions } from "../../../../deno/ddu.vim/denops/ddu/types.ts";
 
 // 型wrapper
 // いるものしか定義してないので適宜増やすこと

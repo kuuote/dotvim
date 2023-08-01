@@ -1,13 +1,16 @@
-import { ConfigArguments } from "../../../deno/ddu.vim/denops/ddu/base/config.ts";
+import {
+  BaseConfig,
+  ConfigArguments,
+} from "../../../deno/ddu.vim/denops/ddu/base/config.ts";
 import {
   ActionFlags,
   DduOptions,
 } from "../../../deno/ddu.vim/denops/ddu/types.ts";
-import * as fn from "../../../deno/denops_std/denops_std/function/mod.ts";
 import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
+import * as fn from "../../../deno/denops_std/denops_std/function/mod.ts";
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
 import { map } from "../../../denops/@vimrc/lambda.ts";
-import { dduHelper } from "./helper.ts";
+import { dduHelper } from "./lib/helper.ts";
 
 // 環境から情報を収集してオプションに変える感じで
 type POptions = Promise<Partial<DduOptions>>;
@@ -53,23 +56,25 @@ const definition: Record<string, Collector> = {
     }),
 };
 
-export async function setupSelector(args: ConfigArguments) {
-  const { denops } = args;
-  const ddu = dduHelper(denops);
-  await map(denops, ";s", async () => {
-    // コレクターを選んで実行しdduに渡す
-    await ddu.start(
-      sourceList.buildOptions(
-        Object.keys(definition).sort(),
-        async (items) => {
-          if (items[0] != null) {
-            await ddu.start(await definition[items[0].word](denops));
-          }
-          return ActionFlags.None;
-        },
-      ),
-    );
-  }, {
-    noremap: true,
-  });
+export class Config extends BaseConfig {
+  override async config(args: ConfigArguments): Promise<void> {
+    const { denops } = args;
+    const ddu = dduHelper(denops);
+    await map(denops, ";s", async () => {
+      // コレクターを選んで実行しdduに渡す
+      await ddu.start(
+        sourceList.buildOptions(
+          Object.keys(definition).sort(),
+          async (items) => {
+            if (items[0] != null) {
+              await ddu.start(await definition[items[0].word](denops));
+            }
+            return ActionFlags.None;
+          },
+        ),
+      );
+    }, {
+      noremap: true,
+    });
+  }
 }
