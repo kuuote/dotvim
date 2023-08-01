@@ -3,34 +3,50 @@ import {
   OnCompleteDoneArguments,
 } from "../../deno/ddc.vim/denops/ddc/base/source.ts";
 import { BaseSource, Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
+import * as u from "../../deno/unknownutil/mod.ts";
 
-type Params = {
-  candidates: string[];
-  callback: string;
+export type Params = {
+  candidates: Array<string | Item>;
+  callback?: string | ((args: OnCompleteDoneArguments<Params>) => unknown);
 };
 
 export class Source extends BaseSource<Params> {
   override gather({ sourceParams }: GatherArguments<Params>): Promise<Item[]> {
     return Promise.resolve(
-      sourceParams.candidates.map((word) => ({ word, user_data: {} })),
+      sourceParams.candidates.map((candidate) => {
+        if (u.isString(candidate)) {
+          return {
+            word: candidate,
+            user_data: {},
+          };
+        } else {
+          return {
+            ...candidate,
+            user_data: u.maybe(candidate.user_data, u.isRecord) ?? {},
+          };
+        }
+      }),
     );
   }
 
   override params(): Params {
     return {
       candidates: [],
-      callback: "",
     };
   }
 
   override async onCompleteDone(
     args: OnCompleteDoneArguments<Params>,
   ) {
-    if (args.sourceParams.callback !== "") {
+    const callback = args.sourceParams.callback;
+    if (typeof callback === "string") {
       await args.denops.call(
         "denops#callback#call",
         args.sourceParams.callback,
+        args,
       );
+    } else if (typeof callback === "function") {
+      await callback(args);
     }
   }
 }
