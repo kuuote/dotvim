@@ -17,6 +17,7 @@ repo = 'kuuote/ddu-filter-fuse'
 repo = 'kuuote/ddu-source-git_diff'
 
 [[plugins]]
+# L<ddu-config-source_git_status>
 repo = 'kuuote/ddu-source-git_status'
 
 [[plugins]]
@@ -37,6 +38,17 @@ vimx.keymap.set('n', 'mrr', function()
   require('ddu').start {
     'mrr',
     name = 'file',
+  }
+end)
+'''
+
+[[plugins]]
+repo = 'kuuote/ddu-source-tags'
+lua_add = '''
+require('artemis').keymap.set('n', ';t', function()
+  require('ddu').start {
+    'tags',
+    name = 'tags',
   }
 end)
 '''

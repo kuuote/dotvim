@@ -43,12 +43,14 @@ async function ripgrepLive(
   };
 }
 
+// X<ddu-config-selector_definitions>
 const definition: Record<string, Collector> = {
   live_grep: (denops) =>
     ripgrepLive(
       denops,
       async (denops) => await fn.expand(denops, "%:p:h") as string,
     ),
+  // X<ddu-config-selector-lsp>
   lsp_definition: () =>
     Promise.resolve({
       name: "lsp_definition",

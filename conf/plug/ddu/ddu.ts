@@ -13,9 +13,11 @@ import {
 import * as stdpath from "../../../deno/deno_std/path/mod.ts";
 import * as u from "../../../deno/unknownutil/mod.ts";
 import { dduHelper } from "./lib/helper.ts";
+import { ActionData as KindTagActionData } from "../../../deno/ddu-source-tags/denops/@ddu-kinds/tag.ts";
 
 type Params = Record<never, never>;
 
+// X<ddu-config-source_git_status>
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
   args.contextBuilder.patchGlobal({
@@ -109,6 +111,7 @@ export class Config extends BaseConfig {
     // default options
     const defaultMatchers = ["matcher_fzf"];
     const defaultSorters = ["sorter_fzf"];
+    // X<ddu-config-global>
     args.contextBuilder.patchGlobal({
       actionOptions: {
         applyPatch: { quit: false },
@@ -162,6 +165,21 @@ export class Config extends BaseConfig {
         git_tag: { defaultAction: "switch" },
         help: { defaultAction: "tabopen" },
         source: { defaultAction: "execute" },
+        tag: {
+          actions: {
+            xjump: async (args) => {
+              for (const item of args.items) {
+                const data = item.action as KindTagActionData;
+                await args.denops.cmd("enew");
+                await args.denops.cmd("edit " + data.filename);
+                await args.denops.cmd(data.cmd);
+                await args.denops.cmd("normal! zz");
+              }
+              return ActionFlags.None;
+            },
+          },
+          defaultAction: "xjump",
+        },
         ui_select: { defaultAction: "select" },
         word: { defaultAction: "append" },
       },
