@@ -62,14 +62,14 @@ export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
     const { denops } = args;
     const ddu = dduHelper(denops);
-    await map(denops, ";s", async () => {
+    await map(denops, ";s", () => {
       // コレクターを選んで実行しdduに渡す
-      await ddu.start(
+      ddu.start(
         sourceList.buildOptions(
           Object.keys(definition).sort(),
           async (items) => {
             if (items[0] != null) {
-              await ddu.start(await definition[items[0].word](denops));
+              ddu.start(await definition[items[0].word](denops));
             }
             return ActionFlags.None;
           },

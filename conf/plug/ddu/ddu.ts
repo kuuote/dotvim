@@ -36,10 +36,10 @@ function setupGitStatus(args: ConfigArguments) {
             await args.denops.cmd("Gin commit");
             return ActionFlags.None;
           },
-          diff: async (args) => {
+          diff: (args) => {
             const action = args.items[0].action as GitStatusActionData;
             const path = stdpath.join(action.worktree, action.path);
-            await ddu.start({
+            ddu.start({
               name: "git_diff",
               sources: [{
                 name: "git_diff",
@@ -52,7 +52,7 @@ function setupGitStatus(args: ConfigArguments) {
                 },
               }],
             });
-            return ActionFlags.None;
+            return Promise.resolve(ActionFlags.None);
           },
           patch: async (args: ActionArguments<Params>) => {
             for (const item of args.items) {
@@ -146,9 +146,9 @@ export class Config extends BaseConfig {
         dein_update: { defaultAction: "viewDiff" },
         file: {
           actions: {
-            file_rec: async (args: ActionArguments<Params>) => {
+            file_rec: (args: ActionArguments<Params>) => {
               const data = args.items[0].action as KindFileActionData;
-              await ddu.start({
+              ddu.start({
                 name: "file:file_rec",
                 sources: [{
                   name: "file_rec",
@@ -157,7 +157,7 @@ export class Config extends BaseConfig {
                   },
                 }],
               });
-              return ActionFlags.None;
+              return Promise.resolve(ActionFlags.None);
             },
           },
           defaultAction: "open",
