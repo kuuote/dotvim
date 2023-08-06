@@ -77,6 +77,7 @@ function setupGitStatus(args: ConfigArguments) {
   });
 }
 
+// X<ddu-alias-source-mrr>
 function setupMRR(args: ConfigArguments) {
   args.setAlias("source", "mrr", "mr");
   args.contextBuilder.patchGlobal({
