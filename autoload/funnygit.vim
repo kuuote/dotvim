@@ -5,6 +5,7 @@ function s:dowrite()
   endif
 endfunction
 
+" X<funny-git-commit>
 function funnygit#commit() abort
   execute '-tab split'
   GinTcd

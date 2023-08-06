@@ -33,7 +33,7 @@ function setupGitStatus(args: ConfigArguments) {
       git_status: {
         actions: {
           commit: async () => {
-            await args.denops.cmd("Gin commit");
+            await args.denops.call("funnygit#commit");
             return ActionFlags.None;
           },
           diff: (args) => {
