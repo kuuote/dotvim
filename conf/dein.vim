@@ -24,7 +24,7 @@ let g:vim_ui_select = [
 \   'dressing_fzf',
 \   'dressing_fzf_lua',
 \   'dressing_telescope',
-\ ][3]
+\ ][1]
 
 let s:inline_tmp = '/tmp/vimrc_inline/'
 
@@ -55,6 +55,8 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   if has('nvim')
     let s:profiles['cmp'] = 1
   endif
+  let s:profiles['x'] = 1 " 手元で試してるあれこれ置き場
+  let s:profiles['z'] = 1 " プラグインじゃないけど管理したいやつ
   let s:enabled_profiles = map(filter(items(s:profiles), 'v:val[1]'), 'v:val[0]')
   let configs = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
   let configs2 = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
