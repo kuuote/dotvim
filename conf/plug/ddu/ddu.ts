@@ -1,5 +1,6 @@
 import { ActionData as KindFileActionData } from "../../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
 import { ActionData as GitStatusActionData } from "../../../deno/ddu-source-git_status/denops/@ddu-kinds/git_status.ts";
+import { ActionData as KindTagActionData } from "../../../deno/ddu-source-tags/denops/@ddu-kinds/tag.ts";
 import { Params as DduUiFFParams } from "../../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
 import {
   BaseConfig,
@@ -11,11 +12,40 @@ import {
   DduOptions,
 } from "../../../deno/ddu.vim/denops/ddu/types.ts";
 import * as stdpath from "../../../deno/deno_std/path/mod.ts";
+import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
 import * as u from "../../../deno/unknownutil/mod.ts";
 import { dduHelper } from "./lib/helper.ts";
-import { ActionData as KindTagActionData } from "../../../deno/ddu-source-tags/denops/@ddu-kinds/tag.ts";
 
 type Params = Record<never, never>;
+
+async function loadeno(denops: Denops) {
+  const a = await denops.call(
+    "globpath",
+    await denops.eval("&runtimepath"),
+    "denops/**/*.ts",
+  )
+    .then((s) => String(s).split("\n"));
+  const b = a.map((path): [string, [string]] | undefined => {
+    const ddu = path.match(/@ddu-(.+)s\/(.+)\.ts$/);
+    if (ddu != null) {
+      return [ddu[1], [ddu[2]]];
+    }
+  })
+    .filter(<T>(x: T): x is NonNullable<T> => x != null);
+  let count = 0;
+  for (const [type, ext] of b) {
+    count += 1;
+    try {
+      await denops.dispatch("ddu", "loadExtensions", type, ext);
+    } catch (e: unknown) {
+      console.log(e);
+    }
+    await denops.cmd("echomsg msg", {
+      msg: count + "/" + b.length,
+    });
+  }
+  await denops.call("ddu#util#print_error", "preload success. ready!");
+}
 
 // X<ddu-config-source_git_status>
 function setupGitStatus(args: ConfigArguments) {
@@ -242,7 +272,6 @@ export class Config extends BaseConfig {
     for (const [name, options] of Object.entries(locals)) {
       args.contextBuilder.setLocal(name, options);
     }
-
-    await args.denops.call("ddu#util#print_error", "loaded ddu settings");
+    loadeno(args.denops);
   }
 }
