@@ -44,7 +44,7 @@ async function loadeno(denops: Denops) {
       msg: count + "/" + b.length,
     });
   }
-  await denops.call("ddu#util#print_error", "preload success. ready!");
+  await denops.call("ddu#util#print_error", "preload complete. ready!");
 }
 
 // X<ddu-config-source_git_status>
