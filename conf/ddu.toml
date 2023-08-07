@@ -69,6 +69,9 @@ repo = 'kyoh86/ddu-source-git_diff_tree'
 repo = 'kyoh86/ddu-source-git_log'
 
 [[plugins]]
+repo = 'kyoh86/ddu-source-github'
+
+[[plugins]]
 repo = 'matsui54/ddu-source-dein_update'
 lua_add = '''
 local c = require('vimrc.command').define

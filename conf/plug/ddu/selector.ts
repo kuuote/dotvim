@@ -45,6 +45,15 @@ async function ripgrepLive(
 
 // X<ddu-config-selector_definitions>
 const definition: Record<string, Collector> = {
+  github_repo_pull: async (denops) => ({
+    name: "github_repo_pull",
+    sources: [{
+      name: "github_repo_pull",
+      params: {
+        path: await denops.call("expand", "%:p:h"),
+      },
+    }],
+  }),
   live_grep: (denops) =>
     ripgrepLive(
       denops,
