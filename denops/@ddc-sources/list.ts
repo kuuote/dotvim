@@ -17,7 +17,9 @@ export class Source extends BaseSource<Params> {
         if (u.isString(candidate)) {
           return {
             word: candidate,
-            user_data: {},
+            user_data: {
+              word: candidate,
+            },
           };
         } else {
           return {
