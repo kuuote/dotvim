@@ -11,6 +11,7 @@ m('n', "q'", 'q:')
 
 -- Prefixの開放
 m('n', 's', '<Nop>')
+m('n', 'q', '<Nop>')
 
 -- Window移動
 au('WinNew', {
