@@ -121,14 +121,17 @@ local function handleno(method, if_deno, fallback)
   end
 end
 
+-- X<nvim_lsp-denols>
 lsp.denols.setup {
   init_options = {
     lint = true,
     unstable = true,
     documentPreloadLimit = 0,
+    suggest = {
+      autoImports = false,
+    },
   },
   on_attach = function(client)
-    client.server_capabilities.semanticTokensProvider = nil
     local opts = {
       buffer = true,
       noremap = true,
