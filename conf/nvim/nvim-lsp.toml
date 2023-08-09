@@ -75,6 +75,12 @@ lsp.lua_ls.setup {
   end,
   settings = {
     Lua = {
+      completion = {
+        callSnippet = 'Replace',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
       runtime = {
         version = 'LuaJIT',
         path = {
@@ -82,11 +88,8 @@ lsp.lua_ls.setup {
           'lua/?/init.lua',
         },
       },
-      completion = {
-        callSnippet = 'Replace',
-      },
-      diagnostics = {
-        globals = { 'vim' },
+      semantic = {
+        enable = false,
       },
       telemetry = {
         enable = false,
