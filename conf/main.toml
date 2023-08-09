@@ -176,9 +176,23 @@ set laststatus=1
 " やたら遅いし既定値よく見たら1だったのでやめる
 " set showtabline=1
 '''
+hook_source = '''
+function! Lightline_tab_notify_center(...)
+  let l:count = luaeval('require("vimrc.feat.notify").count()')
+  if l:count > 0
+    return '!' .. l:count
+  else
+    return ''
+  endif
+endfunction
+'''
 lua_source = '''
 local vimx = require('artemis')
 local let = require('vimrc.util').let
+
+require('vimrc.feat.notify').subscribe(function()
+  vimx.cmd('redrawstatus')
+end)
 
 vimx.go.laststatus = 2
 vimx.go.showtabline = 2
@@ -193,6 +207,7 @@ vimx.g.lightline = {
   component_function = {
     git_branch = 'gin#component#branch#ascii',
     git_status = 'gina#component#status#preset',
+    notify_center = 'Lightline_tab_notify_center',
     skk_mode = 'g:lightline_skk#mode',
   },
   enable = {
@@ -201,10 +216,10 @@ vimx.g.lightline = {
   },
   tabline = {
     left = {
-      { 'tabs' },
+      { 'notify_center', 'tabs' },
     },
     right = {
-      { 'git_branch', 'git_status' },
+      { 'git_branch', 'git_status', 'notify_center' },
     },
   },
 }
