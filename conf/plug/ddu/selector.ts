@@ -45,6 +45,18 @@ async function ripgrepLive(
 
 // X<ddu-config-selector_definitions>
 const definition: Record<string, Collector> = {
+  file: async (denops) => ({
+    name: "file",
+    sources: [{
+      name: "file",
+      options: {
+        path: String(await denops.call("expand", "%:p:h")),
+        matchers: [],
+        sorters: ["sorter_alpha", "sorter_alignment"],
+        converters: [],
+      },
+    }],
+  }),
   github_repo_pull: async (denops) => ({
     name: "github_repo_pull",
     sources: [{
@@ -60,10 +72,22 @@ const definition: Record<string, Collector> = {
       async (denops) => await fn.expand(denops, "%:p:h") as string,
     ),
   // X<ddu-config-selector-lsp>
+  lsp_codeAction: () =>
+    Promise.resolve({
+      name: "lsp",
+      sources: [{
+        name: "lsp_codeAction",
+      }],
+    }),
   lsp_definition: () =>
     Promise.resolve({
-      name: "lsp_definition",
+      name: "lsp",
       sources: ["lsp_definition"],
+    }),
+  lsp_references: () =>
+    Promise.resolve({
+      name: "lsp",
+      sources: ["lsp_references"],
     }),
 };
 
