@@ -26,7 +26,6 @@ X<ddc-config-manual_complete>
 async function echomsg(denops: Denops, msg: string) {
   await denops.cmd("echomsg msg", { msg }).catch(console.log);
 }
-
 const configSet: Record<
   string,
   (denops: Denops) => Promise<Partial<DdcOptions>>
@@ -38,7 +37,7 @@ const configSet: Record<
         params: {
           finder: async (denops) => {
             const bufnrs = await denops.eval(
-              `getbufinfo()->map('v:val.bufnr')->filter('getbufvar(v:val, "&filetype") ==# &l:filetype')`,
+              `getbufinfo()->filter('v:val.bufnr != bufnr() && !empty(v:val.windows) && getbufvar(v:val.bufnr, "&filetype") ==# &l:filetype')->map('v:val.bufnr')`,
             );
             return u.ensure(bufnrs, u.isArrayOf(u.isNumber));
           },
