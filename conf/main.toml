@@ -407,7 +407,7 @@ x = '<Plug>(textobj-string-'
 repo = 'Shougo/dein.vim'
 merged = 0
 lua_add = '''
-require('vimrc.command').define('DduDein', function()
+require('artemis').keymap.set('n', ';d', function()
   require('ddu').start {
     {
       name = 'dein',
@@ -415,6 +415,7 @@ require('vimrc.command').define('DduDein', function()
         sorters = { 'sorter_alpha', 'sorter_distance' },
       },
     },
+    name = 'file',
   }
 end)
 '''
