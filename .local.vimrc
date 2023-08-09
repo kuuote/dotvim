@@ -1,5 +1,4 @@
 function! s:onexit_podtags(...) abort
-  let g:hoge = 42
   echomsg 'podtags completed'
 endfunction
 
