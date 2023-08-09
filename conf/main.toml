@@ -560,6 +560,15 @@ function! s:skkeleton_post() abort
     lua require('vimrc.plug.cmp').change_sources('default')
   endif
 endfunction
+function! s:tsuki() abort
+  lua require('vimrc.plug.skkeleton.tsuki2-263mod')()
+  tabedit
+  setlocal buftype=nofile bufhidden=hide noswapfile
+  call setline(1, readfile(expand('~/.vim/lua/vimrc/plug/skkeleton/tsukimod.txt')))
+  vsplit
+endfunction
+
+command! SKKTsuki call s:tsuki()
 '''
 
 [[plugins]]
