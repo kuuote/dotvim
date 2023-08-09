@@ -254,6 +254,31 @@ require('highlight-undo').setup {}
 [[plugins]]
 repo = 'yuki-yano/tsnip.nvim'
 lua_add = '''
+local vimx = require('artemis')
+
 -- vim.g.tsnip_use_nui = false
+vim.api.nvim_create_user_command('TSnipSelect', function()
+  local items = vimx.fn.denops.request('tsnip', 'items', {})
+  local names = vim.iter(items)
+  :map(function(item)
+    return item.word
+  end)
+  :totable()
+  vim.ui.select(names, {}, function(name)
+    if name == nil then
+      return
+    end
+    vimx.cmd.startinsert()
+    vimx.create_autocmd('ModeChanged', {
+      pattern = '*:i',
+      once = true,
+      callback = function()
+        vim.fn.timer_start(0, function()
+        vimx.cmd.TSnip(name)
+        end)
+      end,
+    })
+  end)
+end, {})
 '''
 
