@@ -49,18 +49,17 @@ repo = 'Shougo/ddc.vim'
 hook_source = '''
 " frontは出現したら何よりも先に選びたいやつ
 " 次にバッファ固有の物、その後に通常という戦略で行く
-let g:vimrc#ddc_sources = ['around', 'buffer']
+let g:vimrc#ddc_sources = ['around']
 if has('nvim')
   let g:vimrc#ddc_sources_front = ['bufferline', 'tsnip', 'vsnip', 'file']
 else
   let g:vimrc#ddc_sources_front = ['bufferline', 'vsnip', 'file']
 endif
-autocmd User DenopsPluginPost:ddc call dein#source('vim-vsnip')
-autocmd User DenopsPluginPost:ddc call dein#source('vim-vsnip-integ')
 
 doautocmd <nomodeline> User vimrc-ddc
 call ddc#enable()
 call ddc#custom#load_config(expand('$DOTVIM/conf/plug/ddc.ts'))
+call ddc#custom#load_config(expand('$DOTVIM/conf/plug/ddc/manual.ts'))
 call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_front + g:vimrc#ddc_sources)
 
 autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
@@ -71,8 +70,6 @@ autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buff
 
 " deflicker echo area
 set noshowmode
-
-luafile ~/.vim/conf/plug/ddc.lua
 '''
 
 [[plugins]]
@@ -91,7 +88,7 @@ hook_source = '''
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-inoremap <C-q>   <Cmd>call pum#map#cancel()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
 cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
