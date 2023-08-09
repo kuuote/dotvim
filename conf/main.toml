@@ -1,5 +1,5 @@
 [[plugins]]
-repo = '~/.vim/bundle/gin-preview.vim'
+repo = '$DOTVIM/bundle/gin-preview.vim'
 depends = 'gin.vim'
 on_cmd = 'GinPreview'
 lua_source = '''
@@ -21,7 +21,7 @@ vimx.create_autocmd('User', {
 '''
 
 [[plugins]]
-repo = '~/.vim/bundle/tempcomment.vim'
+repo = '$DOTVIM/bundle/tempcomment.vim'
 merged = 1
 hook_add = '''
 inoremap <expr> <C-c> tempcomment#expr()
@@ -48,7 +48,7 @@ repo = '4513ECHO/vim-vimhelp-hoptag'
 repo = 'cohama/lexima.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_source = '''
-luafile ~/.vim/conf/plug/lexima.lua
+luafile $DOTVIM/conf/plug/lexima.lua
 call hypermap#map(',s', "lexima#expand('[', 'i')", { 'eval': v:true })
 call hypermap#map(',f', "lexima#expand(']', 'i')", { 'eval': v:true })
 call hypermap#map(',w', "lexima#expand('{', 'i')", { 'eval': v:true })
@@ -519,7 +519,7 @@ cnoremap <C-c> <Home>Capture <CR>
 repo = 'uga-rosa/linkformat.vim'
 on_cmd = 'LinkFormatPaste'
 hook_source = '''
-luafile ~/.vim/conf/plug/linkformat.lua
+luafile $DOTVIM/conf/plug/linkformat.lua
 '''
 
 [[plugins]]
@@ -579,7 +579,7 @@ function! s:tsuki() abort
   lua require('vimrc.plug.skkeleton.tsuki2-263mod')()
   tabedit
   setlocal buftype=nofile bufhidden=hide noswapfile
-  call setline(1, readfile(expand('~/.vim/lua/vimrc/plug/skkeleton/tsukimod.txt')))
+  call setline(1, readfile(expand('$DOTVIM/lua/vimrc/plug/skkeleton/tsukimod.txt')))
   vsplit
 endfunction
 

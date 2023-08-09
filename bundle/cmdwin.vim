@@ -9,7 +9,7 @@ endfunction
 
 -tabnew
 setlocal buftype=nofile bufhidden=hide noswapfile syntax=vim
-let s:hist = range(histnr(':'), 0, -1)->map('histget(":", v:val)')->filter('!empty(v:val)') + readfile(expand('~/.vim/plugin/palette.txt'))
+let s:hist = range(histnr(':'), 0, -1)->map('histget(":", v:val)')->filter('!empty(v:val)')
 call setline(2, s:hist)
 nnoremap <buffer> <nowait> <CR> <Esc><Cmd>call <SID>execute()<CR>
 inoremap <buffer> <nowait> <CR> <Esc><Cmd>call <SID>execute()<CR>

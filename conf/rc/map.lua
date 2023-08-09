@@ -25,7 +25,7 @@ au('WinNew', {
 })
 
 -- 設定開くマン
-m('n', '<Space>.', '<Cmd>edit ~/.vim/conf<CR>')
+m('n', '<Space>.', '<Cmd>edit $DOTVIM/conf<CR>')
 
 -- Open directory at netrw like plugin
 m('n', '<Space>d', '<Cmd>edit %:p:h<CR>')

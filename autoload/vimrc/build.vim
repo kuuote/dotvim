@@ -1,6 +1,6 @@
 " ビルドログを眺めてニヤニヤするためのツール
 
-let s:targets = readfile(expand('~/.vim/build/build.json'))->join('')->json_decode()
+let s:targets = readfile(expand('$DOTVIM/build/build.json'))->join('')->json_decode()
 
 function! vimrc#build#output() abort
   let plugins = sort(items(s:targets), {a, b -> a[0] < b[0]})
@@ -42,7 +42,7 @@ function! vimrc#build#output() abort
     call add(gen, builder)
   endfor
   " invoke dein recache
-  call add(gen, 'touch ~/.vim/vimrc')
+  call add(gen, 'touch $DOTVIM/vimrc')
   let builder_path = $HOME .. '/.vim/build.sh'
   call writefile(flatten(gen), builder_path)
   call setfperm(builder_path, 'rwxrwxrwx')

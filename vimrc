@@ -9,21 +9,21 @@ let g:vim_type = has('nvim') ? 'nvim' : 'vim'
 let g:mapleader = "'"
 let g:maplocalleader = ","
 
-luafile ~/.vim/conf/preload.lua
+luafile $DOTVIM/conf/preload.lua
 
 if !v:vim_did_enter
-  source ~/.vim/conf/dein.vim
+  source $DOTVIM/conf/dein.vim
 endif
 
 filetype plugin indent on
 syntax enable
 
-call vimrc#load_scripts('~/.vim/conf/rc/**/*')
-call vimrc#load_scripts(printf('~/.vim/conf/%s/rc/**/*', g:vim_type))
+call vimrc#load_scripts('$DOTVIM/conf/rc/**/*')
+call vimrc#load_scripts(printf('$DOTVIM/conf/%s/rc/**/*', g:vim_type))
 call vimrc#load_scripts('/tmp/vimrc/*')
 
 if getftype($DOTVIM .. '/local.vim') ==# 'file'
-  source ~/.vim/local.vim
+  source $DOTVIM/local.vim
 endif
 
 if empty(get(g:, 'colors_name', ''))

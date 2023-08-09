@@ -28,8 +28,8 @@ let g:vim_ui_select = [
 
 let s:inline_tmp = '/tmp/vimrc_inline/'
 
-let s:conf = '~/.vim/conf/plug.toml'
-let s:conf2 = printf('~/.vim/conf/%s/plug.toml', g:vim_type)
+let s:conf = '$DOTVIM/conf/plug.toml'
+let s:conf2 = printf('$DOTVIM/conf/%s/plug.toml', g:vim_type)
 if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   call delete(s:inline_tmp, 'rf')
   call mkdir(s:inline_tmp, 'p')
@@ -46,7 +46,7 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   let s:profiles['main'] = 1
   let s:profiles['treesitter'] = 1
   let s:profiles['vim-lsp'] = 1
-  if 1
+  if 0
     if has('nvim')
       let s:profiles['nvim-lsp'] = 1
       let s:profiles['vim-lsp'] = 0

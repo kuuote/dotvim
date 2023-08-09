@@ -1,2 +1,2 @@
-source ~/.vim/persist/def/edge_dark.vim
-source ~/.vim/persist/def/common/transparent.vim
+source $DOTVIM/persist/def/edge_dark.vim
+source $DOTVIM/persist/def/common/transparent.vim

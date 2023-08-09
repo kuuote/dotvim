@@ -1,4 +1,4 @@
-source ~/.vim/persist/def/catppuccin-latte.vim
+source $DOTVIM/persist/def/catppuccin-latte.vim
 hi Normal guifg=#6060ff
 hi Pmenu guibg=#e0e0ff guifg=#6060ff
 hi PmenuSel guifg=#ff6060 guibg=#ffe8e8

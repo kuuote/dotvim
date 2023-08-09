@@ -62,7 +62,7 @@ export async function main(denops: Denops) {
       await denops.call("setbufline", "%", start, sorted);
     },
     async formatJSON() {
-      // => ~/.vim/ftplugin/json.vim
+      // => $DOTVIM/ftplugin/json.vim
       const lines = await fn.getline(denops, 1, "$");
       const obj = JSON.parse(lines.join(""));
       const json = JSON.stringify(obj, stringifyReplacer, 2);

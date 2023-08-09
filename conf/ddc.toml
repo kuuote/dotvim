@@ -1,5 +1,5 @@
 [[plugins]]
-repo = '~/.vim/bundle/ddc-filter-diff'
+repo = '$DOTVIM/bundle/ddc-filter-diff'
 merged = 1
 
 [[plugins]]

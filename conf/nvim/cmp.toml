@@ -1,5 +1,5 @@
 [[plugins]]
-repo = '~/.vim/bundle/cmp-line'
+repo = '$DOTVIM/bundle/cmp-line'
 on_source = 'nvim-cmp'
 
 [[plugins]]

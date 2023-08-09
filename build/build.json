@@ -1,20 +1,20 @@
 {
   "dict": {
-    "script": "~/.vim/build/dict.sh"
+    "script": "$DOTVIM/build/dict.sh"
   },
   "fzf-preview.vim": {
-    "script": "~/.vim/build/fzf-preview.sh"
+    "script": "$DOTVIM/build/fzf-preview.sh"
   },
   "shirotelin": {
-    "script": "~/.vim/build/shirotelin.sh"
+    "script": "$DOTVIM/build/shirotelin.sh"
   },
   "skktools": {
-    "script": "~/.vim/build/skktools.sh"
+    "script": "$DOTVIM/build/skktools.sh"
   },
   "telescope-fzf-native.nvim": {
-    "script": "~/.vim/build/telescope-fzf-native.sh"
+    "script": "$DOTVIM/build/telescope-fzf-native.sh"
   },
   "tree-sitter-unifieddiff": {
-    "script": "~/.vim/build/tree-sitter-unifieddiff.sh"
+    "script": "$DOTVIM/build/tree-sitter-unifieddiff.sh"
   }
 }

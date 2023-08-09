@@ -1,3 +1,3 @@
 " UsePlugin coc.nvim
 
-let g:coc_config_home = '~/.vim'
+let g:coc_config_home = '$DOTVIM'

@@ -1,3 +1,3 @@
-source ~/.vim/persist/def/catppuccin-mocha.vim
-source ~/.vim/persist/def/common/transparent.vim
+source $DOTVIM/persist/def/catppuccin-mocha.vim
+source $DOTVIM/persist/def/common/transparent.vim
 hi Comment guifg=white gui=undercurl
