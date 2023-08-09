@@ -11,6 +11,11 @@ description = 'async arrow function'
 body = 'async ($1)$2 => $0'
 
 [[snippet]]
+key = 'never'
+description = 'Record with never'
+body = 'type Never = Record<never, never>;'
+
+[[snippet]]
 key = 'value'
 description = 'const'
 body = 'const $1 = $0'
