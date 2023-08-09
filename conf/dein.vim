@@ -28,8 +28,6 @@ let g:vim_ui_select = [
 
 let s:inline_tmp = '/tmp/vimrc_inline/'
 
-let s:conf = '$DOTVIM/conf/plug.toml'
-let s:conf2 = printf('$DOTVIM/conf/%s/plug.toml', g:vim_type)
 if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   call delete(s:inline_tmp, 'rf')
   call mkdir(s:inline_tmp, 'p')
@@ -58,8 +56,8 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   let s:profiles['x'] = 1 " 手元で試してるあれこれ置き場
   let s:profiles['z'] = 1 " プラグインじゃないけど管理したいやつ
   let s:enabled_profiles = map(filter(items(s:profiles), 'v:val[1]'), 'v:val[0]')
-  let configs = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s.toml", $HOME, v:val)')
-  let configs2 = map(copy(s:enabled_profiles), 'printf("%s/.vim/conf/%s/%s.toml", $HOME, g:vim_type, v:val)')
+  let configs = map(copy(s:enabled_profiles), 'printf("%s/conf/%s.toml", $DOTVIM, v:val)')
+  let configs2 = map(copy(s:enabled_profiles), 'printf("%s/conf/%s/%s.toml", $DOTVIM, g:vim_type, v:val)')
 
   call dein#begin(s:dein_dir, [$VIMRC, expand('<sfile>')])
   for toml in configs
