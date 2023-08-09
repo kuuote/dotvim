@@ -2,7 +2,8 @@ import * as YAML from "../../deno/deno_std/yaml/mod.ts";
 import * as fn from "../../deno/denops_std/denops_std/function/mod.ts";
 import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 import * as opt from "../../deno/denops_std/denops_std/option/mod.ts";
-import * as uu from "https://deno.land/x/unknownutil@v3.2.0/mod.ts";
+import * as u from "../../deno/unknownutil/mod.ts";
+import * as stdpath from "../../deno/deno_std/path/mod.ts";
 
 // from https://qiita.com/usoda/items/dbedc06fd4bf38a59c48
 const stringifyReplacer = (_: unknown, v: unknown) =>
@@ -21,10 +22,10 @@ export async function main(denops: Denops) {
       findRegExpStr: unknown,
       keyRegExpStr: unknown,
     ) {
-      uu.assert(start, uu.isNumber);
-      uu.assert(end, uu.isNumber);
-      uu.assert(findRegExpStr, uu.isString);
-      uu.assert(keyRegExpStr, uu.isString);
+      u.assert(start, u.isNumber);
+      u.assert(end, u.isNumber);
+      u.assert(findRegExpStr, u.isString);
+      u.assert(keyRegExpStr, u.isString);
       // 複数行に跨るのでdotAllを入れておく
       const findRegExp = new RegExp(findRegExpStr, "s");
       const keyRegExp = new RegExp(keyRegExpStr, "s");
@@ -60,20 +61,6 @@ export async function main(denops: Denops) {
 
       await denops.call("setbufline", "%", start, sorted);
     },
-    async dumpColors() {
-      const defs = (await denops.call("execute", "highlight") as string)
-        .split(/\n/)
-        .filter((d) => d.match(/^\w/) && d.indexOf("cleared") === -1)
-        .map((d) => {
-          const [name, params] = d.split(/\s*xxx\s*/);
-          const links = params.match(/links to (\w+)/);
-          if (links != null) {
-            return `hi! link ${name} ${links[1]}`;
-          }
-          return `hi! ${name} ${params}`;
-        });
-      return defs;
-    },
     async formatJSON() {
       // => ~/.vim/ftplugin/json.vim
       const lines = await fn.getline(denops, 1, "$");
@@ -81,6 +68,15 @@ export async function main(denops: Denops) {
       const json = JSON.stringify(obj, stringifyReplacer, 2);
       await fn.deletebufline(denops, "%", 1, "$");
       await fn.setbufline(denops, "%", 1, json.split("\n"));
+    },
+    async load(path: unknown) {
+      u.assert(path, u.isString);
+      // NOTE: Import module with fragment so that reload works properly.
+      // https://github.com/vim-denops/denops.vim/issues/227
+      const mod = await import(
+        `${stdpath.toFileUrl(path).href}#${performance.now()}`
+      );
+      await mod.main(denops);
     },
     async jsonYAML() {
       const lines = await fn.getline(denops, 1, "$");
