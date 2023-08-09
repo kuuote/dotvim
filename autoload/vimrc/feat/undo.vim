@@ -18,11 +18,13 @@ function vimrc#feat#undo#preview() abort
   endtry
   -tab split
   diffthis
+  setlocal wrap
   let filetype = &l:filetype
   vnew
   setlocal buftype=nofile bufhidden=delete noswapfile
   let &l:filetype = filetype
   call setline(1, buf)
   diffthis
+  setlocal wrap
   nnoremap <buffer> u <Cmd>tabclose<CR>u
 endfunction
