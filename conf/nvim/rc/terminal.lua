@@ -77,7 +77,7 @@ end
 vim.api.nvim_create_autocmd('User', {
   pattern = 'operandi#open#terminal',
   callback = function()
-    pcall(vim.cmd, 'tcd ' .. require('vimrc.util').find_root(vim.fn.expand('#:p:h')))
+    pcall(vim.cmd, 'tcd ' .. vim.fn.expand('#:p:h'))
     if vim.g.cmp then
       require('cmp').setup.buffer {
         sources = {
