@@ -1,0 +1,12 @@
+#!/bin/bash -u
+
+cd $(dirname $0) || exit 1
+
+if [[ -f "profiles/$1" ]]; then
+  echo -n "上書きしてもおk?(y/N)"
+  read ANSWER
+  if [[ ! "${ANSWER}" = "y" ]]; then
+    exit 1
+  fi
+fi
+rsync -acP --mkpath --delete-before ~/.vim/ "profiles/$1/"

@@ -8,7 +8,7 @@ let &runtimepath ..= ',' .. s:dein_repo
 let g:dein#auto_recache = 1
 let g:dein#install_check_diff = v:true
 let g:dein#install_progress_type = 'floating'
-let g:dein#cache_directory = '/tmp/dein/cache/' .. v:argv[0]
+let g:dein#cache_directory = '/tmp/dein/cache/' .. ($vimprofile ?? v:argv[0])
 let g:dein#lazy_rplugins = v:true
 
 " 事前に定義しておく必要があるものとか
