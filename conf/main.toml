@@ -267,6 +267,9 @@ repo = 'kana/vim-textobj-user'
 repo = 'kuuote/jsonyaml.vim'
 
 [[plugins]]
+repo = 'kuuote/mydicts'
+
+[[plugins]]
 repo = 'lambdalisue/fern.vim'
 on_cmd = 'Fern'
 hook_add = '''

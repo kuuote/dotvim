@@ -1,15 +1,17 @@
 local autocmd = require('vimrc.compat.autocmd')
+local vimx = require('artemis')
 local vimeval = require('vimrc.compat.convert').call
 
 --+ 初期化
 
 local function initialize()
+  local mydictPath = vimeval('dein#get', 'mydicts').path
+  local dicts = vimx.fn.glob(mydictPath .. '/SKK-JISYO.*', 0, 1)
   local dictPath = vimeval('dein#get', 'dict').path
+  dicts[#dicts + 1] = dictPath .. '/SKK-JISYO.L'
   vimeval('skkeleton#config', {
     eggLikeNewline = true,
-    globalDictionaries = {
-      dictPath .. '/SKK-JISYO.L',
-    },
+    globalDictionaries = dicts,
     registerConvertResult = true,
     showCandidatesCount = 1,
     -- マーカーやめられることだしやめる
