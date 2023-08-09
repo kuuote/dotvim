@@ -1,5 +1,6 @@
 /build.sh
 /cache
+/deno
 /load_nvim.vim
 /load_vim.vim
 /local.vim
