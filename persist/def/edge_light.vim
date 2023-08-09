@@ -8,7 +8,7 @@ hi CmpItemKindText guifg=#6060ff
 hi FuzzyAccent ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE
 
 let s:palette = edge#get_palette('light', 0, {})
-execute 'hi FuzzyMotionChar guifg=' .. s:palette.purple[0]
+"execute 'hi FuzzyMotionChar guifg=' .. s:palette.purple[0]
 execute 'hi FuzzyMotionSubChar guifg=' .. s:palette.green[0]
 execute 'hi FuzzyMotionMatch guibg=' .. s:palette.diff_green[0]
 execute 'hi FuzzyMotionShade guifg=' .. s:palette.grey_dim[0]
