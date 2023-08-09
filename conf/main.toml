@@ -28,6 +28,16 @@ inoremap <expr> <C-c> tempcomment#expr()
 '''
 
 [[plugins]]
+repo = '$DOTVIM/bundle/vim-operandi'
+on_func = ['operandi#open', 'operandi#register']
+hook_add = '''
+nnoremap <Space><Space> <Cmd>call operandi#open('command')<CR>
+'''
+hook_source = '''
+luafile $DOTVIM/conf/plug/operandi.lua
+'''
+
+[[plugins]]
 repo = '4513ECHO/denops-gitter.vim'
 on_path = 'gitter://'
 
