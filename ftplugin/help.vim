@@ -9,5 +9,5 @@ endfunction
 command! -buffer MidasiRight call s:midasi_right()
 
 " L<vim-vimhelp-hoptag>
-nnoremap <buffer> <Tab> <Plug>(hoptag-next) <Cmd>call <SID>hop_tag(1)<CR>
-nnoremap <buffer> <S-Tab>(hoptag-prev) <Cmd>call <SID>hop_tag(0)<CR>
+nnoremap <buffer> <Tab> <Plug>(hoptag-next)
+nnoremap <buffer> <S-Tab> <Plug>(hoptag-prev)
