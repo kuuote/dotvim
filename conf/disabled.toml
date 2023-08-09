@@ -50,6 +50,20 @@ nmap <C-f> <Plug>(fuzzy-history)
 '''
 
 [[plugins]]
+comment = '使わない運用に変えてしまった'
+repo = 'lambdalisue/guise.vim'
+lua_add = '''
+vim.g.guise_edit_opener = 'call g:GuiseCloser() | edit'
+vim.g.GuiseCloser = function()
+  local b = vim.fn.bufnr()
+  vim.fn.timer_start(0, function()
+    local cmd = vim.command or vim.cmd
+    cmd(b .. 'bdelete!')
+  end)
+end
+'''
+
+[[plugins]]
 comment = '''
 ddu-source-mr使ってるので
 '''
