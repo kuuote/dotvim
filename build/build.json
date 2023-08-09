@@ -5,9 +5,6 @@
   "fzf-preview.vim": {
     "script": "~/.vim/build/fzf-preview.sh"
   },
-  "gin.vim": {
-    "script": "~/.vim/build/x/gin_vim.sh"
-  },
   "shirotelin": {
     "script": "~/.vim/build/shirotelin.sh"
   },
@@ -19,14 +16,5 @@
   },
   "tree-sitter-unifieddiff": {
     "script": "~/.vim/build/tree-sitter-unifieddiff.sh"
-  },
-  "tsnip.nvim": {
-    "script": "~/.vim/build/x/tsnip.sh"
-  },
-  "z_rsync": {
-    "script": "~/.vim/build/z/rsync.sh"
-  },
-  "z_zeno.zsh": {
-    "script": "~/.vim/build/z/zeno.sh"
   }
 }
