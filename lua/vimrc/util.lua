@@ -44,12 +44,10 @@ end
 
 function M.find_root(path)
   if path == nil then
-    path = vim.fn.bufname('%')
-  end
-  -- gin.vim
-  local match = path:match('gin%a+://([^;]+)')
-  if match ~= nil then
-    return match
+    path = require('vimrc.dir').get_special_buffer_path()
+    if path == nil then
+      path = vim.fn.expand('%:p:h')
+    end
   end
 
   local dir = M._get_current_dir(path)
