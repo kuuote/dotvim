@@ -42,6 +42,9 @@ repo = '4513ECHO/denops-gitter.vim'
 on_path = 'gitter://'
 
 [[plugins]]
+repo = '4513ECHO/vim-vimhelp-hoptag'
+
+[[plugins]]
 repo = 'cohama/lexima.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_source = '''
