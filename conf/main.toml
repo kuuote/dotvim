@@ -46,12 +46,27 @@ repo = 'cohama/lexima.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_source = '''
 luafile ~/.vim/conf/plug/lexima.lua
-call hypermap#map(';s', "lexima#expand('(', 'i')", { 'eval': v:true })
-call hypermap#map(';f', "lexima#expand(')', 'i')", { 'eval': v:true })
-call hypermap#map(';w', "lexima#expand('{', 'i')", { 'eval': v:true })
-call hypermap#map(';r', "lexima#expand('}', 'i')", { 'eval': v:true })
-call hypermap#map(',x', "lexima#expand(\"'\", 'i')", { 'eval': v:true })
-call hypermap#map(',s', "lexima#expand('\"', 'i')", { 'eval': v:true })
+call hypermap#map(',s', "lexima#expand('[', 'i')", { 'eval': v:true })
+call hypermap#map(',f', "lexima#expand(']', 'i')", { 'eval': v:true })
+call hypermap#map(',w', "lexima#expand('{', 'i')", { 'eval': v:true })
+call hypermap#map(',r', "lexima#expand('}', 'i')", { 'eval': v:true })
+""call hypermap#map(',x', "lexima#expand(\"'\", 'i')", { 'eval': v:true })
+""call hypermap#map(',s', "lexima#expand('\"', 'i')", { 'eval': v:true })
+
+" swap () <=> []
+call lexima#add_rule({'mode': ':', 'char': '(', 'input_after': ')'})
+call lexima#add_rule({'mode': ':', 'char': '(', 'at': '\\\%#'})
+call lexima#add_rule({'mode': ':', 'char': ')', 'at': '\%#)', 'leave': 1})
+call lexima#add_rule({'mode': ':', 'char': '[', 'input_after': ']'})
+call lexima#add_rule({'mode': ':', 'char': '[', 'at': '\\\%#'})
+call lexima#add_rule({'mode': ':', 'char': ']', 'at': '\%#]', 'leave': 1})
+for s:m in ['i', 'c']
+  let s:lm = s:m == 'c' ? ':' : 'i'
+  execute printf('%snoremap <expr> ( lexima#expand("[", "%s")', s:m, s:lm)
+  execute printf('%snoremap <expr> ) lexima#expand("]", "%s")', s:m, s:lm)
+  execute printf('%snoremap <expr> [ lexima#expand("(", "%s")', s:m, s:lm)
+  execute printf('%snoremap <expr> ] lexima#expand(")", "%s")', s:m, s:lm)
+endfor
 '''
 
 [[plugins]]
