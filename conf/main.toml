@@ -297,7 +297,7 @@ on_func = 'gin#component*'
 on_cmd = ['Gin', 'Gin*']
 denops_wait = false
 hook_source = '''
-autocmd FileType gin-status nnoremap <buffer> ,c <Cmd>Gin commit<CR>
+autocmd FileType gin-status nnoremap <buffer> c <Cmd>Gin commit<CR>
 autocmd User GinComponentPost redrawtabline
 " 遅延してるとDenopsPluginPostにフックが生えないので生やす"
 call gin#component#branch#ascii()
