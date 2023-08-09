@@ -45,15 +45,13 @@ local M = {}
 
 M.setup_table = {
   _ = function()
-    -- n('<CR>', action('itemAction'))
-    n('<Space>', action('toggleSelectItem'))
     n('>', action('chooseAction'))
     n('K', action('useKensaku'))
     n('a', action('myInputAction'))
     n('i', action('openFilterWindow'))
     n('q', action('quit'))
     -- preview
-    n('p', action('preview'))
+    -- n('p', action('preview'))
     n('[', action('previewExecute', { command = 'normal! \x15' })) -- <C-u>
     n(']', action('previewExecute', { command = 'normal! \x04' })) -- <C-d>
     n('P', action('toggleAutoAction'))
