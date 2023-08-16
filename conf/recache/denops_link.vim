@@ -9,6 +9,7 @@ call mkdir(s:dir, 'p')
 " X<denops-depends-link>
 call s:link(dein#get('ddc.vim').path, s:dir .. '/ddc.vim')
 call s:link(dein#get('ddu-kind-file').path, s:dir .. '/ddu-kind-file')
+call s:link(dein#get('ddu-source-git_branch').path, s:dir .. '/ddu-source-git_branch')
 call s:link(dein#get('ddu-source-git_status').path, s:dir .. '/ddu-source-git_status')
 call s:link(dein#get('ddu-source-tags').path, s:dir .. '/ddu-source-tags')
 call s:link(dein#get('ddu-ui-ff').path, s:dir .. '/ddu-ui-ff')

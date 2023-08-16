@@ -1,4 +1,5 @@
 import { ActionData as KindFileActionData } from "../../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
+import { ActionData as GitBranchActionData } from "../../../deno/ddu-source-git_branch/denops/@ddu-kinds/git_branch.ts";
 import { ActionData as GitStatusActionData } from "../../../deno/ddu-source-git_status/denops/@ddu-kinds/git_status.ts";
 import { ActionData as KindTagActionData } from "../../../deno/ddu-source-tags/denops/@ddu-kinds/tag.ts";
 import { Params as DduUiFFParams } from "../../../deno/ddu-ui-ff/denops/@ddu-uis/ff.ts";
@@ -137,7 +138,7 @@ const locals: Record<string, Partial<DduOptions>> = {
 };
 
 export class Config extends BaseConfig {
-  override async config(args: ConfigArguments): Promise<void> {
+  config(args: ConfigArguments) {
     const ddu = dduHelper(args.denops);
     // default options
     const defaultMatchers = ["matcher_fzf"];
@@ -188,12 +189,35 @@ export class Config extends BaseConfig {
                   },
                 }],
               });
-              return Promise.resolve(ActionFlags.None);
+              return ActionFlags.None;
             },
           },
           defaultAction: "open",
         },
-        git_tag: { defaultAction: "switch" },
+        // # X<ddu-kind-git_branch>
+        git_branch: {
+          actions: {
+            // original: https://github.com/kyoh86/dotfiles/blob/e78a7fef7338271b389d755ac4499a9f4d0cbfab/nvim/lua/kyoh86/plug/ddu/source/git_branch.lua#L44-L60
+            show_log: (args) => {
+              const data = args.items[0].action as GitBranchActionData;
+              const { refName } = data;
+              const branch = refName.remote == ""
+                ? refName.branch
+                : `${refName.remote}/${refName.branch}`;
+              ddu.start({
+                name: "git_log",
+                sources: [{
+                  name: "git_log",
+                  params: {
+                    startingCommits: [branch],
+                  },
+                }],
+              });
+              return ActionFlags.None;
+            },
+          },
+          defaultAction: "show_log",
+        },
         help: { defaultAction: "tabopen" },
         lsp: { defaultAction: "open" },
         lsp_codeAction: { defaultAction: "apply" },

@@ -63,6 +63,10 @@ rev = 'vim_compat'
 repo = 'kyoh86/ddu-filter-converter_hl_dir'
 
 [[plugins]]
+# L<ddu-kind-git_branch>
+repo = 'kyoh86/ddu-source-git_branch'
+
+[[plugins]]
 repo = 'kyoh86/ddu-source-git_diff_tree'
 
 [[plugins]]
