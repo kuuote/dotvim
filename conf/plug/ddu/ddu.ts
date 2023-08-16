@@ -195,6 +195,8 @@ export class Config extends BaseConfig {
         },
         git_tag: { defaultAction: "switch" },
         help: { defaultAction: "tabopen" },
+        lsp: { defaultAction: "open" },
+        lsp_codeAction: { defaultAction: "apply" },
         source: { defaultAction: "execute" },
         tag: {
           actions: {
