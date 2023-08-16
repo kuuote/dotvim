@@ -9,7 +9,7 @@ import {
 import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
 import * as fn from "../../../deno/denops_std/denops_std/function/mod.ts";
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
-import { map } from "../../../denops/@vimrc/lambda.ts";
+import { cmd, map } from "../../../denops/@vimrc/lambda.ts";
 import { dduHelper } from "./lib/helper.ts";
 
 // 環境から情報を収集してオプションに変える感じで
@@ -110,6 +110,13 @@ export class Config extends BaseConfig {
       );
     }, {
       noremap: true,
+    });
+    await cmd(denops, "DduSelectorCall", async (args) => {
+      const def = await definition[args.arg]?.(denops);
+      if (def == null) {
+        throw Error(`DduSelectorCall failed: ${args.arg}`);
+      }
+      ddu.start(def);
     });
   }
 }

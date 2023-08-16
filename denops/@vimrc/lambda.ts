@@ -28,3 +28,43 @@ export async function map(
     `<Cmd>call denops#request('${denops.name}', '${mapFunc}', ['${functionName}'])<CR>`;
   await mapping.map(denops, lhs, rhsStr, options);
 }
+
+export type CommandOptions = {
+  async?: boolean;
+  buffer?: boolean;
+};
+
+export type CommandArg = {
+  bang: boolean;
+  arg: string;
+};
+
+export type CommandFn = (arg: CommandArg) => void | Promise<void>;
+
+const cmdFunc = "vimrc.lambda.cmd";
+const cmdTable: Record<string, CommandFn> = {};
+
+export async function cmd(
+  denops: Denops,
+  name: string,
+  fn: CommandFn,
+  opt: CommandOptions = {},
+) {
+  denops.dispatcher[cmdFunc] = (
+    functionName: unknown,
+    bang: unknown,
+    arg: unknown,
+  ) =>
+    cmdTable[String(functionName)]?.({
+      bang: Boolean(bang),
+      arg: String(arg),
+    }) ?? Promise.resolve();
+  const bufNr = opt.buffer ? Number(await denops.call("bufnr")) : -1;
+  const functionName = `${bufNr}:${name}`;
+  cmdTable[functionName] = fn;
+  await denops.cmd(
+    `command! ${opt.buffer ? "-buffer" : ""} -nargs=* ${name} call denops#${
+      opt.async ? "notify" : "request"
+    }('${denops.name}', '${cmdFunc}', ['${functionName}', <bang>0, <q-args>])`,
+  );
+}
