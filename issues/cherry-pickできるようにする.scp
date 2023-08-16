@@ -1,0 +1,1 @@
+kyoh86/ddu-source-git_branch及びkyoh86/ddu-source-git_logを採用、作者の設定を借りて連携させることでbranchからlogを出し、cherry pickできるようにした
