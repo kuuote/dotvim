@@ -285,6 +285,14 @@ export class Config extends BaseConfig {
         file_rec: {
           sorters: ["sorter_alpha_path"].concat(defaultSorters),
         },
+        git_branch: {
+          columns: [
+            "git_branch_head",
+            "git_branch_remote",
+            "git_branch_name",
+            "git_branch_upstream",
+          ],
+        },
         mr: {
           converters: ["converter_hl_dir"],
         },
