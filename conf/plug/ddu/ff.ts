@@ -179,7 +179,7 @@ export class Config extends BaseConfig {
           previewFloatingBorder: border as any, // そのうち直す
           previewFloatingZindex: 100,
           previewSplit: "vertical",
-          split: "floating",
+          split: args.denops.meta.host == "nvim" ? "floating" : "horizontal",
         } satisfies Partial<DduUiFFParams>,
       },
       uiOptions: {
