@@ -54,10 +54,10 @@ function s:insert_map()
   snoremap <expr> ;  vimrc#sticky#func()
   tnoremap <expr> ;  vimrc#sticky#func()
 
-  " scroll to up with 2 margin
-  inoremap H <Cmd>normal! zt<C-y><C-y><CR>
+  " scroll to up with 1/4 margin
+  inoremap H <Cmd>call winrestview(#{topline: line('.') - getwininfo(win_getid())[0].height / 4})<CR>
   " scroll to center
-  inoremap M <Cmd>normal! zz<CR>
+  inoremap M <Cmd>call winrestview(#{topline: line('.') - getwininfo(win_getid())[0].height / 2})<CR>
 
   " thanks monaqa and tsuyoshicho
   "" code input advanced in insert mode
