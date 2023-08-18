@@ -1,0 +1,14 @@
+[[plugins]]
+repo = 'uga-rosa/ddc-previewer-floating'
+lua_add = '''
+vim.api.nvim_create_autocmd('InsertEnter', {
+  once = true,
+  callback = function()
+    local ddc_previewer_floating = require('ddc_previewer_floating')
+    ddc_previewer_floating.enable()
+    ddc_previewer_floating.setup {
+      ui = 'pum',
+    }
+  end,
+})
+'''

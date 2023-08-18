@@ -386,14 +386,6 @@ vim.cmd([[autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'cha
 '''
 
 [[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-hook_add = '''
-" plugin無いしこの遅延方法でよさそう
-" on_eventでhookかけるとVimで入力文字を吸うのでこれでいい
-autocmd TextChangedI * ++once ++nested call popup_preview#enable()
-'''
-
-[[plugins]]
 repo = 'mattn/vim-sonictemplate'
 on_cmd = 'Template'
 on_func = 'sonictemplate#postfix'
