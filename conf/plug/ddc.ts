@@ -31,13 +31,17 @@ export class Config extends BaseConfig {
           sorter_alignment: {
             highlightMatched: "FuzzyAccent",
           },
+          sorter_ngram: {
+            highlightMatched: "FuzzyAccent",
+            minMatchLength: 2,
+          },
         },
         sourceOptions: {
           _: {
-            converters: ["converter_fuzzy"],
+            converters: [],
             ignoreCase: true,
             matchers: ["matcher_fuzzy"],
-            sorters: ["sorter_fuzzy"],
+            sorters: ["sorter_ngram"],
           },
           around: {
             mark: "A",
