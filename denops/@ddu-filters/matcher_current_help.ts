@@ -4,7 +4,7 @@ import {
 } from "../../deno/ddu.vim/denops/ddu/base/filter.ts";
 import { DduItem } from "../../deno/ddu.vim/denops/ddu/types.ts";
 
-type Params = Record<never, never>;
+type Params = Record<PropertyKey, never>;
 
 type HelpInfo = {
   lang: string;

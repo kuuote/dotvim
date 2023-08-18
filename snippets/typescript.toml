@@ -13,7 +13,7 @@ body = 'async ($1)$2 => $0'
 [[snippet]]
 key = 'never'
 description = 'Record with never'
-body = 'type Never = Record<never, never>;'
+body = 'type Never = Record<PropertyKey, never>;'
 
 [[snippet]]
 key = 'value'

@@ -7,7 +7,7 @@ import { Denops } from "../../deno/ddu.vim/denops/ddu/deps.ts";
 
 // 単純な歯抜けフィルター
 
-type Params = Record<never, never>;
+type Params = Record<PropertyKey, never>;
 
 const find = (haystack: string, needle: string): number[] => {
   let pos = 0;

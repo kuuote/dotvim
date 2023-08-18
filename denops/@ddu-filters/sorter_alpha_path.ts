@@ -4,7 +4,7 @@ import {
 } from "../../deno/ddu.vim/denops/ddu/types.ts";
 import { ActionData } from "../../deno/ddu-kind-file/denops/@ddu-kinds/file.ts";
 
-type Params = Record<never, never>;
+type Params = Record<PropertyKey, never>;
 
 type Item = {
   action?: ActionData;

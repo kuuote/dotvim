@@ -17,7 +17,7 @@ import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
 import * as u from "../../../deno/unknownutil/mod.ts";
 import { dduHelper } from "./lib/helper.ts";
 
-type Params = Record<never, never>;
+type Params = Record<PropertyKey, never>;
 
 async function loadeno(denops: Denops) {
   const a = await denops.call(

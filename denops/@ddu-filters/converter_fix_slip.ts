@@ -4,7 +4,7 @@ import {
 } from "../../deno/ddu.vim/denops/ddu/base/filter.ts";
 import { DduItem } from "../../deno/ddu.vim/denops/ddu/types.ts";
 
-export type Never = Record<never, never>;
+export type Never = Record<PropertyKey, never>;
 
 export class Filter extends BaseFilter<Never> {
   filter(args: FilterArguments<Never>): Promise<DduItem[]> {

@@ -8,7 +8,7 @@ const rank: Record<string, number> = {
   symlink: 5,
 };
 
-type Params = Record<never, never>;
+type Params = Record<PropertyKey, never>;
 
 export class Filter extends BaseFilter<Params> {
   filter(args: {

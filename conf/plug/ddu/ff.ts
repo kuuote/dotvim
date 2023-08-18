@@ -19,7 +19,7 @@ import { generateDenopsRequest } from "../../../denops/@vimrc/denopscall.ts";
 import { map } from "../../../denops/@vimrc/lambda.ts";
 import { dduHelper } from "./lib/helper.ts";
 
-type Never = Record<never, never>;
+type Never = Record<PropertyKey, never>;
 
 const augroup = "vimrc.ddu.ui.ff";
 
