@@ -50,7 +50,8 @@ function match(input: string, trie: Trie): MatchResult[] {
       }
       len = 0;
       current = root;
-    } else {
+    }
+    if (current.next[c] != null) {
       current = current.next[c];
       len += 1;
     }
@@ -69,6 +70,9 @@ export type Params = {
 
 export class Filter extends BaseFilter<Params> {
   filter(args: FilterArguments<Params>): Item[] {
+    if (args.completeStr.length < args.filterParams.minMatchLength) {
+      return args.items;
+    }
     const input = args.sourceOptions.ignoreCase
       ? args.completeStr.toLowerCase()
       : args.completeStr;
