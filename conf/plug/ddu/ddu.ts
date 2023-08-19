@@ -169,6 +169,9 @@ export class Config extends BaseConfig {
           },
           highlightMatched: "DduMatch",
         },
+        sorter_ngram: {
+          highlightMatched: "DduMatch",
+        },
       },
       kindOptions: {
         action: { defaultAction: "do" },
@@ -178,7 +181,7 @@ export class Config extends BaseConfig {
         dein_update: { defaultAction: "viewDiff" },
         file: {
           actions: {
-            file_rec: (args: ActionArguments<Params>) => {
+            file_rec: (args) => {
               const data = args.items[0].action as KindFileActionData;
               ddu.start({
                 name: "file:file_rec",
@@ -292,6 +295,10 @@ export class Config extends BaseConfig {
             "git_branch_name",
             "git_branch_upstream",
           ],
+        },
+        help: {
+          matchers: [],
+          sorters: ["sorter_ngram"],
         },
         mr: {
           converters: ["converter_hl_dir"],
