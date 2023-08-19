@@ -1,4 +1,4 @@
-import { Item, PumHighlight } from "../../deno/ddc.vim/denops/ddc/types.ts";
+import { Item } from "../../deno/ddc.vim/denops/ddc/types.ts";
 import {
   BaseFilter,
   FilterArguments,
@@ -28,6 +28,7 @@ function makeTrie(input: string): Trie {
 type MatchResult = {
   start: number;
   len: number;
+  text: string;
 };
 
 function match(input: string, trie: Trie): MatchResult[] {
@@ -44,6 +45,7 @@ function match(input: string, trie: Trie): MatchResult[] {
         result.push({
           start: i - len,
           len,
+          text: input.slice(i - len, i),
         });
       }
       len = 0;
@@ -77,10 +79,19 @@ export class Filter extends BaseFilter<Params> {
         : item.word;
       const result = match(word, trie)
         .filter((m) => m.len >= args.filterParams.minMatchLength);
+      // 類似度と言っても、重複の多い文字列が優先されるのも嬉しくないので
+      // score matrixっぽいことをやってみる
+      const score = [...input].map(() => 0);
+      for (const r of result) {
+        const idx = input.indexOf(r.text);
+        for (let i = idx; i < idx + r.len; i++) {
+          score[i] = Math.max(score[i], r.len);
+        }
+      }
       return {
         item,
         result,
-        score: result.reduce((acc, r) => acc + (r.len * r.len), 0),
+        score: score.reduce((acc, s) => acc + s),
       };
     });
 
@@ -95,7 +106,7 @@ export class Filter extends BaseFilter<Params> {
             type: "abbr",
             hl_group,
             col: 1 + byteLength(item.word.slice(0, m.start)),
-            width: byteLength(item.word.slice(m.start, m.start + m.len)),
+            width: byteLength(m.text),
           });
         }
       }
