@@ -57,6 +57,18 @@ const definition: Record<string, Collector> = {
       },
     }],
   }),
+  git_branch: async (denops) => ({
+    name: "git_branch",
+    sources: [{
+      name: "git_branch",
+      options: {
+        path: String(await denops.call("expand", "%:p:h")),
+      },
+      params: {
+        remote: true,
+      }
+    }],
+  }),
   github_repo_pull: async (denops) => ({
     name: "github_repo_pull",
     sources: [{
