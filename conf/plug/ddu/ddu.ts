@@ -215,6 +215,9 @@ export class Config extends BaseConfig {
                   params: {
                     startingCommits: [branch],
                   },
+                  options: {
+                    path: args.sourceOptions.path,
+                  },
                 }],
               });
               return ActionFlags.None;
