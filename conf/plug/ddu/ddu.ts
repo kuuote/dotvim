@@ -171,7 +171,7 @@ export class Config extends BaseConfig {
         },
         sorter_ngram: {
           highlightMatched: "DduMatch",
-          minMatchLength: 2,
+          minMatchHighlightLength: 2,
         },
       },
       kindOptions: {
@@ -302,6 +302,8 @@ export class Config extends BaseConfig {
           sorters: ["sorter_ngram"],
         },
         mr: {
+          matchers: [],
+          sorters: ["sorter_ngram"],
           converters: ["converter_hl_dir"],
         },
       },

@@ -33,7 +33,7 @@ export class Config extends BaseConfig {
           },
           sorter_ngram: {
             highlightMatched: "FuzzyAccent",
-            minMatchLength: 2,
+            minMatchHighlightLength: 2,
           },
         },
         sourceOptions: {

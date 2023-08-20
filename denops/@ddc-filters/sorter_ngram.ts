@@ -66,6 +66,7 @@ function byteLength(input: string): number {
 export type Params = {
   highlightMatched: string;
   minMatchLength: number;
+  minMatchHighlightLength: number;
 };
 
 export class Filter extends BaseFilter<Params> {
@@ -105,13 +106,15 @@ export class Filter extends BaseFilter<Params> {
       for (const { item, result } of ranked) {
         item.highlights ??= [];
         for (const m of result) {
-          item.highlights.push({
-            name,
-            type: "abbr",
-            hl_group,
-            col: 1 + byteLength(item.word.slice(0, m.start)),
-            width: byteLength(m.text),
-          });
+          if (args.filterParams.minMatchHighlightLength <= m.len) {
+            item.highlights.push({
+              name,
+              type: "abbr",
+              hl_group,
+              col: 1 + byteLength(item.word.slice(0, m.start)),
+              width: byteLength(m.text),
+            });
+          }
         }
       }
     }
@@ -124,6 +127,7 @@ export class Filter extends BaseFilter<Params> {
     return {
       highlightMatched: "",
       minMatchLength: 1,
+      minMatchHighlightLength: 1,
     };
   }
 }
