@@ -59,8 +59,6 @@ function match(input: string, trie: Trie): MatchResult[] {
   return result;
 }
 
-console.log(match("fzf", makeTrie("fz")));
-
 function byteLength(input: string): number {
   return new TextEncoder().encode(input).length;
 }
