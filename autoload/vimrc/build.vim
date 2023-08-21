@@ -1,6 +1,11 @@
 " ビルドログを眺めてニヤニヤするためのツール
 
 let s:targets = readfile(expand('$DOTVIM/build/build.json'))->join('')->json_decode()
+try
+  let s:targets2 = readfile(expand('$DOTVIM/local/build.json'))->join('')->json_decode()
+  call extend(s:targets, s:targets2)
+catch
+endtry
 
 function! vimrc#build#output() abort
   let plugins = sort(items(s:targets), {a, b -> a[0] < b[0]})
