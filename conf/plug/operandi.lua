@@ -9,7 +9,7 @@ vimx.create_autocmd('User', {
           matchers = {},
           sorters = {
             'sorter_file',
-            'sorter_alignment',
+            'sorter_ngram',
           },
           converters = {},
         },
@@ -29,13 +29,6 @@ vimx.create_autocmd('User', {
     end, {
       buffer = true,
     })
-    -- vimx.keymap.set('i', '<C-p>', function()
-    --   -- dirpath
-    --   local path = vim.fn.expand('#:p:h')
-    --   path = vim.fn.substitute(path, '/*$', '/', '')
-    --   vim.fn.feedkeys(path, 'n')
-    -- end, {
-    --   buffer = true,
-    -- })
+    vim.fn.setline(1, ':')
   end,
 })
