@@ -73,6 +73,7 @@ export class Config extends BaseConfig {
           input: {
             isVolatile: true,
             mark: "I",
+            minAutoCompleteLength: 0,
           },
           line: {
             matchers: ["matcher_fuzzy"],

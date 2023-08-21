@@ -304,6 +304,11 @@ export class Config extends BaseConfig {
           matchers: [],
           sorters: ["sorter_ngram"],
         },
+        line: {
+          matchers: [],
+          sorters: ["sorter_ngram"],
+          converters: [],
+        },
         mr: {
           matchers: [],
           sorters: ["sorter_ngram"],

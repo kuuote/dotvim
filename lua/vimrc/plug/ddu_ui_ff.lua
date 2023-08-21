@@ -47,7 +47,6 @@ M.setup_table = {
   _ = function()
     n('>', action('chooseAction'))
     n('K', action('useKensaku'))
-    n('a', action('myInputAction'))
     n('i', action('openFilterWindow'))
     n('q', action('quit'))
     -- preview
