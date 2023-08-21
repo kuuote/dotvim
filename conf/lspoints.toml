@@ -1,0 +1,37 @@
+[[plugins]]
+repo = 'kuuote/lspoints'
+lua_add = '''
+local vimx = require('artemis')
+vimx.create_autocmd('User', {
+  pattern = 'DenopsPluginPost:lspoints',
+  callback = function()
+    vimx.fn.lspoints.load_extensions { 'nvim_diagnostics', 'format' }
+    vimx.fn.lspoints.settings.patch {
+      tracePath = '/tmp/lspoints',
+    }
+  end,
+})
+vimx.create_autocmd('User', {
+  pattern = 'LspointsAttach:*',
+  callback = function()
+    vimx.keymap.set('n', 'mf', function()
+      vimx.fn.denops.request('lspoints', 'executeCommand', { 'format', 'execute', vim.fn.bufnr() })
+    end, {
+      buffer = true,
+    })
+  end,
+})
+vimx.create_autocmd('FileType', {
+  pattern = { 'lua' },
+  callback = function()
+    require('vimrc.plug.lspoints').server.luals.attach()
+  end,
+})
+vimx.create_autocmd('FileType', {
+  pattern = { 'typescript', 'typescriptreact' },
+  callback = function()
+    require('vimrc.plug.lspoints').server.denols.attach()
+  end,
+})
+'''
+

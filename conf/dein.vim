@@ -29,10 +29,16 @@ let g:vim_ui_select = [
 let s:inline_tmp = '/tmp/vimrc_inline/'
 
 if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
+  let lsp = [
+  \   'coc',
+  \   'vim-lsp',
+  \   'nvim-lsp',
+  \   'lspoints',
+  \ ][3]
+
   call delete(s:inline_tmp, 'rf')
   call mkdir(s:inline_tmp, 'p')
   let s:profiles = {}
-  let s:profiles['coc'] = 0
   let s:profiles['colorscheme'] = 1
   let s:profiles['ddc'] = 1
   let s:profiles['ddu'] = 1
@@ -41,15 +47,9 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   " 一々依存を更新するのはおつらいのでこうする
   let s:profiles['deno'] = 1
   let s:profiles['filetype'] = 1
+  let s:profiles[lsp] = 1
   let s:profiles['main'] = 1
   let s:profiles['treesitter'] = 1
-  let s:profiles['vim-lsp'] = 1
-  if 0
-    if has('nvim')
-      let s:profiles['nvim-lsp'] = 1
-      let s:profiles['vim-lsp'] = 0
-    endif
-  endif
   if has('nvim')
     let s:profiles['cmp'] = 1
   endif
