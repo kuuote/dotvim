@@ -25,14 +25,17 @@ export class Config extends BaseConfig {
           "@": ["input"],
         },
         filterParams: {
+          converter_fuzzy: {
+            hlGroup: "PumHighlight",
+          },
           matcher_substring: {
-            highlightMatched: "FuzzyAccent",
+            highlightMatched: "PumHighlight",
           },
           sorter_alignment: {
-            highlightMatched: "FuzzyAccent",
+            highlightMatched: "PumHighlight",
           },
           sorter_ngram: {
-            highlightMatched: "FuzzyAccent",
+            highlightMatched: "PumHighlight",
             minMatchHighlightLength: 2,
           },
         },

@@ -70,6 +70,10 @@ autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buff
 
 " deflicker echo area
 set noshowmode
+
+" highlight大事
+" Numberにしているのはddc-fuzzyより
+autocmd ColorScheme * highlight default link PumHighlight Number
 '''
 
 [[plugins]]
