@@ -79,6 +79,79 @@ function restoreConfig(args: ConfigArguments) {
   }
 }
 
+async function setConfig(args: ConfigArguments, name: string) {
+  const bufnr = Number(await args.denops.call("bufnr"));
+  const gconfig = args.contextBuilder.getBuffer();
+  const config = gconfig[bufnr];
+  if (saveConfig[bufnr] == null) {
+    saveConfig[bufnr] = config;
+  }
+  const set = configSet[name];
+  if (set == null) {
+    restoreConfig(args);
+    return;
+  }
+  args.contextBuilder.setBuffer(bufnr, await set(args.denops));
+  args.contextBuilder.patchBuffer(bufnr, {
+    specialBufferCompletion: true,
+  });
+  await args.denops.call("ddc#map#manual_complete");
+}
+
+const configMap: Record<string, string> = {};
+
+// configSetを指定させてマッピングする
+async function inputConfigSet(args: ConfigArguments) {
+  const bufnr = Number(await args.denops.call("bufnr"));
+  const gconfig = args.contextBuilder.getBuffer();
+  const config = gconfig[bufnr];
+  args.contextBuilder.setBuffer(bufnr, {
+    cmdlineSources: [{
+      name: "list",
+      options: {
+        minAutoCompleteLength: 0,
+      },
+      params: {
+        candidates: Object.keys(configSet),
+      } satisfies ListParams,
+    }],
+    specialBufferCompletion: true,
+  });
+  const ve = await option.virtualedit.getLocal(args.denops);
+  try {
+    // 末尾にカーソルあるとinput後に動くんで上書き
+    await option.virtualedit.setLocal(args.denops, "onemore");
+    await autocmd.define(
+      args.denops,
+      "CmdlineEnter",
+      "*",
+      "call ddc#map#manual_complete()",
+      {
+        once: true,
+      },
+    );
+    await args.denops.call("ddc#hide");
+    const name = String(await args.denops.call("input", "name?"));
+    await args.denops.call("ddc#map#manual_complete", { ui: "none" });
+    args.contextBuilder.setBuffer(bufnr, { ui: "none" });
+    const key = String(await args.denops.call("input", "key?"));
+    if (configSet[name] == null) {
+      delete configMap[key];
+    } else {
+      configMap[key] = name;
+    }
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await option.virtualedit.setLocal(args.denops, ve);
+    if (config == null) {
+      delete gconfig[bufnr];
+    } else {
+      gconfig[bufnr] = config;
+    }
+  }
+}
+
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<void> {
     const ino: mapping.MapOptions = {
@@ -86,59 +159,23 @@ export class Config extends BaseConfig {
       noremap: true,
       nowait: true,
     };
-    await map(args.denops, "C", async () => {
-      const bufnr = Number(await args.denops.call("bufnr"));
-      if (saveConfig[bufnr] == null) {
-        const config = args.contextBuilder.getBuffer();
-        saveConfig[bufnr] = config[bufnr];
+    // XXでconfig指定、X{key}で使えるようにする
+    await map(args.denops, "X", async () => {
+      const key = String(await args.denops.call("getcharstr"));
+      if (key == "X") {
+        await inputConfigSet(args);
       }
-      args.contextBuilder.setBuffer(bufnr, {
-        cmdlineSources: [{
-          name: "list",
-          options: {
-            minAutoCompleteLength: 0,
-          },
-          params: {
-            candidates: Object.keys(configSet),
-          } satisfies ListParams,
-        }],
-        specialBufferCompletion: true,
-      });
-      const ve = await option.virtualedit.getLocal(args.denops);
-      try {
-        // 末尾にカーソルあるとinput後に動くんで上書き
-        await option.virtualedit.setLocal(args.denops, "onemore");
-        await autocmd.define(
-          args.denops,
-          "CmdlineEnter",
-          "*",
-          "call ddc#map#manual_complete()",
-          {
-            once: true,
-          },
-        );
-        const name = await args.denops.call("input", "?");
-        const set = configSet[String(name)];
-        if (set == null) {
-          restoreConfig(args);
-          return;
-        }
-        args.contextBuilder.setBuffer(bufnr, await set(args.denops));
-        args.contextBuilder.patchBuffer(bufnr, {
-          specialBufferCompletion: true,
-        });
-        await args.denops.call("ddc#map#manual_complete");
-      } catch (e) {
-        console.log(e);
-        restoreConfig(args);
-      } finally {
-        await option.virtualedit.setLocal(args.denops, ve);
+      const name = configMap[key];
+      if (name != null) {
+        await setConfig(args, name);
+        await echomsg(args.denops, `set to ${name}`);
       }
     }, ino);
     await map(args.denops, "L", async () => {
       await args.denops.call("ddc#map#manual_complete");
     }, ino);
     await map(args.denops, "R", async () => {
+      await args.denops.call("ddc#hide");
       restoreConfig(args);
       await echomsg(args.denops, "restore buffer config");
     }, ino);
