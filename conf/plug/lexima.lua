@@ -43,7 +43,7 @@ au('FileType', {
     -- if () {
     --   |
     -- }
-    for _, stmt in ipairs { 'if', 'for', 'while' } do
+    for _, stmt in ipairs { 'if', 'for', 'while', 'for await' } do
       add {
         char = '(',
         at = [[^\s*\%(}\s\+else\s\+\)\?]] .. stmt .. [[\s\%#]],
