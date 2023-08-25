@@ -14,13 +14,6 @@ class Helper {
     // こうしておくとその場でカスタムアクションとか作って渡せるはず
     return this.denops.dispatcher.start(options);
   }
-  getItemActions(name: string, items: DduItem[]): Promise<string[]> {
-    return this.denops.call(
-      "ddu#get_item_actions",
-      name,
-      items,
-    ) as Promise<string[]>;
-  }
   itemAction(
     name: string,
     action: string,
