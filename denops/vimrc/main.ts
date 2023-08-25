@@ -69,14 +69,14 @@ export async function main(denops: Denops) {
       await fn.deletebufline(denops, "%", 1, "$");
       await fn.setbufline(denops, "%", 1, json.split("\n"));
     },
-    async load(path: unknown) {
+    async load(path: unknown, args?: unknown) {
       u.assert(path, u.isString);
       // NOTE: Import module with fragment so that reload works properly.
       // https://github.com/vim-denops/denops.vim/issues/227
       const mod = await import(
         `${stdpath.toFileUrl(path).href}#${performance.now()}`
       );
-      await mod.main(denops);
+      await mod.main(denops, args);
     },
     async jsonYAML() {
       const lines = await fn.getline(denops, 1, "$");
