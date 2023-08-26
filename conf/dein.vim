@@ -26,8 +26,6 @@ let g:vim_ui_select = [
 \   'dressing_telescope',
 \ ][1]
 
-let s:inline_tmp = '/tmp/vimrc_inline/'
-
 if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   let lsp = [
   \   'coc',
@@ -36,8 +34,8 @@ if !empty($FORCE_DEIN_RECACHE) || dein#load_state(s:dein_dir)
   \   'lspoints',
   \ ][3]
 
-  call delete(s:inline_tmp, 'rf')
-  call mkdir(s:inline_tmp, 'p')
+  call delete(g:vimrc#cache_path, 'rf')
+  call mkdir(g:vimrc#cache_path, 'p')
   let s:profiles = {}
   let s:profiles['colorscheme'] = 1
   let s:profiles['ddc'] = 1
@@ -94,7 +92,7 @@ if !empty($plug)
   endif
 endif
 
-let hook_source_cache = s:inline_tmp .. v:progname .. 'hook_source.vim'
+let hook_source_cache = g:vimrc#cache_path .. 'hook_source.vim'
 if !filereadable(hook_source_cache)
   let lines = []
   " from dein#util#_call_hook

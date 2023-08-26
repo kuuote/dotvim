@@ -4,16 +4,16 @@ function! vimrc#blocksort(finder, sorter) abort range
   call denops#request('vimrc', 'blockSort', [a:firstline, a:lastline, a:finder, a:sorter])
 endfunction
 
-let s:cache_path = '/tmp/vimrc_inline/'
+let g:vimrc#cache_path = '/tmp/vimrc_inline' .. v:progname[0] .. $vimprofile .. '/'
 
 function! s:collect_files(path, ...) abort
   let inline = get(a:000, 0, v:true)
-  let cache = s:cache_path .. sha256(a:path)
+  let cache = g:vimrc#cache_path .. sha256(a:path)
   if filereadable(cache)
     return readfile(cache)
   endif
   let files = sort(glob(a:path, v:true, v:true))
-  call mkdir(s:cache_path, 'p')
+  call mkdir(g:vimrc#cache_path, 'p')
   if inline
     let vim = []
     let lua = []
@@ -26,12 +26,12 @@ function! s:collect_files(path, ...) abort
     endfor
     let files = []
     if !empty(vim)
-      let vimfile = s:cache_path .. sha256(a:path) .. '.vim'
+      let vimfile = g:vimrc#cache_path .. sha256(a:path) .. '.vim'
       call writefile(vim, vimfile)
       call add(files, vimfile)
     endif
     if !empty(lua)
-      let luafile = s:cache_path .. sha256(a:path) .. '.lua'
+      let luafile = g:vimrc#cache_path .. sha256(a:path) .. '.lua'
       call writefile(lua, luafile)
       call add(files, luafile)
     endif
