@@ -1,4 +1,7 @@
 {
+  "coc.nvim": {
+    "script": "$DOTVIM/build/coc.nvim.sh"
+  },
   "dict": {
     "script": "$DOTVIM/build/dict.sh"
   },
