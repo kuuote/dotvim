@@ -2,20 +2,22 @@ local vimx = require('artemis')
 vimx.create_autocmd('User', {
   pattern = 'operandi#open#command',
   callback = function()
-    vimx.fn.ddc.custom.set_buffer {
-      sources = { 'file', 'cmdline' },
-      sourceOptions = {
-        file = {
-          matchers = {},
-          sorters = {
-            'sorter_file',
-            'sorter_ngram',
+    if vim.fn['dein#is_available']('ddc.vim') == 1 then
+      vimx.fn.ddc.custom.set_buffer {
+        sources = { 'file', 'cmdline' },
+        sourceOptions = {
+          file = {
+            matchers = {},
+            sorters = {
+              'sorter_file',
+              'sorter_ngram',
+            },
+            converters = {},
           },
-          converters = {},
         },
-      },
-      specialBufferCompletion = true,
-    }
+        specialBufferCompletion = true,
+      }
+    end
     vimx.keymap.set('i', '<C-p>', function()
       local pos = vim.fn.col('.')
       local left = vim.fn.getline('.'):sub(pos - 1, pos)

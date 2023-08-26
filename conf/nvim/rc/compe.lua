@@ -2,6 +2,13 @@ local vimx = require('artemis')
 
 -- change cmp <=> ddc
 
+local is_available = vimx.fn.dein.is_available
+if is_available('ddc.vim') == 0 then
+  require('cmp')
+  vim.g.cmp = true
+  return
+end
+
 local current = 'ddc'
 local ddc_config
 

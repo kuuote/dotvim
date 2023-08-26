@@ -87,10 +87,12 @@ hook_add = '''
 command! DeolCurrent execute printf('Deol -cwd=%s', isdirectory(expand('%')) ? expand('%') : getftype(expand('%')) == 'file' ? expand('%:h') : getcwd())
 '''
 hook_source = '''
-call ddc#custom#patch_filetype(['deol', 'shell-native'], 'specialBufferCompletion', v:true)
-call ddc#custom#patch_filetype('deol', 'sources', ['shell-native', 'shell-history', 'around'])
-" auto cdはEditバッファのみ有効なのでfileはこちら
-call ddc#custom#patch_filetype('zsh', 'sources', ['file', 'shell-native', 'shell-history'])
+if dein#is_available('ddc.vim')
+  call ddc#custom#patch_filetype(['deol', 'shell-native'], 'specialBufferCompletion', v:true)
+  call ddc#custom#patch_filetype('deol', 'sources', ['shell-native', 'shell-history', 'around'])
+  " auto cdはEditバッファのみ有効なのでfileはこちら
+  call ddc#custom#patch_filetype('zsh', 'sources', ['file', 'shell-native', 'shell-history'])
+endif
 
 autocmd FileType deol tnoremap <buffer> <C-e> <C-\><C-N>G<Cmd>DeolEdit<CR><C-u><Cmd>call feedkeys("cd .\<lt>CR>")<CR>
 

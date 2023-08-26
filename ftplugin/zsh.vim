@@ -13,14 +13,16 @@ local convert = require('vimrc.compat.convert')
 
 map({'n', 'i'}, '<C-e>', '<Cmd>xall<CR>')
 
-convert.call('ddc#custom#set_buffer', {
-  sources = { 'file', 'shell-native', 'around' },
-  sourceOptions = {
-    zsh = {
-      minAutoCompleteLength = 1,
+if vim.fn['dein#is_available'] == 1 then
+  convert.call('ddc#custom#set_buffer', {
+    sources = { 'file', 'shell-native', 'around' },
+    sourceOptions = {
+      zsh = {
+        minAutoCompleteLength = 1,
+      },
     },
-  },
-})
+  })
+end
 EOS
   call feedkeys('A', 'ni')
 endif
