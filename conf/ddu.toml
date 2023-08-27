@@ -11,13 +11,17 @@ end)
 '''
 
 [[plugins]]
+# L<ddu-config-sourceParams-qf>
+repo = 'flow6852/ddu-source-qf'
+
+[[plugins]]
 repo = 'kuuote/ddu-filter-fuse'
 
 [[plugins]]
 repo = 'kuuote/ddu-source-git_diff'
 
 [[plugins]]
-# L<ddu-config-source_git_status>
+# L<ddu-config-git_status>
 repo = 'kuuote/ddu-source-git_status'
 
 [[plugins]]

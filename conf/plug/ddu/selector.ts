@@ -13,13 +13,13 @@ import { cmd, map } from "../../../denops/@vimrc/lambda.ts";
 import { dduHelper } from "./lib/helper.ts";
 
 // 環境から情報を収集してオプションに変える感じで
-type POptions = Promise<Partial<DduOptions>>;
+type POptions = Partial<DduOptions> | Promise<Partial<DduOptions>>;
 type Collector = (denops: Denops) => POptions;
 
 async function ripgrepLive(
   denops: Denops,
   findPath: (denops: Denops) => Promise<string>,
-): POptions {
+): Promise<Awaited<POptions>> {
   // ddu-source-rg is set to lazy, load it.
   await denops.call("dein#source", "ddu-source-rg");
   return {
@@ -66,7 +66,7 @@ const definition: Record<string, Collector> = {
       },
       params: {
         remote: true,
-      }
+      },
     }],
   }),
   github_repo_pull: async (denops) => ({
@@ -84,23 +84,24 @@ const definition: Record<string, Collector> = {
       async (denops) => await fn.expand(denops, "%:p:h") as string,
     ),
   // X<ddu-config-selector-lsp>
-  lsp_codeAction: () =>
-    Promise.resolve({
-      name: "lsp",
-      sources: [{
-        name: "lsp_codeAction",
-      }],
-    }),
-  lsp_definition: () =>
-    Promise.resolve({
-      name: "lsp",
-      sources: ["lsp_definition"],
-    }),
-  lsp_references: () =>
-    Promise.resolve({
-      name: "lsp",
-      sources: ["lsp_references"],
-    }),
+  lsp_codeAction: () => ({
+    name: "lsp",
+    sources: [{
+      name: "lsp_codeAction",
+    }],
+  }),
+  lsp_definition: () => ({
+    name: "lsp",
+    sources: ["lsp_definition"],
+  }),
+  lsp_references: () => ({
+    name: "lsp",
+    sources: ["lsp_references"],
+  }),
+  quickfix: () => ({
+    name: "file",
+    sources: ["qf"],
+  }),
 };
 
 export class Config extends BaseConfig {

@@ -45,7 +45,7 @@ async function loadeno(denops: Denops) {
   await denops.call("ddu#util#print_error", "preload complete. ready!");
 }
 
-// X<ddu-config-source_git_status>
+// X<ddu-config-git_status>
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
   args.contextBuilder.patchGlobal({
@@ -311,6 +311,12 @@ export class Config extends BaseConfig {
           matchers: [],
           sorters: ["sorter_ngram"],
           converters: ["converter_hl_dir"],
+        },
+      },
+      sourceParams: {
+        // X<ddu-config-sourceParams-qf>
+        qf: {
+          format: "%b:%l: %t",
         },
       },
       ui: "ff",
