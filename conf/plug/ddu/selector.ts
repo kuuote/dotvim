@@ -114,6 +114,11 @@ export class Config extends BaseConfig {
           Object.keys(definition).sort(),
           async (items) => {
             if (items[0] != null) {
+              await denops.call(
+                "histadd",
+                ":",
+                "DduSelectorCall " + items[0].word,
+              );
               ddu.start(await definition[items[0].word](denops));
             }
             return ActionFlags.None;
