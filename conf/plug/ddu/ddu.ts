@@ -233,6 +233,7 @@ export class Config extends BaseConfig {
                 const data = item.action as KindTagActionData;
                 await args.denops.cmd("enew");
                 await args.denops.cmd("edit " + data.filename);
+                await args.denops.cmd("1"); // 検索だと失敗することあるので
                 await args.denops.cmd(data.cmd);
                 await args.denops.cmd("normal! zz");
               }
