@@ -3,9 +3,7 @@ import {
   BaseConfig,
   ConfigArguments,
 } from "../../../deno/ddu.vim/denops/ddu/base/config.ts";
-import {
-  ActionFlags,
-} from "../../../deno/ddu.vim/denops/ddu/types.ts";
+import { ActionFlags } from "../../../deno/ddu.vim/denops/ddu/types.ts";
 import * as autocmd from "../../../deno/denops_std/denops_std/autocmd/mod.ts";
 import * as fn from "../../../deno/denops_std/denops_std/function/mod.ts";
 import * as lambda from "../../../deno/denops_std/denops_std/lambda/mod.ts";
@@ -186,12 +184,20 @@ export class Config extends BaseConfig {
         ff: {
           actions: {
             useKensaku: async (args) => {
-              args.ddu.updateOptions({
-                sourceOptions: {
-                  _: {
+              const sources = args.options.sources.map((s) => {
+                if (u.isString(s)) {
+                  s = { name: s };
+                }
+                return {
+                  ...s,
+                  options: {
+                    ...s.options,
                     matchers: ["matcher_kensaku"],
                   },
-                },
+                };
+              });
+              args.ddu.updateOptions({
+                sources,
               });
               await args.denops.cmd("echomsg 'change to kensaku matcher'");
               return ActionFlags.Persist;
