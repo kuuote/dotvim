@@ -193,6 +193,8 @@ export class Config extends BaseConfig {
                   options: {
                     ...s.options,
                     matchers: ["matcher_kensaku"],
+                    sorters: [],
+                    converters: [],
                   },
                 };
               });
