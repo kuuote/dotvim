@@ -8,7 +8,6 @@ import {
   ConfigArguments,
 } from "../../../deno/ddu.vim/denops/ddu/base/config.ts";
 import {
-  ActionArguments,
   ActionFlags,
   DduOptions,
 } from "../../../deno/ddu.vim/denops/ddu/types.ts";
@@ -16,8 +15,6 @@ import * as stdpath from "../../../deno/deno_std/path/mod.ts";
 import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
 import * as u from "../../../deno/unknownutil/mod.ts";
 import { dduHelper } from "./lib/helper.ts";
-
-type Params = Record<PropertyKey, never>;
 
 async function loadeno(denops: Denops) {
   const a = await denops.call(
@@ -85,7 +82,7 @@ function setupGitStatus(args: ConfigArguments) {
             });
             return Promise.resolve(ActionFlags.None);
           },
-          patch: async (args: ActionArguments<Params>) => {
+          patch: async (args) => {
             for (const item of args.items) {
               const action = item.action as GitStatusActionData;
               await args.denops.cmd("tabnew");
