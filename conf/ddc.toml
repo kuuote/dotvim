@@ -64,6 +64,8 @@ call ddc#custom#patch_global('sources', g:vimrc#ddc_sources_front + g:vimrc#ddc_
 
 autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
 autocmd User DenopsPluginPost:ddc call ddc#enable_cmdline_completion()
+" 現状呼ばれてないっぽいんで@もついでに呼んでおく
+autocmd CmdlineEnter :,@ call ddc#on_event('CmdlineEnter')
 
 " acwriteセットされてるファイルで補完効かなくて困ることは無いと思う
 autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif

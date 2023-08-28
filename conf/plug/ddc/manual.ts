@@ -121,18 +121,7 @@ async function inputConfigSet(args: ConfigArguments) {
   try {
     // 末尾にカーソルあるとinput後に動くんで上書き
     await option.virtualedit.setLocal(args.denops, "onemore");
-    await autocmd.define(
-      args.denops,
-      "CmdlineEnter",
-      "*",
-      "call ddc#map#manual_complete()",
-      {
-        once: true,
-      },
-    );
-    await args.denops.call("ddc#hide");
     const name = String(await args.denops.call("input", "name?"));
-    await args.denops.call("ddc#map#manual_complete", { ui: "none" });
     args.contextBuilder.setBuffer(bufnr, { ui: "none" });
     const key = String(await args.denops.call("input", "key?"));
     if (configSet[name] == null) {
