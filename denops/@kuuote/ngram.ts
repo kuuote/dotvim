@@ -33,8 +33,11 @@ export function makeTrie(input: string): Needle {
     let current = root;
     for (let i = 0; i < pinput.length; i++) {
       const c = pinput[i];
-      current.next[c] ??= {
-        next: {},
+      // 重複した場合に末尾の候補を優先したいので上書きする。
+      // 例えばhogepiyoを絞り込んだ後、改めてpiyoを前に持ってきたかったら、
+      // 再びpiyoを打てば実現できるようにしたい
+      current.next[c] = {
+        next: current.next[c]?.next ?? {},
         start,
         len: i + 1,
       };
