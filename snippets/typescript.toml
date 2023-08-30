@@ -11,17 +11,22 @@ description = 'async arrow function'
 body = 'async ($1)$2 => $0'
 
 [[snippet]]
+key = 'isnonnull'
+description = 'null reducer for Array.filter()'
+body = '<T>(x: T): x is NonNullable<T> => x != null'
+
+[[snippet]]
 key = 'never'
 description = 'Record with never'
 body = 'type Never = Record<PropertyKey, never>;'
 
 [[snippet]]
-key = 'value'
-description = 'const'
-body = 'const $1 = $0'
-
-[[snippet]]
 key = 'thunk'
 description = 'function without args'
 body = '() => $0'
+
+[[snippet]]
+key = 'value'
+description = 'const'
+body = 'const $1 = $0'
 
