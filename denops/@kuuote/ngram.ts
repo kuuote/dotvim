@@ -74,7 +74,7 @@ export function match(
   const matches: MatchResult[] = [];
   const root = needle.trie;
   let current = root;
-  const score = [...input].map(() => 0);
+  const score = Array(needle.length).fill(0);
 
   // 終了後にチェックするのがめんどいので末尾+1まで処理させる
   for (let i = 0; i <= input.length; i++) {
@@ -108,3 +108,4 @@ export function match(
     score: score.reduce((a, b) => a + b),
   };
 }
+
