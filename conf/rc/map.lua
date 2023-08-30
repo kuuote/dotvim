@@ -4,6 +4,7 @@ local cmd = vim.cmd or vim.command
 
 -- 安全にかつ高速に終わるための設定
 m({ 'n', 'x', 'o' }, 'Q', '<Cmd>confirm qa<CR>')
+m({ 'i', 'c' }, '<C-q>', '<Cmd>confirm qa<CR>')
 
 -- VimはUSキーボードに優しくないよね
 m({ 'n', 'x' }, "'", ':')
