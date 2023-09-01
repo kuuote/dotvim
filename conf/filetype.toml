@@ -1,3 +1,6 @@
 [[plugins]]
 repo = 'kat0h/bufpreview.vim'
 
+[[plugins]]
+repo = 'KentoOgata/vim-vimscript-gd'
+
