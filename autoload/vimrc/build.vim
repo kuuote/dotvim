@@ -20,7 +20,8 @@ function! vimrc#build#output() abort
     let scripts = extend([script_path], get(def, 'aux', [])->map('expand(v:val)'))
     let hashes = scripts->map('readfile(v:val)->join("\n")->sha256()')
 
-    call add(hashes, trim(system(printf('git -C %s rev-parse origin/HEAD', plug.path))))
+    let upstream = trim(system(printf('git -C %s rev-parse --abbrev-ref --symbolic-full-name @{u}', plug.path)))
+    call add(hashes, trim(system(printf('git -C %s rev-parse %s', plug.path, upstream))))
 
     let hash = sha256(join(hashes, '\n'))
 
@@ -38,9 +39,7 @@ function! vimrc#build#output() abort
           \ '(',
           \ 'set -ex',
           \ printf('cd %s', plug.path),
-          \ 'git reset origin/HEAD',
-          \ 'git clean -ffdx',
-          \ 'git restore .',
+          \ '$DOTVIM/build/_update.sh',
           \ script_path,
           \ printf(') && echo -e "%s" > %s', hash, hash_path),
           \ ]
