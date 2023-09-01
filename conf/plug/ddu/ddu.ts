@@ -245,6 +245,9 @@ export class Config extends BaseConfig {
         ui_select: { defaultAction: "select" },
         word: { defaultAction: "append" },
       },
+      postFilters: [
+        "converter_reduce_highlights",
+      ],
       sourceOptions: {
         _: {
           ignoreCase: true,
