@@ -1,5 +1,4 @@
 #!/bin/bash -eux
 
-yarn --frozen-lockfile
-yarn run build
+npm ci
 rm -rf node_modules
