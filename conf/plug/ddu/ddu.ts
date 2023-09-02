@@ -151,6 +151,9 @@ export class Config extends BaseConfig {
         converter_hl_dir: {
           hlGroup: "String",
         },
+        converter_ngram: {
+          highlightMatched: "DduMatch",
+        },
         matcher_fzf: {
           highlightMatched: "DduMatch",
         },
@@ -308,7 +311,7 @@ export class Config extends BaseConfig {
         line: {
           matchers: [],
           sorters: ["sorter_ngram"],
-          converters: [],
+          converters: ["converter_ngram"],
         },
         mr: {
           matchers: [],

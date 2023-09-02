@@ -11,13 +11,12 @@ function byteLength(input: string): number {
 
 export type Params = {
   highlightMatched: string;
-  minMatchLength: number;
   minMatchHighlightLength: number;
 };
 
 export class Filter extends BaseFilter<Params> {
   filter(args: FilterArguments<Params>): DduItem[] {
-    if (args.input.length < args.filterParams.minMatchLength) {
+    if (args.input.length < 1) {
       return args.items;
     }
     const ignoreCase = args.sourceOptions.ignoreCase &&
@@ -25,14 +24,14 @@ export class Filter extends BaseFilter<Params> {
     const input = ignoreCase ? args.input.toLowerCase() : args.input;
     const needle = makeTrie(input);
     const ranked = args.items.map((item) => {
+      let key = item.display ?? item.matcherKey;
       const ignoreCase = args.sourceOptions.ignoreCase &&
-        !(args.sourceOptions.smartCase && /[A-Z]/.test(item.matcherKey));
-      const key = ignoreCase ? item.matcherKey.toLowerCase() : item.matcherKey;
-      const result = match(key, needle, {
-        minMatchLength: args.filterParams.minMatchLength,
-      });
+        !(args.sourceOptions.smartCase && /[A-Z]/.test(key));
+      key = ignoreCase ? key.toLowerCase() : key;
+      const result = match(key, needle);
       return {
         item,
+        key,
         result,
       };
     });
@@ -40,14 +39,15 @@ export class Filter extends BaseFilter<Params> {
     const hl_group = args.filterParams.highlightMatched;
     if (hl_group != "") {
       const name = "ddu-filter-ngram-" + hl_group;
-      for (const { item, result } of ranked) {
-        item.highlights ??= [];
+      for (const { item, key, result } of ranked) {
+        item.highlights = (item.highlights ?? [])
+          .filter((hl) => hl.name != name);
         for (const m of result.matches) {
           if (args.filterParams.minMatchHighlightLength <= m.len) {
             item.highlights.push({
               name,
               hl_group,
-              col: 1 + byteLength(item.word.slice(0, m.start)),
+              col: 1 + byteLength(key.slice(0, m.start)),
               width: byteLength(m.text),
             });
           }
@@ -55,15 +55,13 @@ export class Filter extends BaseFilter<Params> {
       }
     }
 
-    return ranked.sort((a, b) => b.result.score - a.result.score)
-      .map((value) => value.item);
+    return ranked.map((value) => value.item);
   }
 
   params(): Params {
     return {
       highlightMatched: "",
-      minMatchLength: 1,
-      minMatchHighlightLength: 1,
+      minMatchHighlightLength: 2,
     };
   }
 }
