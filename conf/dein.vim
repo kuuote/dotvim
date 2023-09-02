@@ -78,19 +78,21 @@ endif
 " auto recache時には働いてほしくないのでここ
 let g:dein#enable_notification = v:true
 
-if !empty($plug)
-  " $plugに何かセットされてたらカレントディレクトリをruntimepathの先頭に置く
+if !empty($plugcwd)
+  " $plugcwdに何かセットされてたらカレントディレクトリをruntimepathの先頭に置く
   let &runtimepath = printf('%s,%s', getcwd(), &runtimepath)
+endif
+if !empty($plug)
   if getftype('/tmp/templug') == 'dir' && empty($noautoload)
     " templugの下に何かあったらruntimepathの先頭に置く
     let s:plugins = glob('/tmp/templug/*', 1, 1)
     if !empty(s:plugins)
       let &runtimepath = s:plugins->join(',') .. ',' .. &runtimepath
     endif
-    " お掃除コマンドも定義しておく
-    command! TemplugClean call delete('/tmp/templug', 'rf')
   endif
 endif
+" お掃除コマンドも定義しておく
+command! TemplugClean call delete('/tmp/templug', 'rf')
 
 let hook_source_cache = g:vimrc#cache_path .. 'hook_source.vim'
 if !filereadable(hook_source_cache)
