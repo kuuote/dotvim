@@ -1,5 +1,8 @@
+import {
+  DduItem,
+  DduOptions,
+} from "../../../../deno/ddu.vim/denops/ddu/types.ts";
 import { Denops } from "../../../../deno/denops_std/denops_std/mod.ts";
-import { DduItem, DduOptions } from "../../../../deno/ddu.vim/denops/ddu/types.ts";
 
 // 型wrapper
 // いるものしか定義してないので適宜増やすこと
@@ -13,6 +16,12 @@ class Helper {
     // return this.denops.call("ddu#start", options);
     // こうしておくとその場でカスタムアクションとか作って渡せるはず
     return this.denops.dispatcher.start(options);
+  }
+  getItemActionNames(name: string, items: DduItem[]) {
+    return this.denops.dispatcher.getItemActionNames(
+      name,
+      items,
+    ) as Promise<string[]>;
   }
   itemAction(
     name: string,
