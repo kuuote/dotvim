@@ -56,7 +56,6 @@ else
   let g:vimrc#ddc_sources_front = ['bufferline', 'vsnip', 'file']
 endif
 
-doautocmd <nomodeline> User vimrc-ddc
 call ddc#enable()
 call ddc#custom#load_config(expand('$DOTVIM/conf/plug/ddc.ts'))
 call ddc#custom#load_config(expand('$DOTVIM/conf/plug/ddc/manual.ts'))
