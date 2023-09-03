@@ -4,7 +4,7 @@ import * as fn from "../../deno/denops_std/denops_std/function/mod.ts";
 import { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 import * as u from "../../deno/unknownutil/mod.ts";
 
-const mapFunc = "vimrc.lambda.map";
+const mapFunc = "vimrc.lambda.map" + Math.random();
 const mapTable: Record<string, lambda.Fn> = {};
 
 // bufferはbatchで使えないはずなので注意
@@ -41,7 +41,7 @@ export type CommandArg = {
 
 export type CommandFn = (arg: CommandArg) => void | Promise<void>;
 
-const cmdFunc = "vimrc.lambda.cmd";
+const cmdFunc = "vimrc.lambda.cmd" + Math.random();
 const cmdTable: Record<string, CommandFn> = {};
 
 export async function cmd(
