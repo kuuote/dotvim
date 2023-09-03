@@ -16,6 +16,7 @@ function s:colorscheme()
     let highlights.floating = "DduFloat,EndOfBuffer:DduEnd,Search:DduMatch"
     let highlights.floatingCursorLine = "DduCursorLine"
   else
+    hi def link DduMatch Search
     let highlights.floating = 'Normal,DduBorder:Normal,DduMatch:Search'
   endif
   call ddu#custom#patch_global({'uiParams': {'ff': {'highlights': highlights}}})
