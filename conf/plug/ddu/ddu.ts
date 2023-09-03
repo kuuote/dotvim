@@ -23,24 +23,17 @@ async function loadeno(denops: Denops) {
     "denops/**/*.ts",
   )
     .then((s) => String(s).split("\n"));
-  const b = a.map((path): [string, [string]] | undefined => {
-    const ddu = path.match(/@ddu-(.+)s\/(.+)\.ts$/);
+  const uis = a.map((path) => {
+    const ddu = path.match(/@ddu-uis\/(.+)\.ts$/);
     if (ddu != null) {
-      return [ddu[1], [ddu[2]]];
+      return ddu[1];
     }
   })
     .filter(<T>(x: T): x is NonNullable<T> => x != null);
-  let count = 0;
-  for (const [type, ext] of b) {
-    count += 1;
-    try {
-      await denops.dispatch("ddu", "loadExtensions", type, ext);
-    } catch (e: unknown) {
-      console.log(e);
-    }
-    await denops.cmd("echomsg msg", {
-      msg: count + "/" + b.length,
-    });
+  try {
+    await denops.dispatcher.loadExtensions("ui", uis);
+  } catch (e: unknown) {
+    console.log(e);
   }
   await denops.call("ddu#util#print_error", "preload complete. ready!");
 }
