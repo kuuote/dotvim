@@ -27,5 +27,6 @@ if getftype($DOTVIM .. '/local.vim') ==# 'file'
 endif
 
 if empty(get(g:, 'colors_name', ''))
-  colorscheme habamax
+  set background=light
+  colorscheme wildcharm
 endif
