@@ -419,7 +419,8 @@ require('artemis').keymap.set('n', ';d', function()
     {
       name = 'dein',
       options = {
-        sorters = { 'sorter_alpha', 'sorter_distance' },
+        matchers = { 'matcher_fzf' },
+        sorters = { 'sorter_alpha', 'sorter_fzf' },
       },
     },
     name = 'file',
