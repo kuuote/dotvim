@@ -542,12 +542,14 @@ set helplang=ja
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
+on_event = 'InsertEnter'
+denops_wait = 0
 hook_add = '''
 autocmd User skkeleton-initialize-pre ++nested luafile $DOTVIM/conf/plug/skkeleton.lua
 autocmd SourcePost *vimrc/sticky.vim call vimrc#sticky#register("\<Space>", "\<Plug>(skkeleton-enable)")
-
 tnoremap <C-z> <Plug>(skkeleton-enable)
-
+'''
+hook_source = '''
 autocmd User DenopsPluginPost:skkeleton call skkeleton#initialize()
 autocmd User skkeleton-enable-pre call s:skkeleton_pre()
 function! s:skkeleton_pre() abort
