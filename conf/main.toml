@@ -542,7 +542,7 @@ set helplang=ja
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
-on_event = 'InsertEnter'
+on_event = ['CmdlineEnter', 'InsertEnter']
 denops_wait = 0
 hook_add = '''
 autocmd User skkeleton-initialize-pre ++nested luafile $DOTVIM/conf/plug/skkeleton.lua
