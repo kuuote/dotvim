@@ -110,7 +110,7 @@ M.setup_filter_table = {
 
 M.setup_filter = function()
   M.setup_filter_table['_']()
-  for _, name in ipairs(vimx.fn.split(vimx.b.ddu_ui_name, ':')) do
+  for _, name in require('vimrc.compat.convert').iter(vimx.fn.split(vimx.b.ddu_ui_name, ':')) do
     local fn = M.setup_filter_table[name]
     if fn ~= nil then
       fn()
