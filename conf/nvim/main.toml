@@ -249,13 +249,18 @@ augroup END
 
 [[plugins]]
 repo = 'yuki-yano/highlight-undo.nvim'
+# undoしたくなるのは変更の後
+on_event = ['TextChanged', 'TextChangedI']
 lua_source = '''
 require('highlight-undo').setup {}
 '''
 
 [[plugins]]
 repo = 'yuki-yano/tsnip.nvim'
-lua_add = '''
+on_cmd = ['TSnip', 'TSnipSelect']
+on_event = 'InsertEnter'
+denops_wait = 0
+lua_source = '''
 local vimx = require('artemis')
 
 -- vim.g.tsnip_use_nui = false

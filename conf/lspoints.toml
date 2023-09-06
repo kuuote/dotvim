@@ -1,5 +1,10 @@
 [[plugins]]
 repo = 'kuuote/lspoints'
+on_ft = [
+  'lua',
+  'typescript',
+  'typescriptreact',
+]
 lua_add = '''
 local vimx = require('artemis')
 vimx.create_autocmd('User', {

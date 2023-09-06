@@ -184,6 +184,8 @@ export class Config extends BaseConfig {
         ff: {
           actions: {
             useKensaku: async (args) => {
+              // L<dein-lazy-kensaku_vim>
+              await args.denops.call("dein#source", "kensaku.vim");
               const sources = args.options.sources.map((s) => {
                 if (u.isString(s)) {
                   s = { name: s };

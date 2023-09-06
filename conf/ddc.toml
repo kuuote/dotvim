@@ -51,9 +51,9 @@ hook_source = '''
 " 次にバッファ固有の物、その後に通常という戦略で行く
 let g:vimrc#ddc_sources = ['around']
 if has('nvim')
-  let g:vimrc#ddc_sources_front = ['bufferline', 'tsnip', 'vsnip', 'file']
+  let g:vimrc#ddc_sources_front = ['bufferline', 'file']
 else
-  let g:vimrc#ddc_sources_front = ['bufferline', 'vsnip', 'file']
+  let g:vimrc#ddc_sources_front = ['bufferline', 'file']
 endif
 
 call ddc#enable()

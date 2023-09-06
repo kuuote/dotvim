@@ -69,15 +69,19 @@ const definition: Record<string, Collector> = {
       },
     }],
   }),
-  github_repo_pull: async (denops) => ({
-    name: "github_repo_pull",
-    sources: [{
+  github_repo_pull: async (denops) => {
+    // L<dein-lazy-ddu_source_github>
+    await denops.call("dein#source", "ddu-source-github");
+    return {
       name: "github_repo_pull",
-      params: {
-        path: await denops.call("expand", "%:p:h"),
-      },
-    }],
-  }),
+      sources: [{
+        name: "github_repo_pull",
+        params: {
+          path: await denops.call("expand", "%:p:h"),
+        },
+      }],
+    };
+  },
   live_grep: (denops) =>
     ripgrepLive(
       denops,
