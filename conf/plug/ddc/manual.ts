@@ -96,7 +96,10 @@ async function setConfig(args: ConfigArguments, name: string) {
   await args.denops.call("ddc#map#manual_complete");
 }
 
-const configMap: Record<string, string> = {};
+const configMap: Record<string, string> = {
+  F: "file",
+  S: "snippet",
+};
 
 // configSetを指定させてマッピングする
 async function inputConfigSet(args: ConfigArguments) {
