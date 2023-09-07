@@ -3,7 +3,6 @@ import {
   ConfigArguments,
 } from "../../../deno/ddc.vim/denops/ddc/base/config.ts";
 import { DdcOptions } from "../../../deno/ddc.vim/denops/ddc/types.ts";
-import * as autocmd from "../../../deno/denops_std/denops_std/autocmd/mod.ts";
 import * as mapping from "../../../deno/denops_std/denops_std/mapping/mod.ts";
 import { Denops } from "../../../deno/denops_std/denops_std/mod.ts";
 import * as option from "../../../deno/denops_std/denops_std/option/mod.ts";
@@ -63,7 +62,7 @@ const configSet: Record<
     }),
 };
 
-const saveConfig: Record<number, Partial<DdcOptions>> = {};
+const saveConfig: Record<number, Partial<DdcOptions> | null> = {};
 
 function restoreConfig(args: ConfigArguments) {
   const config = args.contextBuilder.getBuffer();
@@ -82,9 +81,8 @@ function restoreConfig(args: ConfigArguments) {
 async function setConfig(args: ConfigArguments, name: string) {
   const bufnr = Number(await args.denops.call("bufnr"));
   const gconfig = args.contextBuilder.getBuffer();
-  const config = gconfig[bufnr];
-  if (saveConfig[bufnr] == null) {
-    saveConfig[bufnr] = config;
+  if (saveConfig[bufnr] === undefined) {
+    saveConfig[bufnr] = gconfig[bufnr] ?? null;
   }
   const set = configSet[name];
   if (set == null) {
