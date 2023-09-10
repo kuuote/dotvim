@@ -9,10 +9,11 @@ import { convertKeywordPattern } from "../../deno/ddc.vim/denops/ddc/util.ts";
 
 /* fork from ddc-source-around */
 
-const cache: Record<number, {
+const cache = new Map<number, {
   changedtick: number;
+  keywordPattern: string;
   items: Item[];
-}> = {};
+}>();
 
 function allWords(lines: string[], pattern: string): string[] {
   return lines
@@ -49,18 +50,22 @@ export class Source extends BaseSource<Params> {
             const changedtick = Number(
               await fn.getbufvar(args.denops, bufnr, "changedtick"),
             );
-            const cached = cache[bufnr];
-            if (cached?.changedtick === changedtick) {
+            const cached = cache.get(bufnr);
+            if (
+              cached?.changedtick === changedtick &&
+              cached?.keywordPattern === keywordPattern
+            ) {
               return cached.items;
             }
             const items = allWords(
               await fn.getbufline(args.denops, bufnr, 1, "$"),
               keywordPattern,
             ).map((word) => ({ word }));
-            cache[bufnr] = {
+            cache.set(bufnr, {
               changedtick,
+              keywordPattern,
               items,
-            };
+            });
             return items;
           }),
         )).flat(),
