@@ -5,11 +5,9 @@
 	[ぼくのかんがえたさいきょうの虹色プラギンを作る]
 	[Vim上のバッファをWebから編集できるサーバーを作成]
 	[文字を虹色にハイライトするやつ作る]
-	[helpのconcealをtoggleできるようにしておく]
 	[funnygitにpush足す]
-	Denoのimportを引っ張ってくるやつ作る
-	ddu-source-quickfix導入
-すぐにはやらない
+	[Denoのimportを引っ張ってくるやつ作る]
+	[即席でマッピングなどを作成したい]
 やらない
 	待機してる時にカーソルの横に情報出してみたらどうだろうか
 		あるいは手でhover出すようにして癖にする
@@ -20,6 +18,8 @@
 	[ddu-source-lspのあれこれ出す]
 	[自作FFをfloatwinを基調とした物に作り替える]
 		tabで上等
+	[helpのconcealをtoggleできるようにしておく]
+		機会が少なくてめんどいので後でやる
 やった
 	[これブランチ切って押し込む]
 	[deinソースにupdate action生やしておく]
@@ -38,3 +38,5 @@
 	[特定のプラギンバッファから実バッファを求めるやつを分離しておく]
 	[directory diffをVimで処理するためのプログラム]
 	[cherry-pickできるようにする]
+	ddu-source-quickfix導入
+		qfだた
