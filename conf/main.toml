@@ -341,7 +341,7 @@ end
 
 [[plugins]]
 repo = 'lambdalisue/kensaku.vim'
-# 今の所ddu.vim経由でしか使ってないので X<dein-lazy-kensaku_vim>
+# X<dein-lazy-kensaku_vim>
 lazy = 1
 hook_add = '''
 let g:kensaku_dictionary_cache = '/data/vim/cache/kensaku_dict'
@@ -608,6 +608,7 @@ augroup END
 
 [[plugins]]
 repo = 'yuki-yano/fuzzy-motion.vim'
+depends = 'kensaku.vim'
 on_cmd = 'FuzzyMotion'
 hook_add = '''
 nnoremap <Tab> <Cmd>FuzzyMotion<CR>
