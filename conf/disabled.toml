@@ -136,6 +136,10 @@ end
 '''
 
 [[plugins]]
+# Neovim専用カラースキームは入れない主義なので
+repo = 'savq/melange'
+
+[[plugins]]
 comment = '音楽性が違うので多分自作した方が楽。とりあえず勝手に通信しないで欲しい'
 repo = 'tennashi/ddu-source-git_ref'
 

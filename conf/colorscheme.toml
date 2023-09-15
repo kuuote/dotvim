@@ -92,9 +92,6 @@ repo = 'sainnhe/gruvbox-material'
 repo = 'sainnhe/sonokai'
 
 [[plugins]]
-repo = 'savq/melange'
-
-[[plugins]]
 repo = 'severij/vadelma'
 
 [[plugins]]
