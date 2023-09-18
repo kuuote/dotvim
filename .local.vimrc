@@ -5,7 +5,7 @@ endfunction
 let s:root = expand('<sfile>:p:h')
 
 function! s:run_podtags() abort
-  let cmd = ['sh', '-c', 'scripts/podtags.sh']
+  let cmd = ['sh', '-c', 'script/podtags.sh']
   if has('nvim')
     call jobstart(cmd, {'stdin': 'null', 'cwd': s:root, 'on_exit': function('s:onexit_podtags')})
   else
