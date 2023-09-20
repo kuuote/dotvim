@@ -297,6 +297,13 @@ x = '<Plug>(textobj-line-'
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
+# https://github.com/NI57721/dotfiles/blob/79d2decf4b1e2bf5522c3af5f0ffdefd87b7ff50/.config/vim/rc/dein.toml#L20-L24
+# repo = 'kei-s16/skkeleton-azik-kanatable'
+repo = 'NI57721/skkeleton-azik-kanatable'
+rev = 'feature/delete-some-mappings'
+on_source = 'skkeleton'
+
+[[plugins]]
 repo = 'kuuote/jsonyaml.vim'
 on_ft = 'json'
 
@@ -582,8 +589,12 @@ function! s:tsuki() abort
   call setline(1, readfile(expand('$DOTVIM/lua/vimrc/plug/skkeleton/tsukimod.txt')))
   vsplit
 endfunction
-
 command! SKKTsuki call s:tsuki()
+function s:azik() abort
+  call skkeleton#azik#add_table('us')
+  call skkeleton#config(#{kanaTable: 'azik'})
+endfunction
+command! SKKAzik call s:azik()
 '''
 
 [[plugins]]
