@@ -28,11 +28,13 @@ endfunction
 
 function s:executor(cmd) abort
   let s:cmd = a:cmd
+  let source = s:source()
   if s:cmd !~# '^:'
-    let source = s:source()
     call insert(source, a:cmd)
-    call writefile(source, s:history)
   endif
+  call writefile(source, s:history)
+  " 本体の履歴を統合して消す
+  autocmd SafeState * ++once call histdel(':')
   autocmd CmdlineEnter * ++once call setcmdline(s:cmd)
   call feedkeys(":\<CR>", s:cmd =~# '^:' ? 'n' : 'nt')
 endfunction
