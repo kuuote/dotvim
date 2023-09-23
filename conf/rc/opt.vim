@@ -3,10 +3,6 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
-" 行番号大事
-" set number
-" set relativenumber
-
 " swapfile
 call mkdir('/tmp/vimswap', 'p')
 set directory=/tmp/vimswap//
@@ -39,6 +35,8 @@ set ignorecase
 
 " 履歴を増やす
 set history=10000
+" が保存はしない
+set viminfo+=:0
 
 " https://github.com/tsuyoshicho/vimrc-reading/blob/4037e59bdfaad9063c859e5fe724579623ef7836/.vimrc#L1294-L1298
 " ファイルパスの@を利用可能にする

@@ -1,6 +1,6 @@
 local vimx = require('artemis')
 vimx.create_autocmd('User', {
-  pattern = 'operandi#open#command',
+  pattern = { 'operandi#open#command', 'operandi#open#mycommand' },
   callback = function()
     if vim.fn['dein#is_available']('ddc.vim') == 1 then
       vimx.fn.ddc.custom.set_buffer {
