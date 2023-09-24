@@ -4,6 +4,6 @@ vimx.fn.denops.request('vimrc', 'load', {
   {
     tasks = './out.json',
     -- tasks = '/data/code/deno/gitupdate/out.json',
-    task = './task/fget2.sh',
+    task = './task/fetch.sh',
   },
 })

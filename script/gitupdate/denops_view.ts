@@ -2,6 +2,7 @@ import * as stdpath from "../../deno/deno_std/path/mod.ts";
 import type { Denops } from "../../deno/denops_std/denops_std/mod.ts";
 import { assert, is } from "../../deno/unknownutil/mod.ts";
 import {
+  isDoneMessage,
   isEndMessage,
   isJobsMessage,
   isStartMessage,
@@ -37,6 +38,14 @@ class Buffer {
         end: false,
         text: "",
       };
+    }
+    if (isDoneMessage(msg)) {
+      await this.denops.call("luaeval", "vim.notify('all tasks are done.')")
+        .catch(async () => {
+          await this.denops.cmd("echomsg msg", {
+            msg: "all tasks are done.",
+          });
+        });
     }
     if (isEndMessage(msg)) {
       this.jobmsg[msg.jobnr].end = true;

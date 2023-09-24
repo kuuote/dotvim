@@ -22,8 +22,16 @@ export type JobsMessage = {
 };
 
 export const isJobsMessage: Predicate<JobsMessage> = is.ObjectOf({
-  type: (x): x is "jobs" => x === "jobs",
+  type: is.LiteralOf("jobs"),
   jobs: is.Number,
+});
+
+export type DoneMessage = {
+  type: "done";
+};
+
+export const isDoneMessage: Predicate<DoneMessage> = is.ObjectOf({
+  type: is.LiteralOf("done"),
 });
 
 export type StartMessage = {
@@ -34,7 +42,7 @@ export type StartMessage = {
 };
 
 export const isStartMessage: Predicate<StartMessage> = is.ObjectOf({
-  type: (x): x is "start" => x === "start",
+  type: is.LiteralOf("start"),
   jobnr: is.Number,
   label: is.String,
   hash: is.String,
@@ -48,7 +56,7 @@ export type EndMessage = {
 };
 
 export const isEndMessage: Predicate<EndMessage> = is.ObjectOf({
-  type: (x): x is "end" => x === "end",
+  type: is.LiteralOf("end"),
   jobnr: is.Number,
   hash: is.String,
   success: is.Boolean,
@@ -62,8 +70,8 @@ export type TextMessage = {
 
 export const isTextMessage: Predicate<TextMessage> = is.ObjectOf({
   type: is.OneOf([
-    (x): x is "stdout" => x === "stdout",
-    (x): x is "stderr" => x === "stderr",
+    is.LiteralOf("stdout"),
+    is.LiteralOf("stderr"),
   ]),
   jobnr: is.Number,
   text: is.String,
@@ -166,6 +174,11 @@ export function newTaskRunner(tasks: Task[], script: string, jobs = 8) {
           jobstat[jobnr] = false;
         });
       }));
+      controller.enqueue(
+        {
+          type: "done",
+        } satisfies DoneMessage,
+      );
       controller.close();
     },
   });
