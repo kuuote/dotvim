@@ -9,4 +9,9 @@ if [[ -f "profiles/$1" ]]; then
     exit 1
   fi
 fi
-rsync -acP --mkpath --delete-before ~/.vim/ "profiles/$1/"
+rsync -ac --mkpath --delete-before ~/.vim/ "profiles/$1/"
+cd "profiles/$1"
+git fetch local
+if [[ -e "local/profiles/$1" ]]; then
+  "local/profiles/$1"
+fi
