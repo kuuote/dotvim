@@ -108,7 +108,7 @@ autocmd FileType zsh if bufname() =~# '^deol-edit' | call s:deol_ft_zsh() | endi
 repo = 'skanehira/jumpcursor.vim'
 on_map = '<Plug>'
 hook_add = '''
-nmap [j <Plug>(jumpcursor-jump)
+nnoremap <Space>c <Plug>(jumpcursor-jump)
 '''
 
 [[plugins]]
