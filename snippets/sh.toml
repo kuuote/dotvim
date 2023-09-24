@@ -1,0 +1,5 @@
+[[snippet]]
+key = 'cdir'
+body = '''
+cd \$(dirname \$0) || exit 1
+'''
