@@ -38,10 +38,6 @@ luafile $DOTVIM/conf/plug/operandi.lua
 '''
 
 [[plugins]]
-repo = '4513ECHO/denops-gitter.vim'
-on_path = 'gitter://'
-
-[[plugins]]
 repo = '4513ECHO/vim-vimhelp-hoptag'
 
 [[plugins]]

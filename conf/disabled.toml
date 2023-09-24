@@ -8,6 +8,11 @@ let g:readme_viewer#plugin_manager = 'dein.vim'
 '''
 
 [[plugins]]
+# そういやdeprecateされてたんだった
+repo = '4513ECHO/denops-gitter.vim'
+on_path = 'gitter://'
+
+[[plugins]]
 comment = '自分の作業スタイルと根本から合ってない気がする'
 repo = 'c000/rapidfire.vim'
 on_cmd = 'Rapidfire'
