@@ -2,40 +2,30 @@ autocmd User operandi#open#mycommand set syntax=vim
 
 let s:history = expand('$DOTVIM/.cmdhist')
 
-function s:set(...)
-  let visit = {}
-  let result = []
-  for list in a:000
-    for line in list
-      if !has_key(visit, line)
-        call add(result, line)
-        let visit[line] = v:true
-      endif
-    endfor
-  endfor
-  return result
-endfunction
-
-function s:source() abort
-  let vim = range(histnr(':'), 0, -1)->map('histget(":", v:val)')->filter('!empty(v:val)')
+function s:_source() abort
+  let vim = range(histnr(':'), 0, -1)->map('histget(":", v:val)')
   try
-    let file = readfile(s:history)->filter('!empty(v:val)')
+    let file = readfile(s:history)
   catch
     let file = []
   endtry
-  return s:set(vim, file)
+  return flatten([vim, file])
+endfunction
+function s:source() abort
+  return s:_source()->vimrc#mru#uniq()
 endfunction
 
 function s:executor(cmd) abort
-  let s:cmd = a:cmd
-  let source = s:source()
-  if s:cmd !~# '^:'
-    call insert(source, a:cmd)
+  let opts = #{data: s:_source()}
+  if a:cmd !~# '^:'
+    let opts.line = a:cmd
   endif
-  call writefile(source, s:history)
+  call vimrc#mru#save(s:history, opts)
   " 本体の履歴を統合して消す
   autocmd SafeState * ++once call histdel(':')
+
   autocmd CmdlineEnter * ++once call setcmdline(s:cmd)
+  let s:cmd = a:cmd
   call feedkeys(":\<CR>", s:cmd =~# '^:' ? 'n' : 'nt')
 endfunction
 
