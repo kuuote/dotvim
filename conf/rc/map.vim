@@ -74,3 +74,6 @@ autocmd CmdlineEnter,InsertEnter * ++once call s:insert_map()
 
 " undoをpreviewするやつ
 nnoremap <Space>u <Cmd>call vimrc#feat#undo#preview()<CR>
+
+" ;を末尾に突っ込むやつ
+nnoremap ;; $a;<Esc>
