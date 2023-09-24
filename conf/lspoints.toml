@@ -19,6 +19,9 @@ vimx.create_autocmd('User', {
 vimx.create_autocmd('User', {
   pattern = 'LspointsAttach:*',
   callback = function()
+    -- L<ddu-config-selector-lsp>
+    vimx.keymap.set('n', 'ma', '<Cmd>DduSelectorCall lsp_codeAction<CR>')
+
     vimx.keymap.set('n', 'mf', function()
       vimx.fn.denops.request('lspoints', 'executeCommand', { 'format', 'execute', vim.fn.bufnr() })
     end, {
