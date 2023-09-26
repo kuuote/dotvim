@@ -10,7 +10,11 @@ local vimx = require('artemis')
 vimx.create_autocmd('User', {
   pattern = 'DenopsPluginPost:lspoints',
   callback = function()
-    vimx.fn.lspoints.load_extensions { 'nvim_diagnostics', 'format' }
+    vimx.fn.lspoints.load_extensions {
+      'format',
+      'nvim_diagnostics',
+      'semantic_tokens',
+    }
     vimx.fn.lspoints.settings.patch {
       tracePath = '/tmp/lspoints',
     }
