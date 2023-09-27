@@ -593,6 +593,9 @@ function s:azik() abort
   " sticky keyが無いと生きていけない
   call skkeleton#register_keymap('input', ';', 'henkanPoint')
   call skkeleton#register_kanatable('azik', #{l: ['っ', '']})
+  call skkeleton#register_kanatable('azik', #{q: 'katakana'})
+  call skkeleton#register_kanatable('azik', {':': 'disable'})
+  call skkeleton#register_kanatable('azik', {"'": 'disable'})
 endfunction
 command! SKKAzik call s:azik()
 
