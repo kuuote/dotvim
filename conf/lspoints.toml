@@ -5,34 +5,11 @@ on_ft = [
   'typescript',
   'typescriptreact',
 ]
-lua_add = '''
+hook_source = '''
+source $DOTVIM/conf/plug/lspoints.vim
+'''
+lua_source = '''
 local vimx = require('artemis')
-vimx.create_autocmd('User', {
-  pattern = 'DenopsPluginPost:lspoints',
-  callback = function()
-    vimx.fn.lspoints.load_extensions {
-      'format',
-      'nvim_diagnostics',
-      'semantic_tokens',
-    }
-    vimx.fn.lspoints.settings.patch {
-      tracePath = '/tmp/lspoints',
-    }
-  end,
-})
-vimx.create_autocmd('User', {
-  pattern = 'LspointsAttach:*',
-  callback = function()
-    -- L<ddu-config-selector-lsp>
-    vimx.keymap.set('n', 'ma', '<Cmd>DduSelectorCall lsp_codeAction<CR>')
-
-    vimx.keymap.set('n', 'mf', function()
-      vimx.fn.denops.request('lspoints', 'executeCommand', { 'format', 'execute', vim.fn.bufnr() })
-    end, {
-      buffer = true,
-    })
-  end,
-})
 vimx.create_autocmd('FileType', {
   pattern = { 'lua' },
   callback = function()
