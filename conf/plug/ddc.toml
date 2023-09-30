@@ -1,0 +1,27 @@
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+hook_add = '''
+call ddc#custom#load_config(expand('$VIMDIR/conf/plug/ddc/main.ts'))
+autocmd CmdlineEnter,InsertEnter * ++once call ddc#enable()
+autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
+autocmd User DenopsPluginPost:ddc call ddc#enable_cmdline_completion()
+" 現状呼ばれてないっぽいんで@もついでに呼んでおく
+autocmd CmdlineEnter :,@ call ddc#on_event('CmdlineEnter')
+
+" deflicker echo area
+set noshowmode
+'''
+
+[[plugins]]
+repo = 'Shougo/pum.vim'
+# L<mappings-pum_vim>
+
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+

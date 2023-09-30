@@ -1,0 +1,51 @@
+[[plugins]]
+repo = 'mattn/vim-molder'
+
+[[plugins]]
+repo = '/data/dotvim/bundle/vim-operandi'
+# on_func = ['operandi#open', 'operandi#register']
+hook_add = '''
+nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
+'''
+
+[[plugins]]
+repo = 'sainnhe/edge'
+hook_add = '''
+" set termguicolors
+" set background=dark
+" colorscheme edge
+'''
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+# on_map = '<Plug>(sandwich-'
+# hook_add = '''
+# au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-sandwich')
+# nnoremap sa  <Plug>(sandwich-add)
+# nnoremap sd  <Plug>(sandwich-delete)
+# nnoremap sdb <Plug>(sandwich-delete-auto)
+# nnoremap sr  <Plug>(sandwich-replace)
+# nnoremap srb <Plug>(sandwich-replace-auto)
+# '''
+# lua_post_source = '''
+# local vimx = require('artemis')
+# -- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L451-L458
+# -- console.log() などをまとめて指定できるやつ
+# vimx.g['sandwich#magicchar#f#patterns'] = {
+#   {
+#     header = [[\<\%(\h\k*\.\)*\h\k*]],
+#     bra = '(',
+#     ket = ')',
+#     footer = '',
+#   },
+# }
+# -- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L485-L487
+# -- saa( などで空白を含めないようにするやつ
+# vimx.fn.operator.sandwich.set('add', 'char', 'skip_space', 1)
+# vimx.cmd([[autocmd ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)]])
+# vimx.cmd([[autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)]])
+# '''
+
