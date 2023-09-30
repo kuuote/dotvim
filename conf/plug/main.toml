@@ -2,6 +2,18 @@
 repo = 'mattn/vim-molder'
 
 [[plugins]]
+repo = 'lambdalisue/mr.vim'
+hook_add = '''
+let g:loaded_mr = 1
+let g:mr#mru#filename = '/data/mr/mru'
+let g:mr#mrw#filename = '/data/mr/mrw'
+let g:mr#mrr#filename = '/data/mr/mrr'
+autocmd BufReadPre * call mr#mru#start_recording()
+autocmd BufReadPre * call mr#mrr#start_recording()
+autocmd BufWritePre * call mr#mrw#start_recording()
+'''
+
+[[plugins]]
 repo = '/data/dotvim/bundle/vim-operandi'
 # on_func = ['operandi#open', 'operandi#register']
 hook_add = '''
