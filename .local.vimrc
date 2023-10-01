@@ -2,6 +2,10 @@ let s:cd = expand('<sfile>:p:h')
 
 let g:vimrc_make_state_job = -1
 function s:make_state() abort
+  if exists('#dpp')
+    call dpp#make_state('/tmp/dpp', s:cd .. '/conf/dpp.ts')
+    return
+  endif
   " call system('rm -rf /tmp/dpp/cache*')
   " call system('rm -rf /tmp/dpp/state*')
   if has('nvim')
@@ -9,8 +13,6 @@ function s:make_state() abort
     let g:vimrc_make_state_job = jobstart(['nvim', '--headless', '-u', s:cd .. '/makestate.vim'], {'stdin': 'null'})
   endif
 endfunction
-
-"    call jobstart(cmd, {'stdin': 'null', 'cwd': s:root, 'on_exit': function('s:onexit_podtags')})
 
 augroup new_vimrc
   autocmd! * <buffer>
