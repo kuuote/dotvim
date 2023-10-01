@@ -1,13 +1,14 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
+# L<ddu-global>
 hook_add = '''
 call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/main.ts'))
 call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/ff.ts'))
-" source $VIMDIR/conf/plug/ddu.vim
 '''
 
 [[plugins]]
 repo = 'kuuote/ddu-source-mr'
+# L<ddu-local-source-mr>
 hook_add = '''
 nnoremap mru <Cmd>call ddu#start({'name':'mru'})<CR>
 nnoremap mrw <Cmd>call ddu#start({'name':'mrw'})<CR>
@@ -19,4 +20,8 @@ repo = 'yuki-yano/ddu-filter-fzf'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+# L<ddu-kind-file>
 

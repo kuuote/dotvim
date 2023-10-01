@@ -8,6 +8,7 @@ import {
 } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 
 async function setupLocals(args: ConfigArguments) {
+  // X<ddu-local-source-mr>
   for (const type of ["mru", "mrw", "mrr"]) {
     args.contextBuilder.patchLocal(type, {
       sources: [{
@@ -25,9 +26,10 @@ export class Config extends BaseConfig {
     // default options
     const defaultMatchers = ["matcher_fzf"];
     const defaultSorters = ["sorter_fzf"];
-    // X<ddu-config-global>
+    // X<ddu-global>
     args.contextBuilder.patchGlobal({
       kindOptions: {
+        // X<ddu-kind-file>
         file: {
           defaultAction: "open",
         },
