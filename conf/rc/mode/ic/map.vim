@@ -4,6 +4,12 @@ noremap! ] )
 noremap! ( [
 noremap! ) ]
 
+" sticky ;
+for s:c in split('abcdefghijklmnopqrstuvwxyz', '\zs')
+  execute printf('noremap! ;%s %s', s:c, toupper(s:c))
+endfor
+noremap! ;<Tab> ;
+
 " kigou utiyasuku suru
 noremap! ,q <Bar>
 noremap! ,a \

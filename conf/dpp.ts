@@ -32,6 +32,11 @@ export class Config extends BaseConfig {
     );
     plugins = plugins.concat(
       await args.dpp.extAction(args.denops, options, "toml", "load", {
+        path: "$VIMDIR/conf/plug/ddu.toml",
+      }) as MyPlugin[],
+    );
+    plugins = plugins.concat(
+      await args.dpp.extAction(args.denops, options, "toml", "load", {
         path: "$VIMDIR/conf/plug/main.toml",
       }) as MyPlugin[],
     );
