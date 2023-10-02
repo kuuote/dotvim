@@ -26,9 +26,7 @@ endif
 set tabstop=2
 set shiftwidth=2
 set expandtab
-" 履歴を増やす
-set history=10000
-" が保存はしない
+" 立つ鳥後を濁さず
 set viminfo+=:0
 
 " temp mappings

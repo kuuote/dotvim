@@ -5,8 +5,12 @@ import {
 import { ActionFlags } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
 import * as option from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
-import { batch } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/batch/mod.ts";
-import { group } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
+import {
+  map,
+  MapOptions,
+} from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mapping/mod.ts";
+import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
 import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
 import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
 import * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
@@ -55,6 +59,93 @@ async function setUiSize(args: ConfigArguments) {
         previewHeight: winHeight - (pileBorder ? 0 : 2),
       } satisfies Partial<DduUiFFParams>,
     },
+  });
+}
+
+// patchLocalしてるnameをマッピングテーブル用の定義に直すためのテーブル
+const aliases: Record<string, string> = {
+  git_diff: "file:git_diff",
+  mrr: "file",
+  mru: "file",
+  mrw: "file",
+};
+
+async function setupFileTypeAutocmd(args: ConfigArguments) {
+  const { denops } = args;
+  const opt: MapOptions = {
+    buffer: true,
+    nowait: true,
+  };
+  const nno: MapOptions = {
+    ...opt,
+    mode: ["n"],
+  };
+  const action = (name: string, params?: unknown) => {
+    return `<Cmd>call ddu#ui#do_action('${name}'${
+      params != null ? ", " + JSON.stringify(params) : ""
+    })<CR>`;
+  };
+  const itemAction = (name: string, params: unknown = {}) => {
+    return action("itemAction", { name, params });
+  };
+  const setupTable: Record<string, lambda.Fn> = {
+    _: async () => {
+      // await denops.cmd(
+      //   "nnoremap <buffer><nowait> <cr> <cmd>call ddu#ui#do_action('itemaction')<cr>",
+      // );
+      await map(denops, "<CR>", action("itemAction"), nno);
+      await map(denops, "q", action("quit"), nno);
+      await map(denops, "i", action("openFilterWindow"), nno);
+      // await map(denops, "a", action("inputAction"), nno);
+      // await map(denops, "<Tab>", async () => {
+      //   await action("toggleSelectItem")();
+      //   await action("cursorNext")();
+      // }, nno);
+    },
+    git_diff: async () => {
+      await map(denops, "p", itemAction("applyPatch"), nno);
+      // await map(denops, "p", async () => {
+      //   const view = await fn.winsaveview(denops);
+      //   await action("itemAction", { name: "applyPatch" })();
+      //   await fn.winrestview(denops, view);
+      // }, nno);
+    },
+  };
+  const setupFilterTable: Record<string, lambda.Fn> = {
+    _: async () => {
+      await map(denops, "<CR>", "<Esc>" + action("closeFilterWindow"), {
+        ...opt,
+        mode: ["n", "i"],
+      });
+    },
+  };
+  const ddu_ff = register(denops, async (name: unknown) => {
+    await setupTable["_"]?.();
+    u.assert(name, u.isString);
+    const names = (aliases[name] ?? name).split(/:/g);
+    for (const name of names) {
+      await setupTable[name]?.();
+    }
+  }, { args: "b:ddu_ui_name" });
+  const ddu_ff_filter = register(denops, async (name: unknown) => {
+    await setupFilterTable["_"]?.();
+    u.assert(name, u.isString);
+    const names = (aliases[name] ?? name).split(/:/g);
+    for (const name of names) {
+      await setupFilterTable[name]?.();
+    }
+  }, { args: "b:ddu_ui_name" });
+  await autocmd.group(denops, augroup, (helper) => {
+    helper.define(
+      "FileType",
+      "ddu-ff",
+      ddu_ff,
+    );
+    helper.define(
+      "FileType",
+      "ddu-ff-filter",
+      ddu_ff_filter,
+    );
   });
 }
 
@@ -126,5 +217,6 @@ export class Config extends BaseConfig {
       );
     });
     await setUiSize(args);
+    await setupFileTypeAutocmd(args);
   }
 }

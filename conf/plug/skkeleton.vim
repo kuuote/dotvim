@@ -1,7 +1,7 @@
 " /data/newvim/old/conf/plug/skkeleton.lua
 
 let s:dicts = [
-\   ['/data/vim/repos/github.com/skk-dev/dict/SKK-JISYO.L', 'utf-8'],
+\   ['/data/vim/repos/github.com/skk-dev/dict/SKK-JISYO.L', 'euc-jp'],
 \ ]
 call skkeleton#config(#{
 \   eggLikeNewline: v:true,

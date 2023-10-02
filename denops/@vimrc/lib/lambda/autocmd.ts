@@ -21,10 +21,32 @@ export async function garbagecollect(denops: Denops) {
   }
 }
 
+type RegisterOptions = GenerateDenopsCallOptions & {
+  args?: string;
+};
+
+export function register(
+  denops: Denops,
+  fn: lambda.Fn,
+  options: RegisterOptions = {},
+): string {
+  denops.dispatcher[dispatchName] = (name: unknown, ...args: unknown[]) =>
+    dispatcher.get(String(name))?.(...args);
+  const id = crypto.randomUUID();
+  dispatcher.set(id, fn);
+  return "call " + generateDenopsCall(
+    denops,
+    dispatchName,
+    `['${id}', ${options.args ?? ""}]`,
+    options,
+  );
+}
+
 type LambdaGroupDefineOptions =
   & autocmd.GroupDefineOptions
   & GenerateDenopsCallOptions
   & {
+    args?: string;
     description?: string;
   };
 
@@ -46,14 +68,7 @@ class LambdaGroupHelper {
     options: LambdaGroupDefineOptions = {},
   ): void {
     if (typeof cmd != "string") {
-      const id = crypto.randomUUID();
-      dispatcher.set(id, cmd);
-      cmd = "call " + generateDenopsCall(
-        this.#denops,
-        dispatchName,
-        [options.description ?? "", id],
-        options,
-      );
+      cmd = register(this.#denops, cmd, options);
     }
     this.#helper.define(event, pat, cmd, options);
   }
@@ -77,8 +92,6 @@ export async function group(
   name: string,
   executor: (helper: LambdaGroupHelper) => void,
 ): Promise<void> {
-  denops.dispatcher[dispatchName] = (_description: unknown, name: unknown) =>
-    dispatcher.get(String(name))?.();
   await autocmd.group(
     denops,
     name,

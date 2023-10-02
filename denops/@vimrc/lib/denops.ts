@@ -9,7 +9,7 @@ export function generateDenopsCall(
   denops: Denops,
   method: string,
   args: string | unknown[],
-  options: GenerateDenopsCallOptions,
+  options: GenerateDenopsCallOptions = {},
 ): string {
   if (Array.isArray(args)) {
     args = JSON.stringify(args);
