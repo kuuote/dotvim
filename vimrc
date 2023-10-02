@@ -17,8 +17,10 @@ endif
 
 set termguicolors
 if empty(get(g:, 'colors_name', ''))
-  set background=dark
-  colorscheme retrobox
+  " set background=dark
+  " colorscheme retrobox
+  set background=light
+  colorscheme edge
 endif
 
 set tabstop=2

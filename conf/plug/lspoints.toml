@@ -1,0 +1,32 @@
+[[plugins]]
+repo = 'kuuote/lspoints'
+on_ft = [
+  'lua',
+  'typescript',
+  'typescriptreact',
+]
+hook_add = '''
+function s:init()
+  call tmp#source('lspoints')
+  execute 'doautocmd <nomodeline> FileType' expand('<amatch>')
+endfunction
+autocmd FileType lua,typescript,typescriptreact ++once call s:init()
+'''
+hook_source = '''
+source $VIMDIR/conf/plug/lspoints.vim
+'''
+#lua_source = '''
+#local vimx = require('artemis')
+#vimx.create_autocmd('FileType', {
+#  pattern = { 'lua' },
+#  callback = function()
+#    require('vimrc.plug.lspoints').server.luals.attach()
+#  end,
+#})
+#vimx.create_autocmd('FileType', {
+#  pattern = { 'typescript', 'typescriptreact' },
+#  callback = function()
+#    require('vimrc.plug.lspoints').server.denols.attach()
+#  end,
+#})
+#'''

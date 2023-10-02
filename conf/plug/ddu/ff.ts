@@ -4,11 +4,14 @@ import {
 } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/config.ts";
 import { ActionFlags } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
-import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
 import * as option from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
-import { generateDenopsCall } from "../../../denops/@vimrc/lib/denops.ts";
+import { batch } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/batch/mod.ts";
+import { group } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
+import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+import * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
 
-const augroup = "ddu-ui-ff#" + performance.now();
+const augroup = "vimrc#ddu-ui-ff";
 
 async function calculateUiSize(
   denops: Denops,
@@ -57,9 +60,6 @@ async function setUiSize(args: ConfigArguments) {
 
 export class Config extends BaseConfig {
   async config(args: ConfigArguments) {
-    await autocmd.group(args.denops, augroup, (helper) => {
-      helper.remove("*");
-    });
     // +-------------------+
     // | ASCII罫線はいいぞ |
     // +-------------------+
@@ -85,8 +85,8 @@ export class Config extends BaseConfig {
         ff: {
           actions: {
             useKensaku: async (args) => {
-              // L<dein-lazy-kensaku_vim>
-              await args.denops.call("dein#source", "kensaku.vim");
+              // L<dpp-lazy-kensaku_vim>
+              await args.denops.call("dpp#source", "kensaku.vim");
               const sources = args.options.sources.map((s) => {
                 if (u.isString(s)) {
                   s = { name: s };
@@ -111,13 +111,18 @@ export class Config extends BaseConfig {
         },
       },
     });
-    // floatwinのサイズをセットするやつ
-    const id = lambda.register(args.denops, () => setUiSize(args));
+
     await autocmd.group(args.denops, augroup, (helper) => {
+      helper.remove("*");
+    });
+
+    // floatwinのサイズをセットするやつ
+    await group(args.denops, augroup, (helper) => {
       helper.define(
         "VimResized",
         "*",
-        generateDenopsCall(args.denops, id, "[]", { async: true }),
+        () => setUiSize(args),
+        { async: true },
       );
     });
     await setUiSize(args);
