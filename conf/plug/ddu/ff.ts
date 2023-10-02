@@ -6,8 +6,9 @@ import { ActionFlags } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/dd
 import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
 import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
 import * as option from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
+import { generateDenopsCall } from "../../../denops/@vimrc/lib/denops.ts";
 
-const augroup = "vimrc.ddu.ui.ff";
+const augroup = "ddu-ui-ff#" + performance.now();
 
 async function calculateUiSize(
   denops: Denops,
@@ -116,7 +117,7 @@ export class Config extends BaseConfig {
       helper.define(
         "VimResized",
         "*",
-        `call denops#notify('ddu', '${id}', [])`,
+        generateDenopsCall(args.denops, id, "[]", { async: true }),
       );
     });
     await setUiSize(args);
