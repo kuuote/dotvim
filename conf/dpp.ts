@@ -67,8 +67,6 @@ export class Config extends BaseConfig {
         hookAdds.push(...p.hook_add.split(/\n/));
       }
     }
-    console.log("yeah");
-    console.log(hookAdds);
     return {
       plugins,
       stateLines: hookAdds,

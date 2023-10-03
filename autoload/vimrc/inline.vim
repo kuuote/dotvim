@@ -1,7 +1,7 @@
 let s:root = '/tmp/inline.vim/'
 
 function vimrc#inline#load(globpath) abort
-  let path = s:root .. sha256($VIMDIR .. a:globpath) .. '.vim'
+  let path = s:root .. ($VIMDIR .. a:globpath)->substitute('[$*/]', '_', 'g') .. '.vim'
   if getftype(path) ==# 'file'
     execute 'source' path
   else

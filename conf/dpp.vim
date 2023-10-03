@@ -15,7 +15,7 @@ filetype plugin indent on
 syntax on
 
 " adhoc hook
-let s:hook_file = '/tmp/inline.vim/' .. sha256($VIMDIR .. 'dpp_hook') .. '.vim'
+let s:hook_file = '/tmp/inline.vim/' .. ($VIMDIR .. 'dpp_hook.vim')->substitute('/', '_', 'g')
 if getftype(s:hook_file) ==# 'file'
   execute 'source' s:hook_file
   finish
