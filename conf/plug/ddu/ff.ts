@@ -90,17 +90,11 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   };
   const setupTable: Record<string, lambda.Fn> = {
     _: async () => {
-      // await denops.cmd(
-      //   "nnoremap <buffer><nowait> <cr> <cmd>call ddu#ui#do_action('itemaction')<cr>",
-      // );
       await map(denops, "<CR>", action("itemAction"), nno);
       await map(denops, "q", action("quit"), nno);
       await map(denops, "i", action("openFilterWindow"), nno);
+      await map(denops, "s", action("toggleSelectItem") + action("cursorNext"), nno);
       // await map(denops, "a", action("inputAction"), nno);
-      // await map(denops, "<Tab>", async () => {
-      //   await action("toggleSelectItem")();
-      //   await action("cursorNext")();
-      // }, nno);
     },
     git_diff: async () => {
       await map(denops, "p", itemAction("applyPatch"), nno);
