@@ -15,6 +15,8 @@ if !v:vim_did_enter
   endif
 endif
 
+call vimrc#inline#load('$VIMDIR/conf/rc/*.vim')
+
 set termguicolors
 if empty(get(g:, 'colors_name', ''))
   " set background=dark
@@ -26,12 +28,6 @@ endif
 set tabstop=2
 set shiftwidth=2
 set expandtab
-" 立つ鳥後を濁さず
-set viminfo+=:0
-
-" temp mappings
-source $VIMDIR/conf/rc/mappings.vim
-source $VIMDIR/conf/rc/mode.vim
 
 " temp autocmds
 function s:automkdir() abort
