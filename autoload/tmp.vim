@@ -8,7 +8,9 @@ function tmp#source(plugin) abort
           call execute(p.hook_source->split('\n'), '')
         endif
         for f in glob(p.path .. '/plugin/**/*', 1, 1)
-          execute 'source' f
+          if getftype(f) == 'file'
+            execute 'source' f
+          endif
         endfor
         call denops#plugin#discover()
       endif
