@@ -8,6 +8,10 @@ import {
   Dpp,
   Plugin,
 } from "/data/vim/repos/github.com/Shougo/dpp.vim/denops/dpp/types.ts";
+import {
+  ensure,
+  is,
+} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
 
 type MyPlugin = Plugin & {
   hook_add?: string;
@@ -20,31 +24,29 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<ConfigReturn> {
-    const [_, options] = await args.contextBuilder.get(args.denops);
+    const [context, options] = await args.contextBuilder.get(args.denops);
     let plugins: MyPlugin[] = [{
       name: "dpp.vim",
       repo: "Shougo/dpp.vim",
     }];
-    plugins = plugins.concat(
-      await args.dpp.extAction(args.denops, options, "toml", "load", {
-        path: "$VIMDIR/conf/plug/ddc.toml",
-      }) as MyPlugin[],
+    const tomls = ensure(
+      await args.denops.call("glob", "$VIMDIR/conf/plug/**/*.toml", 1, 1),
+      is.ArrayOf(is.String),
     );
-    plugins = plugins.concat(
-      await args.dpp.extAction(args.denops, options, "toml", "load", {
-        path: "$VIMDIR/conf/plug/ddu.toml",
-      }) as MyPlugin[],
-    );
-    plugins = plugins.concat(
-      await args.dpp.extAction(args.denops, options, "toml", "load", {
-        path: "$VIMDIR/conf/plug/lspoints.toml",
-      }) as MyPlugin[],
-    );
-    plugins = plugins.concat(
-      await args.dpp.extAction(args.denops, options, "toml", "load", {
-        path: "$VIMDIR/conf/plug/main.toml",
-      }) as MyPlugin[],
-    );
+    for (const toml of tomls) {
+      plugins = plugins.concat(
+        await args.dpp.extAction(
+          args.denops,
+          context,
+          options,
+          "toml",
+          "load",
+          {
+            path: toml,
+          },
+        ) as MyPlugin[],
+      );
+    }
     const hookAdds = [];
     for (const p of plugins) {
       // adhoc github
@@ -55,7 +57,7 @@ export class Config extends BaseConfig {
       if (p.repo?.match(/^https:\/\//)) {
         p.path = "/data/vim/repos/" + p.repo.replace(/^https:\/\//, "");
       }
-      if (p.repo?.[0] === '/') {
+      if (p.repo?.[0] === "/") {
         p.path = p.repo;
       }
       // recache実装されるまでmerge切っておく必要がありそう
