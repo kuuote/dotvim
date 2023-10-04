@@ -22,7 +22,7 @@ if getftype(s:hook_file) ==# 'file'
 else
   let s:sokutei = v:false
   let s:inline = s:sokutei ? ['let s:jikan = reltime()'] : []
-  for s:plugin in dpp#_plugins
+  for s:plugin in dpp#_plugins->values()
     if s:plugin.sourced && has_key(s:plugin, 'hook_source')
       call execute(s:plugin.hook_source, '')
       call add(s:inline, s:plugin.hook_source->trim())
