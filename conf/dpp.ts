@@ -1,4 +1,8 @@
 import {
+  ensure,
+  is,
+} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+import {
   BaseConfig,
   ConfigReturn,
 } from "/data/vim/repos/github.com/Shougo/dpp.vim/denops/dpp/base/config.ts";
@@ -8,10 +12,6 @@ import {
   Dpp,
   Plugin,
 } from "/data/vim/repos/github.com/Shougo/dpp.vim/denops/dpp/types.ts";
-import {
-  ensure,
-  is,
-} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
 
 type MyPlugin = Plugin & {
   hook_add?: string;

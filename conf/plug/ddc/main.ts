@@ -1,7 +1,10 @@
-import { BaseConfig } from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/config.ts";
+import {
+  BaseConfig,
+  ConfigArguments,
+} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/config.ts";
 
 export class Config extends BaseConfig {
-  override config(args: ConfigArguments): Promise<void> {
+  override async config(args: ConfigArguments) {
     args.contextBuilder.patchGlobal(
       {
         autoCompleteEvents: [
@@ -12,7 +15,7 @@ export class Config extends BaseConfig {
           "CmdlineEnter",
           "CmdlineChanged",
         ],
-        sources: ['around'],
+        sources: ["around"],
         sourceOptions: {
           _: {
             matchers: ["matcher_fuzzy"],

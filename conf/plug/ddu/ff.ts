@@ -1,19 +1,19 @@
+import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
 import {
   BaseConfig,
   ConfigArguments,
 } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/config.ts";
 import { ActionFlags } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
-import * as option from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
 import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
 import {
   map,
   MapOptions,
 } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mapping/mod.ts";
-import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
-import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
 import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
-import * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+import * as option from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
 
 const augroup = "vimrc#ddu-ui-ff";
 
@@ -95,7 +95,12 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       await map(denops, "A", action("toggleAutoAction"), nno);
       await map(denops, "i", action("openFilterWindow"), nno);
       await map(denops, "q", action("quit"), nno);
-      await map(denops, "s", action("toggleSelectItem") + action("cursorNext"), nno);
+      await map(
+        denops,
+        "s",
+        action("toggleSelectItem") + action("cursorNext"),
+        nno,
+      );
     },
     git_diff: async () => {
       await map(denops, "p", itemAction("applyPatch"), nno);
