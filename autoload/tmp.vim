@@ -1,5 +1,6 @@
 " adhoc version of dpp#source
 function tmp#source(plugin) abort
+  let g:dpp#_plugins = deepcopy(g:dpp#_plugins)
   for p in g:dpp#_plugins
     if p.name ==# a:plugin
       if !p.sourced
@@ -18,4 +19,10 @@ function tmp#source(plugin) abort
       return
     endif
   endfor
+endfunction
+
+function tmp#on_key(plugin, mode, keys)
+  execute a:mode .. 'unmap' a:keys
+  call tmp#source(a:plugin)
+  call feedkeys(a:keys, 'it')
 endfunction

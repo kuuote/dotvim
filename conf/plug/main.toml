@@ -1,5 +1,18 @@
 [[plugins]]
 repo = 'mattn/vim-molder'
+lazy = 1
+hook_add = '''
+function s:molder_init()
+  if isdirectory(expand('%:p'))
+    call tmp#source('vim-molder')
+    call molder#init()
+    autocmd! vimrc_molder
+  endif
+endfunction
+augroup vimrc_molder
+  autocmd BufEnter * call s:molder_init()
+augroup END
+'''
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
@@ -95,6 +108,10 @@ repo = 'thinca/vim-localrc'
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
+lazy = 1
+hook_add = '''
+nnoremap s <Cmd>call tmp#on_key('vim-sandwich', 'n', 's')<CR>
+'''
 # on_map = '<Plug>(sandwich-'
 # hook_add = '''
 # au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-sandwich')

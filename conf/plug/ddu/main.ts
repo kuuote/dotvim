@@ -7,7 +7,7 @@ import {
   DduOptions,
 } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 
-async function setupLocals(args: ConfigArguments) {
+function setupLocals(args: ConfigArguments) {
   // X<ddu-local-source-mr>
   for (const type of ["mru", "mrw", "mrr"]) {
     args.contextBuilder.patchLocal(type, {
