@@ -6,8 +6,6 @@ function s:make_state() abort
     call dpp#make_state('/tmp/dpp', s:cd .. '/conf/dpp.ts')
     return
   endif
-  " call system('rm -rf /tmp/dpp/cache*')
-  " call system('rm -rf /tmp/dpp/state*')
   if has('nvim')
     call jobstop(g:vimrc_make_state_job)
     let g:vimrc_make_state_job = jobstart(['nvim', '--headless', '-u', s:cd .. '/makestate.vim'], {'stdin': 'null'})
