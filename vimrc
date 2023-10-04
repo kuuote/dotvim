@@ -16,11 +16,10 @@ if !v:vim_did_enter
 endif
 
 call vimrc#inline#load('$VIMDIR/conf/rc/*.vim')
+call vimrc#inline#load('$VIMDIR/local/rc/*.vim')
 
 set termguicolors
 if empty(get(g:, 'colors_name', ''))
-  " set background=dark
-  " colorscheme retrobox
   set background=light
   colorscheme edge
 endif
