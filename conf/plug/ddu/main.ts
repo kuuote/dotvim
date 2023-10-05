@@ -1,17 +1,18 @@
 import {
+  ActionFlags,
+} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
+import {
   BaseConfig,
   ConfigArguments,
 } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/config.ts";
 import {
-  ActionFlags,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
-import { dduHelper } from "./lib/helper.ts";
-import { ActionData as GitStatusActionData } from "/data/vim/repos/github.com/kuuote/ddu-source-git_status/denops/@ddu-kinds/git_status.ts";
-import * as stdpath from "/data/vim/repos/github.com/denoland/deno_std/path/mod.ts";
-import {
   is,
   maybe,
 } from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+import { ActionData as GitStatusActionData } from "/data/vim/repos/github.com/kuuote/ddu-source-git_status/denops/@ddu-kinds/git_status.ts";
+import { dduHelper } from "./lib/helper.ts";
+import * as stdpath from "/data/vim/repos/github.com/denoland/deno_std/path/mod.ts";
+
 // /data/vim/repos/github.com
 
 function setupGitStatus(args: ConfigArguments) {
