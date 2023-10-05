@@ -1,20 +1,4 @@
 [[plugins]]
-repo = 'mattn/vim-molder'
-lazy = 1
-hook_add = '''
-function s:molder_init()
-  if isdirectory(expand('%:p'))
-    call tmp#source('vim-molder')
-    call molder#init()
-    autocmd! vimrc_molder
-  endif
-endfunction
-augroup vimrc_molder
-  autocmd BufEnter * call s:molder_init()
-augroup END
-'''
-
-[[plugins]]
 repo = 'vim-skk/skkeleton'
 #on_event = ['CmdlineEnter', 'InsertEnter']
 lazy = 1
@@ -74,6 +58,13 @@ autocmd User skkeleton-initialize-pre ++nested source $VIMDIR/conf/plug/skkeleto
 #'''
 
 [[plugins]]
+repo = '/data/dotvim/bundle/vim-operandi'
+# on_func = ['operandi#open', 'operandi#register']
+hook_add = '''
+nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
+'''
+
+[[plugins]]
 repo = 'lambdalisue/mr.vim'
 hook_add = '''
 let g:loaded_mr = 1
@@ -84,19 +75,6 @@ autocmd BufReadPre * call mr#mru#start_recording()
 autocmd BufReadPre * call mr#mrr#start_recording()
 autocmd BufWritePre * call mr#mrw#start_recording()
 '''
-
-[[plugins]]
-repo = '/data/dotvim/bundle/vim-operandi'
-# on_func = ['operandi#open', 'operandi#register']
-hook_add = '''
-nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
-'''
-
-[[plugins]]
-repo = 'sainnhe/edge'
-
-[[plugins]]
-repo = 'thinca/vim-localrc'
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
@@ -124,4 +102,26 @@ autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call tmp#source('vim-sandwich'
 # vimx.cmd([[autocmd ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)]])
 # vimx.cmd([[autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)]])
 # '''
+
+[[plugins]]
+repo = 'mattn/vim-molder'
+lazy = 1
+hook_add = '''
+function s:molder_init()
+  if isdirectory(expand('%:p'))
+    call tmp#source('vim-molder')
+    call molder#init()
+    autocmd! vimrc_molder
+  endif
+endfunction
+augroup vimrc_molder
+  autocmd BufEnter * call s:molder_init()
+augroup END
+'''
+
+[[plugins]]
+repo = 'sainnhe/edge'
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
 
