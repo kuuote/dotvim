@@ -21,14 +21,11 @@ lazy = 1
 # denops_wait = 0
 hook_add = '''
 noremap! ;<Space> <Cmd>call tmp#source('skkeleton')<CR><Plug>(skkeleton-enable)
+'''
+hook_source = '''
 autocmd User skkeleton-initialize-pre ++nested source $VIMDIR/conf/plug/skkeleton.vim
 '''
 # /data/newvim/old/conf/plug/skkeleton.lua
-#hook_add = '''
-#autocmd User skkeleton-initialize-pre ++nested luafile $DOTVIM/conf/plug/skkeleton.lua
-#autocmd SourcePost *vimrc/sticky.vim call vimrc#sticky#register("\<Space>", "\<Plug>(skkeleton-enable)")
-#tnoremap <C-z> <Plug>(skkeleton-enable)
-#'''
 #hook_source = '''
 #autocmd User DenopsPluginPost:skkeleton call skkeleton#initialize()
 #autocmd User skkeleton-enable-pre call s:skkeleton_pre()
@@ -97,30 +94,18 @@ nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
 
 [[plugins]]
 repo = 'sainnhe/edge'
-hook_add = '''
-" set termguicolors
-" set background=dark
-" colorscheme edge
-'''
 
 [[plugins]]
 repo = 'thinca/vim-localrc'
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
+# on_map = '<Plug>(sandwich-'
 lazy = 1
 hook_add = '''
 nnoremap s <Cmd>call tmp#on_key('vim-sandwich', 'n', 's')<CR>
+autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call tmp#source('vim-sandwich')
 '''
-# on_map = '<Plug>(sandwich-'
-# hook_add = '''
-# au ModeChanged *:*[ovV\x16]* ++once ++nested call dein#source('vim-sandwich')
-# nnoremap sa  <Plug>(sandwich-add)
-# nnoremap sd  <Plug>(sandwich-delete)
-# nnoremap sdb <Plug>(sandwich-delete-auto)
-# nnoremap sr  <Plug>(sandwich-replace)
-# nnoremap srb <Plug>(sandwich-replace-auto)
-# '''
 # lua_post_source = '''
 # local vimx = require('artemis')
 # -- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L451-L458
