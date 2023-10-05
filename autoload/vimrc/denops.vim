@@ -8,8 +8,8 @@ endfunction
 function vimrc#denops#request(name, method, params) abort
   let plugin = 'vimrc_' .. a:name
   call vimrc#denops#autoload(a:name)
-  call denops#plugin#wait(a:plugin)
-  return denops#request(a:plugin, a:method, a:params)
+  call denops#plugin#wait(plugin)
+  return denops#request(plugin, a:method, a:params)
 endfunction
 
 function vimrc#denops#notify(name, method, params) abort
