@@ -86,6 +86,8 @@ function setupGitStatus(args: ConfigArguments) {
   });
 }
 
+// X<ddu-locals>
+// L<ddu-ui-ff-aliases> も直す
 function setupLocals(args: ConfigArguments) {
   // X<ddu-local-mr>
   for (const type of ["mru", "mrw", "mrr"]) {
@@ -98,6 +100,10 @@ function setupLocals(args: ConfigArguments) {
       }],
     });
   }
+  // X<ddu-local-line>
+  args.contextBuilder.patchLocal("line", {
+    sources: ["line"],
+  });
 }
 
 export class Config extends BaseConfig {

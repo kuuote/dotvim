@@ -17,6 +17,39 @@ import * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.
 
 const augroup = "vimrc#ddu-ui-ff";
 
+async function onColorScheme(args: ConfigArguments) {
+  const hlbg = false;
+  const highlights: DduUiFFParams["highlights"] = {};
+  if (await args.denops.eval("&background ==# 'light'")) {
+    if (hlbg) {
+      await args.denops.cmd("hi DduEnd guibg=#e0e0ff guifg=#e0e0ff");
+      await args.denops.cmd("hi DduFloat guibg=#e0e0ff guifg=#6060ff");
+    } else {
+      await args.denops.cmd("hi DduEnd guifg=#e0e0ff");
+      await args.denops.cmd("hi DduFloat guifg=#6060ff");
+    }
+    await args.denops.cmd("hi DduBorder guibg=#f0f0ff guifg=#6060ff");
+    await args.denops.cmd(
+      "hi DduMatch ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE",
+    );
+    await args.denops.cmd(
+      "hi DduCursorLine ctermfg=205 ctermbg=225 guifg=#ff6060 guibg=#ffe8e8 cterm=NONE gui=NONE",
+    );
+    highlights.floating = "DduFloat,EndOfBuffer:DduEnd";
+    highlights.floatingCursorLine = "DduCursorLine";
+  } else {
+    await args.denops.cmd("hi def link DduMatch Search");
+    highlights.floating = "Normal,DduBorder:Normal,DduMatch:Search";
+  }
+  args.contextBuilder.patchGlobal({
+    uiParams: {
+      ff: {
+        highlights,
+      },
+    },
+  });
+}
+
 async function calculateUiSize(
   denops: Denops,
 ): Promise<[x: number, y: number, width: number, height: number]> {
@@ -63,8 +96,11 @@ async function setUiSize(args: ConfigArguments) {
 }
 
 // patchLocalしてるnameをマッピングテーブル用の定義に直すためのテーブル
+// X<ddu-ui-ff-aliases>
+// L<ddu-locals>
 const aliases: Record<string, string> = {
   git_diff: "file:git_diff",
+  line: "file",
   mrr: "file",
   mru: "file",
   mrw: "file",
@@ -207,8 +243,13 @@ export class Config extends BaseConfig {
       helper.remove("*");
     });
 
-    // floatwinのサイズをセットするやつ
     await group(args.denops, augroup, (helper) => {
+      helper.define(
+        "ColorScheme",
+        "*",
+        () => onColorScheme(args),
+      );
+      // floatwinのサイズをセットするやつ
       helper.define(
         "VimResized",
         "*",
@@ -216,6 +257,7 @@ export class Config extends BaseConfig {
         { async: true },
       );
     });
+    await onColorScheme(args);
     await setUiSize(args);
     await setupFileTypeAutocmd(args);
   }

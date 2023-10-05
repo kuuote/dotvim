@@ -1,9 +1,8 @@
 [[plugins]]
-repo = 'Shougo/ddu.vim'
-# L<ddu-global>
+repo = 'kuuote/ddu-source-git_status'
+# L<ddu-source-git_status>
 hook_add = '''
-call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/main.ts'))
-call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/ff.ts'))
+nnoremap gs <Cmd>call ddu#start({'name':'git_status','sourceOptions':{'_': {'path': expand('%:p')}}})<CR>
 '''
 
 [[plugins]]
@@ -16,11 +15,8 @@ nnoremap mrr <Cmd>call ddu#start({'name':'mrr'})<CR>
 '''
 
 [[plugins]]
-repo = 'yuki-yano/ddu-filter-fzf'
-# L<ddu-filter-matcher_fzf>
-
-[[plugins]]
-repo = 'Shougo/ddu-ui-ff'
+repo = 'kyoh86/ddu-filter-converter_hl_dir'
+# L<ddu-filter-converter_hl_dir>
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
@@ -30,13 +26,24 @@ repo = 'Shougo/ddu-kind-file'
 repo = 'Shougo/ddu-source-file'
 
 [[plugins]]
-repo = 'kuuote/ddu-source-git_status'
-# L<ddu-source-git_status>
+repo = 'Shougo/ddu-source-line'
+# L<ddu-local-line>
 hook_add = '''
-nnoremap gs <Cmd>call ddu#start({'name':'git_status','sourceOptions':{'_': {'path': expand('%:p')}}})<CR>
+nnoremap dl <Cmd>call ddu#start({'name':'line'})<CR>
 '''
 
 [[plugins]]
-repo = 'kyoh86/ddu-filter-converter_hl_dir'
-# L<ddu-filter-converter_hl_dir>
+repo = 'Shougo/ddu-ui-ff'
+
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+# L<ddu-global>
+hook_add = '''
+call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/main.ts'))
+call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/ff.ts'))
+'''
+
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+# L<ddu-filter-matcher_fzf>
 
