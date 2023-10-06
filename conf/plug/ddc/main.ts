@@ -15,7 +15,7 @@ export class Config extends BaseConfig {
           "CmdlineEnter",
           "CmdlineChanged",
         ],
-        sources: ["around"],
+        sources: ["denippet", "around"],
         sourceOptions: {
           _: {
             matchers: ["matcher_fuzzy"],

@@ -67,9 +67,25 @@ export class Config extends BaseConfig {
         hookAdds.push(...p.hook_add.split(/\n/));
       }
     }
+    const lazyStateLines = ensure(
+      await args.dpp.extAction(
+        args.denops,
+        context,
+        options,
+        "lazy",
+        "makeState",
+        {
+          plugins,
+        },
+      ),
+      is.ArrayOf(is.String),
+    );
     return {
       plugins,
-      stateLines: hookAdds,
+      stateLines: [
+        // lazyStateLines,
+        hookAdds,
+      ].flat(),
     };
   }
 }

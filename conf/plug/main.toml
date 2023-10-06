@@ -1,4 +1,82 @@
 [[plugins]]
+repo = '/data/dotvim/bundle/vim-operandi'
+# on_func = ['operandi#open', 'operandi#register']
+hook_add = '''
+nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
+'''
+
+[[plugins]]
+repo = 'lambdalisue/mr.vim'
+hook_add = '''
+let g:loaded_mr = 1
+let g:mr#mru#filename = '/data/mr/mru'
+let g:mr#mrw#filename = '/data/mr/mrw'
+let g:mr#mrr#filename = '/data/mr/mrr'
+autocmd BufReadPre * call mr#mru#start_recording()
+autocmd BufReadPre * call mr#mrr#start_recording()
+autocmd BufWritePre * call mr#mrw#start_recording()
+'''
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+# on_map = 's'
+lazy = 1
+hook_add = '''
+nnoremap s <Cmd>call tmp#on_key('vim-sandwich', 'n', 's')<CR>
+autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call tmp#source('vim-sandwich')
+'''
+# lua_post_source = '''
+# local vimx = require('artemis')
+# -- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L451-L458
+# -- console.log() などをまとめて指定できるやつ
+# vimx.g['sandwich#magicchar#f#patterns'] = {
+#   {
+#     header = [[\<\%(\h\k*\.\)*\h\k*]],
+#     bra = '(',
+#     ket = ')',
+#     footer = '',
+#   },
+# }
+# -- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L485-L487
+# -- saa( などで空白を含めないようにするやつ
+# vimx.fn.operator.sandwich.set('add', 'char', 'skip_space', 1)
+# vimx.cmd([[autocmd ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)]])
+# vimx.cmd([[autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)]])
+# '''
+
+[[plugins]]
+repo = 'mattn/vim-molder'
+lazy = 1
+hook_add = '''
+function s:molder_init()
+  if isdirectory(expand('%:p'))
+    call tmp#source('vim-molder')
+    call molder#init()
+    autocmd! vimrc_molder
+  endif
+endfunction
+augroup vimrc_molder
+  autocmd BufEnter * call s:molder_init()
+augroup END
+'''
+
+[[plugins]]
+repo = 'sainnhe/edge'
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
+
+[[plugins]]
+repo = 'uga-rosa/denippet.vim'
+lazy = 1
+hook_add = '''
+autocmd CmdlineEnter,InsertEnter * call tmp#source('denippet.vim')
+'''
+hook_source = '''
+call denippet#load('/data/dotvim/snippets/typescript.json')
+'''
+
+[[plugins]]
 repo = 'vim-skk/skkeleton'
 #on_event = ['CmdlineEnter', 'InsertEnter']
 lazy = 1
@@ -58,72 +136,4 @@ autocmd User skkeleton-initialize-pre ++nested source $VIMDIR/conf/plug/skkeleto
 #command! SKKAzik call s:azik()
 #
 #'''
-
-[[plugins]]
-repo = '/data/dotvim/bundle/vim-operandi'
-# on_func = ['operandi#open', 'operandi#register']
-hook_add = '''
-nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
-'''
-
-[[plugins]]
-repo = 'lambdalisue/mr.vim'
-hook_add = '''
-let g:loaded_mr = 1
-let g:mr#mru#filename = '/data/mr/mru'
-let g:mr#mrw#filename = '/data/mr/mrw'
-let g:mr#mrr#filename = '/data/mr/mrr'
-autocmd BufReadPre * call mr#mru#start_recording()
-autocmd BufReadPre * call mr#mrr#start_recording()
-autocmd BufWritePre * call mr#mrw#start_recording()
-'''
-
-[[plugins]]
-repo = 'machakann/vim-sandwich'
-# on_map = '<Plug>(sandwich-'
-lazy = 1
-hook_add = '''
-nnoremap s <Cmd>call tmp#on_key('vim-sandwich', 'n', 's')<CR>
-autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call tmp#source('vim-sandwich')
-'''
-# lua_post_source = '''
-# local vimx = require('artemis')
-# -- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L451-L458
-# -- console.log() などをまとめて指定できるやつ
-# vimx.g['sandwich#magicchar#f#patterns'] = {
-#   {
-#     header = [[\<\%(\h\k*\.\)*\h\k*]],
-#     bra = '(',
-#     ket = ')',
-#     footer = '',
-#   },
-# }
-# -- https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L485-L487
-# -- saa( などで空白を含めないようにするやつ
-# vimx.fn.operator.sandwich.set('add', 'char', 'skip_space', 1)
-# vimx.cmd([[autocmd ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)]])
-# vimx.cmd([[autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)]])
-# '''
-
-[[plugins]]
-repo = 'mattn/vim-molder'
-lazy = 1
-hook_add = '''
-function s:molder_init()
-  if isdirectory(expand('%:p'))
-    call tmp#source('vim-molder')
-    call molder#init()
-    autocmd! vimrc_molder
-  endif
-endfunction
-augroup vimrc_molder
-  autocmd BufEnter * call s:molder_init()
-augroup END
-'''
-
-[[plugins]]
-repo = 'sainnhe/edge'
-
-[[plugins]]
-repo = 'thinca/vim-localrc'
 
