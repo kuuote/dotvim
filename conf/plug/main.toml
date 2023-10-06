@@ -5,6 +5,8 @@ lazy = 1
 # denops_wait = 0
 hook_add = '''
 noremap! ;<Space> <Cmd>call tmp#source('skkeleton')<CR><Plug>(skkeleton-enable)
+" ref: atusy: normal modeの `<C-J>`をskkeleton-enableにあてちゃうのアリな気がしてきた。特にmarkdownで日本語書きまくってる時とか。"
+nnoremap ;<Space> <Cmd>call tmp#source('skkeleton')<CR>i<Plug>(skkeleton-enable)
 '''
 hook_source = '''
 autocmd User skkeleton-initialize-pre ++nested source $VIMDIR/conf/plug/skkeleton.vim
