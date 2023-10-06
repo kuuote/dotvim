@@ -1,4 +1,10 @@
 [[plugins]]
+repo = 'Shougo/ddc-source-around'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+
+[[plugins]]
 repo = 'Shougo/ddc.vim'
 hook_add = '''
 call ddc#custom#load_config(expand('$VIMDIR/conf/plug/ddc/main.ts'))
@@ -15,12 +21,6 @@ set noshowmode
 [[plugins]]
 repo = 'Shougo/pum.vim'
 # L<mappings-pum_vim>
-
-[[plugins]]
-repo = 'Shougo/ddc-source-around'
-
-[[plugins]]
-repo = 'Shougo/ddc-ui-pum'
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
