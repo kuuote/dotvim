@@ -552,6 +552,8 @@ denops_wait = 0
 hook_add = '''
 autocmd User skkeleton-initialize-pre ++nested luafile $DOTVIM/conf/plug/skkeleton.lua
 autocmd SourcePost *vimrc/sticky.vim call vimrc#sticky#register("\<Space>", "\<Plug>(skkeleton-enable)")
+" ref: atusy: normal modeの `<C-J>`をskkeleton-enableにあてちゃうのアリな気がしてきた。特にmarkdownで日本語書きまくってる時とか。"
+nnoremap ;<Space> i<Plug>(skkeleton-enable)
 tnoremap <C-z> <Plug>(skkeleton-enable)
 '''
 hook_source = '''
