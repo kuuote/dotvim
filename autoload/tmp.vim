@@ -5,7 +5,9 @@ function tmp#source(plugin) abort
     if !p.sourced
       let &runtimepath = p.path .. ',' .. &runtimepath
       if has_key(p, 'hook_source')
-        call execute(p.hook_source->split('\n'), '')
+        " NOTE: line continuation must be converted.
+        " execute() does not support it.
+        call execute(p.hook_source->substitute('\n\s*\\', '', 'g')->split('\n'), '')
       endif
       for f in glob(p.path .. '/plugin/**/*', 1, 1)
         if getftype(f) == 'file'
