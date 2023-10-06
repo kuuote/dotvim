@@ -1,0 +1,12 @@
+#!/bin/bash -u
+
+jq -r '.[] | .path' ./out.json | while read path; do
+(
+  cd $path || exit 1
+
+  [[ "$(git rev-parse @)" = "$(git rev-parse @{u})" ]] && exit
+
+  echo $path
+  git --no-pager diff -R @{u}
+)
+done
