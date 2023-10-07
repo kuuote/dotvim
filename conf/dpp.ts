@@ -83,7 +83,7 @@ export class Config extends BaseConfig {
     return {
       plugins,
       stateLines: [
-        // lazyStateLines,
+        lazyStateLines,
         hookAdds,
       ].flat(),
     };

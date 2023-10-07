@@ -3,6 +3,7 @@ function tmp#source(plugin) abort
   if has_key(g:dpp#_plugins, a:plugin)
     let p = g:dpp#_plugins[a:plugin]
     if !p.sourced
+      let p.sourced = v:true
       let &runtimepath = p.path .. ',' .. &runtimepath
       if has_key(p, 'hook_source')
         " NOTE: line continuation must be converted.
@@ -16,7 +17,6 @@ function tmp#source(plugin) abort
       endfor
       call denops#plugin#discover()
     endif
-    let p.sourced = v:true
     return
   endif
 endfunction
