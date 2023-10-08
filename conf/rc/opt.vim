@@ -1,5 +1,7 @@
-" 立つ鳥後を濁さず
-set viminfo+=:0
+" スペースの2幅が好み
+set expandtab
+set shiftwidth=2
+set tabstop=2
 
 " ファイルを変更したまま裏に移動できるようにする
 set hidden
@@ -7,8 +9,6 @@ set hidden
 " フルカラーは人権
 set termguicolors
 
-" スペースの2幅が好み
-set expandtab
-set tabstop=2
-set shiftwidth=2
+" 立つ鳥後を濁さず
+set viminfo+=:0
 

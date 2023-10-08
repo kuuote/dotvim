@@ -1,15 +1,3 @@
-" swap () []
-noremap! [ (
-noremap! ] )
-noremap! ( [
-noremap! ) ]
-
-" sticky ;
-for s:c in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-  execute printf('noremap! ;%s %s', s:c, toupper(s:c))
-endfor
-noremap! ;<Tab> ;
-
 " kigou utiyasuku suru
 noremap! ,q <Bar>
 noremap! ,a \
@@ -37,10 +25,22 @@ endfunction
 noremap! ,, <Cmd>call <SID>notation()<CR>
 
 " pum.vim
-" X<mappings-pum_vim>
+"" X<mappings-pum_vim>
 noremap! <Tab> <Cmd>call pum#map#insert_relative(1)<CR>
 noremap! <C-n> <Cmd>call pum#map#select_relative(+1)<CR>
 noremap! <C-p> <Cmd>call pum#map#select_relative(-1)<CR>
 noremap! <C-y> <Cmd>call pum#map#confirm()<CR>
 noremap! <C-e> <Cmd>call pum#map#cancel()<CR>
+
+" sticky ;
+for s:c in split('abcdefghijklmnopqrstuvwxyz', '\zs')
+  execute printf('noremap! ;%s %s', s:c, toupper(s:c))
+endfor
+noremap! ;<Tab> ;
+
+" swap () []
+noremap! [ (
+noremap! ] )
+noremap! ( [
+noremap! ) ]
 
