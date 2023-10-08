@@ -7,6 +7,9 @@ noremap! ,e +
 noremap! ,d =
 noremap! ,c *
 
+" Cmdlineをキャンセルした際に履歴を残さない
+cnoremap <Esc> <C-u><C-c>
+
 " notation helper
 function s:notation()
   let result = input('')
