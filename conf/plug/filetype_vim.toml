@@ -1,0 +1,4 @@
+[[plugins]]
+repo = 'KentoOgata/vim-vimscript-gd'
+on_ft = ['vim']
+
