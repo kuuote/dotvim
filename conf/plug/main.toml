@@ -1,6 +1,6 @@
 [[plugins]]
 repo = '/data/dotvim/bundle/vim-operandi'
-on_func = ['operandi#*']
+on_func = ['operandi#']
 hook_add = '''
 nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
 '''
@@ -73,7 +73,7 @@ augroup END
 [[plugins]]
 repo = 'rbtnn/vim-layout'
 on_cmd = ['LayoutLoad', 'LayoutSave']
-on_func = ['layout#*']
+on_func = ['layout#']
 
 [[plugins]]
 repo = 'sainnhe/edge'
