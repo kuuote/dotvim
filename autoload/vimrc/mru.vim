@@ -10,6 +10,15 @@ function vimrc#mru#uniq(list) abort
   return result
 endfunction
 
+function vimrc#mru#load(file) abort
+  try
+    let data = readfile(a:file)
+  catch
+    let data = []
+  endtry
+  return vimrc#mru#uniq(data)
+endfunction
+
 function vimrc#mru#save(file, opts = {}) abort
   if has_key(a:opts, 'data')
     let data = a:opts.data
@@ -23,5 +32,6 @@ function vimrc#mru#save(file, opts = {}) abort
   if has_key(a:opts, 'line')
     call insert(data, a:opts.line)
   endif
+  call mkdir(a:file->fnamemodify(':h'), 'p')
   call writefile(vimrc#mru#uniq(data), a:file)
 endfunction

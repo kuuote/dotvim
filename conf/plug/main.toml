@@ -1,5 +1,5 @@
 [[plugins]]
-repo = '/data/dotvim/bundle/vim-operandi'
+repo = '$VIMDIR/bundle/vim-operandi'
 on_func = ['operandi#']
 hook_add = '''
 nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>

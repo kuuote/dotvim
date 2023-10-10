@@ -1,5 +1,4 @@
-
-let s:history = '/data/vim/cmdhist'
+let s:history = '/data/vimshared/cmdhist'
 
 function s:_source() abort
   let vim = range(histnr(':'), 0, -1)->map('histget(":", v:val)')
