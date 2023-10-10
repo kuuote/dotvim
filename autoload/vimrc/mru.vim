@@ -23,5 +23,6 @@ function vimrc#mru#save(file, opts = {}) abort
   if has_key(a:opts, 'line')
     call insert(data, a:opts.line)
   endif
+  call mkdir(data->fnamemodify(':h'), 'p')
   call writefile(vimrc#mru#uniq(data), a:file)
 endfunction
