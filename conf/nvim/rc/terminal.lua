@@ -1,10 +1,8 @@
 local vimx = require('artemis')
-local dir = vim.fs.joinpath(vim.fn.stdpath('data'), 'operandi')
-vim.fn.mkdir(dir, 'p')
-local file = vim.fs.joinpath(dir, 'nvimterm')
+local file = '/data/vimshared/nvimterm'
 
 local function source()
-  return require('vimrc.plug.operandi').load_file(file)
+  return vimx.fn.vimrc.mru.load(file)
 end
 
 vim.api.nvim_create_autocmd('User', {
@@ -33,7 +31,7 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 local function executor(cmd)
-  require('vimrc.plug.operandi').append_line(file, cmd)
+  vimx.fn.vimrc.mru.save(file, { line = cmd })
   require('vimrc.feat.nvimterm').execute {
     cmd = cmd,
     wd = vim.fn.expand('%:p:h'),
