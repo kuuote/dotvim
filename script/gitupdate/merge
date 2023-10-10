@@ -7,9 +7,6 @@ jq -r '.[] | .path' ./out.json | while read path; do
   [[ "$(git rev-parse @)" = "$(git rev-parse @{u})" ]] && exit
 
   echo $path
-  for doc in $(ls -1 | grep '^\(doc\|README\)'); do
-    git --no-pager diff -R @{u} $doc
-  done
 
   [[ -e .vimrc_hash ]] && exit
 

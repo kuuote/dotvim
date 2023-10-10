@@ -1,5 +1,7 @@
 #!/bin/bash -u
 
+rm -rf /tmp/vimdiff
+mkdir -p /tmp/vimdiff
 jq -r '.[] | .path' ./out.json | while read path; do
 (
   cd $path || exit 1
@@ -7,6 +9,6 @@ jq -r '.[] | .path' ./out.json | while read path; do
   [[ "$(git rev-parse @)" = "$(git rev-parse @{u})" ]] && exit
 
   echo $path
-  git --no-pager diff -R @{u}
+  git --no-pager diff -R @{u} > /tmp/vimdiff/$(echo $path | perl -pe 's:/:_:g').diff
 )
 done
