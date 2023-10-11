@@ -1,3 +1,3 @@
 #!/bin/bash -u
 
-dr script/time/time.ts script/time/time.sh
+deno run -A script/time/time.ts script/time/time.sh
