@@ -53,13 +53,13 @@ export class Config extends BaseConfig {
       if (p.repo?.match(/^[^/]+\/[^/]+$/)) {
         p.repo = "https://github.com/" + p.repo;
       }
-      // adhoc local
-      if (p.repo?.includes("$")) {
-        p.repo = String(await args.denops.call("expand", p.repo));
-      }
       // adhoc plugin base path for URL
       if (p.repo?.match(/^https:\/\//)) {
         p.path = "/data/vim/repos/" + p.repo.replace(/^https:\/\//, "");
+      }
+      // adhoc local
+      if (p.repo?.includes("$")) {
+        p.repo = String(await args.denops.call("expand", p.repo));
       }
       if (p.repo?.[0] === "/") {
         p.path = p.repo;
