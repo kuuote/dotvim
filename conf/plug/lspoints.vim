@@ -1,12 +1,9 @@
-function s:initialize()
-  call lspoints#load_extensions([
-  \   'config',
-  \   'format',
-  \   'nvim_diagnostics',
-  \   'semantic_tokens',
-  \ ])
-endfunction
-autocmd User DenopsPluginPost:lspoints call s:initialize()
+let g:lspoints#extensions = [
+\   'config',
+\   'format',
+\   'nvim_diagnostics',
+\   'semantic_tokens',
+\ ]
 
 autocmd FileType lua call lspoints#attach('luals')
 autocmd FileType typescript,typescriptreact call lspoints#attach('denols')
