@@ -47,10 +47,10 @@ const configSet: Record<
     Promise.resolve({
       sources: ["file"],
     }),
-  lspoints: () =>
+  "nvim-lsp": () =>
     Promise.resolve({
       sources: [{
-        name: "lspoints",
+        name: "nvim-lsp",
         options: {
           minAutoCompleteLength: 1,
         },
@@ -62,31 +62,11 @@ const configSet: Record<
     }),
 };
 
-const saveConfig: Record<number, Partial<DdcOptions> | null> = {};
-
-function restoreConfig(args: ConfigArguments) {
-  const config = args.contextBuilder.getBuffer();
-  for (const _bufnr of Object.keys(saveConfig)) {
-    const bufnr = Number(_bufnr);
-    const saved = saveConfig[bufnr];
-    if (saved == null) {
-      delete config[bufnr];
-    } else {
-      config[bufnr] = saved;
-    }
-    delete saveConfig[bufnr];
-  }
-}
-
 async function setConfig(args: ConfigArguments, name: string) {
   const bufnr = Number(await args.denops.call("bufnr"));
-  const gconfig = args.contextBuilder.getBuffer();
-  if (saveConfig[bufnr] === undefined) {
-    saveConfig[bufnr] = gconfig[bufnr] ?? null;
-  }
   const set = configSet[name];
   if (set == null) {
-    restoreConfig(args);
+    await resetConfig(args);
     return;
   }
   args.contextBuilder.setBuffer(bufnr, await set(args.denops));
@@ -96,16 +76,24 @@ async function setConfig(args: ConfigArguments, name: string) {
   await args.denops.call("ddc#map#manual_complete");
 }
 
+async function resetConfig(args: ConfigArguments) {
+  const config = args.contextBuilder.getBuffer();
+  for (const _bufnr of Object.keys(config)) {
+    const bufnr = Number(_bufnr);
+    delete config[bufnr];
+  }
+  await args.denops.call("ddc#hide");
+}
+
 const configMap: Record<string, string> = {
   F: "file",
-  S: "snippet",
+  S: "nvim-lsp",
+  s: "snippet",
 };
 
 // configSetを指定させてマッピングする
 async function inputConfigSet(args: ConfigArguments) {
   const bufnr = Number(await args.denops.call("bufnr"));
-  const gconfig = args.contextBuilder.getBuffer();
-  const config = gconfig[bufnr];
   args.contextBuilder.setBuffer(bufnr, {
     cmdlineSources: [{
       name: "list",
@@ -127,18 +115,16 @@ async function inputConfigSet(args: ConfigArguments) {
     const key = String(await args.denops.call("input", "key?"));
     if (configSet[name] == null) {
       delete configMap[key];
+      await resetConfig(args);
     } else {
       configMap[key] = name;
+      await setConfig(args, key);
     }
   } catch (e) {
     console.log(e);
+    await resetConfig(args);
   } finally {
     await option.virtualedit.setLocal(args.denops, ve);
-    if (config == null) {
-      delete gconfig[bufnr];
-    } else {
-      gconfig[bufnr] = config;
-    }
   }
 }
 
@@ -165,8 +151,7 @@ export class Config extends BaseConfig {
       await args.denops.call("ddc#map#manual_complete");
     }, ino);
     await map(args.denops, "R", async () => {
-      await args.denops.call("ddc#hide");
-      restoreConfig(args);
+      await resetConfig(args);
       await echomsg(args.denops, "restore buffer config");
     }, ino);
   }

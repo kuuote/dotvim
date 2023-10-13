@@ -40,6 +40,9 @@ repo = 'Shougo/ddc-source-input'
 repo = 'Shougo/ddc-source-line'
 
 [[plugins]]
+repo = 'Shougo/ddc-source-nvim-lsp'
+
+[[plugins]]
 repo = 'Shougo/ddc-source-shell-native'
 
 [[plugins]]
