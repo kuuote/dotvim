@@ -9,7 +9,7 @@ set runtimepath^=$VIMDIR
 if !v:vim_did_enter
   " ./conf/dpp.vim
   source $VIMDIR/conf/dpp.vim
-  if get(g:, 'vimrc_dpp_make_state', v:false)
+  if get(g:, 'vimrc#dpp_make_state', v:false)
     source $VIMDIR/conf/fallback.vim
     finish
   endif

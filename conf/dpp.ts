@@ -26,20 +26,6 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<ConfigReturn> {
-    // makeStateが完了したらVimを落とす
-    if (watcher != null) {
-      watcher.close();
-    }
-    await Deno.mkdir(args.basePath, { recursive: true });
-    watcher = Deno.watchFs(args.basePath, { recursive: true });
-    (async () => {
-      for await (const e of watcher) {
-        if (e.kind === "access" && e.paths.join().includes("cache")) {
-          await args.denops.cmd("cquit 0");
-        }
-        console.log(e);
-      }
-    })();
     const [context, options] = await args.contextBuilder.get(args.denops);
     let plugins: MyPlugin[] = [{
       name: "dpp.vim",

@@ -12,7 +12,7 @@ function s:make_state() abort
   " endif
   if has('nvim')
     call jobstop(g:vimrc_make_state_job)
-    let g:vimrc_make_state_job = jobstart(['nvim', '--headless', '-u', s:cd .. '/makestate.vim'], {'stdin': 'null', 'on_exit': function('s:make_state_exit')})
+    let g:vimrc_make_state_job = jobstart(['nvim', '--headless', '-u', s:cd .. '/vimrc'], {'env': {'dpp_force_makestate': '1'}, 'stdin': 'null', 'on_exit': function('s:make_state_exit')})
   endif
 endfunction
 

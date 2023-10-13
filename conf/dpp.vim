@@ -1,13 +1,9 @@
-set runtimepath^=/data/vim/repos/github.com/Shougo/dpp.vim
-set runtimepath^=/data/vim/repos/github.com/vim-denops/denops.vim
+call vimrc#git#use('https://github.com/Shougo/dpp.vim')
+call vimrc#git#use('https://github.com/vim-denops/denops.vim')
 
-let s:cd = expand('<sfile>:p:h')
-let s:dpp_base = '/tmp/dpp'
-if dpp#min#load_state(s:dpp_base)
-  " ./dpp.ts
-  autocmd User DenopsReady
-        \ call dpp#make_state(s:dpp_base, s:cd .. '/dpp.ts')
-  let g:vimrc_dpp_make_state = v:true
+let g:vimrc#dpp_base = '/tmp/dpp'
+if $dpp_force_makestate || dpp#min#load_state(g:vimrc#dpp_base)
+  source $VIMDIR/conf/makestate.vim
   finish
 endif
 
