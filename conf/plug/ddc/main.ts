@@ -15,7 +15,7 @@ export class Config extends BaseConfig {
           "CmdlineEnter",
           "CmdlineChanged",
         ],
-        sources: ["denippet", "around"],
+        sources: ["around"],
         sourceOptions: {
           _: {
             matchers: ["matcher_fuzzy"],
@@ -25,6 +25,37 @@ export class Config extends BaseConfig {
           },
           around: {
             mark: "A",
+          },
+          cmdline: {
+            minAutoCompleteLength: 1,
+          },
+          input: {
+            isVolatile: true,
+            mark: "I",
+            minAutoCompleteLength: 0,
+          },
+          line: {
+            mark: "行",
+          },
+          "shell-native": {
+            mark: "殻",
+          },
+          skkeleton: {
+            converters: [],
+            isVolatile: true,
+            mark: "変",
+            matchers: ["skkeleton"],
+            maxItems: 50,
+            minAutoCompleteLength: 1,
+            sorters: [],
+          },
+        },
+        sourceParams: {
+          "nvim-lsp": {
+            lspEngine: "lspoints",
+          },
+          "shell-native": {
+            "shell": "fish",
           },
         },
         ui: "pum",
