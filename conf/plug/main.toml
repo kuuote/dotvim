@@ -27,11 +27,10 @@ on_cmd = ['SudaRead', 'SudaWrite']
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
-#on_map = ['s']
+on_map = ['s']
 lazy = 1
-hack_add = '''
-nnoremap s <Cmd>call tmp#on_key('vim-sandwich', 'n', 's')<CR>
-autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call tmp#source('vim-sandwich')
+hook_add = '''
+autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call dpp#source('vim-sandwich')
 '''
 hook_source = '''
 " https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L485-L487
@@ -60,7 +59,7 @@ lazy = 1
 hook_add = '''
 function s:molder_init()
   if isdirectory(expand('%:p'))
-    call tmp#source('vim-molder')
+    call dpp#source('vim-molder')
     call molder#init()
     autocmd! vimrc_molder
   endif
@@ -86,7 +85,7 @@ repo = 'uga-rosa/denippet.vim'
 lazy = 1
 denops_wait = 0
 hook_add = '''
-autocmd CmdlineEnter,InsertEnter * call tmp#source('denippet.vim')
+autocmd CmdlineEnter,InsertEnter * call dpp#source('denippet.vim')
 '''
 hook_source = '''
 call denippet#load('/data/dotvim/snippets/typescript.json')
@@ -97,9 +96,9 @@ repo = 'vim-skk/skkeleton'
 lazy = 1
 denops_wait = 0
 hook_add = '''
-noremap! ;<Space> <Cmd>call tmp#source('skkeleton')<CR><Plug>(skkeleton-enable)
+noremap! ;<Space> <Cmd>call dpp#source('skkeleton')<CR><Plug>(skkeleton-enable)
 " ref: atusy: normal modeの `<C-J>`をskkeleton-enableにあてちゃうのアリな気がしてきた。特にmarkdownで日本語書きまくってる時とか。"
-nnoremap ;<Space> <Cmd>call tmp#source('skkeleton')<CR>i<Plug>(skkeleton-enable)
+nnoremap ;<Space> <Cmd>call dpp#source('skkeleton')<CR>i<Plug>(skkeleton-enable)
 '''
 hook_source = '''
 autocmd User skkeleton-initialize-pre ++nested source $VIMDIR/conf/plug/skkeleton.vim
