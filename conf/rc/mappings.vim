@@ -8,5 +8,7 @@ nnoremap <Space>w <C-w>
 nnoremap H <Cmd>tabprevious<CR>
 nnoremap L <Cmd>tabnext<CR>
 nnoremap Q <Cmd>confirm qa<CR>
-nnoremap tq <Cmd>tabclose<CR>
+" 開く前の方向に戻っていく
+nnoremap <expr> tq printf('<Cmd>tabclose <Bar> tabnext %d<CR>', max([1, tabpagenr() - 1]))
+
 nnoremap tt <Cmd>tab split<CR>
