@@ -100,6 +100,10 @@ function setupLocals(args: ConfigArguments) {
       }],
     });
   }
+  // X<ddu-local-dpp>
+  args.contextBuilder.patchLocal("dpp", {
+    sources: ["dpp"],
+  });
   // X<ddu-local-line>
   args.contextBuilder.patchLocal("line", {
     sources: ["line"],
