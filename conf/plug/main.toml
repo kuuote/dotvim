@@ -10,6 +10,12 @@ repo = 'lambdalisue/gina.vim'
 on_cmd = ['Gina']
 
 [[plugins]]
+repo = 'lambdalisue/gin.vim'
+on_cmd = [
+  'Gin',
+]
+
+[[plugins]]
 repo = 'lambdalisue/mr.vim'
 hook_add = '''
 let g:loaded_mr = 1
