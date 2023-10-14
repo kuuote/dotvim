@@ -23,6 +23,9 @@ repo = 'Shougo/ddu-kind-file'
 # L<ddu-kind-file>
 
 [[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+
+[[plugins]]
 repo = 'Shougo/ddu-source-file'
 
 [[plugins]]
@@ -41,6 +44,12 @@ repo = 'Shougo/ddu.vim'
 hook_add = '''
 call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/main.ts'))
 call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/ff.ts'))
+'''
+
+[[plugins]]
+repo = 'uga-rosa/ddu-source-lsp'
+hook_add = '''
+let g:ddu_source_lsp_clientName = 'lspoints'
 '''
 
 [[plugins]]
