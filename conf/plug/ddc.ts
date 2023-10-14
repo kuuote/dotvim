@@ -120,10 +120,8 @@ export class Config extends BaseConfig {
             filenameChars: "[:keyword:].",
             projFromCwdMaxItems: [0],
           },
-          sourceParams: {
-            "nvim-lsp": {
-              lspEngine: "lspoints",
-            },
+          "nvim-lsp": {
+            lspEngine: "lspoints",
           },
           "shell-native": {
             "shell": "fish",
