@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'kuuote/ddu-source-git_diff'
+
+[[plugins]]
 repo = 'kuuote/ddu-source-git_status'
 # L<ddu-source-git_status>
 hook_add = '''

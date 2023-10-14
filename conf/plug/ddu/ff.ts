@@ -146,6 +146,12 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       //   await fn.winrestview(denops, view);
       // }, nno);
     },
+    git_status: async () => {
+      await map(denops, "c", itemAction("commit"), nno);
+      await map(denops, "d", itemAction("diff"), nno);
+      await map(denops, "h", itemAction("add"), nno);
+      await map(denops, "l", itemAction("reset"), nno);
+    },
   };
   const setupFilterTable: Record<string, lambda.Fn> = {
     _: async () => {
