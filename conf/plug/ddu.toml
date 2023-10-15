@@ -22,6 +22,10 @@ repo = 'kyoh86/ddu-filter-converter_hl_dir'
 # L<ddu-filter-converter_hl_dir>
 
 [[plugins]]
+on_cmd = ['Ddu']
+repo = 'Shougo/ddu-commands.vim'
+
+[[plugins]]
 repo = 'Shougo/ddu-kind-file'
 # L<ddu-kind-file>
 
