@@ -6,14 +6,14 @@ nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
 '''
 
 [[plugins]]
-repo = 'lambdalisue/gina.vim'
-on_cmd = ['Gina']
-
-[[plugins]]
 repo = 'lambdalisue/gin.vim'
 on_cmd = [
   'Gin',
 ]
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+on_cmd = ['Gina']
 
 [[plugins]]
 repo = 'lambdalisue/mr.vim'
@@ -82,6 +82,9 @@ on_func = ['layout#']
 
 [[plugins]]
 repo = 'sainnhe/edge'
+
+[[plugins]]
+repo = 'tani/vim-artemis'
 
 [[plugins]]
 repo = 'thinca/vim-localrc'
