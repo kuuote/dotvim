@@ -1,0 +1,7 @@
+[[plugins]]
+repo = 'catppuccin/nvim'
+name = 'catppuccin'
+
+[[plugins]]
+repo = 'sainnhe/edge'
+

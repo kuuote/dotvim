@@ -68,6 +68,8 @@ function s:molder_init()
     call dpp#source('vim-molder')
     call molder#init()
     autocmd! vimrc_molder
+    " 暴発するので勝手に切る
+    autocmd! _molder_ DirChanged
   endif
 endfunction
 augroup vimrc_molder
@@ -79,9 +81,6 @@ augroup END
 repo = 'rbtnn/vim-layout'
 on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = ['layout#']
-
-[[plugins]]
-repo = 'sainnhe/edge'
 
 [[plugins]]
 repo = 'tani/vim-artemis'
