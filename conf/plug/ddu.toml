@@ -42,6 +42,9 @@ nnoremap dl <Cmd>call ddu#start({'name':'line'})<CR>
 repo = 'Shougo/ddu-ui-ff'
 
 [[plugins]]
+repo = 'Shougo/ddu-ui-filer'
+
+[[plugins]]
 repo = 'Shougo/ddu.vim'
 # L<ddu-global>
 hook_add = '''

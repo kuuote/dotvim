@@ -25,16 +25,7 @@ repo = 'Shougo/ddc-ui-pum'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 hook_add = '''
-call ddc#custom#load_config(expand('$VIMDIR/conf/plug/ddc/main.ts'))
-call ddc#custom#load_config(expand('$VIMDIR/conf/plug/ddc/manual.ts'))
-autocmd CmdlineEnter,InsertEnter * ++once call ddc#enable()
-autocmd CmdlineEnter : call ddc#enable_cmdline_completion()
-autocmd User DenopsPluginPost:ddc call ddc#enable_cmdline_completion()
-" 現状呼ばれてないっぽいんで@もついでに呼んでおく
-autocmd CmdlineEnter :,@ call ddc#on_event('CmdlineEnter')
-
-" deflicker echo area
-set noshowmode
+autocmd CmdlineEnter,InsertEnter * ++once source $VIMDIR/conf/plug/ddc.vim
 '''
 
 [[plugins]]
