@@ -60,24 +60,6 @@ autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_
 # '''
 
 [[plugins]]
-repo = 'mattn/vim-molder'
-lazy = 1
-hook_add = '''
-function s:molder_init()
-  if isdirectory(expand('%:p'))
-    call dpp#source('vim-molder')
-    call molder#init()
-    autocmd! vimrc_molder
-    " 暴発するので勝手に切る
-    autocmd! _molder_ DirChanged
-  endif
-endfunction
-augroup vimrc_molder
-  autocmd BufEnter * call s:molder_init()
-augroup END
-'''
-
-[[plugins]]
 repo = 'rbtnn/vim-layout'
 on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = ['layout#']
