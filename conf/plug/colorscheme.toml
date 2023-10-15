@@ -3,5 +3,8 @@ repo = 'catppuccin/nvim'
 name = 'catppuccin'
 
 [[plugins]]
+repo = 'https://github.com/eihigh/vim-aomi-grayscale'
+
+[[plugins]]
 repo = 'sainnhe/edge'
 
