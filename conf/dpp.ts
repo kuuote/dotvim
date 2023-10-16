@@ -119,6 +119,18 @@ export class Config extends BaseConfig {
       if (p.repo?.[0] === "/") {
         p.path = p.repo;
       }
+      // adhoc on_cmd
+      if (p.on_cmd != null) {
+        if (typeof p.on_cmd === "string") {
+          p.on_cmd = [p.on_cmd];
+        }
+        const commands = p.on_cmd.map((cmd) =>
+          `command! -nargs=* ${cmd} delcommand ${cmd} | call dpp#source('${p.name}') | ${cmd} <args>`
+        );
+        p.hook_add = commands.join("\n") + "\n" + (p.hook_add ?? "");
+        delete p.on_cmd;
+        p.lazy = true;
+      }
       // adhoc hook_add
       if (p.hook_add != null) {
         hookAdds.push(...p.hook_add.split(/\n/));
