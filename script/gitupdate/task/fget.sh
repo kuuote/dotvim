@@ -7,7 +7,7 @@ rev="$3"
 dest="${path}.fget"
 spill="${path}.spill"
 
-sudo rm -rf "${dest}"
+rm -rf "${dest}"
 (
   mkdir -p "${path}"
   cd "${path}"
