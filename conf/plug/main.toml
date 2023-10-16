@@ -33,9 +33,10 @@ on_cmd = ['SudaRead', 'SudaWrite']
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
-on_map = ['s']
+#on_map = ['s']
 lazy = 1
 hook_add = '''
+nnoremap s <Cmd>call vimrc#lazy#on_map('s', 'vim-sandwich')<CR>
 autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call dpp#source('vim-sandwich')
 '''
 hook_source = '''
