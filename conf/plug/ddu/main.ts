@@ -105,6 +105,15 @@ function setupLocals(args: ConfigArguments) {
   args.contextBuilder.patchLocal("dpp", {
     sources: ["dpp"],
   });
+  args.contextBuilder.patchLocal("file_rec_mrw", {
+    sources: [{
+      name: "file_rec",
+      options: {
+        matchers: ["matcher_substring"],
+        sorters: ["sorter_mtime"],
+      },
+    }],
+  });
   // X<ddu-local-line>
   args.contextBuilder.patchLocal("line", {
     sources: ["line"],

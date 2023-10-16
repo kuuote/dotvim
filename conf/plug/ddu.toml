@@ -22,8 +22,11 @@ repo = 'kyoh86/ddu-filter-converter_hl_dir'
 # L<ddu-filter-converter_hl_dir>
 
 [[plugins]]
-on_cmd = ['Ddu']
 repo = 'Shougo/ddu-commands.vim'
+on_cmd = ['Ddu']
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
