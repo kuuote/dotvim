@@ -9,7 +9,7 @@ if $dpp_force_makestate || dpp#min#load_state(g:vimrc#dpp_base)
 endif
 
 filetype plugin indent on
-syntax on
+autocmd FileType * syntax on
 
 " adhoc hook
 let s:hook_file = '/tmp/inline.vim/' .. ($VIMDIR .. 'dpp_hook.vim')->substitute('/', '_', 'g')
