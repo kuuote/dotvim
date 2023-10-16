@@ -1,3 +1,6 @@
+" ShellScriptやVim scriptの編集に便利なので = を除外
+set isfname-==
+
 " いい感じのBackspace
 set backspace=indent,eol,start
 
@@ -5,6 +8,9 @@ set backspace=indent,eol,start
 set ttimeout
 "" defaults.vimより
 set ttimeoutlen=100
+
+" ファイル名に記号使うよね普通に
+set isfname+=@-@
 
 " 検索の時にケースを無視
 set ignorecase
