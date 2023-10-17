@@ -13,8 +13,8 @@ import {
   Plugin,
 } from "/data/vim/repos/github.com/Shougo/dpp.vim/denops/dpp/types.ts";
 
-type MyPlugin = Plugin & {
-  hook_add?: string;
+type Toml = {
+  plugins: Plugin[];
 };
 
 export class Config extends BaseConfig {
@@ -25,7 +25,7 @@ export class Config extends BaseConfig {
     dpp: Dpp;
   }): Promise<ConfigReturn> {
     const [context, options] = await args.contextBuilder.get(args.denops);
-    let plugins: MyPlugin[] = [{
+    let plugins: Plugin[] = [{
       name: "dpp.vim",
       repo: "Shougo/dpp.vim",
     }];
@@ -35,7 +35,7 @@ export class Config extends BaseConfig {
     );
     for (const toml of tomls) {
       plugins = plugins.concat(
-        await args.dpp.extAction(
+        (await args.dpp.extAction(
           args.denops,
           context,
           options,
@@ -44,10 +44,9 @@ export class Config extends BaseConfig {
           {
             path: toml,
           },
-        ) as MyPlugin[],
+        ) as Toml).plugins,
       );
     }
-    const hookAdds = [];
     for (const p of plugins) {
       // adhoc github
       if (p.repo?.match(/^[^/]+\/[^/]+$/)) {
@@ -76,10 +75,6 @@ export class Config extends BaseConfig {
         delete p.on_cmd;
         p.lazy = true;
       }
-      // adhoc hook_add
-      if (p.hook_add != null) {
-        hookAdds.push(...p.hook_add.split(/\n/));
-      }
     }
     const lazyStateLines = ensure(
       await args.dpp.extAction(
@@ -98,7 +93,6 @@ export class Config extends BaseConfig {
       plugins,
       stateLines: [
         lazyStateLines,
-        hookAdds,
       ].flat(),
     };
   }
