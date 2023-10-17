@@ -45,7 +45,7 @@ export class Config extends BaseConfig {
 
     args.contextBuilder.setGlobal({
       inlineVimrcs,
-      // protocols: ["git"],
+      protocols: ["git"],
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
@@ -72,14 +72,6 @@ export class Config extends BaseConfig {
       );
     }
     for (const p of plugins) {
-      // adhoc github
-      if (p.repo?.match(/^[^/]+\/[^/]+$/)) {
-        p.repo = "https://github.com/" + p.repo;
-      }
-      // adhoc plugin base path for URL
-      if (p.repo?.match(/^https:\/\//)) {
-        p.path = "/data/vim/repos/" + p.repo.replace(/^https:\/\//, "");
-      }
       // adhoc local
       if (p.repo?.includes("$")) {
         p.repo = String(await args.denops.call("expand", p.repo));
@@ -113,6 +105,13 @@ export class Config extends BaseConfig {
       ),
       is.ArrayOf(is.String),
     );
+
+    // プラギン置き場として/data/vimを使う
+    const repos = args.basePath + "/repos";
+    await Deno.remove(repos, { recursive: true }).catch(console.trace);
+    await Deno.mkdir(args.basePath, { recursive: true });
+    await Deno.symlink("/data/vim/repos", repos);
+
     return {
       plugins,
       stateLines: [
