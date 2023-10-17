@@ -17,61 +17,6 @@ type MyPlugin = Plugin & {
   hook_add?: string;
 };
 
-async function mergePlugins(basePath: string, plugins: MyPlugin[]) {
-  const mergeable = plugins.map((p) => {
-    if (p.path == null) {
-      return;
-    }
-    try {
-      const stat = Deno.statSync(p.path);
-      if (!stat.isDirectory) {
-        return;
-      }
-    } catch {
-      return;
-    }
-    if (p.merged) {
-      return p.path + "/";
-    }
-    if (p.lazy) {
-      return;
-    }
-    if (
-      [
-        "on_ft",
-        "on_cmd",
-        "on_func",
-        "on_lua",
-        "on_map",
-        "on_path",
-        "on_if",
-        "on_event",
-        "on_source",
-        "local",
-        "build",
-        "if",
-        "hook_post_update",
-      ].filter((key) => key in p).length !== 0
-    ) {
-      return;
-    }
-    return p.path + "/";
-  })
-    .filter(<T>(x: T): x is NonNullable<T> => x != null);
-  if (mergeable.length === 0) {
-    return;
-  }
-  const dppPath = basePath + "/.dpp/";
-  await new Deno.Command("rsync", {
-    args: [
-      "-a",
-      "--delete-before",
-      ...mergeable,
-      dppPath,
-    ],
-  }).output();
-}
-
 export class Config extends BaseConfig {
   override async config(args: {
     contextBuilder: ContextBuilder;
@@ -149,7 +94,6 @@ export class Config extends BaseConfig {
       ),
       is.ArrayOf(is.String),
     );
-    //await mergePlugins(args.basePath, plugins);
     return {
       plugins,
       stateLines: [
