@@ -6,6 +6,8 @@ augroup END
 let $VIMDIR = expand('<sfile>:p:h')
 set runtimepath^=$VIMDIR
 
+" dpp.vim内でconf/rcやlocal/rc以下から設定を読んでいる
+" L<dpp-inline_vimrcs>
 if !v:vim_did_enter
   " ./conf/dpp.vim
   source $VIMDIR/conf/dpp.vim
@@ -14,9 +16,6 @@ if !v:vim_did_enter
     finish
   endif
 endif
-
-call vimrc#inline#load('$VIMDIR/conf/rc/*.vim')
-call vimrc#inline#load('$VIMDIR/local/rc/*.vim')
 
 set termguicolors
 if empty(get(g:, 'colors_name', ''))

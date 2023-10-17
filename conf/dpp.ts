@@ -24,6 +24,30 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<ConfigReturn> {
+    // X<dpp-inline_vimrcs>
+    const inlineVimrcs = [];
+    inlineVimrcs.push(
+      ...await args.denops.call(
+        "glob",
+        "$VIMDIR/conf/rc/*.vim",
+        1,
+        1,
+      ) as string[],
+    );
+    inlineVimrcs.push(
+      ...await args.denops.call(
+        "glob",
+        "$VIMDIR/local/rc/*.vim",
+        1,
+        1,
+      ) as string[],
+    );
+
+    args.contextBuilder.setGlobal({
+      inlineVimrcs,
+      // protocols: ["git"],
+    });
+
     const [context, options] = await args.contextBuilder.get(args.denops);
     let plugins: Plugin[] = [{
       name: "dpp.vim",
