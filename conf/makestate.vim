@@ -1,7 +1,7 @@
-let g:dpp#_base_path = get(g:, 'dpp#_base_path', g:vimrc#dpp_base)
-if !exists('#dpp')
-  call dpp#min#_init()
-endif
+" let g:dpp#_base_path = get(g:, 'dpp#_base_path', g:vimrc#dpp_base)
+" if !exists('#dpp')
+"   call dpp#min#_init()
+" endif
 call vimrc#git#use('https://github.com/Shougo/dpp-ext-toml')
 call vimrc#git#use('https://github.com/Shougo/dpp-ext-lazy')
 call vimrc#git#use('https://github.com/Shougo/dpp-protocol-git')
