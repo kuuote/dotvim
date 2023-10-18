@@ -29,6 +29,10 @@ export class Config extends BaseConfig {
           cmdline: {
             minAutoCompleteLength: 1,
           },
+          file: {
+            forceCompletionPattern: "\\S/\\S*",
+            mark: "F",
+          },
           input: {
             isVolatile: true,
             mark: "I",

@@ -114,6 +114,10 @@ function setupLocals(args: ConfigArguments) {
       },
     }],
   });
+  // X<ddu-local-help>
+  args.contextBuilder.patchLocal("help", {
+    sources: ["help"],
+  });
   // X<ddu-local-line>
   args.contextBuilder.patchLocal("line", {
     sources: ["line"],

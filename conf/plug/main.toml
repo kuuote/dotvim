@@ -69,23 +69,15 @@ on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = ['layout#']
 
 [[plugins]]
-repo = 'tani/vim-artemis'
+# sort_repo = 'skkeleton'
+# https://github.com/NI57721/dotfiles/blob/79d2decf4b1e2bf5522c3af5f0ffdefd87b7ff50/.config/vim/rc/dein.toml#L20-L24
+# repo = 'kei-s16/skkeleton-azik-kanatable'
+repo = 'NI57721/skkeleton-azik-kanatable'
+rev = 'feature/delete-some-mappings'
+#on_source = 'skkeleton'
 
 [[plugins]]
-repo = 'thinca/vim-localrc'
-
-[[plugins]]
-repo = 'uga-rosa/denippet.vim'
-lazy = 1
-denops_wait = 0
-hook_add = '''
-autocmd CmdlineEnter,InsertEnter * call dpp#source('denippet.vim')
-'''
-hook_source = '''
-call denippet#load('/data/dotvim/snippets/typescript.json')
-'''
-
-[[plugins]]
+# sort_repo = 'skkeleton'
 repo = 'vim-skk/skkeleton'
 lazy = 1
 denops_wait = 0
@@ -95,7 +87,7 @@ noremap! ;<Space> <Cmd>call dpp#source('skkeleton')<CR><Plug>(skkeleton-enable)
 nnoremap ;<Space> <Cmd>call dpp#source('skkeleton')<CR>i<Plug>(skkeleton-enable)
 '''
 hook_source = '''
-autocmd User skkeleton-initialize-pre ++nested source $VIMDIR/conf/plug/skkeleton.vim
+autocmd User skkeleton-initialize-pre ++nested ++once source $VIMDIR/conf/plug/skkeleton.vim
 '''
 # /data/newvim/old/conf/plug/skkeleton.lua
 #hook_source = '''
@@ -144,4 +136,31 @@ autocmd User skkeleton-initialize-pre ++nested source $VIMDIR/conf/plug/skkeleto
 #command! SKKAzik call s:azik()
 #
 #'''
+
+[[plugins]]
+repo = 'tani/vim-artemis'
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
+
+[[plugins]]
+repo = 'thinca/vim-partedit'
+on_cmd = ['Partedit']
+
+[[plugins]]
+repo = 'uga-rosa/denippet.vim'
+lazy = 1
+denops_wait = 0
+hook_add = '''
+autocmd CmdlineEnter,InsertEnter * call dpp#source('denippet.vim')
+'''
+hook_source = '''
+call denippet#load('/data/dotvim/snippets/typescript.json')
+'''
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+hook_add = '''
+set helplang=ja
+'''
 

@@ -22,6 +22,13 @@ repo = 'kyoh86/ddu-filter-converter_hl_dir'
 # L<ddu-filter-converter_hl_dir>
 
 [[plugins]]
+repo = 'matsui54/ddu-source-help'
+# L<ddu-local-help>
+hook_add = '''
+nnoremap dh <Cmd>call ddu#start({'name':'help'})<CR>
+'''
+
+[[plugins]]
 repo = 'Shougo/ddu-commands.vim'
 on_cmd = ['Ddu']
 
