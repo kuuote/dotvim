@@ -1,19 +1,18 @@
 import {
+  ActionFlags,
   BaseConfig,
-  ConfigArguments,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/config.ts";
+} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 import {
-  map,
-  MapOptions,
-} from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mapping/mod.ts";
-import { ActionFlags } from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+  autocmd,
+  Denops,
+  lambda,
+  mapping,
+  option,
+} from "../../../denops/deps/denops_std.ts";
+import { assert, is } from "../../../denops/deps/unknownutil.ts";
+import { ConfigArguments } from "../../../denops/deps/ddu.ts";
 import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
 import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
-import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
-import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
-import * as option from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/option/mod.ts";
-import * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
 
 const augroup = "vimrc#ddu-ui-ff";
 
@@ -108,11 +107,11 @@ const aliases: Record<string, string> = {
 
 async function setupFileTypeAutocmd(args: ConfigArguments) {
   const { denops } = args;
-  const opt: MapOptions = {
+  const opt: mapping.MapOptions = {
     buffer: true,
     nowait: true,
   };
-  const nno: MapOptions = {
+  const nno: mapping.MapOptions = {
     ...opt,
     mode: ["n"],
   };
@@ -126,12 +125,12 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   };
   const setupTable: Record<string, lambda.Fn> = {
     _: async () => {
-      await map(denops, "<CR>", action("itemAction"), nno);
-      await map(denops, "a", action("inputAction"), nno);
-      await map(denops, "A", action("toggleAutoAction"), nno);
-      await map(denops, "i", action("openFilterWindow"), nno);
-      await map(denops, "q", action("quit"), nno);
-      await map(
+      await mapping.map(denops, "<CR>", action("itemAction"), nno);
+      await mapping.map(denops, "a", action("inputAction"), nno);
+      await mapping.map(denops, "A", action("toggleAutoAction"), nno);
+      await mapping.map(denops, "i", action("openFilterWindow"), nno);
+      await mapping.map(denops, "q", action("quit"), nno);
+      await mapping.map(
         denops,
         "s",
         action("toggleSelectItem") + action("cursorNext"),
@@ -139,7 +138,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       );
     },
     git_diff: async () => {
-      await map(denops, "p", itemAction("applyPatch"), nno);
+      await mapping.map(denops, "p", itemAction("applyPatch"), nno);
       // await map(denops, "p", async () => {
       //   const view = await fn.winsaveview(denops);
       //   await action("itemAction", { name: "applyPatch" })();
@@ -147,15 +146,15 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       // }, nno);
     },
     git_status: async () => {
-      await map(denops, "c", itemAction("commit"), nno);
-      await map(denops, "d", itemAction("diff"), nno);
-      await map(denops, "h", itemAction("add"), nno);
-      await map(denops, "l", itemAction("reset"), nno);
+      await mapping.map(denops, "c", itemAction("commit"), nno);
+      await mapping.map(denops, "d", itemAction("diff"), nno);
+      await mapping.map(denops, "h", itemAction("add"), nno);
+      await mapping.map(denops, "l", itemAction("reset"), nno);
     },
   };
   const setupFilterTable: Record<string, lambda.Fn> = {
     _: async () => {
-      await map(denops, "<CR>", "<Esc>" + action("closeFilterWindow"), {
+      await mapping.map(denops, "<CR>", "<Esc>" + action("closeFilterWindow"), {
         ...opt,
         mode: ["n", "i"],
       });
@@ -163,7 +162,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   };
   const ddu_ff = register(denops, async (name: unknown) => {
     await setupTable["_"]?.();
-    u.assert(name, u.isString);
+    assert(name, is.String);
     const names = (aliases[name] ?? name).split(/:/g);
     for (const name of names) {
       await setupTable[name]?.();
@@ -171,7 +170,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   }, { args: "b:ddu_ui_name" });
   const ddu_ff_filter = register(denops, async (name: unknown) => {
     await setupFilterTable["_"]?.();
-    u.assert(name, u.isString);
+    assert(name, is.String);
     const names = (aliases[name] ?? name).split(/:/g);
     for (const name of names) {
       await setupFilterTable[name]?.();
@@ -211,7 +210,7 @@ export class Config extends BaseConfig {
           previewFloatingBorder: border as any, // そのうち直す
           previewFloatingZindex: 100,
           previewSplit: "vertical",
-          split: args.denops.meta.host == "nvim" ? "floating" : "horizontal",
+          split: nvim ? "floating" : "horizontal",
         } satisfies Partial<DduUiFFParams>,
       },
       uiOptions: {
@@ -221,7 +220,7 @@ export class Config extends BaseConfig {
               // L<dpp-lazy-kensaku_vim>
               await args.denops.call("dpp#source", "kensaku.vim");
               const sources = args.options.sources.map((s) => {
-                if (u.isString(s)) {
+                if (is.String(s)) {
                   s = { name: s };
                 }
                 return {
