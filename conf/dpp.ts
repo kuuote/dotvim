@@ -49,27 +49,45 @@ export class Config extends BaseConfig {
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
-    let plugins: Plugin[] = [{
-      name: "dpp.vim",
-      repo: "Shougo/dpp.vim",
-    }];
+    let plugins: Plugin[] = [];
+
+    const profiles = new Set<string>();
+
+    profiles.add("main");
+    profiles.add("dpp");
+    profiles.add("ddu");
+    profiles.add("colorscheme");
+    profiles.add("filetype_vim");
+    profiles.add("ddc");
+    profiles.add("lspoints");
+
+    // conf/plug/lspoints.toml
+
     const tomls = ensure(
       await args.denops.call("glob", "$VIMDIR/conf/plug/**/*.toml", 1, 1),
       is.ArrayOf(is.String),
     );
-    for (const toml of tomls) {
-      plugins = plugins.concat(
-        (await args.dpp.extAction(
-          args.denops,
-          context,
-          options,
-          "toml",
-          "load",
-          {
-            path: toml,
-          },
-        ) as Toml).plugins,
-      );
+    for (const tomlPath of tomls) {
+      const toml = await args.dpp.extAction(
+        args.denops,
+        context,
+        options,
+        "toml",
+        "load",
+        {
+          path: tomlPath,
+        },
+      ) as Toml;
+      const match = tomlPath.match(/([^/]+)\.toml$/);
+      if (match != null) {
+        if (!profiles.has(match[1])) {
+          for (const p of toml.plugins) {
+            // プロフィール対象外を雑に無効化してみる
+            p.rtp = "/dev/null";
+          }
+        }
+      }
+      plugins.push(...toml.plugins);
     }
     for (const p of plugins) {
       // adhoc local
