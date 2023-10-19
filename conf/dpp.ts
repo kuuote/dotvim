@@ -49,25 +49,25 @@ export class Config extends BaseConfig {
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
-    let plugins: Plugin[] = [];
+    const plugins: Plugin[] = [];
 
     const profiles = new Set<string>();
 
-    profiles.add("main");
-    profiles.add("dpp");
-    profiles.add("ddu");
     profiles.add("colorscheme");
-    profiles.add("filetype_vim");
     profiles.add("ddc");
+    profiles.add("ddu");
+    profiles.add("dpp");
+    profiles.add("filetype_vim");
     profiles.add("lspoints");
-
-    // conf/plug/lspoints.toml
+    profiles.add("main");
+    profiles.add("treesitter");
 
     const tomls = ensure(
       await args.denops.call("glob", "$VIMDIR/conf/plug/**/*.toml", 1, 1),
       is.ArrayOf(is.String),
     );
     for (const tomlPath of tomls) {
+      console.log("load toml: " + tomlPath);
       const toml = await args.dpp.extAction(
         args.denops,
         context,
@@ -78,13 +78,25 @@ export class Config extends BaseConfig {
           path: tomlPath,
         },
       ) as Toml;
-      const match = tomlPath.match(/([^/]+)\.toml$/);
-      if (match != null) {
-        if (!profiles.has(match[1])) {
-          for (const p of toml.plugins) {
-            // プロフィール対象外を雑に無効化してみる
-            p.rtp = "/dev/null";
-          }
+
+      const host = args.denops.meta.host;
+      const profileVim = tomlPath.match(/\/vim\//) != null;
+      const profileNvim = tomlPath.match(/\/nvim\//) != null;
+      const profileIgnore = (profileVim && host != "vim") ||
+        (profileNvim && host != "nvim");
+
+      const profile = tomlPath.match(/([^/]+)\.toml$/)?.[1];
+      if (profileIgnore || !profiles.has(profile!)) {
+        for (let i = 0; i < toml.plugins.length; i++) {
+          // プロフィール対象外を雑に無効化してみる
+          const old = toml.plugins[i];
+          toml.plugins[i] = {
+            name: old.name,
+            repo: old.repo,
+            if: false,
+            // 今の所if効かないのでrtp書き換えておく
+            rtp: "null",
+          };
         }
       }
       plugins.push(...toml.plugins);
