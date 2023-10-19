@@ -1,3 +1,10 @@
+" Cmdlineをキャンセルした際に履歴を残さない
+cnoremap <Esc> <C-u><C-c>
+
+" code input advanced in insert mode
+"" thanks monaqa and tsuyoshicho
+inoremap <C-v>u <C-r>=nr2char(0x)<Left>
+
 " kigou utiyasuku suru
 noremap! ,q <Bar>
 noremap! ,a \
@@ -6,9 +13,6 @@ noremap! ,z _
 noremap! ,e +
 noremap! ,d =
 noremap! ,c *
-
-" Cmdlineをキャンセルした際に履歴を残さない
-cnoremap <Esc> <C-u><C-c>
 
 " notation helper
 function s:notation()

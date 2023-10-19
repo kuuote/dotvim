@@ -6,6 +6,11 @@ nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
 '''
 
 [[plugins]]
+repo = 'kuuote/mydicts'
+# if = 0
+lazy = 1
+
+[[plugins]]
 repo = 'lambdalisue/gin.vim'
 on_cmd = [
   'Gin',
@@ -14,6 +19,14 @@ on_cmd = [
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
 on_cmd = ['Gina']
+
+[[plugins]]
+repo = 'lambdalisue/kensaku.vim'
+# X<dpp-lazy-kensaku_vim>
+lazy = 1
+hook_add = '''
+let g:kensaku_dictionary_cache = '/data/vim/cache/kensaku_dict'
+'''
 
 [[plugins]]
 repo = 'lambdalisue/mr.vim'
@@ -67,6 +80,11 @@ autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_
 repo = 'rbtnn/vim-layout'
 on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = ['layout#']
+
+[[plugins]]
+repo = 'skk-dev/dict'
+# if = 0
+lazy = 1
 
 [[plugins]]
 # sort_repo = 'skkeleton'

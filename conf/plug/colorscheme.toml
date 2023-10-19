@@ -8,3 +8,6 @@ repo = 'eihigh/vim-aomi-grayscale'
 [[plugins]]
 repo = 'sainnhe/edge'
 
+[[plugins]]
+repo = 'yuttie/hydrangea-vim'
+
