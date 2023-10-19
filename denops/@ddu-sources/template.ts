@@ -1,10 +1,4 @@
-import {
-  BaseSource,
-  GatherArguments,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/source.ts";
-import {
-  Item,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
+import { BaseSource, GatherArguments, Item } from "../deps/ddu.ts";
 
 type Never = Record<PropertyKey, never>;
 

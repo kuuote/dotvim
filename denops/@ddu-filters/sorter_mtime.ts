@@ -1,11 +1,4 @@
-import {
-  BaseFilter,
-  FilterArguments,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/filter.ts";
-import {
-  DduItem,
-  Item,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
+import { BaseFilter, DduItem, FilterArguments, Item } from "../deps/ddu.ts";
 import { ActionData } from "/data/vim/repos/github.com/Shougo/ddu-kind-file/denops/@ddu-kinds/file.ts";
 
 type Never = Record<PropertyKey, never>;

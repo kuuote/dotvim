@@ -1,8 +1,4 @@
-import {
-  BaseFilter,
-  FilterArguments,
-} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/filter.ts";
-import { Item } from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/types.ts";
+import { BaseFilter,FilterArguments,Item } from "../deps/ddu.ts";
 
 type Never = Record<PropertyKey, never>;
 

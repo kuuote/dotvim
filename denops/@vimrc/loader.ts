@@ -1,9 +1,6 @@
-import {
-  assert,
-  is,
-} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
-import * as stdpath from "/data/vim/repos/github.com/denoland/deno_std/path/mod.ts";
+import { assert, is } from "../deps/unknownutil.ts";
+import { Denops } from "../deps/denops_std.ts";
+import { stdpath } from "../deps/deno_std.ts";
 
 export function main(denops: Denops) {
   denops.dispatcher = {

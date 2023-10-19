@@ -1,7 +1,4 @@
-import {
-  BaseConfig,
-  ConfigArguments,
-} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/config.ts";
+import { BaseConfig, ConfigArguments } from "../../../denops/deps/ddc.ts";
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments) {

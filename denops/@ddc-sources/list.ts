@@ -1,13 +1,10 @@
 import {
   BaseSource,
   GatherArguments,
+  Item,
   OnCompleteDoneArguments,
-} from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/source.ts";
-import {
-  is,
-  maybe,
-} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
-import { Item } from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/types.ts";
+} from "../deps/ddc.ts";
+import { is, maybe } from "../deps/unknownutil.ts";
 
 export type Params = {
   candidates: Array<string | Item>;

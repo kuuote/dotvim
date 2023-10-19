@@ -1,9 +1,9 @@
-import { BaseKind } from "../../deno/ddu.vim/denops/ddu/base/kind.ts";
 import {
   ActionArguments,
   ActionFlags,
+  BaseKind,
   DduItem,
-} from "../../deno/ddu.vim/denops/ddu/types.ts";
+} from "../deps/ddu.ts";
 
 export type Callback = string | ((items: DduItem[]) => Promise<ActionFlags>);
 
