@@ -21,7 +21,6 @@ else
   let s:inline = s:sokutei ? ['let s:jikan = reltime()'] : []
   for s:plugin in dpp#_plugins->values()
     if s:plugin.sourced && has_key(s:plugin, 'hook_source')
-      call execute(s:plugin.hook_source, '')
       call add(s:inline, s:plugin.hook_source->trim())
       if s:sokutei
         call add(s:inline, printf('echomsg "hook_source %s " .. reltimestr(reltime(s:jikan))', s:plugin.name))
