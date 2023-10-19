@@ -35,7 +35,21 @@ function! operandi#type#mycommand#load() abort
   \ }
 endfunction
 
+function s:expandpath() abort
+  let pos = mode() ==# 'c' ? getcmdpos() : col('.')
+  let line = mode() ==# 'c' ? getcmdline() : getline('.')
+
+  let left = line[pos - 2]
+
+  if left ==# '/'
+    return expand('#:p:t')
+  else
+    return expand('#:p:h') .. '/'
+  endif
+endfunction
+
 function s:hook() abort
   set syntax=vim
+  inoremap <buffer> <expr> P <SID>expandpath()
 endfunction
 autocmd User operandi#open#mycommand call s:hook()
