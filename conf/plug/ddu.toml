@@ -36,6 +36,9 @@ on_cmd = ['Ddu']
 repo = 'Shougo/ddu-filter-matcher_substring'
 
 [[plugins]]
+repo = 'Shougo/ddu-filter-sorter_alpha'
+
+[[plugins]]
 repo = 'Shougo/ddu-kind-file'
 # L<ddu-kind-file>
 
@@ -62,9 +65,12 @@ repo = 'Shougo/ddu-ui-filer'
 repo = 'Shougo/ddu.vim'
 # L<ddu-global>
 hook_add = '''
-call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/main.ts'))
-call ddu#custom#load_config(expand('$VIMDIR/conf/plug/ddu/ff.ts'))
+autocmd User DenopsReady source $VIMDIR/conf/plug/ddu.vim
 '''
+
+[[plugins]]
+repo = 'shun/ddu-source-rg'
+lazy = 1
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
