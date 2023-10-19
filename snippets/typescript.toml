@@ -1,0 +1,7 @@
+[filternull]
+description = "null reducer for Array.filter()"
+body = ".filter(<T>(x: T): x is NonNullable<T> => x != null)"
+
+[never]
+body = 'type Never = Record<PropertyKey, never>;'
+

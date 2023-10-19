@@ -155,7 +155,7 @@ hook_add = '''
 autocmd CmdlineEnter,InsertEnter * call dpp#source('denippet.vim')
 '''
 hook_source = '''
-call denippet#load('/data/dotvim/snippets/typescript.json')
+source $VIMDIR/conf/plug/denippet.vim
 '''
 
 [[plugins]]

@@ -34,6 +34,10 @@ noremap! <C-n> <Cmd>call pum#map#select_relative(+1)<CR>
 noremap! <C-p> <Cmd>call pum#map#select_relative(-1)<CR>
 noremap! <C-y> <Cmd>call pum#map#confirm()<CR>
 noremap! <C-e> <Cmd>call pum#map#cancel()<CR>
+noremap! N <Cmd>call pum#map#select_relative(+1)<CR>
+noremap! P <Cmd>call pum#map#select_relative(-1)<CR>
+noremap! Y <Cmd>call pum#map#confirm()<CR>
+noremap! E <Cmd>call pum#map#cancel()<CR>
 
 " sticky ;
 for s:c in split('abcdefghijklmnopqrstuvwxyz', '\zs')

@@ -55,10 +55,12 @@ const configSet: Record<
         },
       }],
     }),
-  snippet: () =>
-    Promise.resolve({
+  snippet: async (denops) => {
+    await denops.call("dpp#source", "denippet.vim");
+    return {
       sources: ["denippet"],
-    }),
+    };
+  },
 };
 
 async function setConfig(args: ConfigArguments, name: string) {
