@@ -4,7 +4,7 @@ M.execute = function(opts)
   if opts == nil or opts.cmd == nil then
     error('wtf?')
   end
-  vim.cmd('-tab split')
+  vim.cmd('tabnew')
   if opts.wd then
     pcall(vim.cmd.tcd(opts.wd))
   end

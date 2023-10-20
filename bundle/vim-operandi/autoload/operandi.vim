@@ -15,7 +15,9 @@ function! s:execute() abort
   let l:cmd = getline('.')
   let l:Executor = b:operandi_executor
   " TODO: openerに準じた閉じ方をする
+  let previous = max([1, tabpagenr() - 1])
   tabclose
+  execute 'tabnext' previous
 
   call l:Executor(l:cmd)
 endfunction
@@ -24,7 +26,7 @@ function! operandi#open(type, opts = {}) abort
   let l:type = s:get_type(a:type)
 
   " TODO: opener指定できるようにする
-  -tabnew
+  tabnew
   setlocal buftype=nofile bufhidden=hide noswapfile
 
   call setline(2, l:type.source())
