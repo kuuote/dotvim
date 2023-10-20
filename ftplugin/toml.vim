@@ -1,5 +1,5 @@
 " syntax大事
-call timer_start(0, {->dpp#ext#toml#syntax()})
+call timer_start(1, {->dpp#ext#toml#syntax()})
 
 " dein.vimのtomlのhook_addなどをparteditでいじるやつ
 function! s:partedit() abort
