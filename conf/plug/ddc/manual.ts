@@ -87,7 +87,7 @@ async function resetConfig(args: ConfigArguments) {
 const configMap: Record<string, string> = {
   F: "file",
   S: "nvim-lsp",
-  s: "snippet",
+  T: "snippet",
 };
 
 // configSetを指定させてマッピングする
