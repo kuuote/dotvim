@@ -201,6 +201,9 @@ const definition: Record<string, Collector> = {
     }],
   }),
   filer: async (denops) => {
+    await denops.dispatcher.loadConfig(
+      await denops.call("expand", "$VIMDIR/conf/plug/ddu/filer.ts"),
+    );
     return {
       name: "filer",
       sources: [{
