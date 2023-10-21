@@ -17,6 +17,11 @@ import * as sourceList from "../../../denops/@ddu-sources/list.ts";
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
   args.contextBuilder.patchGlobal({
+    actionOptions: {
+      narrow: {
+        quit: false,
+      },
+    },
     filterParams: {
       // X<ddu-filter-converter_hl_dir>
       converter_hl_dir: {
@@ -209,6 +214,7 @@ const definition: Record<string, Collector> = {
       sources: [{
         name: "file",
         options: {
+          columns: ["filename"],
           path: String(await denops.call("expand", "%:p:h")),
         },
       }],

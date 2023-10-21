@@ -29,6 +29,9 @@ nnoremap dh <Cmd>call ddu#start({'name':'help'})<CR>
 '''
 
 [[plugins]]
+repo = 'Shougo/ddu-column-filename'
+
+[[plugins]]
 repo = 'Shougo/ddu-commands.vim'
 on_cmd = ['Ddu']
 

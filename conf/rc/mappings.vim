@@ -1,7 +1,7 @@
 " 1 common
 nnoremap ' :
 nnoremap <Space>. <Cmd>edit $VIMDIR/vimrc<CR>
-nnoremap <Space>d <Cmd>edit %:p:h<CR>
+nnoremap <Space>d <Cmd>DduSelectorCall filer<CR>
 nnoremap <Space>j <PageDown>
 nnoremap <Space>k <PageUp>
 nnoremap Q <Cmd>confirm qa<CR>
