@@ -24,5 +24,6 @@ parser_config.unifieddiff = {
   install_info = {},
   filetype = 'diff', -- if filetype does not agrees with parser name
 }
+vim.treesitter.language.register('unifieddiff', 'diff')
 '''
 
