@@ -18,7 +18,12 @@ if !v:vim_did_enter
 endif
 
 set termguicolors
+try
+  source /tmp/colors.vim
+catch
+  unlet! g:colors_name
+endtry
 if empty(get(g:, 'colors_name', ''))
-  set background=light
-  colorscheme edge
+  set background=dark
+  colorscheme aomi-grayscale
 endif
