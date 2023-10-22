@@ -55,6 +55,9 @@ repo = 'haishanh/night-owl.vim'
 repo = 'joshdick/onedark.vim'
 
 [[plugins]]
+repo = 'keiyakeiya/PapilioDehaanii.vim'
+
+[[plugins]]
 repo = 'kjssad/quantum.vim'
 
 [[plugins]]
