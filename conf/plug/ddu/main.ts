@@ -110,12 +110,23 @@ function setupLocals(args: ConfigArguments) {
   args.contextBuilder.patchLocal("dpp", {
     sources: ["dpp"],
   });
+  args.contextBuilder.patchLocal("file_ext_mrw", {
+    sources: [{
+      name: "file_external",
+      options: {
+        matchers: ["matcher_substring"],
+        sorters: ["sorter_mtime"],
+        converters: [],
+      },
+    }],
+  });
   args.contextBuilder.patchLocal("file_rec_mrw", {
     sources: [{
       name: "file_rec",
       options: {
         matchers: ["matcher_substring"],
         sorters: ["sorter_mtime"],
+        converters: [],
       },
     }],
   });
@@ -148,6 +159,11 @@ function mainConfig(args: ConfigArguments) {
         ignoreCase: true,
         matchers: defaultMatchers,
         sorters: defaultSorters,
+      },
+    },
+    sourceParams: {
+      file_external: {
+        cmd: ["fd", ".", "-H", "-I", "-E", ".git", "-t", "f"],
       },
     },
   });

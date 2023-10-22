@@ -22,6 +22,9 @@ repo = 'kyoh86/ddu-filter-converter_hl_dir'
 # L<ddu-filter-converter_hl_dir>
 
 [[plugins]]
+repo = 'matsui54/ddu-source-file_external'
+
+[[plugins]]
 repo = 'matsui54/ddu-source-help'
 # L<ddu-local-help>
 hook_add = '''
