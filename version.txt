@@ -1,0 +1,5 @@
+version1 pathogen.vim
+version2 vim-plug
+version3 minpac
+version4 dein.vim
+version5 dpp.vim
