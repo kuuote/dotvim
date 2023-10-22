@@ -11,6 +11,5 @@ set runtimepath=$VIMDIR,$VIMRUNTIME,$VIMDIR/after
 " dpp.vim内でconf/rcやlocal/rc以下から設定を読んでいる
 " L<dpp-inline_vimrcs>
 if !v:vim_did_enter
-  " ./conf/dpp.vim
   source $VIMDIR/conf/dpp.vim
 endif
