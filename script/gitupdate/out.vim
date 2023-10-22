@@ -1,5 +1,10 @@
+let s:cd = expand('<sfile>:p:h')
 if &runtimepath =~# 'dein.vim'
   echo '現在のdein.vimの状態を使用します'
+  let repos = dein#get()
+elseif &runtimepath =~# 'dpp.vim'
+  echo '現在のdpp.vimの状態を使用します'
+  let repos = dpp#_plugins
 else
   let $DOTVIM = expand('<sfile>:p:h:h:h')
   set runtimepath+=/data/vim/repos/github.com/Shougo/dein.vim
@@ -15,10 +20,11 @@ else
       call dein#add(plugin.repo, plugin)
     endfor
   endfor
+  let repos = dein#get()
 endif
 
 let out = []
-for d in values(dein#get())
+for d in values(repos)
   if d.repo[0] == '/'
     continue
   endif
@@ -37,5 +43,5 @@ endfor
 
 call sort(out, { a, b -> a.repo < b.repo })
 
-call writefile([json_encode(out)], expand('$DOTVIM/script/gitupdate/out.json'))
+call writefile([json_encode(out)], expand(s:cd .. '/out.json'))
 call writefile(dein#check_clean(), '/tmp/deinclean')
