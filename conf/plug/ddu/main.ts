@@ -4,11 +4,11 @@ import {
   ConfigArguments,
   DduOptions,
 } from "../../../denops/deps/ddu.ts";
-import { ActionData as GitStatusActionData } from "/data/vim/repos/github.com/kuuote/ddu-source-git_status/denops/@ddu-kinds/git_status.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
 import { Denops, function as fn } from "../../../denops/deps/denops_std.ts";
 import { is, maybe } from "../../../denops/deps/unknownutil.ts";
+import { KindGitStatusActionData } from "../../../denops/deps/ddu-kinds.ts";
 import { stdpath } from "../../../denops/deps/deno_std.ts";
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
 
@@ -51,7 +51,7 @@ function setupGitStatus(args: ConfigArguments) {
             return ActionFlags.None;
           },
           diff: (args) => {
-            const action = args.items[0].action as GitStatusActionData;
+            const action = args.items[0].action as KindGitStatusActionData;
             const path = stdpath.join(action.worktree, action.path);
             ddu.start({
               name: "git_diff",
@@ -70,7 +70,7 @@ function setupGitStatus(args: ConfigArguments) {
           },
           patch: async (args) => {
             for (const item of args.items) {
-              const action = item.action as GitStatusActionData;
+              const action = item.action as KindGitStatusActionData;
               await args.denops.cmd("tabnew");
               await args.denops.cmd("tcd " + action.worktree);
               await args.denops.cmd("GinPatch ++no-head " + action.path);
