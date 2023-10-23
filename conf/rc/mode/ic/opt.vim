@@ -12,6 +12,9 @@ set ttimeoutlen=100
 " ファイル名に記号使うよね普通に
 set isfname+=@-@
 
+" 何でも曖昧なのがいい
+set wildoptions+=fuzzy
+
 " 検索の時にケースを無視
 set ignorecase
 set smartcase

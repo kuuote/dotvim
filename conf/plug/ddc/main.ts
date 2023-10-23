@@ -12,6 +12,9 @@ export class Config extends BaseConfig {
           "CmdlineEnter",
           "CmdlineChanged",
         ],
+        cmdlineSources: {
+          ":": ["cmdline"],
+        },
         sources: ["around"],
         sourceOptions: {
           _: {
@@ -24,6 +27,7 @@ export class Config extends BaseConfig {
             mark: "A",
           },
           cmdline: {
+            isVolatile: true,
             minAutoCompleteLength: 1,
           },
           file: {
