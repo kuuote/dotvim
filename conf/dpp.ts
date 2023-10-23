@@ -17,6 +17,11 @@ type Toml = {
   plugins: Plugin[];
 };
 
+type LazyMakeStateResult = {
+  plugins: Plugin[];
+  stateLines: string[];
+};
+
 export class Config extends BaseConfig {
   override async config(args: {
     contextBuilder: ContextBuilder;
@@ -110,31 +115,28 @@ export class Config extends BaseConfig {
         p.path = p.repo;
       }
       // adhoc on_cmd
-      if (p.on_cmd != null) {
-        if (typeof p.on_cmd === "string") {
-          p.on_cmd = [p.on_cmd];
-        }
-        const commands = p.on_cmd.map((cmd) =>
-          `command! -bang -nargs=* ${cmd} delcommand ${cmd} | call dpp#source('${p.name}') | ${cmd}<bang> <args>`
-        );
-        p.hook_add = commands.join("\n") + "\n" + (p.hook_add ?? "");
-        delete p.on_cmd;
-        p.lazy = true;
-      }
+      // if (p.on_cmd != null) {
+      //   if (typeof p.on_cmd === "string") {
+      //     p.on_cmd = [p.on_cmd];
+      //   }
+      //   const commands = p.on_cmd.map((cmd) =>
+      //     `command! -bang -nargs=* ${cmd} delcommand ${cmd} | call dpp#source('${p.name}') | ${cmd}<bang> <args>`
+      //   );
+      //   p.hook_add = commands.join("\n") + "\n" + (p.hook_add ?? "");
+      //   delete p.on_cmd;
+      //   p.lazy = true;
+      // }
     }
-    const lazyStateLines = ensure(
-      await args.dpp.extAction(
-        args.denops,
-        context,
-        options,
-        "lazy",
-        "makeState",
-        {
-          plugins,
-        },
-      ),
-      is.ArrayOf(is.String),
-    );
+    const lazyResult = await args.dpp.extAction(
+      args.denops,
+      context,
+      options,
+      "lazy",
+      "makeState",
+      {
+        plugins,
+      },
+    ) as LazyMakeStateResult;
 
     // プラギン置き場として/data/vimを使う
     const repos = args.basePath + "/repos";
@@ -143,9 +145,9 @@ export class Config extends BaseConfig {
     await Deno.symlink("/data/vim/repos", repos);
 
     return {
-      plugins,
+      plugins: lazyResult.plugins,
       stateLines: [
-        lazyStateLines,
+        lazyResult.stateLines,
       ].flat(),
     };
   }
