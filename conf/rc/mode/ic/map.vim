@@ -16,18 +16,24 @@ noremap! ,c *
 
 " notation helper
 function s:notation()
-  let result = input('')
-  if !empty(result)
-    if result[0] ==# '.'
-      let result = toupper(result[1:])
-    elseif result[0] ==# '/'
-      let result = result[1:]
-    else
-      let result = toupper(result[0]) .. result[1:]
+  let ve = &l:virtualedit
+  try
+    let &l:virtualedit = 'onemore'
+    let result = input('')
+    if !empty(result)
+      if result[0] ==# '.'
+        let result = toupper(result[1:])
+      elseif result[0] ==# '/'
+        let result = result[1:]
+      else
+        let result = toupper(result[0]) .. result[1:]
+      endif
+      let result = '<' .. result .. '>'
+      call feedkeys(result, 'ni')
     endif
-    let result = '<' .. result .. '>'
-    call feedkeys(result, 'ni')
-  endif
+  finally
+    let &l:virtualedit = ve
+  endtry
 endfunction
 noremap! ,, <Cmd>call <SID>notation()<CR>
 
