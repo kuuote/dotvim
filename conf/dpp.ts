@@ -115,7 +115,7 @@ export class Config extends BaseConfig {
           p.on_cmd = [p.on_cmd];
         }
         const commands = p.on_cmd.map((cmd) =>
-          `command! -nargs=* ${cmd} delcommand ${cmd} | call dpp#source('${p.name}') | ${cmd} <args>`
+          `command! -bang -nargs=* ${cmd} delcommand ${cmd} | call dpp#source('${p.name}') | ${cmd}<bang> <args>`
         );
         p.hook_add = commands.join("\n") + "\n" + (p.hook_add ?? "");
         delete p.on_cmd;
