@@ -1,4 +1,9 @@
 [[plugins]]
+repo = '$VIMDIR/bundle/gin-preview.vim'
+depends = 'gin.vim'
+on_cmd = ['GinPreview']
+
+[[plugins]]
 repo = '$VIMDIR/bundle/vim-operandi'
 on_func = ['operandi#']
 hook_add = '''
