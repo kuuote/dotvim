@@ -43,7 +43,7 @@ export class Config extends BaseConfig {
     // X<dpp-inline_vimrcs>
     const inlineVimrcs = [
       await glob(args.denops, "$VIMDIR/conf/rc/*"),
-      await glob(args.denops, "$VIMDIR/conf/local/*"),
+      await glob(args.denops, "$VIMDIR/local/rc/*"),
       vim ? await glob(args.denops, "$VIMDIR/conf/rc/vim/*") : [],
       nvim ? await glob(args.denops, "$VIMDIR/conf/rc/nvim/*") : [],
     ].flat()
