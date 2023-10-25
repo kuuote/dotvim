@@ -84,7 +84,7 @@ export class Config extends BaseConfig {
 
       const profileVim = tomlPath.match(/\/vim\//) != null;
       const profileNvim = tomlPath.match(/\/nvim\//) != null;
-      const profileIgnore = (profileVim && vim) || (profileNvim && nvim);
+      const profileIgnore = (profileVim && nvim) || (profileNvim && vim);
 
       const profile = tomlPath.match(/([^/]+)\.toml$/)?.[1];
       if (profileIgnore || !profiles.has(profile!)) {
