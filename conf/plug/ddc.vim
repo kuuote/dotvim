@@ -12,3 +12,7 @@ endif
 
 " deflicker echo area
 set noshowmode
+
+" acwriteセットされてるファイルで補完効かなくて困ることは無いと思う
+autocmd OptionSet buftype if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif
+if &buftype ==# 'acwrite' | call ddc#custom#patch_buffer('specialBufferCompletion', v:true) | endif

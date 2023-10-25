@@ -20,6 +20,12 @@ repo = 'Shougo/ddc-source-nvim-lsp'
 repo = 'Shougo/ddc-source-shell-native'
 
 [[plugins]]
+repo = 'Shougo/ddc-ui-native'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-none'
+
+[[plugins]]
 repo = 'Shougo/ddc-ui-pum'
 
 [[plugins]]
