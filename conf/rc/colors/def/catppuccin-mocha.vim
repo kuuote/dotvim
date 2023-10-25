@@ -1,7 +1,7 @@
 colorscheme catppuccin-mocha
 
 lua <<EOF
-if is_nvim then
+if vim.fn.has('nvim') == 1 then
   -- Capture lua =require('catppuccin.palettes').get_palette('mocha')
   local mocha = require('catppuccin.palettes').get_palette('mocha')
   vim.api.nvim_set_hl(0, 'Pmenu', { fg = mocha.mauve, bg = '#2b2b3c' })
