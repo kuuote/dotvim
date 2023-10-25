@@ -47,7 +47,7 @@ export class Config extends BaseConfig {
       vim ? await glob(args.denops, "$VIMDIR/conf/rc/vim/*") : [],
       nvim ? await glob(args.denops, "$VIMDIR/conf/rc/nvim/*") : [],
     ].flat()
-		.filter((path) => path.match(/\.(?:vim|lua)$/));
+      .filter((path) => path.match(/\.(?:vim|lua)$/));
 
     args.contextBuilder.setGlobal({
       inlineVimrcs,
@@ -68,10 +68,7 @@ export class Config extends BaseConfig {
     profiles.add("main");
     profiles.add("treesitter");
 
-    const tomls = ensure(
-      await args.denops.call("glob", "$VIMDIR/conf/plug/**/*.toml", 1, 1),
-      is.ArrayOf(is.String),
-    );
+    const tomls = await glob(args.denops, "$VIMDIR/conf/plug/**/*.toml");
     for (const tomlPath of tomls) {
       console.log("load toml: " + tomlPath);
       const toml = await args.dpp.extAction(
