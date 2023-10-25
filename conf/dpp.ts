@@ -92,21 +92,30 @@ export class Config extends BaseConfig {
 
       const profile = tomlPath.match(/([^/]+)\.toml$/)?.[1];
       if (profileIgnore || !profiles.has(profile!)) {
-        for (let i = 0; i < toml.plugins.length; i++) {
-          // プロフィール対象外を雑に無効化してみる
-          const old = toml.plugins[i];
-          toml.plugins[i] = {
-            name: old.name,
-            repo: old.repo,
+        for (const p of toml.plugins) {
+          // プロフィール対象外を無効化してみる
+          p.if = false;
+        }
+      }
+      plugins.push(...toml.plugins);
+    }
+    for (let i = 0; i < plugins.length; i++) {
+      const p = plugins[i];
+      // adhoc if
+      if ("if" in p) {
+        if (is.String(p.if)) {
+          p.if = Boolean(await args.denops.eval(p.if));
+        }
+        if (!p.if) {
+          plugins[i] = {
+            name: p.name,
+            repo: p.repo,
             if: false,
             // 今の所if効かないのでrtp書き換えておく
             rtp: "null",
           };
         }
       }
-      plugins.push(...toml.plugins);
-    }
-    for (const p of plugins) {
       // adhoc local
       if (p.repo?.includes("$")) {
         p.repo = String(await args.denops.call("expand", p.repo));
@@ -114,18 +123,6 @@ export class Config extends BaseConfig {
       if (p.repo?.[0] === "/") {
         p.path = p.repo;
       }
-      // adhoc on_cmd
-      // if (p.on_cmd != null) {
-      //   if (typeof p.on_cmd === "string") {
-      //     p.on_cmd = [p.on_cmd];
-      //   }
-      //   const commands = p.on_cmd.map((cmd) =>
-      //     `command! -bang -nargs=* ${cmd} delcommand ${cmd} | call dpp#source('${p.name}') | ${cmd}<bang> <args>`
-      //   );
-      //   p.hook_add = commands.join("\n") + "\n" + (p.hook_add ?? "");
-      //   delete p.on_cmd;
-      //   p.lazy = true;
-      // }
     }
     const lazyResult = await args.dpp.extAction(
       args.denops,
