@@ -22,6 +22,15 @@ type LazyMakeStateResult = {
   stateLines: string[];
 };
 
+const isStringArray = is.ArrayOf(is.String);
+
+async function glob(denops: Denops, path: string): Promise<string[]> {
+  return ensure(
+    await denops.call("glob", path, 1, 1),
+    isStringArray,
+  );
+}
+
 export class Config extends BaseConfig {
   override async config(args: {
     contextBuilder: ContextBuilder;
@@ -29,24 +38,16 @@ export class Config extends BaseConfig {
     basePath: string;
     dpp: Dpp;
   }): Promise<ConfigReturn> {
+    const vim = args.denops.meta.host === "vim";
+    const nvim = args.denops.meta.host === "nvim";
     // X<dpp-inline_vimrcs>
-    const inlineVimrcs = [];
-    inlineVimrcs.push(
-      ...await args.denops.call(
-        "glob",
-        "$VIMDIR/conf/rc/*.vim",
-        1,
-        1,
-      ) as string[],
-    );
-    inlineVimrcs.push(
-      ...await args.denops.call(
-        "glob",
-        "$VIMDIR/local/rc/*.vim",
-        1,
-        1,
-      ) as string[],
-    );
+    const inlineVimrcs = [
+      await glob(args.denops, "$VIMDIR/conf/rc/*"),
+      await glob(args.denops, "$VIMDIR/conf/local/*"),
+      vim ? await glob(args.denops, "$VIMDIR/conf/rc/vim/*") : [],
+      nvim ? await glob(args.denops, "$VIMDIR/conf/rc/nvim/*") : [],
+    ].flat()
+		.filter((path) => path.match(/\.(?:vim|lua)$/));
 
     args.contextBuilder.setGlobal({
       inlineVimrcs,
@@ -84,11 +85,9 @@ export class Config extends BaseConfig {
         },
       ) as Toml;
 
-      const host = args.denops.meta.host;
       const profileVim = tomlPath.match(/\/vim\//) != null;
       const profileNvim = tomlPath.match(/\/nvim\//) != null;
-      const profileIgnore = (profileVim && host != "vim") ||
-        (profileNvim && host != "nvim");
+      const profileIgnore = (profileVim && vim) || (profileNvim && nvim);
 
       const profile = tomlPath.match(/([^/]+)\.toml$/)?.[1];
       if (profileIgnore || !profiles.has(profile!)) {
