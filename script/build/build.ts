@@ -109,6 +109,8 @@ async function executermNvim(
       await Deno.writeTextFile(hashFile, newHash);
     }
   }
+  // 全て終わった暁には…
+  await denops.call("vimrc#dpp#makestate_job");
 }
 
 export async function main(denops: Denops) {
