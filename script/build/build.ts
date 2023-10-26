@@ -1,10 +1,11 @@
-import { Denops, lambda } from "../../denops/deps/denops_std.ts";
-import { encodeBase64 } from "/data/vim/repos/github.com/denoland/deno_std/encoding/base64.ts";
-import { ensure, is, PredicateType } from "../../denops/deps/unknownutil.ts";
 import { generateDenopsCall } from "../../denops/@vimrc/lib/denops.ts";
 import { stdpath, TOML } from "../../denops/deps/deno_std.ts";
+import { Denops, lambda } from "../../denops/deps/denops_std.ts";
+import { ensure, is, PredicateType } from "../../denops/deps/unknownutil.ts";
+import { encodeBase64 } from "/data/vim/repos/github.com/denoland/deno_std/encoding/base64.ts";
 
 // ビルドログ眺めてニヤニヤするやつ Version.2
+// call vimrc#denops#request('loader', 'load', [expand('$VIMDIR/script/build/build.ts')])
 
 const vimdir = String(Deno.env.get("VIMDIR"));
 
@@ -110,6 +111,10 @@ async function executermNvim(
     }
   }
   // 全て終わった暁には…
+  await denops.cmd(
+    "tabnew | setlocal buftype=nofile bufhidden=hide noswapfile",
+  );
+  await denops.call("setline", 1, "all tasks are done.");
   await denops.call("vimrc#dpp#makestate_job");
 }
 
@@ -132,7 +137,7 @@ export async function main(denops: Denops) {
   );
   const definitions = await load(defPath);
   const local = await load(localPath).catch((e) => {
-    // console.trace(e);
+    console.trace(e);
     return {};
   });
   for (const [name, def] of Object.entries(local)) {
