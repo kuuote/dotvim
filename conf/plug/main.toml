@@ -1,19 +1,18 @@
 [[plugins]]
 repo = '$VIMDIR/bundle/gin-preview.vim'
 depends = 'gin.vim'
-on_cmd = ['GinPreview']
+on_cmd = 'GinPreview'
 
 [[plugins]]
 repo = '$VIMDIR/bundle/vim-operandi'
-on_func = ['operandi#']
+on_func = 'operandi#'
 hook_add = '''
 nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
 '''
 
 [[plugins]]
 repo = 'kuuote/mydicts'
-# if = 0
-lazy = 1
+if = false
 
 [[plugins]]
 repo = 'lambdalisue/gin.vim'
@@ -23,7 +22,7 @@ on_cmd = [
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
-on_cmd = ['Gina']
+on_cmd = 'Gina'
 
 [[plugins]]
 repo = 'lambdalisue/kensaku.vim'
@@ -35,14 +34,8 @@ let g:kensaku_dictionary_cache = '/data/vim/cache/kensaku_dict'
 
 [[plugins]]
 repo = 'lambdalisue/mr.vim'
-lazy = 1
-hook_add = '''
-autocmd BufReadPre * call mr#mru#start_recording()
-autocmd BufReadPre * call mr#mrr#start_recording()
-autocmd BufWritePre * call mr#mrw#start_recording()
-'''
+on_event = ['BufReadPre', 'BufWritePre']
 hook_source = '''
-let g:loaded_mr = 1
 let g:mr#mru#filename = '/data/mr/mru'
 let g:mr#mrw#filename = '/data/mr/mrw'
 let g:mr#mrr#filename = '/data/mr/mrr'
@@ -54,13 +47,14 @@ on_cmd = ['SudaRead', 'SudaWrite']
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
-#on_map = ['s']
-lazy = 1
+on_map = {n = 's'}
+lazy = true
 hook_add = '''
-nnoremap s <Cmd>call vimrc#lazy#on_map('s', 'vim-sandwich')<CR>
 autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call dpp#source('vim-sandwich')
 '''
 hook_source = '''
+" 改めてs殺しておく
+nnoremap s <Nop>
 " https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L485-L487
 " saa( などで空白を含めないようにするやつ
 call operator#sandwich#set('add', 'char', 'skip_space', 1)
@@ -88,8 +82,7 @@ on_func = ['layout#']
 
 [[plugins]]
 repo = 'skk-dev/dict'
-# if = 0
-lazy = 1
+if = false
 
 [[plugins]]
 # sort_repo = 'skkeleton'
@@ -97,13 +90,13 @@ lazy = 1
 # repo = 'kei-s16/skkeleton-azik-kanatable'
 repo = 'NI57721/skkeleton-azik-kanatable'
 rev = 'feature/delete-some-mappings'
-#on_source = 'skkeleton'
+on_source = 'skkeleton'
 
 [[plugins]]
 # sort_repo = 'skkeleton'
 repo = 'vim-skk/skkeleton'
-lazy = 1
-denops_wait = 0
+lazy = true
+denops_wait = false
 hook_add = '''
 noremap! ;<Space> <Cmd>call dpp#source('skkeleton')<CR><Plug>(skkeleton-enable)
 " ref: atusy: normal modeの `<C-J>`をskkeleton-enableにあてちゃうのアリな気がしてきた。特にmarkdownで日本語書きまくってる時とか。"
@@ -168,15 +161,16 @@ repo = 'thinca/vim-localrc'
 
 [[plugins]]
 repo = 'thinca/vim-partedit'
-on_cmd = ['Partedit']
+on_cmd = 'Partedit'
+
+[[plugins]]
+repo = 'tyru/capture.vim'
+on_cmd = 'Capture'
 
 [[plugins]]
 repo = 'uga-rosa/denippet.vim'
-lazy = 1
-denops_wait = 0
-hook_add = '''
-autocmd CmdlineEnter,InsertEnter * call dpp#source('denippet.vim')
-'''
+lazy = true
+denops_wait = false
 hook_source = '''
 source $VIMDIR/conf/plug/denippet.vim
 '''
