@@ -49,10 +49,8 @@ noremap! P <Cmd>call pum#map#select_relative(-1)<CR>
 noremap! Y <Cmd>call pum#map#confirm()<CR>
 noremap! E <Cmd>call pum#map#cancel()<CR>
 
-" sticky ;
-for s:c in split('abcdefghijklmnopqrstuvwxyz', '\zs')
-  execute printf('noremap! ;%s %s', s:c, toupper(s:c))
-endfor
+"" sticky ;
+noremap! <expr> ; toupper(getcharstr())
 noremap! ;<Tab> ;
 
 " swap () []
