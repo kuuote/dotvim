@@ -27,3 +27,6 @@ endfunction
 autocmd User skkeleton-initialize-pre call s:initialize()
 call s:initialize()
 
+" ddc.vim integration
+autocmd User skkeleton-enable-post call ddc#custom#set_buffer(#{sources: ['skkeleton'], specialBufferCompletion: v:true})
+autocmd User skkeleton-disable-post call ddc#custom#set_buffer({})
