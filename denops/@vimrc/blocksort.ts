@@ -5,7 +5,7 @@ import {
 import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
 
 // 例えば↑のimportを整理するにはvip<Esc>後に
-// call vimrc#denops#request('blocksort', 'do', [line("'<"), line("'>"), 'import', '"from.*'])
+// call vimrc#denops#request('blocksort', 'do', [line("'<"), line("'>"), 'import', 'from.*'])
 
 // dpp.vimのTOMLだとこう
 // call vimrc#denops#request('blocksort', 'do', [1, line("$"), 'plugins]]', 'repo.*'])
