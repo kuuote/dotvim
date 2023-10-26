@@ -1,0 +1,3 @@
+[tree-sitter-unifieddiff]
+script = '$VIMDIR/script/build/build/treesitter/unifieddiff.sh'
+
