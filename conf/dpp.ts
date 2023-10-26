@@ -97,7 +97,7 @@ export class Config extends BaseConfig {
     }
     for (let i = 0; i < plugins.length; i++) {
       const p = plugins[i];
-      // adhoc if
+      // 無効化したプラギンの情報を消しておく
       if ("if" in p) {
         if (is.String(p.if)) {
           p.if = Boolean(await args.denops.eval(p.if));
@@ -107,8 +107,6 @@ export class Config extends BaseConfig {
             name: p.name,
             repo: p.repo,
             if: false,
-            // 今の所if効かないのでrtp書き換えておく
-            rtp: "null",
           };
         }
       }
