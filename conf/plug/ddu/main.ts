@@ -6,7 +6,7 @@ import {
 } from "../../../denops/deps/ddu.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
-import { Denops, function as fn } from "../../../denops/deps/denops_std.ts";
+import { Denops } from "../../../denops/deps/denops_std.ts";
 import { is, maybe } from "../../../denops/deps/unknownutil.ts";
 import { KindGitStatusActionData } from "../../../denops/deps/ddu-kinds.ts";
 import { stdpath } from "../../../denops/deps/deno_std.ts";
@@ -191,7 +191,7 @@ async function ripgrepLive(
     sources: [{
       name: "rg",
       options: {
-        matchers: [],
+        matchers: ["matcher_limit"],
         sorters: ["sorter_alpha_path"],
         converters: [],
         path: await findPath(denops),
@@ -265,7 +265,12 @@ const definition: Record<string, Collector> = {
   live_grep: (denops) =>
     ripgrepLive(
       denops,
-      async (denops) => await fn.expand(denops, "%:p:h") as string,
+      async (denops) => String(await denops.call("expand", "%:p:h")),
+    ),
+  live_grep_git: (denops) =>
+    ripgrepLive(
+      denops,
+      async (denops) => String(await denops.call("gin#util#worktree")),
     ),
   // X<ddu-config-selector-lsp>
   lsp_codeAction: () => ({
