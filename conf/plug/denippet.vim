@@ -8,9 +8,9 @@ function s:load()
   endif
   let s:loaded_ft[ft] = v:true
   let toml = s:dir .. ft .. '.toml'
-  if filereadable(toml)
-    call denippet#load(toml)
-  endif
+  for file in glob(s:dir .. ft .. '.*', 1, 1)
+    call denippet#load(file)
+  endfor
 endfunction
 
 autocmd InsertEnter * call s:load()
