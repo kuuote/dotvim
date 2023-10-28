@@ -1,0 +1,17 @@
+#!/bin/bash -u
+
+cd ${1:-/data/vim} || exit 1
+
+rm -rf /tmp/vimdiff
+mkdir -p /tmp/vimdiff
+
+cat snapshot | while read repo; read hash; do
+(
+  cd $repo || exit
+  [[ "$(git rev-parse @)" = "${hash}" ]] && exit
+  echo $repo
+  path=$(echo $repo | perl -pe 's:/:_:g')
+  git --no-pager diff --stat $hash
+  git --no-pager diff $hash > /tmp/vimdiff/$path.diff
+)
+done

@@ -1,0 +1,17 @@
+#!/bin/bash -u
+
+cd ${1:-/data/vim} || exit 1
+
+snapshot=$(realpath snapshot)
+rm -f snapshot
+
+find -type d -name .git | perl -pe 's:^\./::' | perl -pe 's:/\.git$::' | sort | while read repo; do
+(
+  cd $repo
+  hash=$(git rev-parse HEAD)
+  echo -n .
+  echo $repo >> $snapshot
+  echo $hash >> $snapshot
+)
+done
+echo
