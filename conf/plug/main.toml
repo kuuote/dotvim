@@ -19,6 +19,11 @@ repo = 'lambdalisue/gin.vim'
 on_cmd = [
   'Gin',
 ]
+hook_source = '''
+autocmd FileType gin-status nnoremap <buffer> c <Cmd>Gin commit<CR>
+autocmd FileType gin-status nnoremap <buffer> h <Plug>(gin-action-stage)
+autocmd FileType gin-status nnoremap <buffer> l <Plug>(gin-action-unstage)
+'''
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
@@ -28,7 +33,7 @@ on_cmd = 'Gina'
 repo = 'lambdalisue/kensaku.vim'
 # X<dpp-lazy-kensaku_vim>
 lazy = 1
-hook_add = '''
+hook_source = '''
 let g:kensaku_dictionary_cache = '/data/vim/cache/kensaku_dict'
 '''
 
