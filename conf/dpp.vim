@@ -1,11 +1,9 @@
 call vimrc#git#use('https://github.com/Shougo/dpp.vim')
-call vimrc#git#use('https://github.com/vim-denops/denops.vim')
 
 let g:vimrc#dpp_base = '/tmp/dpp'
 if dpp#min#load_state(g:vimrc#dpp_base)
   autocmd User Dpp:makeStatePost quit!
   source $VIMDIR/conf/makestate.vim
-  source $VIMDIR/conf/fallback.vim
   finish
 endif
 
