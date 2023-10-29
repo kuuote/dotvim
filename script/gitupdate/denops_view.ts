@@ -1,5 +1,5 @@
 import { stdpath } from "../../denops/deps/deno_std.ts";
-import { Denops } from "../../denops/deps/denops_std.ts";
+import { autocmd, Denops } from "../../denops/deps/denops_std.ts";
 import { assert, ensure, is } from "../../denops/deps/unknownutil.ts";
 import {
   isDoneMessage,
@@ -47,6 +47,9 @@ class Buffer {
             msg: "all tasks are done.",
           });
         });
+      await autocmd.emit(this.denops, "User", "GitUpdatePost", {
+        nomodeline: true,
+      });
     }
     if (isEndMessage(msg)) {
       this.jobmsg[msg.jobnr].end = true;
@@ -142,5 +145,7 @@ export async function main(denops: Denops, args: unknown) {
       await buffer.handle(msg);
     }
   })();
-  await denops.cmd("split");
+  await autocmd.emit(denops, "User", "GitUpdatePre", {
+    nomodeline: true,
+  });
 }
