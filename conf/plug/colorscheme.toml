@@ -1,6 +1,15 @@
 [[plugins]]
 repo = 'catppuccin/nvim'
 name = 'catppuccin'
+lazy = true
+lua_source = '''
+require('catppuccin').setup {
+  integrations = {
+    notify = true,
+  },
+  term_colors = true,
+}
+'''
 
 [[plugins]]
 repo = 'eihigh/vim-aomi-grayscale'

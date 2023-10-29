@@ -1,3 +1,4 @@
+call dpp#source('catppuccin')
 colorscheme catppuccin-latte
 
 lua <<EOF
