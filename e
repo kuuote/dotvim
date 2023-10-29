@@ -4,13 +4,13 @@
 # 自動化してしまいましょうの巻
 
 clear
-if [[ ${link_dotvim:-} != 1 ]]; then
+rm -rf ~/.vim
+rm -rf ~/.config/nvim
+ln -s $(realpath .) ~/.vim
+ln -s $(realpath .) ~/.config/nvim
+if [[ ${newvim_post:-} != 1 ]]; then
   rm -rf /tmp/dpp
-  rm -rf ~/.vim
-  rm -rf ~/.config/nvim
-  ln -s $(realpath .) ~/.vim
-  ln -s $(realpath .) ~/.config/nvim
 fi
 nvim
 [[ $? != 0 ]] && exit
-link_dotvim=1 exec $0
+newvim_post=1 exec $0
