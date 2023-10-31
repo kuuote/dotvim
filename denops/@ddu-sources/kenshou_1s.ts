@@ -1,11 +1,10 @@
-import { BaseSource, GatherArguments, Item } from "../deps/ddu.ts";
 import { abortable } from "https://deno.land/std@0.204.0/async/mod.ts";
+import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
 
 type Never = Record<PropertyKey, never>;
 
 export class Source extends BaseSource<Never> {
-  override kind = "file";
-  gather(args: GatherArguments<Never>): ReadableStream<Item<unknown>[]> {
+  gather(): ReadableStream<Item<unknown>[]> {
     console.log(`gather start ${Math.random()}`);
     const abortController = new AbortController();
     return new ReadableStream({
