@@ -13,6 +13,7 @@ vimx.create_autocmd('User', {
   pattern = 'GitUpdatePost',
   callback = function()
     vimx.cmd.terminal('$VIMDIR/script/gitupdate/snap/diff')
+    vimx.fn.vimrc.dpp.makestate_job()
   end,
   once = true,
 })
