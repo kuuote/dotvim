@@ -24,8 +24,8 @@
 (line_nochange) @comment
 (line_nochange " " @text.diff.indicator)
 
-(line_deleted "-" @text.diff.delsign @text.diff.indicator)
+(line_deleted "-" @text.diff.indicator @text.diff.delsign)
 (line_deleted (body) @text.diff.delete)
 
-(line_added "+" @text.diff.addsign @text.diff.indicator)
+(line_added "+" @text.diff.indicator @text.diff.addsign)
 (line_added (body) @text.diff.add)

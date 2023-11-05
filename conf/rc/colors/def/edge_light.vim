@@ -8,7 +8,11 @@ hi CmpItemKindText guifg=#6060ff
 hi PumHighlight ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE
 
 if has('nvim')
-	hi link @text.diff.indicator PmenuSbar
+	hi @text.diff.indicator guibg=#e0e0ff
+	hi @text.diff.add guibg=#e0ffe0 guifg=#608060
+	hi @text.diff.addsign guibg=#e0ffe0 guifg=#608060
+	hi link @text.diff.delete PmenuSel
+	hi link @text.diff.delsign PmenuSel
 endif
 
 let s:palette = edge#get_palette('light', 0, {})
