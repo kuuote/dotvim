@@ -8,7 +8,7 @@ function s:initialize()
   \   tracePath: '/tmp/lspoints',
   \ })
 endfunction
-autocmd User DenopsPluginPost:lspoints call s:initialize()
+call s:initialize()
 
 function s:on_attach()
   nnoremap <buffer> ma <Cmd>DduSelectorCall lsp_codeAction<CR>
