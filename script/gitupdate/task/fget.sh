@@ -12,7 +12,7 @@ git clone --progress --reference-if-able "${path}" --dissociate "${repo}" "${des
 if [[ "${rev}" != "" ]]; then
   (
     cd "${dest}"
-    git checkout "${rev}"
+    git checkout "${rev}" || git reset --hard "${rev}"
   )
 fi
 mkdir -p "${path}/.git"
