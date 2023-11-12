@@ -11,11 +11,11 @@ nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
 '''
 
 [[plugins]]
-repo = 'kuuote/mydicts'
+repo = 'https://github.com/kuuote/mydicts'
 if = false
 
 [[plugins]]
-repo = 'lambdalisue/gin.vim'
+repo = 'https://github.com/lambdalisue/gin.vim'
 on_cmd = [
   'Gin',
 ]
@@ -26,11 +26,11 @@ autocmd FileType gin-status nnoremap <buffer> l <Plug>(gin-action-unstage)
 '''
 
 [[plugins]]
-repo = 'lambdalisue/gina.vim'
+repo = 'https://github.com/lambdalisue/gina.vim'
 on_cmd = 'Gina'
 
 [[plugins]]
-repo = 'lambdalisue/kensaku.vim'
+repo = 'https://github.com/lambdalisue/kensaku.vim'
 # X<dpp-lazy-kensaku_vim>
 lazy = 1
 hook_source = '''
@@ -38,7 +38,7 @@ let g:kensaku_dictionary_cache = '/data/vim/cache/kensaku_dict'
 '''
 
 [[plugins]]
-repo = 'lambdalisue/mr.vim'
+repo = 'https://github.com/lambdalisue/mr.vim'
 on_event = ['BufReadPre', 'BufWritePre']
 hook_source = '''
 let g:mr#mru#filename = '/data/mr/mru'
@@ -47,11 +47,11 @@ let g:mr#mrr#filename = '/data/mr/mrr'
 '''
 
 [[plugins]]
-repo = 'lambdalisue/suda.vim'
+repo = 'https://github.com/lambdalisue/suda.vim'
 on_cmd = ['SudaRead', 'SudaWrite']
 
 [[plugins]]
-repo = 'machakann/vim-sandwich'
+repo = 'https://github.com/machakann/vim-sandwich'
 on_map = {n = 's'}
 lazy = true
 hook_add = '''
@@ -81,25 +81,60 @@ autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_
 # '''
 
 [[plugins]]
-repo = 'rbtnn/vim-layout'
+repo = 'https://github.com/rbtnn/vim-layout'
 on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = ['layout#']
 
 [[plugins]]
-repo = 'skk-dev/dict'
+repo = 'https://github.com/skk-dev/dict'
 if = false
+
+[[plugins]]
+repo = 'https://github.com/tani/vim-artemis'
+
+[[plugins]]
+repo = 'https://github.com/thinca/vim-localrc'
+
+[[plugins]]
+repo = 'https://github.com/thinca/vim-partedit'
+on_cmd = 'Partedit'
+
+[[plugins]]
+repo = 'https://github.com/thinca/vim-qfreplace'
+on_cmd = 'Qfreplace'
+
+[[plugins]]
+repo = 'https://github.com/tyru/capture.vim'
+on_cmd = 'Capture'
+
+[[plugins]]
+repo = 'https://github.com/uga-rosa/denippet.vim'
+lazy = true
+denops_wait = false
+hook_source = '''
+source $VIMDIR/conf/plug/denippet.vim
+'''
+
+[[plugins]]
+repo = 'https://github.com/vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'https://github.com/vim-jp/vimdoc-ja'
+hook_add = '''
+set helplang=ja
+'''
 
 [[plugins]]
 # sort_repo = 'skkeleton'
 # https://github.com/NI57721/dotfiles/blob/79d2decf4b1e2bf5522c3af5f0ffdefd87b7ff50/.config/vim/rc/dein.toml#L20-L24
 # repo = 'kei-s16/skkeleton-azik-kanatable'
-repo = 'NI57721/skkeleton-azik-kanatable'
+repo = 'https://github.com/NI57721/skkeleton-azik-kanatable'
 rev = 'feature/delete-some-mappings'
 on_source = 'skkeleton'
 
 [[plugins]]
 # sort_repo = 'skkeleton'
-repo = 'vim-skk/skkeleton'
+repo = 'https://github.com/vim-skk/skkeleton'
 lazy = true
 denops_wait = false
 hook_add = '''
@@ -157,39 +192,4 @@ autocmd User skkeleton-initialize-pre ++nested ++once source $VIMDIR/conf/plug/s
 #command! SKKAzik call s:azik()
 #
 #'''
-
-[[plugins]]
-repo = 'tani/vim-artemis'
-
-[[plugins]]
-repo = 'thinca/vim-localrc'
-
-[[plugins]]
-repo = 'thinca/vim-partedit'
-on_cmd = 'Partedit'
-
-[[plugins]]
-repo = 'thinca/vim-qfreplace'
-on_cmd = 'Qfreplace'
-
-[[plugins]]
-repo = 'tyru/capture.vim'
-on_cmd = 'Capture'
-
-[[plugins]]
-repo = 'uga-rosa/denippet.vim'
-lazy = true
-denops_wait = false
-hook_source = '''
-source $VIMDIR/conf/plug/denippet.vim
-'''
-
-[[plugins]]
-repo = 'vim-denops/denops.vim'
-
-[[plugins]]
-repo = 'vim-jp/vimdoc-ja'
-hook_add = '''
-set helplang=ja
-'''
 

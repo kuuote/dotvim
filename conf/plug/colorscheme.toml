@@ -1,5 +1,5 @@
 [[plugins]]
-repo = 'catppuccin/nvim'
+repo = 'https://github.com/catppuccin/nvim'
 name = 'catppuccin'
 lazy = true
 lua_source = '''
@@ -12,11 +12,11 @@ require('catppuccin').setup {
 '''
 
 [[plugins]]
-repo = 'eihigh/vim-aomi-grayscale'
+repo = 'https://github.com/eihigh/vim-aomi-grayscale'
 
 [[plugins]]
-repo = 'sainnhe/edge'
+repo = 'https://github.com/sainnhe/edge'
 
 [[plugins]]
-repo = 'yuttie/hydrangea-vim'
+repo = 'https://github.com/yuttie/hydrangea-vim'
 

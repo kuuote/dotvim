@@ -1,8 +1,8 @@
 [[plugins]]
-repo = 'monaqa/tree-sitter-unifieddiff'
+repo = 'https://github.com/monaqa/tree-sitter-unifieddiff'
 
 [[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
+repo = 'https://github.com/nvim-treesitter/nvim-treesitter'
 on_cmd = ['TSUpdate']
 on_ft = [
   'diff',

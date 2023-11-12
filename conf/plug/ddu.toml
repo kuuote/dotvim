@@ -1,15 +1,15 @@
 [[plugins]]
-repo = 'kuuote/ddu-source-git_diff'
+repo = 'https://github.com/kuuote/ddu-source-git_diff'
 
 [[plugins]]
-repo = 'kuuote/ddu-source-git_status'
+repo = 'https://github.com/kuuote/ddu-source-git_status'
 # L<ddu-source-git_status>
 hook_add = '''
 nnoremap gs <Cmd>call ddu#start({'name':'git_status','sourceOptions':{'_': {'path': expand('%:p')}}})<CR>
 '''
 
 [[plugins]]
-repo = 'kuuote/ddu-source-mr'
+repo = 'https://github.com/kuuote/ddu-source-mr'
 # L<ddu-local-mr>
 hook_add = '''
 nnoremap mru <Cmd>call ddu#start({'name':'mru'})<CR>
@@ -18,73 +18,73 @@ nnoremap mrr <Cmd>call ddu#start({'name':'mrr'})<CR>
 '''
 
 [[plugins]]
-repo = 'kyoh86/ddu-filter-converter_hl_dir'
+repo = 'https://github.com/kyoh86/ddu-filter-converter_hl_dir'
 # L<ddu-filter-converter_hl_dir>
 
 [[plugins]]
-repo = 'matsui54/ddu-source-file_external'
+repo = 'https://github.com/matsui54/ddu-source-file_external'
 
 [[plugins]]
-repo = 'matsui54/ddu-source-help'
+repo = 'https://github.com/matsui54/ddu-source-help'
 # L<ddu-local-help>
 hook_add = '''
 nnoremap dh <Cmd>call ddu#start({'name':'help'})<CR>
 '''
 
 [[plugins]]
-repo = 'Shougo/ddu-column-filename'
+repo = 'https://github.com/Shougo/ddu-column-filename'
 
 [[plugins]]
-repo = 'Shougo/ddu-commands.vim'
+repo = 'https://github.com/Shougo/ddu-commands.vim'
 on_cmd = ['Ddu']
 
 [[plugins]]
-repo = 'Shougo/ddu-filter-matcher_substring'
+repo = 'https://github.com/Shougo/ddu-filter-matcher_substring'
 
 [[plugins]]
-repo = 'Shougo/ddu-filter-sorter_alpha'
+repo = 'https://github.com/Shougo/ddu-filter-sorter_alpha'
 
 [[plugins]]
-repo = 'Shougo/ddu-kind-file'
+repo = 'https://github.com/Shougo/ddu-kind-file'
 # L<ddu-kind-file>
 
 [[plugins]]
-repo = 'Shougo/ddu-source-file_rec'
+repo = 'https://github.com/Shougo/ddu-source-file_rec'
 
 [[plugins]]
-repo = 'Shougo/ddu-source-file'
+repo = 'https://github.com/Shougo/ddu-source-file'
 
 [[plugins]]
-repo = 'Shougo/ddu-source-line'
+repo = 'https://github.com/Shougo/ddu-source-line'
 # L<ddu-local-line>
 hook_add = '''
 nnoremap dl <Cmd>call ddu#start({'name':'line'})<CR>
 '''
 
 [[plugins]]
-repo = 'Shougo/ddu-ui-ff'
+repo = 'https://github.com/Shougo/ddu-ui-ff'
 
 [[plugins]]
-repo = 'Shougo/ddu-ui-filer'
+repo = 'https://github.com/Shougo/ddu-ui-filer'
 
 [[plugins]]
-repo = 'Shougo/ddu.vim'
+repo = 'https://github.com/Shougo/ddu.vim'
 # L<ddu-global>
 hook_add = '''
 autocmd User DenopsReady source $VIMDIR/conf/plug/ddu.vim
 '''
 
 [[plugins]]
-repo = 'shun/ddu-source-rg'
+repo = 'https://github.com/shun/ddu-source-rg'
 lazy = 1
 
 [[plugins]]
-repo = 'uga-rosa/ddu-source-lsp'
+repo = 'https://github.com/uga-rosa/ddu-source-lsp'
 hook_add = '''
 let g:ddu_source_lsp_clientName = 'lspoints'
 '''
 
 [[plugins]]
-repo = 'yuki-yano/ddu-filter-fzf'
+repo = 'https://github.com/yuki-yano/ddu-filter-fzf'
 # L<ddu-filter-matcher_fzf>
 

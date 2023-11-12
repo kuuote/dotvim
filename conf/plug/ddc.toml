@@ -1,43 +1,43 @@
 [[plugins]]
-repo = 'LumaKernel/ddc-source-file'
+repo = 'https://github.com/LumaKernel/ddc-source-file'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-around'
+repo = 'https://github.com/Shougo/ddc-source-around'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline'
+repo = 'https://github.com/Shougo/ddc-source-cmdline'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-input'
+repo = 'https://github.com/Shougo/ddc-source-input'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-line'
+repo = 'https://github.com/Shougo/ddc-source-line'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-nvim-lsp'
+repo = 'https://github.com/Shougo/ddc-source-nvim-lsp'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-shell-native'
+repo = 'https://github.com/Shougo/ddc-source-shell-native'
 
 [[plugins]]
-repo = 'Shougo/ddc-ui-native'
+repo = 'https://github.com/Shougo/ddc-ui-native'
 
 [[plugins]]
-repo = 'Shougo/ddc-ui-none'
+repo = 'https://github.com/Shougo/ddc-ui-none'
 
 [[plugins]]
-repo = 'Shougo/ddc-ui-pum'
+repo = 'https://github.com/Shougo/ddc-ui-pum'
 
 [[plugins]]
-repo = 'Shougo/ddc.vim'
+repo = 'https://github.com/Shougo/ddc.vim'
 hook_add = '''
 autocmd CmdlineEnter,InsertEnter * ++once source $VIMDIR/conf/plug/ddc.vim
 '''
 
 [[plugins]]
-repo = 'Shougo/pum.vim'
+repo = 'https://github.com/Shougo/pum.vim'
 # L<mappings-pum_vim>
 
 [[plugins]]
-repo = 'tani/ddc-fuzzy'
+repo = 'https://github.com/tani/ddc-fuzzy'
 

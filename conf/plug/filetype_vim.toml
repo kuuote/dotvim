@@ -1,4 +1,4 @@
 [[plugins]]
-repo = 'KentoOgata/vim-vimscript-gd'
+repo = 'https://github.com/KentoOgata/vim-vimscript-gd'
 on_ft = ['vim']
 

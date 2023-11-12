@@ -1,5 +1,5 @@
 [[plugins]]
-repo = 'kuuote/lspoints'
+repo = 'https://github.com/kuuote/lspoints'
 on_ft = [
   'lua',
   'typescript',

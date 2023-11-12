@@ -1,20 +1,20 @@
 [[plugins]]
-repo = 'Shougo/dpp-ext-installer'
+repo = 'https://github.com/Shougo/dpp-ext-installer'
 
 [[plugins]]
-repo = 'Shougo/dpp-ext-lazy'
+repo = 'https://github.com/Shougo/dpp-ext-lazy'
 
 [[plugins]]
-repo = 'Shougo/dpp-ext-local'
+repo = 'https://github.com/Shougo/dpp-ext-local'
 
 [[plugins]]
-repo = 'Shougo/dpp-ext-toml'
+repo = 'https://github.com/Shougo/dpp-ext-toml'
 
 [[plugins]]
-repo = 'Shougo/dpp-protocol-git'
+repo = 'https://github.com/Shougo/dpp-protocol-git'
 
 [[plugins]]
-repo = 'Shougo/dpp.vim'
+repo = 'https://github.com/Shougo/dpp.vim'
 # L<ddu-local-dpp>
 hook_add = '''
 nnoremap ;d <Cmd>call ddu#start({'name':'dpp'})<CR>
