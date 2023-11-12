@@ -169,6 +169,10 @@ repo = 'thinca/vim-partedit'
 on_cmd = 'Partedit'
 
 [[plugins]]
+repo = 'thinca/vim-qfreplace'
+on_cmd = 'Qfreplace'
+
+[[plugins]]
 repo = 'tyru/capture.vim'
 on_cmd = 'Capture'
 
