@@ -1,10 +1,12 @@
-autocmd User gin-preview:* :
+augroup gin-preview
+  autocmd User gin-preview:* :
+augroup END
 
 function s:open(curwin) abort
   " in before VimEnter, do lazy evaluation
   " because gin.vim is using denops.vim
   if !denops#plugin#is_loaded('gin')
-    execute 'autocmd User DenopsPluginPost:gin ++nested call s:open(' .. a:curwin .. ')'
+    execute 'autocmd gin-preview User DenopsPluginPost:gin ++nested call s:open(' .. a:curwin .. ')'
     return
   endif
 
@@ -23,9 +25,7 @@ function s:open(curwin) abort
   " open status window
   GinStatus
   " remove previous handler
-  augroup gin-preview
-    autocmd! * <buffer>
-  augroup END
+  autocmd! gin-preview * <buffer>
   let t:gin_preview = {'cursor': [-1, -1], 'status': win_getid()}
   " open worktree window
   belowright new
@@ -84,7 +84,7 @@ function! s:open_not_index(file) abort
   diffthis
   let b:gin_preview_file = a:file
   setlocal buftype=acwrite bufhidden=hide noswapfile
-  autocmd BufWriteCmd <buffer> call timer_start(0, function('s:write_not_index'))
+  autocmd gin-preview BufWriteCmd <buffer> call timer_start(0, function('s:write_not_index'))
   execute 'file' path
 endfunction
 

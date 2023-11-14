@@ -52,4 +52,7 @@ function s:hook() abort
   set syntax=vim
   inoremap <buffer> <expr> P <SID>expandpath()
 endfunction
-autocmd User operandi#open#mycommand call s:hook()
+
+augroup operandi#open#mycommand
+  autocmd User operandi#open#mycommand call s:hook()
+augroup END

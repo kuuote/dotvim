@@ -24,4 +24,6 @@ function vimrc#dpp#makestate_job()
   endif
 endfunction
 
-autocmd VimLeavePre * call s:wait()
+augroup vimrc_dpp_makestate
+  autocmd VimLeavePre * call s:wait()
+augroup END
