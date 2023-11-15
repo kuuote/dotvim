@@ -234,6 +234,9 @@ const definition: Record<string, Collector> = {
           path: String(await denops.call("expand", "%:p:h")),
         },
       }],
+      // syncとsearchPathによりrevealできるらしい
+      searchPath: String(await denops.call("expand", "%:p")),
+      sync: true,
       ui: "filer",
     };
   },
