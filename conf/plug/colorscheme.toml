@@ -12,6 +12,9 @@ require('catppuccin').setup {
 '''
 
 [[plugins]]
+repo = 'https://github.com/EdenEast/nightfox.nvim'
+
+[[plugins]]
 repo = 'https://github.com/eihigh/vim-aomi-grayscale'
 
 [[plugins]]
