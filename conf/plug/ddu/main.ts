@@ -1,16 +1,16 @@
+import * as sourceList from "../../../denops/@ddu-sources/list.ts";
+import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
+import { KindGitStatusActionData } from "../../../denops/deps/ddu-kinds.ts";
 import {
   ActionFlags,
   BaseConfig,
   ConfigArguments,
   DduOptions,
 } from "../../../denops/deps/ddu.ts";
-import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
-import { dduHelper } from "./lib/helper.ts";
-import { Denops } from "../../../denops/deps/denops_std.ts";
-import { is, maybe } from "../../../denops/deps/unknownutil.ts";
-import { KindGitStatusActionData } from "../../../denops/deps/ddu-kinds.ts";
 import { stdpath } from "../../../denops/deps/deno_std.ts";
-import * as sourceList from "../../../denops/@ddu-sources/list.ts";
+import { Denops } from "../../../denops/deps/denops_std.ts";
+import { is, u } from "../../../denops/deps/unknownutil.ts";
+import { dduHelper } from "./lib/helper.ts";
 
 /* main section */
 
@@ -61,7 +61,7 @@ function setupGitStatus(args: ConfigArguments) {
                   path,
                 },
                 params: {
-                  ...maybe(args.actionParams, is.Record) ?? {},
+                  ...u.maybe(args.actionParams, is.Record) ?? {},
                   onlyFile: true,
                 },
               }],

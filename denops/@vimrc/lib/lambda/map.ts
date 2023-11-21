@@ -1,12 +1,8 @@
-import {
-  generateDenopsCall,
-  GenerateDenopsCallOptions,
-} from "/data/newvim/new/denops/@vimrc/lib/denops.ts";
+import { is, u } from "../../../deps/unknownutil.ts";
 import { bufnr } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/function/mod.ts";
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
 import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
 import * as mapping from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mapping/mod.ts";
-import * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
 
 const dispatchName = "lambda.map" + performance.now();
 const dispatcher = new Map<string, lambda.Fn>();
@@ -20,8 +16,8 @@ export async function map(
   denops.dispatcher[dispatchName] = (functionName: unknown) =>
     dispatcher.get(String(functionName))?.() ?? Promise.resolve();
   const mode = options.mode;
-  const modeStr = u.maybe(mode, u.isArray)?.join("") ??
-    u.maybe(mode, u.isString) ??
+  const modeStr = u.maybe(mode, is.Array)?.join("") ??
+    u.maybe(mode, is.String) ??
     "";
   const bufNr = options.buffer ? await bufnr(denops) : -1;
   const lhsEscaped = lhs.replaceAll(/</g, "[less]");

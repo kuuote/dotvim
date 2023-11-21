@@ -1,6 +1,6 @@
 import { stdpath } from "../../denops/deps/deno_std.ts";
 import { autocmd, Denops } from "../../denops/deps/denops_std.ts";
-import { assert, ensure, is } from "../../denops/deps/unknownutil.ts";
+import { is, u } from "../../denops/deps/unknownutil.ts";
 import {
   isDoneMessage,
   isEndMessage,
@@ -75,7 +75,7 @@ class Buffer {
 
 async function loadTasks(denops: Denops, path?: string): Promise<Task[]> {
   if (path == null) {
-    const recordPlugins = ensure(
+    const recordPlugins = u.ensure(
       await denops.eval("g:dpp#_plugins"),
       is.Record,
     );
@@ -110,7 +110,7 @@ async function loadTasks(denops: Denops, path?: string): Promise<Task[]> {
     "..",
     path,
   );
-  return ensure(
+  return u.ensure(
     await Deno.open(tasksFile, { read: true })
       .then(async (h) => await new Response(h.readable).json()),
     is.ArrayOf(isTask),
@@ -118,7 +118,7 @@ async function loadTasks(denops: Denops, path?: string): Promise<Task[]> {
 }
 
 export async function main(denops: Denops, args: unknown) {
-  assert(
+  u.assert(
     args,
     is.ObjectOf({
       tasks: is.OptionalOf(is.String),

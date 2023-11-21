@@ -4,7 +4,7 @@ import {
   Item,
   OnCompleteDoneArguments,
 } from "../deps/ddc.ts";
-import { is, maybe } from "../deps/unknownutil.ts";
+import { is, u } from "../deps/unknownutil.ts";
 
 export type Params = {
   candidates: Array<string | Item>;
@@ -25,7 +25,7 @@ export class Source extends BaseSource<Params> {
         } else {
           return {
             ...candidate,
-            user_data: maybe(candidate.user_data, is.Record) ?? {},
+            user_data: u.maybe(candidate.user_data, is.Record) ?? {},
           };
         }
       }),

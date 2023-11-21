@@ -1,6 +1,6 @@
 import { BaseExtension, Client, LSP, Lspoints } from "../deps/lspoints.ts";
 import { batch, Denops } from "../deps/denops_std.ts";
-import { is, maybe } from "../deps/unknownutil.ts";
+import { is, u } from "../deps/unknownutil.ts";
 
 const NSID = "lspoints_semantic_tokens";
 
@@ -75,7 +75,7 @@ export class Extension extends BaseExtension {
     }
     lspoints.defineCommands("semantic_tokens", {
       apply: async (_bufnr: unknown) => {
-        const bufnr = maybe(_bufnr, is.Number) ??
+        const bufnr = u.maybe(_bufnr, is.Number) ??
           Number(await denops.call("bufnr"));
         const result = await request(lspoints, bufnr);
         if (denops.meta.host === "nvim") {

@@ -1,7 +1,7 @@
 import { generateDenopsCall } from "../../denops/@vimrc/lib/denops.ts";
 import { stdpath, TOML } from "../../denops/deps/deno_std.ts";
 import { Denops, lambda } from "../../denops/deps/denops_std.ts";
-import { ensure, is, PredicateType } from "../../denops/deps/unknownutil.ts";
+import { is, u } from "../../denops/deps/unknownutil.ts";
 import { encodeBase64 } from "/data/vim/repos/github.com/denoland/deno_std/encoding/base64.ts";
 
 // ビルドログ眺めてニヤニヤするやつ Version.2
@@ -14,12 +14,12 @@ const isDefinitions = is.RecordOf(is.ObjectOf({
   deps: is.OptionalOf(is.ArrayOf(is.String)),
 }));
 
-type Definitions = PredicateType<typeof isDefinitions>;
+type Definitions = u.PredicateType<typeof isDefinitions>;
 
 async function load(
   path: string,
 ): Promise<Definitions> {
-  return ensure(
+  return u.ensure(
     TOML.parse(await Deno.readTextFile(path)),
     isDefinitions,
   );
@@ -30,13 +30,13 @@ const isPlugin = is.ObjectOf({
   path: is.String,
 });
 
-type Plugin = PredicateType<typeof isPlugin>;
+type Plugin = u.PredicateType<typeof isPlugin>;
 type Plugins = Record<string, Plugin>;
 
 const isStringArray = is.ArrayOf(is.String);
 
 async function glob(denops: Denops, path: string): Promise<string[]> {
-  return ensure(
+  return u.ensure(
     await denops.call("glob", path, 1, 1),
     isStringArray,
   );
@@ -91,7 +91,7 @@ async function executermNvim(
     }
 
     await denops.cmd("autocmd TermOpen * normal! G");
-    const code = ensure(
+    const code = u.ensure(
       await new Promise((resolve) => {
         const id = lambda.register(denops, resolve, { once: true });
         const notify = generateDenopsCall(denops, id, "[code]", {
@@ -119,7 +119,7 @@ async function executermNvim(
 }
 
 export async function main(denops: Denops) {
-  const plugins = ensure(
+  const plugins = u.ensure(
     await denops.eval("g:dpp#_plugins"),
     is.RecordOf(isPlugin),
   );

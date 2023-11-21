@@ -1,7 +1,7 @@
-import { assert, is } from "../../../denops/deps/unknownutil.ts";
-import { autocmd, lambda, mapping } from "../../../denops/deps/denops_std.ts";
-import { BaseConfig, ConfigArguments } from "../../../denops/deps/ddu.ts";
 import { register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import { BaseConfig, ConfigArguments } from "../../../denops/deps/ddu.ts";
+import { autocmd, lambda, mapping } from "../../../denops/deps/denops_std.ts";
+import { is, u } from "../../../denops/deps/unknownutil.ts";
 
 const augroup = "vimrc#ddu-ui-filer";
 
@@ -40,7 +40,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   };
   const ddu_filer = register(denops, async (name: unknown) => {
     await setupTable["_"]?.();
-    assert(name, is.String);
+    u.assert(name, is.String);
     // const names = (aliases[name] ?? name).split(/:/g);
     // for (const name of names) {
     //   await setupTable[name]?.();

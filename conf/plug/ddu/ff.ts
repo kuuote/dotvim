@@ -1,7 +1,5 @@
-import {
-  ActionFlags,
-  BaseConfig,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
+import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import { ConfigArguments } from "../../../denops/deps/ddu.ts";
 import {
   autocmd,
   Denops,
@@ -9,10 +7,12 @@ import {
   mapping,
   option,
 } from "../../../denops/deps/denops_std.ts";
-import { assert, is } from "../../../denops/deps/unknownutil.ts";
-import { ConfigArguments } from "../../../denops/deps/ddu.ts";
-import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import { is, u } from "../../../denops/deps/unknownutil.ts";
 import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
+import {
+  ActionFlags,
+  BaseConfig,
+} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
 
 const augroup = "vimrc#ddu-ui-ff";
 
@@ -162,7 +162,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   };
   const ddu_ff = register(denops, async (name: unknown) => {
     await setupTable["_"]?.();
-    assert(name, is.String);
+    u.assert(name, is.String);
     const names = (aliases[name] ?? name).split(/:/g);
     for (const name of names) {
       await setupTable[name]?.();
@@ -170,7 +170,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   }, { args: "b:ddu_ui_name" });
   const ddu_ff_filter = register(denops, async (name: unknown) => {
     await setupFilterTable["_"]?.();
-    assert(name, is.String);
+    u.assert(name, is.String);
     const names = (aliases[name] ?? name).split(/:/g);
     for (const name of names) {
       await setupFilterTable[name]?.();

@@ -1,11 +1,11 @@
-import { assert, is } from "../deps/unknownutil.ts";
+import { is, u } from "../deps/unknownutil.ts";
 import { Denops } from "../deps/denops_std.ts";
 import { stdpath } from "../deps/deno_std.ts";
 
 export function main(denops: Denops) {
   denops.dispatcher = {
     async load(path: unknown, args?: unknown) {
-      assert(path, is.String);
+      u.assert(path, is.String);
       // NOTE: Import module with fragment so that reload works properly.
       // https://github.com/vim-denops/denops.vim/issues/227
       const mod = await import(

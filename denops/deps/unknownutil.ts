@@ -1,8 +1,2 @@
-export {
-  assert,
-  ensure,
-  is,
-  maybe,
-  type Predicate,
-  type PredicateType,
-} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+export * as u from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+export { is } from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";

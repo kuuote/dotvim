@@ -1,7 +1,4 @@
-import {
-  assert,
-  is,
-} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+import { is, u } from "../deps/unknownutil.ts";
 import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
 
 // 例えば↑のimportを整理するにはvip<Esc>後に
@@ -18,10 +15,10 @@ export function main(denops: Denops) {
       findRegExpStr: unknown,
       keyRegExpStr: unknown,
     ) {
-      assert(start, is.Number);
-      assert(end, is.Number);
-      assert(findRegExpStr, is.String);
-      assert(keyRegExpStr, is.String);
+      u.assert(start, is.Number);
+      u.assert(end, is.Number);
+      u.assert(findRegExpStr, is.String);
+      u.assert(keyRegExpStr, is.String);
       const findRegExp = new RegExp(findRegExpStr);
       // 複数行に跨るのでdotAllを入れておく
       const keyRegExp = new RegExp(keyRegExpStr, "s");
