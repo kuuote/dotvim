@@ -28,7 +28,7 @@ repo = 'https://github.com/matsui54/ddu-source-file_external'
 repo = 'https://github.com/matsui54/ddu-source-help'
 # L<ddu-local-help>
 hook_add = '''
-nnoremap dh <Cmd>call ddu#start({'name':'help'})<CR>
+nnoremap dh <Cmd>call denops#request('ddu', 'start', [{'name':'help'}])<CR>
 '''
 
 [[plugins]]
@@ -58,7 +58,7 @@ repo = 'https://github.com/Shougo/ddu-source-file'
 repo = 'https://github.com/Shougo/ddu-source-line'
 # L<ddu-local-line>
 hook_add = '''
-nnoremap dl <Cmd>call ddu#start({'name':'line'})<CR>
+nnoremap dl <Cmd>call denops#request('ddu', 'start', [{'name':'line'}])<CR>
 '''
 
 [[plugins]]
