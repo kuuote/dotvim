@@ -16,3 +16,5 @@ endfunction
 autocmd InsertEnter * call s:load()
 " 挿入モード内で呼ばれる想定なので初回は手で呼ぶ
 call s:load()
+
+inoremap F <Plug>(denippet-jump-next)
