@@ -151,6 +151,7 @@ function mainConfig(args: ConfigArguments) {
       file: {
         defaultAction: "open",
       },
+      help: { defaultAction: "tabopen" },
       lsp: { defaultAction: "open" },
       lsp_codeAction: { defaultAction: "apply" },
     },
