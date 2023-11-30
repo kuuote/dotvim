@@ -56,7 +56,7 @@ export class Config extends BaseConfig {
           },
         },
         sourceParams: {
-          "nvim-lsp": {
+          lsp: {
             lspEngine: "lspoints",
           },
           "shell-native": {

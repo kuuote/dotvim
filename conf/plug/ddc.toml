@@ -14,7 +14,7 @@ repo = 'https://github.com/Shougo/ddc-source-input'
 repo = 'https://github.com/Shougo/ddc-source-line'
 
 [[plugins]]
-repo = 'https://github.com/Shougo/ddc-source-nvim-lsp'
+repo = 'https://github.com/Shougo/ddc-source-lsp'
 
 [[plugins]]
 repo = 'https://github.com/Shougo/ddc-source-shell-native'

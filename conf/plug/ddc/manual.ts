@@ -44,10 +44,10 @@ const configSet: Record<
     Promise.resolve({
       sources: ["file"],
     }),
-  "nvim-lsp": () =>
+  lsp: () =>
     Promise.resolve({
       sources: [{
-        name: "nvim-lsp",
+        name: "lsp",
         options: {
           minAutoCompleteLength: 1,
         },
@@ -86,7 +86,7 @@ async function resetConfig(args: ConfigArguments) {
 
 const configMap: Record<string, string> = {
   F: "file",
-  S: "nvim-lsp",
+  S: "lsp",
   T: "snippet",
 };
 
