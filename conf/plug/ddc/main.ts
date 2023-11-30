@@ -49,7 +49,7 @@ export class Config extends BaseConfig {
             converters: [],
             isVolatile: true,
             mark: "変",
-            matchers: ["skkeleton"],
+            matchers: [],
             maxItems: 50,
             minAutoCompleteLength: 1,
             sorters: [],
