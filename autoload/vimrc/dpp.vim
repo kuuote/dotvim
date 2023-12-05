@@ -1,29 +1,20 @@
-let s:job = -1
-
-let s:vimrc = findfile('vimrc', expand('<sfile>:p') .. ';')->fnamemodify(':p')
-let s:base = get(g:, 'vimrc#dpp_base', '/tmp/dpp')
-
-function s:wait() abort
-  if has('nvim') && jobwait([s:job], 0)[0] == -1
-    echo 'waiting unfinished make state'
+function s:wait()
+  while v:true
+    let stat = vimrc#denops#request('makestate', 'status', [])
+    if empty(stat)
+      return
+    endif
+    echo 'waiting ' .. stat->join(', ')
     redraw
-    call jobwait([s:job])
-  endif
-endfunction
-
-function s:make_state_exit(...)
-  echo 'make state exit'
-endfunction
-
-function vimrc#dpp#makestate_job()
-  eval glob(s:base .. '/*/cache.vim', 1, 1)->map('delete(v:val, "rf")')
-  eval glob(s:base .. '/*/state.vim', 1, 1)->map('delete(v:val, "rf")')
-  if has('nvim')
-    call jobstop(s:job)
-    let s:job = jobstart(['nvim', '--headless', '-u', s:vimrc], {'on_exit': function('s:make_state_exit')})
-  endif
+    sleep 10m
+    call getchar(0)
+  endwhile
 endfunction
 
 augroup vimrc_dpp_makestate
   autocmd VimLeavePre * call s:wait()
 augroup END
+
+function vimrc#dpp#makestate_job()
+  call vimrc#denops#notify('makestate', 'run', [])
+endfunction
