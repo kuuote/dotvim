@@ -23,6 +23,10 @@ repo = 'https://github.com/kyoh86/ddu-filter-converter_hl_dir'
 
 [[plugins]]
 repo = 'https://github.com/matsui54/ddu-source-file_external'
+hook_add = '''
+nnoremap ;rw <Cmd>Ddu -name=file_ext_mrw -source-option-_-path=`gin#util#worktree()`<CR>
+nnoremap ;mrw <Cmd>Ddu -name=file_ext_mrw -source-option-_-path=`expand('%:p:h')`<CR>
+'''
 
 [[plugins]]
 repo = 'https://github.com/matsui54/ddu-source-help'
