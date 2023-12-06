@@ -33,7 +33,7 @@ function! operandi#open(type, opts = {}) abort
   let b:operandi_executor = l:type.executor
 
   " TODO: ユーザーにマッピングさせる
-  nnoremap <buffer> <nowait> <CR> <Esc><Cmd>call <SID>execute()<CR>
+  nnoremap <buffer> <nowait> <CR> <Cmd>call <SID>execute()<CR>
   inoremap <buffer> <nowait> <CR> <Esc><Cmd>call <SID>execute()<CR>
 
   execute 'doautocmd <nomodeline> User operandi#open#' .. a:type
