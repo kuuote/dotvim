@@ -6,12 +6,11 @@ import {
   isEndMessage,
   isJobsMessage,
   isStartMessage,
-  isTask,
   isTextMessage,
   newTaskRunner,
   StartMessage,
-  Task,
 } from "./run.ts";
+import { loadTasks } from "./util.ts";
 
 type JobMsg = Omit<StartMessage, "type"> & {
   end: boolean;
@@ -41,12 +40,6 @@ class Buffer {
       };
     }
     if (isDoneMessage(msg)) {
-      await this.denops.call("luaeval", "vim.notify('all tasks are done.')")
-        .catch(async () => {
-          await this.denops.cmd("echomsg msg", {
-            msg: "all tasks are done.",
-          });
-        });
       await autocmd.emit(this.denops, "User", "GitUpdatePost", {
         nomodeline: true,
       });
@@ -70,72 +63,32 @@ class Buffer {
       return header + jobmsg.text;
     }).concat(this.ends.toReversed());
     await this.denops.call("setbufline", this.bufnr, 1, txt);
+    await this.denops.redraw();
   }
 }
 
-async function loadTasks(denops: Denops, path?: string): Promise<Task[]> {
-  if (path == null) {
-    const recordPlugins = u.ensure(
-      await denops.eval("g:dpp#_plugins"),
-      is.Record,
-    );
-    const isGitRepo = (repo: unknown): repo is string => {
-      if (!is.String(repo)) {
-        return false;
-      }
-      return repo[0] !== "/";
-    };
-    const tasks = Object.values(recordPlugins)
-      .filter(is.ObjectOf({
-        name: is.String,
-        path: is.String,
-        repo: isGitRepo,
-        rev: is.OptionalOf(is.String),
-      }))
-      .map((plugin) => ({
-        repo: plugin.repo,
-        path: plugin.path,
-        label: plugin.name,
-        ...plugin.rev ? { rev: plugin.rev } : {},
-      }));
-    for (const task of tasks) {
-      if (!task.repo.includes(":/")) {
-        task.repo = "https://github.com/" + task.repo;
-      }
-    }
-    return tasks;
-  }
-  const tasksFile = path[0] === "/" ? path : stdpath.resolve(
-    stdpath.fromFileUrl(import.meta.url),
-    "..",
-    path,
-  );
-  return u.ensure(
-    await Deno.open(tasksFile, { read: true })
-      .then(async (h) => await new Response(h.readable).json()),
-    is.ArrayOf(isTask),
-  );
-}
-
-export async function main(denops: Denops, args: unknown) {
+export async function run(denops: Denops, args: unknown[]) {
   u.assert(
     args,
-    is.ObjectOf({
-      tasks: is.OptionalOf(is.String),
-      task: is.String,
-    }),
+    is.TupleOf(
+      [
+        is.ArrayOf(is.String),
+        is.String,
+      ] as const,
+    ),
   );
+  const [pathes, task] = args;
   await denops.cmd(
     "tabnew | setlocal buftype=nofile bufhidden=hide noswapfile nowrap",
   );
   const bufnr = Number(await denops.call("bufnr"));
 
-  const tasks = await loadTasks(denops, args.tasks);
+  const tasks = await loadTasks(pathes);
 
-  const taskScript = args.task[0] === "/" ? args.task : stdpath.resolve(
+  const taskScript = task[0] === "/" ? task : stdpath.resolve(
     stdpath.fromFileUrl(import.meta.url),
     "..",
-    args.task,
+    task,
   );
 
   const runner = newTaskRunner(tasks, taskScript);
@@ -148,4 +101,10 @@ export async function main(denops: Denops, args: unknown) {
   await autocmd.emit(denops, "User", "GitUpdatePre", {
     nomodeline: true,
   });
+}
+
+export function main(denops: Denops) {
+  denops.dispatcher = {
+    run: (...args: unknown[]) => run(denops, args),
+  };
 }

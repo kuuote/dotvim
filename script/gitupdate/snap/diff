@@ -12,6 +12,6 @@ cat snapshot | while read repo; read hash; do
   echo $repo
   path=$(echo $repo | perl -pe 's:/:_:g')
   git --no-pager diff --stat $hash
-  git --no-pager diff $hash > /tmp/vimdiff/$path.diff
+  git --no-pager diff $hash @ > /tmp/vimdiff/$path.diff
 )
 done
