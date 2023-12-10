@@ -1,4 +1,5 @@
 call dpp#source('catppuccin')
+set background=dark
 colorscheme catppuccin-mocha
 
 lua <<EOF
