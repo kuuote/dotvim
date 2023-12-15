@@ -32,10 +32,10 @@ export async function run(denops: Denops, args: unknown) {
   const bufnr = Number(await denops.call("bufnr"));
   await denops.call("setbufline", bufnr, "$", "plugins diff output v1");
 
-  await Deno.remove("/tmp/vimdiff", {
+  await Deno.remove("/data/vim/diff", {
     recursive: true,
   }).catch(console.trace);
-  await Deno.mkdir("/tmp/vimdiff", {
+  await Deno.mkdir("/data/vim/diff", {
     recursive: true,
   });
 
@@ -68,7 +68,7 @@ export async function run(denops: Denops, args: unknown) {
     if (hashes[0] === "") {
       continue;
     }
-    const dir = "/tmp/vimdiff/" + repo.path.replaceAll(/\//g, "_") + "/";
+    const dir = "/data/vim/diff/" + repo.path.replaceAll(/\//g, "_") + "/";
     Deno.mkdir(dir);
     const pad = String(hashes.length).length;
     for (let i = 0; i < hashes.length; i++) {

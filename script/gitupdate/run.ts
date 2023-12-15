@@ -1,6 +1,5 @@
 import { is, u } from "../../denops/deps/unknownutil.ts";
 import { TextLineStream } from "/data/vim/repos/github.com/denoland/deno_std/streams/text_line_stream.ts";
-import { Semaphore } from "https://deno.land/x/async@v2.0.2/mod.ts";
 
 export type Task = {
   repo: string;
@@ -16,14 +15,16 @@ export const isTask: u.Predicate<Task> = is.ObjectOf({
   rev: is.OptionalOf(is.String),
 });
 
-export type JobsMessage = {
-  type: "jobs";
+export type InitializeMessage = {
+  type: "initialize";
   jobs: number;
+  maxJobs: number;
 };
 
-export const isJobsMessage: u.Predicate<JobsMessage> = is.ObjectOf({
-  type: is.LiteralOf("jobs"),
+export const isInitializeMessage: u.Predicate<InitializeMessage> = is.ObjectOf({
+  type: is.LiteralOf("initialize"),
   jobs: is.Number,
+  maxJobs: is.Number,
 });
 
 export type DoneMessage = {
@@ -77,23 +78,23 @@ export const isTextMessage: u.Predicate<TextMessage> = is.ObjectOf({
   text: is.String,
 });
 
-export function newTaskRunner(tasks: Task[], script: string, jobs = 8) {
-  const sem = new Semaphore(jobs);
-  const jobstat = Array(jobs).fill(false);
-
+export function newTaskRunner(tasks: Task[], script: string, maxJobs = 8) {
   return new ReadableStream({
     start: async (controller) => {
       controller.enqueue(
         {
-          type: "jobs",
-          jobs,
-        } satisfies JobsMessage,
+          type: "initialize",
+          jobs: tasks.length,
+          maxJobs,
+        } satisfies InitializeMessage,
       );
-      await Promise.all(tasks.map(async (task) => {
-        await sem.lock(async () => {
-          const jobnr = jobstat.indexOf(false);
-          jobstat[jobnr] = true;
-
+      let tasknr = 0;
+      await Promise.all(Array.from(Array(maxJobs), async (_, jobnr) => {
+        while (true) {
+          const task = tasks[tasknr++];
+          if (task == null) {
+            return;
+          }
           const oldHash = await new Deno.Command("git", {
             args: ["-C", task.path, "rev-parse", "@{u}"],
           }).output().then((result) => new TextDecoder().decode(result.stdout))
@@ -170,9 +171,7 @@ export function newTaskRunner(tasks: Task[], script: string, jobs = 8) {
               success: status.success,
             } satisfies EndMessage,
           );
-
-          jobstat[jobnr] = false;
-        });
+        }
       }));
       controller.enqueue(
         {

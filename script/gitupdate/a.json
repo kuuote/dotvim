@@ -1,0 +1,12 @@
+[
+	{
+		"label": "vim",
+		"path": "/data/vim/repos/github.com/vim/vim",
+		"repo": "https://github.com/vim/vim"
+	},
+	{
+		"label": "neovim",
+		"path": "/data/vim/repos/github.com/neovim/neovim",
+		"repo": "https://github.com/neovim/neovim"
+	}
+]

@@ -4,7 +4,7 @@ import { is, u } from "../../denops/deps/unknownutil.ts";
 import {
   isDoneMessage,
   isEndMessage,
-  isJobsMessage,
+  isInitializeMessage,
   isStartMessage,
   isTextMessage,
   newTaskRunner,
@@ -17,20 +17,51 @@ type JobMsg = Omit<StartMessage, "type"> & {
   text: string;
 };
 
+type JobResult = {
+  label: string;
+  update: boolean;
+};
+
 class Buffer {
   denops: Denops;
-  bufnr: number;
+  bufnr = -1;
+  width = -1;
   jobs = 0;
+  maxJobs = 0;
   jobmsg: Record<number, JobMsg> = {};
-  ends: string[] = [];
-  constructor(denops: Denops, bufnr: number) {
+  ends: JobResult[] = [];
+
+  constructor(denops: Denops) {
     this.denops = denops;
-    this.bufnr = bufnr;
+  }
+
+  async open() {
+    await this.denops.cmd(
+      [
+        "tabnew",
+        "setlocal buftype=nofile bufhidden=wipe noswapfile nowrap",
+        "syntax match diffRemoved /^\\[/",
+        "syntax match diffRemoved /]$/",
+        "syntax match diffAdded /=\\{2,}/",
+        "syntax match Constant /.*:/",
+        "syntax match Statement /Update:/",
+      ].join("|"),
+    );
+    this.bufnr = Number(await this.denops.call("bufnr"));
+    this.width = Number(
+      await this.denops.eval("getwininfo(win_getid())[0].width - 2"),
+    );
   }
 
   async handle(msg: unknown) {
-    if (isJobsMessage(msg)) {
+    if (isInitializeMessage(msg)) {
       this.jobs = msg.jobs;
+      this.maxJobs = msg.maxJobs;
+    }
+    if (isDoneMessage(msg)) {
+      await autocmd.emit(this.denops, "User", "GitUpdatePost", {
+        nomodeline: true,
+      });
     }
     if (isStartMessage(msg)) {
       this.jobmsg[msg.jobnr] = {
@@ -39,19 +70,24 @@ class Buffer {
         text: "",
       };
     }
-    if (isDoneMessage(msg)) {
-      await autocmd.emit(this.denops, "User", "GitUpdatePost", {
-        nomodeline: true,
-      });
-    }
     if (isEndMessage(msg)) {
       this.jobmsg[msg.jobnr].end = true;
-      this.ends.push(this.jobmsg[msg.jobnr].label);
+      this.ends.push({
+        label: this.jobmsg[msg.jobnr].label,
+        update: this.jobmsg[msg.jobnr].hash !== msg.hash,
+      });
     }
     if (isTextMessage(msg)) {
       this.jobmsg[msg.jobnr].text = msg.text;
     }
-    const txt = [...Array(this.jobs)].map((_, i) => {
+
+    const curJobs = this.ends.length;
+    const prog = this.width -
+      Math.ceil((this.jobs - curJobs) / this.jobs * this.width);
+    const progress = [
+      "[" + "=".repeat(prog) + " ".repeat(this.width - prog) + "]",
+    ];
+    const jobmsgs = [...Array(this.maxJobs)].map((_, i) => {
       const jobmsg = this.jobmsg[i];
       if (jobmsg == null) {
         return "";
@@ -61,9 +97,37 @@ class Buffer {
         return header + "done";
       }
       return header + jobmsg.text;
-    }).concat(this.ends.toReversed());
-    await this.denops.call("setbufline", this.bufnr, 1, txt);
-    await this.denops.redraw();
+    });
+    const results = this.ends
+      .toReversed()
+      .sort((a, b) => (a.update ? -1 : 0) + (b.update ? 1 : 0))
+      .map((r) => (r.update ? "Update: " : "") + r.label);
+    this.redraw([
+      progress,
+      jobmsgs,
+      results,
+    ].flat());
+  }
+
+  doRedraw = false;
+  async redraw(text: string[]) {
+    if (this.doRedraw) {
+      return;
+    }
+    this.doRedraw = true;
+    try {
+      await this.denops.call(
+        "setbufline",
+        this.bufnr,
+        1,
+        text,
+      );
+      if (this.denops.meta.host == "vim") {
+        this.denops.redraw();
+      }
+    } finally {
+      this.doRedraw = false;
+    }
   }
 }
 
@@ -78,11 +142,6 @@ export async function run(denops: Denops, args: unknown[]) {
     ),
   );
   const [pathes, task] = args;
-  await denops.cmd(
-    "tabnew | setlocal buftype=nofile bufhidden=hide noswapfile nowrap",
-  );
-  const bufnr = Number(await denops.call("bufnr"));
-
   const tasks = await loadTasks(pathes);
 
   const taskScript = task[0] === "/" ? task : stdpath.resolve(
@@ -92,7 +151,8 @@ export async function run(denops: Denops, args: unknown[]) {
   );
 
   const runner = newTaskRunner(tasks, taskScript);
-  const buffer = new Buffer(denops, bufnr);
+  const buffer = new Buffer(denops);
+  await buffer.open();
   (async () => {
     for await (const msg of runner) {
       await buffer.handle(msg);
