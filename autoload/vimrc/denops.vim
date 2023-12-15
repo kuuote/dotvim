@@ -1,7 +1,11 @@
 function vimrc#denops#autoload(name) abort
   let plugin = 'vimrc_' .. a:name
   if !denops#plugin#is_loaded(plugin)
-    call denops#plugin#register(plugin, printf('%s/denops/@vimrc/%s.ts', $VIMDIR, a:name))
+    let files = globpath(&runtimepath, 'denops/@vimrc/' .. a:name .. '.ts', 1, 1)
+    if empty(files)
+      throw "can't find plugin: " .. a:name
+    endif
+    call denops#plugin#register(plugin, files[0])
   endif
 endfunction
 
