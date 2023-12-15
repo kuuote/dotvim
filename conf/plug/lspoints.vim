@@ -13,8 +13,9 @@ call s:initialize()
 function s:on_attach()
   nnoremap <buffer> ma <Cmd>DduSelectorCall lsp_codeAction<CR>
   nnoremap <buffer> mf <Cmd>call denops#request('lspoints', 'executeCommand', ['format', 'execute', bufnr()])<CR>
+  nnoremap <buffer> gd <Cmd>DduSelectorCall lsp_definition<CR>
 endfunction
-autocmd User LspointsAttach:* call s:on_attach()
+autocmd vimrc User LspointsAttach:* call s:on_attach()
 
 function s:attach_denols() abort
   call lspoints#attach('denols', #{
@@ -29,4 +30,4 @@ function s:attach_denols() abort
   \ })
 endfunction
 
-autocmd FileType typescript,typescriptreact call s:attach_denols()
+autocmd vimrc FileType typescript,typescriptreact call s:attach_denols()
