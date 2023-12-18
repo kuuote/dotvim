@@ -1,3 +1,19 @@
+" CAPS LOCK
+"" skkeletonは便利ですね本当に
+function s:caps()
+  for mode in ['i', 'c']
+    for key in 'abcdefghijklmnopqrstuvwxyz'->split('\zs')
+      call skkeleton#save_map(mode, key)
+      execute printf('%snoremap <buffer> %s %s', mode, key, key->toupper())
+    endfor
+  endfor
+  augroup vimrc_caps
+    autocmd InsertLeave <buffer> ++once call skkeleton#unmap()
+  augroup END
+endfunction
+
+inoremap C <Cmd>call <SID>caps()<CR>
+
 " Cmdlineをキャンセルした際に履歴を残さない
 cnoremap <Esc> <C-u><C-c>
 
@@ -10,9 +26,13 @@ noremap! ,q <Bar>
 noremap! ,a \
 noremap! ,z _
 
+noremap! ,s :
+
 noremap! ,e +
 noremap! ,d =
 noremap! ,c *
+
+noremap! ,f #
 
 " notation helper
 function s:notation()
