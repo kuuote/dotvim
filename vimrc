@@ -13,3 +13,12 @@ set runtimepath=$VIMDIR,$VIMDIR/local,$VIMRUNTIME,$VIMDIR/after,$VIMDIR/local/af
 if !v:vim_did_enter
   source $VIMDIR/conf/dpp.vim
 endif
+
+filetype plugin indent on
+autocmd vimrc FileType * ++once ++nested syntax enable
+
+" デフォルトプラギンを無効化するやつ
+" 何かしらのプラギンが読まれるまでVIMRUNTIME抜くのでそれに依存するけど
+" うちはdenops.vim使ってるので問題Nothing!
+set rtp-=$VIMRUNTIME
+au SourcePost */plugin/* ++once set rtp^=$VIMRUNTIME

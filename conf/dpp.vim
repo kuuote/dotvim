@@ -7,9 +7,6 @@ if dpp#min#load_state(g:vimrc#dpp_base)
   finish
 endif
 
-filetype plugin indent on
-syntax enable
-
 " adhoc hook
 let s:hook_file = '/tmp/inline.vim/' .. ($VIMDIR .. 'dpp_hook.vim')->substitute('/', '_', 'g')
 if getftype(s:hook_file) ==# 'file'
