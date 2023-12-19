@@ -49,10 +49,11 @@ function s:expandpath() abort
 endfunction
 
 function s:hook() abort
+  syntax enable
   set syntax=vim
   inoremap <buffer> <expr> P <SID>expandpath()
 endfunction
 
 augroup operandi#open#mycommand
-  autocmd User operandi#open#mycommand call s:hook()
+  autocmd User operandi#open#mycommand ++nested call s:hook()
 augroup END
