@@ -287,6 +287,16 @@ const definition: Record<string, Collector> = {
     name: "lsp",
     sources: ["lsp_definition"],
   }),
+  lsp_diagnostic: () => ({
+    name: "lsp",
+    sources: [{
+      name: "lsp_diagnostic",
+      params: {
+        clientName: "lspoints",
+        buffer: 0,
+      },
+    }],
+  }),
   lsp_references: () => ({
     name: "lsp",
     sources: ["lsp_references"],
