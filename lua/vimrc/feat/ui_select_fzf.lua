@@ -1,3 +1,5 @@
+local conv = require('vimrc.conv')
+
 local tmpdir = vim.fn.tempname()
 vim.fn.mkdir(tmpdir)
 local tmpcount = 0
@@ -27,7 +29,7 @@ end
 return function(items, opts, on_choice)
   local format_item = opts.format_item or tostring
   local formatted = {}
-  for idx, item in iter(items) do
+  for idx, item in ipairs(conv.lua(items)) do
     formatted[idx] = idx .. ': ' .. format_item(item)
   end
 
