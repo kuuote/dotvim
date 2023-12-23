@@ -12,3 +12,9 @@ set termguicolors
 " 立つ鳥後を濁さず
 set viminfo+=:0
 
+" スワップ固めような
+set directory=/tmp/swp//
+call mkdir('/tmp/swp', 'p')
+
+" nullっとスクロール
+set mouse=n
