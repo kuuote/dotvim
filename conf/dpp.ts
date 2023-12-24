@@ -67,6 +67,7 @@ export class Config extends BaseConfig {
     profiles.add("lspoints");
     profiles.add("main");
     profiles.add("treesitter");
+    profiles.add("x"); // 実験的に入れたいプラギン
 
     const tomls = await glob(args.denops, "$VIMDIR/conf/plug/**/*.toml");
     for (const tomlPath of tomls) {
