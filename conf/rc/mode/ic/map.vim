@@ -73,9 +73,15 @@ noremap! E <Cmd>call pum#map#cancel()<CR>
 noremap! <expr> ; toupper(getcharstr())
 noremap! ;<Tab> :
 
-" swap () []
-noremap! [ (
-noremap! ] )
-noremap! ( [
-noremap! ) ]
+" single quoteをprefixにしてしまう
+noremap! 'w ''
+noremap! 't '''
+"" 括弧補完みたいなことをする
+inoremap '' <Cmd>call denippet#anonymous("'$1'$0")<CR>
+inoremap 'f <Cmd>call denippet#anonymous('($1)$0')<CR>
+inoremap 'd <Cmd>call denippet#anonymous('[$1]$0')<CR>
+inoremap 's <Cmd>call denippet#anonymous('{$1}$0')<CR>
+inoremap 'e <Cmd>call denippet#anonymous("\n\t$0\n")<CR>
+"" JISキーボード用
+map! : '
 
