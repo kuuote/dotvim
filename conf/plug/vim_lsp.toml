@@ -1,0 +1,11 @@
+[[plugins]]
+repo = 'https://github.com/mattn/vim-lsp-settings'
+merged = false
+
+[[plugins]]
+repo = 'https://github.com/prabirshrestha/vim-lsp'
+hook_add = '''
+" L<toml-ddu_source_lsp>
+let g:ddu_source_lsp_clientName = 'vim-lsp'
+'''
+
