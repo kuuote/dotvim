@@ -31,3 +31,6 @@ function s:attach_denols() abort
 endfunction
 
 autocmd vimrc FileType typescript,typescriptreact call s:attach_denols()
+
+" L<toml-ddu_source_lsp>
+let g:ddu_source_lsp_clientName = 'lspoints'

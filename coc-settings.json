@@ -1,0 +1,14 @@
+{
+  "languageserver": {
+    "denols": {
+      "args": ["lsp"],
+      "command": "deno",
+      "settings": {
+        "deno": {
+          "enable": true
+        }
+      },
+      "filetypes": ["typescript"]
+    }
+  }
+}

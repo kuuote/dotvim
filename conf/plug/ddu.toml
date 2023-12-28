@@ -84,9 +84,7 @@ lazy = 1
 
 [[plugins]]
 repo = 'https://github.com/uga-rosa/ddu-source-lsp'
-hook_add = '''
-let g:ddu_source_lsp_clientName = 'lspoints'
-'''
+# X<toml-ddu_source_lsp>
 
 [[plugins]]
 repo = 'https://github.com/yuki-yano/ddu-filter-fzf'

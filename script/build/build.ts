@@ -5,7 +5,7 @@ import { is, u } from "../../denops/deps/unknownutil.ts";
 import { encodeBase64 } from "/data/vim/repos/github.com/denoland/deno_std/encoding/base64.ts";
 
 // ビルドログ眺めてニヤニヤするやつ Version.2
-// call vimrc#denops#request('loader', 'load', [expand('$VIMDIR/script/build/build.ts')])
+// call vimrc#denops_loader#load(expand('$VIMDIR/script/build/build.ts'), v:true)
 
 const vimdir = String(Deno.env.get("VIMDIR"));
 

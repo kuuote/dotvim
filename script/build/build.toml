@@ -1,3 +1,6 @@
+["coc.nvim"]
+script = '$VIMDIR/script/build/build/coc.sh'
+
 [tree-sitter-unifieddiff]
 script = '$VIMDIR/script/build/build/treesitter/unifieddiff.sh'
 
