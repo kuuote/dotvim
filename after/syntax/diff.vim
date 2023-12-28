@@ -1,0 +1,1 @@
+syntax match diffIndicator /^ /
