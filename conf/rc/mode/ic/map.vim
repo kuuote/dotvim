@@ -71,7 +71,7 @@ noremap! E <Cmd>call pum#map#cancel()<CR>
 
 "" sticky ;
 noremap! <expr> ; toupper(getcharstr())
-noremap! ;<Tab> ;
+noremap! ;<Tab> :
 
 " swap () []
 noremap! [ (
