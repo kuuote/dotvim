@@ -8,6 +8,7 @@ repo = '$VIMDIR/bundle/vim-operandi'
 on_func = 'operandi#'
 hook_add = '''
 nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
+xnoremap <Space><Space> <Esc><Cmd>call operandi#open('mycommand')<CR><Cmd>call setline(1, "'<,'>")<CR>
 '''
 
 [[plugins]]
