@@ -1,0 +1,9 @@
+[[plugins]]
+repo = 'https://github.com/denoland/deno_std'
+
+[[plugins]]
+repo = 'https://github.com/lambdalisue/deno-unknownutil'
+
+[[plugins]]
+repo = 'https://github.com/uga-rosa/deno-denops-lsputil'
+
