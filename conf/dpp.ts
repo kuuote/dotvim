@@ -64,10 +64,15 @@ export class Config extends BaseConfig {
     profiles.add("ddu");
     profiles.add("dpp");
     profiles.add("filetype_vim");
-    profiles.add("lspoints");
     profiles.add("main");
     profiles.add("treesitter");
     profiles.add("x"); // 実験的に入れたいプラギン
+
+    // LSP
+    // profiles.add("coc");
+    profiles.add("lspoints");
+    // profiles.add("nvim_lsp");
+    // profiles.add("vim_lsp");
 
     const tomls = await glob(args.denops, "$VIMDIR/conf/plug/**/*.toml");
     for (const tomlPath of tomls) {
