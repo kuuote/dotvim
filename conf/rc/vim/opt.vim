@@ -1,1 +1,2 @@
 set incsearch
+set autoindent
