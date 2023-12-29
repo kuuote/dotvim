@@ -3,3 +3,13 @@ repo = 'https://github.com/ibhagwan/fzf-lua'
 on_cmd = 'FzfLua'
 on_lua = 'fzf-lua'
 
+[[plugins]]
+repo = 'NeogitOrg/neogit'
+on_cmd = 'Neogit'
+lua_source = '''
+require('neogit').setup {}
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
