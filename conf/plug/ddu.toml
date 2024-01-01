@@ -76,6 +76,8 @@ repo = 'https://github.com/Shougo/ddu.vim'
 # L<ddu-global>
 hook_add = '''
 autocmd User DenopsReady source $VIMDIR/conf/plug/ddu.vim
+" DenopsReadyのタイミングが変わってて呼び出されなくなったので無理やり呼び出しておく
+autocmd User DenopsReady ++once call timer_start(0, {->execute('doautocmd <nomodeline> User DenopsReady', '')})
 '''
 
 [[plugins]]

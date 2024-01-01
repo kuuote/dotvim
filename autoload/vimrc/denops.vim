@@ -1,3 +1,13 @@
+function vimrc#denops#load(name, path) abort
+  try
+    " < v6
+    call denops#plugin#load(a:name, a:path)
+  catch /^Vim\%((\a\+)\)\=:E117:/
+    " v5 <
+    call denops#plugin#register(a:name, a:path, #{ mode: 'skip' })
+  endtry
+endfunction
+
 function vimrc#denops#autoload(name) abort
   let plugin = 'vimrc_' .. a:name
   if !denops#plugin#is_loaded(plugin)
@@ -5,7 +15,7 @@ function vimrc#denops#autoload(name) abort
     if empty(files)
       throw "can't find plugin: " .. a:name
     endif
-    call denops#plugin#register(plugin, files[0])
+    call vimrc#denops#load(plugin, files[0])
   endif
 endfunction
 
