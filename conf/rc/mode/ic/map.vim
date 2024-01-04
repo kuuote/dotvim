@@ -76,11 +76,15 @@ noremap! ;<Tab> :
 " single quoteをprefixにしてしまう
 noremap! 'w ''
 noremap! 't '''
+inoremap '<Space> <Plug>(denippet-jump-next)
 "" 括弧補完みたいなことをする
+inoremap "" <Cmd>call denippet#anonymous('"$1"$0')<CR>
 inoremap '' <Cmd>call denippet#anonymous("'$1'$0")<CR>
+inoremap 'g <Cmd>call denippet#anonymous('<$1>$0')<CR>
 inoremap 'f <Cmd>call denippet#anonymous('($1)$0')<CR>
 inoremap 'd <Cmd>call denippet#anonymous('[$1]$0')<CR>
 inoremap 's <Cmd>call denippet#anonymous('{$1}$0')<CR>
+"" endwise like
 inoremap 'e <Cmd>call denippet#anonymous("\n\t$0\n")<CR>
 "" JISキーボード用
 map! : '
