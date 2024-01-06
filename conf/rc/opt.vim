@@ -17,4 +17,4 @@ set directory=/tmp/swp//
 call mkdir('/tmp/swp', 'p')
 
 " nullっとスクロール
-set mouse=n
+set mouse=nv
