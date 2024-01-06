@@ -70,7 +70,7 @@ noremap! Y <Cmd>call pum#map#confirm()<CR>
 noremap! E <Cmd>call pum#map#cancel()<CR>
 
 "" sticky ;
-noremap! <expr> ; toupper(getcharstr())
+noremap! <expr> ; toupper(getcharstr()[0])
 noremap! ;<Tab> :
 
 " single quoteをprefixにしてしまう
