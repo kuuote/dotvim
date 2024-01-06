@@ -44,15 +44,25 @@ const configSet: Record<
     Promise.resolve({
       sources: ["file"],
     }),
-  lsp: () =>
-    Promise.resolve({
+  lsp: async (denops) => {
+    const lspEngine = String(
+      await denops.eval(
+        "get(b:, 'ddu_source_lsp_clientName', get(g:, 'ddu_source_lsp_clientName', 'nvim-lsp'))",
+      ),
+    );
+    return {
       sources: [{
         name: "lsp",
         options: {
           minAutoCompleteLength: 1,
         },
+        params: {
+          lspEngine,
+        },
       }],
-    }),
+    };
+  },
+
   snippet: async (denops) => {
     await denops.call("dpp#source", "denippet.vim");
     return {

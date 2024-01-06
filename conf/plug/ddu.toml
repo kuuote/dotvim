@@ -87,6 +87,9 @@ lazy = 1
 [[plugins]]
 repo = 'https://github.com/uga-rosa/ddu-source-lsp'
 # X<toml-ddu_source_lsp>
+hook_add = '''
+autocmd vimrc User LspointsAttach:* let b:ddu_source_lsp_clientName = 'lspoints'
+'''
 
 [[plugins]]
 repo = 'https://github.com/yuki-yano/ddu-filter-fzf'
