@@ -27,4 +27,4 @@ augroup gitupdate_denops_view
 augroup END
 
 call denops#plugin#wait(s:runner)
-call denops#request(s:runner, 'run', [s:tasks, './task/fget.sh'])
+call denops#request(s:runner, 'run', [s:tasks, './task/pull.sh'])
