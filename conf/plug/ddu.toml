@@ -88,6 +88,9 @@ lazy = 1
 repo = 'https://github.com/uga-rosa/ddu-source-lsp'
 # X<toml-ddu_source_lsp>
 hook_add = '''
+if has('nvim')
+  autocmd vimrc LspAttach * let b:ddu_source_lsp_clientName = 'nvim-lsp'
+endif
 autocmd vimrc User LspointsAttach:* let b:ddu_source_lsp_clientName = 'lspoints'
 '''
 

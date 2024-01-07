@@ -71,7 +71,7 @@ export class Config extends BaseConfig {
     // LSP
     // profiles.add("coc");
     profiles.add("lspoints");
-    // profiles.add("nvim_lsp");
+    profiles.add("nvim_lsp");
     // profiles.add("vim_lsp");
 
     const tomls = await glob(args.denops, "$VIMDIR/conf/plug/**/*.toml");
