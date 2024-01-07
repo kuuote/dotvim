@@ -17,7 +17,7 @@ require('nvim-treesitter.configs').setup {
   },
   parser_install_dir = '/data/vim/treesitter',
 }
-vim.o.runtimepath = vim.o.runtimepath .. ',/data/vim/treesitter'
+vim.opt.runtimepath:append('/data/vim/treesitter')
 
 -- local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
 -- parser_config.unifieddiff = {
