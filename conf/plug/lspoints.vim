@@ -1,12 +1,10 @@
 function s:initialize()
   call lspoints#load_extensions([
+  \   'config',
   \   'format',
   \   'nvim_diagnostics',
   \ ])
 "  \   'semantic_tokens',
-  call lspoints#settings#patch(#{
-  \   tracePath: '/tmp/lspoints',
-  \ })
 endfunction
 call s:initialize()
 
@@ -21,16 +19,11 @@ endfunction
 autocmd vimrc User LspointsAttach:* call s:on_attach()
 
 function s:attach_denols() abort
-  call lspoints#attach('denols', #{
-  \   cmd: ['deno', 'lsp'],
-  \   initializationOptions: #{
-  \     enable: v:true,
-  \     unstable: v:true,
-  \     suggest: #{
-  \       autoImports: v:false,
-  \     },
-  \   },
-  \ })
+  let name = bufname()
+  if name =~# ':/' && name !~# '^\v(file|deno)'
+    return
+  endif
+  call lspoints#attach('denols')
 endfunction
 
 autocmd vimrc FileType typescript,typescriptreact call s:attach_denols()
