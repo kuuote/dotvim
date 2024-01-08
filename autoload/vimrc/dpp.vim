@@ -1,20 +1,47 @@
-function s:wait()
-  while v:true
-    let stat = vimrc#denops#request('makestate', 'status', [])
-    if empty(stat)
-      return
-    endif
-    echo 'waiting ' .. stat->join(', ')
-    redraw
-    sleep 10m
-    call getchar(0)
-  endwhile
-endfunction
+if has('nvim')
+  let s:finish = v:true
 
-augroup vimrc_dpp_makestate
-  autocmd VimLeavePre * call s:wait()
-augroup END
+  function s:wait()
+    while v:true
+      if s:finish
+        return
+      endif
+      echo 'waiting makestate'
+      redraw
+      sleep 10m
+      call getchar(0)
+    endwhile
+  endfunction
 
-function vimrc#dpp#makestate_job()
-  call vimrc#denops#notify('makestate', 'run', [])
-endfunction
+  augroup vimrc_dpp_makestate
+    autocmd VimLeavePre * call s:wait()
+  augroup END
+
+  function vimrc#dpp#makestate_job()
+    let s:finish = v:false
+    call jobstart('~/.vim/f'->expand(), #{
+      \ env: #{
+        \ VIM: '',
+        \ VIMRUNTIME: '',
+      \ },
+      \ on_exit: {job, status -> [
+        \ execute('echomsg "makestate end: " .. status', ''),
+        \ execute('let s:finish = v:true', ''),
+      \ ]},
+      \ pty: v:true,
+    \ })
+  endfunction
+else
+  function vimrc#dpp#makestate_job()
+    call term_start('~/.vim/f'->expand(), #{
+      \ env: #{
+        \ VIM: '',
+        \ VIMRUNTIME: '',
+      \ },
+      \ exit_cb: {job, status -> [
+        \ execute('echomsg "makestate end: " .. status', ''),
+      \ ]},
+      \ hidden: v:true,
+    \ })
+  endfunction
+endif
