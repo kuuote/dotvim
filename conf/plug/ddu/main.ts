@@ -14,6 +14,10 @@ import { dduHelper } from "./lib/helper.ts";
 
 /* main section */
 
+// default options
+const defaultMatchers = ["matcher_fzf"];
+const defaultSorters = ["sorter_fzf"];
+
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
   args.contextBuilder.patchGlobal({
@@ -108,7 +112,12 @@ function setupLocals(args: ConfigArguments) {
   }
   // X<ddu-local-dpp>
   args.contextBuilder.patchLocal("dpp", {
-    sources: ["dpp"],
+    sources: [{
+      name: "dpp",
+      options: {
+        sorters: ["sorter_alpha", "random_first"].concat(defaultSorters),
+      },
+    }],
   });
   args.contextBuilder.patchLocal("file_ext_mrw", {
     sources: [{
@@ -141,9 +150,6 @@ function setupLocals(args: ConfigArguments) {
 }
 
 function mainConfig(args: ConfigArguments) {
-  // default options
-  const defaultMatchers = ["matcher_fzf"];
-  const defaultSorters = ["sorter_fzf"];
   // X<ddu-global>
   args.contextBuilder.patchGlobal({
     kindOptions: {
