@@ -13,7 +13,7 @@ export const snippets: Record<string, TSSnippet> = {
 
       return [
         `function ${fn}#$0() abort`,
-        "endfunction"
+        "endfunction",
       ];
     },
   },

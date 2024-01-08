@@ -1,4 +1,4 @@
-import { Repo, exec } from "./libsnapshot.ts";
+import { exec, Repo } from "./libsnapshot.ts";
 
 await Deno.remove("/data/vim/diff", {
   recursive: true,
