@@ -1,10 +1,14 @@
 [[plugins]]
 repo = 'https://github.com/kuuote/lspoints'
+on_cmd = 'LspointsStart'
 on_ft = [
   'lua',
   'typescript',
   'typescriptreact',
 ]
+hook_add = '''
+nnoremap <Space>ll <Cmd>LspointsStart<CR>
+'''
 hook_source = '''
 source $VIMDIR/conf/plug/lspoints.vim
 '''

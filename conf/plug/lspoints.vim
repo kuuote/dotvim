@@ -26,4 +26,11 @@ function s:attach_denols() abort
   call lspoints#attach('denols')
 endfunction
 
-autocmd vimrc FileType typescript,typescriptreact call s:attach_denols()
+function s:attach() abort
+  let ft = &filetype
+  if ft ==# 'typescript' || ft ==# 'typescriptreact'
+    call s:attach_denols()
+  endif
+endfunction
+"autocmd vimrc FileType typescript,typescriptreact call s:attach_denols()
+command! LspointsStart call s:attach()

@@ -9,6 +9,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('lspconfig').rust_analyzer.setup {
+local lspconfig = require('lspconfig')
+
+lspconfig.denols.setup {
+  autostart = false,
+  settings = {
+    deno = {
+      suggest = {
+        imports = {
+          hosts = {
+            ['https://deno.land'] = false,
+          },
+        },
+      },
+      unstable = true,
+    },
+  },
+}
+
+lspconfig.rust_analyzer.setup {
   autostart = false,
 }
