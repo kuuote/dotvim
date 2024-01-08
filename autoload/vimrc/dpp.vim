@@ -3,15 +3,11 @@ if has('nvim')
   let s:finish = v:true
 
   function s:wait()
-    while v:true
-      if s:finish
-        return
-      endif
-      echo 'waiting makestate'
+    if !s:finish
+      echo 'wait makestate'
       redraw
-      sleep 10m
-      call getchar(0)
-    endwhile
+      call wait(-1, 's:finish', 10)
+    endif
   endfunction
 
   augroup vimrc_dpp_makestate
