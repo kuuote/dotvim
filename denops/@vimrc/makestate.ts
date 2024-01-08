@@ -46,7 +46,7 @@ export async function main(denops: Denops) {
       const vimStatus = await vimProc.status;
       vimProc = void 0;
       if (vimStatus.success) {
-        console.log("vim success");
+        await denops.cmd("echomsg msg", { msg: "vim success" });
       }
       nvimProc = new Deno.Command("nvim", {
         args: ["--headless", "-u", vimrc],
@@ -61,6 +61,7 @@ export async function main(denops: Denops) {
       const nvimStatus = await nvimProc.status;
       nvimProc = void 0;
       if (nvimStatus.success) {
+        await denops.cmd("echomsg msg", { msg: "nvim success" });
         console.log("nvim success");
       }
     },

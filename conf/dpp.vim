@@ -2,7 +2,7 @@ call vimrc#git#use('https://github.com/Shougo/dpp.vim')
 
 let g:vimrc#dpp_base = '/tmp/dpp'
 if dpp#min#load_state(g:vimrc#dpp_base)
-  autocmd User Dpp:makeStatePost quit!
+  autocmd vimrc User Dpp:makeStatePost quit!
   source $VIMDIR/conf/makestate.vim
   finish
 endif

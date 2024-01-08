@@ -137,7 +137,7 @@ export class Config extends BaseConfig {
 
     // プラギン置き場として/data/vimを使う
     const repos = args.basePath + "/repos";
-    await Deno.remove(repos, { recursive: true }).catch(console.trace);
+    await Deno.remove(repos, { recursive: true }).catch(() => {});
     await Deno.mkdir(args.basePath, { recursive: true });
     await Deno.symlink("/data/vim/repos", repos);
 
