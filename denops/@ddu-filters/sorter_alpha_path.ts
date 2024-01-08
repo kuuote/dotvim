@@ -1,7 +1,4 @@
-import {
-  BaseFilter,
-  DduItem,
-} from "../deps/ddu.ts";
+import { BaseFilter, DduItem } from "../deps/ddu.ts";
 import { ActionData } from "../deps/ddu-kind-file.ts";
 
 type Params = Record<PropertyKey, never>;

@@ -44,7 +44,7 @@ export function find(haystack: string, needle: string[]): Set<string> {
 Deno.test({
   name: "find",
   fn() {
-    const result = [...find('foobarbaz', ["foo", "ba", "buz", "baz", "qux"])];
+    const result = [...find("foobarbaz", ["foo", "ba", "buz", "baz", "qux"])];
     const actual = JSON.stringify(result);
     const expected = JSON.stringify(["foo", "ba", "baz"]);
     if (actual !== expected) {

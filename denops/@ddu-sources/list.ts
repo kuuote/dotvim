@@ -1,4 +1,10 @@
-import { BaseSource, DduItem, DduOptions, GatherArguments, Item } from "../deps/ddu.ts";
+import {
+  BaseSource,
+  DduItem,
+  DduOptions,
+  GatherArguments,
+  Item,
+} from "../deps/ddu.ts";
 import { Callback } from "../@ddu-kinds/callback.ts";
 
 type Items = Array<string | DduItem>;
@@ -33,7 +39,10 @@ export class Source extends BaseSource<Params> {
   }
 }
 
-export function buildOptions(items: Items, callback: Callback): Partial<DduOptions> {
+export function buildOptions(
+  items: Items,
+  callback: Callback,
+): Partial<DduOptions> {
   return {
     sources: [{
       name: "list",
