@@ -1,3 +1,4 @@
+" headlessでdenops動かすのが困難なので裏でターミナル起こす
 if has('nvim')
   let s:finish = v:true
 
@@ -32,6 +33,7 @@ if has('nvim')
     \ })
   endfunction
 else
+  " Vimだとターミナルあると終了できないので待たなくてもいい
   function vimrc#dpp#makestate_job()
     call term_start('~/.vim/f'->expand(), #{
       \ env: #{
