@@ -1,4 +1,6 @@
 " headlessでdenops動かすのが困難なので裏でターミナル起こす
+let s:id = -1
+
 if has('nvim')
   let s:finish = v:true
 
@@ -15,15 +17,16 @@ if has('nvim')
   augroup END
 
   function vimrc#dpp#makestate_job()
+    call jobstop(s:id)
     let s:finish = v:false
-    call jobstart('~/.vim/f'->expand(), #{
+    let s:id = jobstart('~/.vim/f'->expand(), #{
       \ env: #{
         \ VIM: '',
         \ VIMRUNTIME: '',
       \ },
       \ on_exit: {job, status -> [
         \ execute('echomsg "makestate end: " .. status', ''),
-        \ execute('let s:finish = v:true', ''),
+        \ execute('if status == 0 | let s:finish = v:true | endif', ''),
       \ ]},
       \ pty: v:true,
     \ })
@@ -31,7 +34,8 @@ if has('nvim')
 else
   " Vimだとターミナルあると終了できないので待たなくてもいい
   function vimrc#dpp#makestate_job()
-    call term_start('~/.vim/f'->expand(), #{
+    silent! call job_stop(s:id, 'kill')
+    let s:id = term_start('~/.vim/f'->expand(), #{
       \ env: #{
         \ VIM: '',
         \ VIMRUNTIME: '',
