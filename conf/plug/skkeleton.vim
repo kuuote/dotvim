@@ -49,3 +49,19 @@ endfunction
 
 autocmd User skkeleton-handled call s:cursorline()
 autocmd User skkeleton-disable-post setlocal nocursorline
+
+function s:azik() abort
+  call skkeleton#azik#add_table('us')
+  call skkeleton#config(#{kanaTable: 'azik'})
+  " https://github.com/NI57721/dotfiles/blob/79d2decf4b1e2bf5522c3af5f0ffdefd87b7ff50/.config/vim/vimrc#L378
+  " sticky keyが無いと生きていけない
+  call skkeleton#register_keymap('input', ';', 'henkanPoint')
+  call skkeleton#register_kanatable('azik', #{l: ['っ', '']})
+  call skkeleton#register_kanatable('azik', #{q: 'katakana'})
+  call skkeleton#register_kanatable('azik', {':': 'disable'})
+  call skkeleton#register_kanatable('azik', {"'": 'disable'})
+endfunction
+command! SKKAzik call s:azik()
+if get(g:, 'skkeleton_use_azik', v:false)
+  call s:azik()
+endif
