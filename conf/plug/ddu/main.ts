@@ -147,6 +147,12 @@ function setupLocals(args: ConfigArguments) {
   args.contextBuilder.patchLocal("line", {
     sources: ["line"],
   });
+  // X<ddu-local-lsp>
+  args.contextBuilder.patchLocal("lsp", {
+    // b:ddu_source_lsp_clientNameをセットしているため
+    // sync付けてないと参照できない
+    sync: true,
+  });
 }
 
 function mainConfig(args: ConfigArguments) {
