@@ -117,6 +117,9 @@ source $VIMDIR/conf/plug/denippet.vim
 '''
 
 [[plugins]]
+repo = 'https://github.com/uga-rosa/estrela.lua'
+
+[[plugins]]
 repo = 'https://github.com/vim-denops/denops.vim'
 
 [[plugins]]
