@@ -18,6 +18,9 @@ repo = 'https://github.com/EdenEast/nightfox.nvim'
 repo = 'https://github.com/eihigh/vim-aomi-grayscale'
 
 [[plugins]]
+repo = 'https://github.com/kyoh86/momiji'
+
+[[plugins]]
 repo = 'https://github.com/sainnhe/edge'
 
 [[plugins]]
