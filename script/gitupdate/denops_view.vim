@@ -11,7 +11,10 @@ let s:shot = vimrc#denops_loader#load('$VIMDIR/script/gitupdate/snap/dps_shot.ts
 let s:diff = vimrc#denops_loader#load('$VIMDIR/script/gitupdate/snap/dps_diff.ts'->expand())
 
 let s:tasks = []
-call add(s:tasks, '$VIMDIR/script/gitupdate/a.json'->expand())
+let a_json = '$VIMDIR/script/gitupdate/a.json'->expand()
+if getftype(a_json) == 'file'
+  call add(s:tasks, a_json)
+endif
 call add(s:tasks, '$VIMDIR/script/gitupdate/tasks.json'->expand())
 
 call denops#plugin#wait(s:shot)
