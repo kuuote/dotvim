@@ -84,6 +84,7 @@ function setupGitStatus(args: ConfigArguments) {
         },
         defaultAction: "open",
       },
+      tag: { defaultAction: "jump" },
     },
   });
   args.contextBuilder.patchLocal("git_status", {
@@ -161,6 +162,11 @@ function setupLocals(args: ConfigArguments) {
   args.contextBuilder.patchLocal("lsp", {
     // b:ddu_source_lsp_clientNameをセットしているため
     // sync付けてないと参照できない
+    sync: true,
+  });
+  // X<ddu-local-tags>
+  args.contextBuilder.patchLocal("tags", {
+    sources: ["tags"],
     sync: true,
   });
 }

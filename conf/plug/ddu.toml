@@ -18,6 +18,13 @@ nnoremap mrr <Cmd>call ddu#start({'name':'mrr'})<CR>
 '''
 
 [[plugins]]
+repo = 'https://github.com/kuuote/ddu-source-tags'
+# L<ddu-local-tags>
+hook_add = '''
+nnoremap ;t <Cmd>call ddu#start({'name':'tags'})<CR>
+'''
+
+[[plugins]]
 repo = 'https://github.com/kyoh86/ddu-filter-converter_hl_dir'
 # L<ddu-filter-converter_hl_dir>
 
