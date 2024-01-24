@@ -243,6 +243,8 @@ const definition: Record<string, Collector> = {
         converters: [],
       },
     }],
+    searchPath: String(await denops.call("expand", "%:p")),
+    sync: true,
   }),
   filer: async (denops) => {
     await denops.dispatcher.loadConfig(
