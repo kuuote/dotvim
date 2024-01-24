@@ -138,12 +138,17 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       );
     },
     git_diff: async () => {
-      await mapping.map(denops, "p", itemAction("applyPatch"), nno);
-      // await map(denops, "p", async () => {
-      //   const view = await fn.winsaveview(denops);
-      //   await action("itemAction", { name: "applyPatch" })();
-      //   await fn.winrestview(denops, view);
-      // }, nno);
+      await mapping.map(
+        denops,
+        "p",
+        [
+          "<Cmd>let b:vimrc_view = winsaveview()<CR>",
+          itemAction("applyPatch"),
+          "<Cmd>call winrestview(b:vimrc_view)<CR>",
+          "<Cmd>unlet b:vimrc_cursor<CR>",
+        ].join(""),
+        nno,
+      );
     },
     git_status: async () => {
       await mapping.map(denops, "c", itemAction("commit"), nno);
