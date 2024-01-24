@@ -5,24 +5,24 @@ repo="$2"
 rev="$3"
 
 dest="${path}.fget"
-spill="${path}.spill"
 
 rm -rf "${dest}"
-git clone --progress --reference-if-able "${path}" --dissociate "${repo}" "${dest}" || exit 1
-if [[ "${rev}" != "" ]]; then
-  (
-    cd "${dest}"
-    git checkout "${rev}" || git reset --hard "${rev}"
-  )
-fi
-mkdir -p "${path}/.git"
-mv "${path}/.git" "${spill}" || exit 1
-mv "${dest}/.git" "${path}/.git" || exit 1
-rm -rf "${spill}"
-rm -rf "${dest}"
 
-# cleaning
-cd "${path}" || exit 1
-[[ -e .vimrc_hash ]] && exit
-ls -1A --color=never | grep -v '^\.git$' | xargs rm -rf
-git restore .
+(
+  git clone --progress --reference-if-able "${path}" --dissociate "${repo}" "${dest}" || exit 1
+
+  if [[ "${rev}" != "" ]]; then
+    (
+      cd "${dest}"
+      git switch "${rev}" || git reset --hard "${rev}"
+    )
+  fi
+
+  if [[ -e "${path}/.vimrc_hash" ]]; then
+    rsync -a --delete-before "${dest}/.git/" "${path}/.git/"
+  else
+    rsync -a --delete-before "${dest}/" "${path}/"
+  fi
+)
+
+rm -rf "${dest}"
