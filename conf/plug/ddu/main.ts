@@ -139,6 +139,16 @@ function setupLocals(args: ConfigArguments) {
       },
     }],
   });
+  // X<ddu-local-git_diff>
+  args.contextBuilder.patchLocal("git_diff", {
+    sources: ["git_diff"],
+    uiParams: {
+      ff: {
+        maxDisplayItems: 100000,
+        maxHighlightItems: 100000,
+      },
+    },
+  });
   // X<ddu-local-help>
   args.contextBuilder.patchLocal("help", {
     sources: ["help"],
@@ -264,6 +274,14 @@ const definition: Record<string, Collector> = {
         remote: true,
       },
     }],
+  }),
+  git_diff: async (denops) => ({
+    name: "git_diff",
+    sourceOptions: {
+      git_diff: {
+        path: String(await denops.call("expand", "%:p")),
+      },
+    },
   }),
   github_repo_pull: async (denops) => {
     // L<dpp-lazy-ddu_source_github>
