@@ -14,17 +14,19 @@ function s:source() abort
 endfunction
 
 function s:executor(cmd, opts) abort
+  let typed = get(a:opts, 'typed', v:true)
+
   let mru_opts = #{data: s:_source()}
-  if a:cmd !~# '^:'
+  if typed
     let mru_opts.line = a:cmd
   endif
   call vimrc#mru#save(s:history, mru_opts)
   " 本体の履歴を統合して消す
   autocmd SafeState * ++once call histdel(':')
 
-  autocmd CmdlineEnter * ++once call setcmdline(s:cmd)
   let s:cmd = a:cmd
-  let typed = get(a:opts, 'typed', v:true)
+  autocmd CmdlineEnter * ++once call setcmdline(s:cmd)
+  echomsg a:opts
   call feedkeys(":\<CR>", typed ? 'nt' : 'n')
 endfunction
 
@@ -53,6 +55,8 @@ function s:hook() abort
   syntax enable
   set syntax=vim
   inoremap <buffer> <expr> P <SID>expandpath()
+  inoremap <buffer> E <Esc><Cmd>call operandi#execute({'typed': v:false})<CR>
+  nnoremap <buffer> ;<Tab> <Cmd>call operandi#execute({'typed': v:false})<CR>
 endfunction
 
 augroup operandi#open#mycommand
