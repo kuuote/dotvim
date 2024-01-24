@@ -13,18 +13,19 @@ function s:source() abort
   return s:_source()->vimrc#mru#uniq()
 endfunction
 
-function s:executor(cmd) abort
-  let opts = #{data: s:_source()}
+function s:executor(cmd, opts) abort
+  let mru_opts = #{data: s:_source()}
   if a:cmd !~# '^:'
-    let opts.line = a:cmd
+    let mru_opts.line = a:cmd
   endif
-  call vimrc#mru#save(s:history, opts)
+  call vimrc#mru#save(s:history, mru_opts)
   " 本体の履歴を統合して消す
   autocmd SafeState * ++once call histdel(':')
 
   autocmd CmdlineEnter * ++once call setcmdline(s:cmd)
   let s:cmd = a:cmd
-  call feedkeys(":\<CR>", s:cmd =~# '^:' ? 'n' : 'nt')
+  let typed = get(a:opts, 'typed', v:true)
+  call feedkeys(":\<CR>", typed ? 'nt' : 'n')
 endfunction
 
 

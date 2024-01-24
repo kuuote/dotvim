@@ -11,7 +11,10 @@ function! s:get_type(type) abort
   return s:types[a:type]
 endfunction
 
-function! s:execute() abort
+function! operandi#execute(opts = {}) abort
+  if !exists('b:operandi_executor')
+    return
+  endif
   let l:cmd = getline('.')
   let l:Executor = b:operandi_executor
   " TODO: openerに準じた閉じ方をする
@@ -19,7 +22,7 @@ function! s:execute() abort
   tabclose
   execute 'tabnext' previous
 
-  call l:Executor(l:cmd)
+  call l:Executor(l:cmd, a:opts)
 endfunction
 
 function! operandi#open(type, opts = {}) abort
@@ -33,8 +36,8 @@ function! operandi#open(type, opts = {}) abort
   let b:operandi_executor = l:type.executor
 
   " TODO: ユーザーにマッピングさせる
-  nnoremap <buffer> <nowait> <CR> <Cmd>call <SID>execute()<CR>
-  inoremap <buffer> <nowait> <CR> <Esc><Cmd>call <SID>execute()<CR>
+  nnoremap <buffer> <nowait> <CR> <Cmd>call operandi#execute()<CR>
+  inoremap <buffer> <nowait> <CR> <Esc><Cmd>call operandi#execute()<CR>
 
   execute 'doautocmd <nomodeline> User operandi#open#' .. a:type
 endfunction

@@ -4,10 +4,11 @@ function! s:source() abort
   return range(histnr(':'), 0, -1)->map('histget(":", v:val)')->filter('!empty(v:val)')
 endfunction
 
-function! s:executor(cmd) abort
+function! s:executor(cmd, opts) abort
   let s:cmd = a:cmd
   autocmd CmdlineEnter * ++once call setcmdline(s:cmd)
-  call feedkeys(":\<CR>", s:cmd =~# '^:' ? 'n' : 'nt')
+  let typed = get(a:opts, 'typed', v:true)
+  call feedkeys(":\<CR>", typed ? 'nt' : 'n')
 endfunction
 
 
