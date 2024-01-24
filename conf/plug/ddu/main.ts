@@ -183,6 +183,7 @@ function mainConfig(args: ConfigArguments) {
       lsp: { defaultAction: "open" },
       lsp_codeAction: { defaultAction: "apply" },
     },
+    postFilters: ["converter_normalize_hl"],
     sourceOptions: {
       _: {
         ignoreCase: true,

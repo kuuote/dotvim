@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'https://github.com/kuuote/ddu-filter-converter_normalize_hl'
+
+[[plugins]]
 repo = 'https://github.com/kuuote/ddu-source-git_diff'
 
 [[plugins]]
