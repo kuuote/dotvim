@@ -76,6 +76,9 @@ export async function run(denops: Denops, args: unknown) {
         ["git", "show", hashes[i]],
         repo.path,
       );
+      if (show.includes("renovate[bot]")) {
+        continue;
+      }
       await Deno.writeTextFile(
         dir + String(i + 1).padStart(pad, "0") + ".diff",
         show,
