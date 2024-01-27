@@ -159,7 +159,12 @@ export function newTaskRunner(tasks: Task[], script: string, maxJobs = 8) {
           const status = await job.status;
 
           const newHash = await new Deno.Command("git", {
-            args: ["-C", task.path, "rev-parse", "origin/HEAD"],
+            args: [
+              "-C",
+              task.path,
+              "rev-parse",
+              "origin/" + (task.rev ? task.rev : "HEAD"),
+            ],
           }).output().then((result) => new TextDecoder().decode(result.stdout))
             .catch(() => "");
 
