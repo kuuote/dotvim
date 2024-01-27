@@ -1,6 +1,8 @@
 " tabedit $VIMDIR/script/gitupdate/denops_view.vim
 
-if !glob('/data/vim/diff/**/*.diff', 1, 1)->empty()
+let s:do_snapshot = v:true
+
+if s:do_snapshot && !glob('/data/vim/diff/**/*.diff', 1, 1)->empty()
   throw 'diff残ってんぞ'
 endif
 
@@ -17,8 +19,10 @@ if getftype(a_json) == 'file'
 endif
 call add(s:tasks, '$VIMDIR/script/gitupdate/tasks.json'->expand())
 
-call denops#plugin#wait(s:shot)
-call denops#request(s:shot, 'run', [s:tasks, '/data/vim/snapshot'])
+if s:do_snapshot
+  call denops#plugin#wait(s:shot)
+  call denops#request(s:shot, 'run', [s:tasks, '/data/vim/snapshot'])
+endif
 
 augroup gitupdate_denops_view
   autocmd!
