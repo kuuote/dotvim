@@ -1,4 +1,4 @@
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+import { Denops } from "../../@deps/denops_std.ts";
 
 export type GenerateDenopsCallOptions = {
   async?: boolean;

@@ -3,8 +3,8 @@ import {
   GatherArguments,
   Item,
   OnCompleteDoneArguments,
-} from "../deps/ddc.ts";
-import { is, u } from "../deps/unknownutil.ts";
+} from "../@deps/ddc.ts";
+import { is, u } from "../@deps/unknownutil.ts";
 
 export type Params = {
   candidates: Array<string | Item>;

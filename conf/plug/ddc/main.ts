@@ -1,4 +1,4 @@
-import { BaseConfig, ConfigArguments } from "../../../denops/deps/ddc.ts";
+import { BaseConfig, ConfigArguments } from "../../../denops/@deps/ddc.ts";
 
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments) {

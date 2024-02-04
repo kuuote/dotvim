@@ -1,4 +1,4 @@
-import { BaseExtension, Client, LSP, Lspoints } from "../deps/lspoints.ts";
+import { BaseExtension, Client, LSP, Lspoints } from "../@deps/lspoints.ts";
 
 export class Extension extends BaseExtension {
   override async initialize(denops: Denops, lspoints: Lspoints) {

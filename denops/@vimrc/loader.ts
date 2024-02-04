@@ -1,6 +1,6 @@
-import { is, u } from "../deps/unknownutil.ts";
-import { Denops } from "../deps/denops_std.ts";
-import { stdpath } from "../deps/deno_std.ts";
+import { stdpath } from "../@deps/deno_std.ts";
+import { Denops } from "../@deps/denops_std.ts";
+import { is, u } from "../@deps/unknownutil.ts";
 
 export function main(denops: Denops) {
   denops.dispatcher = {

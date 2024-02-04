@@ -1,8 +1,7 @@
-import { is, u } from "../../../deps/unknownutil.ts";
-import { bufnr } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/function/mod.ts";
-import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
-import * as mapping from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mapping/mod.ts";
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+import { Denops, fn, lambda, mapping } from "../../../@deps/denops_std.ts";
+import { is, u } from "../../../@deps/unknownutil.ts";
+
+const { bufnr } = fn;
 
 const dispatchName = "lambda.map" + performance.now();
 const dispatcher = new Map<string, lambda.Fn>();

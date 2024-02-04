@@ -1,6 +1,6 @@
-import { stdpath } from "../../denops/deps/deno_std.ts";
-import { autocmd, Denops } from "../../denops/deps/denops_std.ts";
-import { is, u } from "../../denops/deps/unknownutil.ts";
+import { stdpath } from "../../denops/@deps/deno_std.ts";
+import { autocmd, Denops } from "../../denops/@deps/denops_std.ts";
+import { is, u } from "../../denops/@deps/unknownutil.ts";
 import {
   isDoneMessage,
   isEndMessage,

@@ -1,5 +1,5 @@
-import { is, u } from "../deps/unknownutil.ts";
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+import { Denops } from "../@deps/denops_std.ts";
+import { is, u } from "../@deps/unknownutil.ts";
 
 // 例えば↑のimportを整理するにはvip<Esc>後に
 // call vimrc#denops#request('blocksort', 'do', [line("'<"), line("'>"), 'import', ' from .*'])

@@ -1,5 +1,5 @@
-import { Denops } from "../../../denops/deps/denops_std.ts";
-import { is, u } from "../../../denops/deps/unknownutil.ts";
+import { Denops } from "../../../denops/@deps/denops_std.ts";
+import { is, u } from "../../../denops/@deps/unknownutil.ts";
 import { loadTasks } from "../util.ts";
 import { getSnapshot } from "./libsnapshot.ts";
 

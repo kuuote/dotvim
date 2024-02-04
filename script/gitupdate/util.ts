@@ -1,4 +1,4 @@
-import { is, u } from "../../denops/deps/unknownutil.ts";
+import { is, u } from "../../denops/@deps/unknownutil.ts";
 import { isTask, Task } from "./run.ts";
 
 export async function loadTasks(pathes: string[]): Promise<Task[]> {

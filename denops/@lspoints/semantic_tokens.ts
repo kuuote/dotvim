@@ -1,6 +1,6 @@
-import { BaseExtension, Client, LSP, Lspoints } from "../deps/lspoints.ts";
-import { batch, Denops } from "../deps/denops_std.ts";
-import { is, u } from "../deps/unknownutil.ts";
+import { BaseExtension, Client, LSP, Lspoints } from "../@deps/lspoints.ts";
+import { batch, Denops } from "../@deps/denops_std.ts";
+import { is, u } from "../@deps/unknownutil.ts";
 
 const NSID = "lspoints_semantic_tokens";
 

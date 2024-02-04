@@ -3,7 +3,7 @@ import {
   ActionFlags,
   BaseKind,
   DduItem,
-} from "../deps/ddu.ts";
+} from "../@deps/ddu.ts";
 
 export type Callback = string | ((items: DduItem[]) => Promise<ActionFlags>);
 

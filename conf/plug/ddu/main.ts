@@ -1,15 +1,15 @@
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
-import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
-import { KindGitStatusActionData } from "../../../denops/deps/ddu-kinds.ts";
+import { KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
 import {
   ActionFlags,
   BaseConfig,
   ConfigArguments,
   DduOptions,
-} from "../../../denops/deps/ddu.ts";
-import { stdpath } from "../../../denops/deps/deno_std.ts";
-import { Denops } from "../../../denops/deps/denops_std.ts";
-import { is, u } from "../../../denops/deps/unknownutil.ts";
+} from "../../../denops/@deps/ddu.ts";
+import { stdpath } from "../../../denops/@deps/deno_std.ts";
+import { Denops } from "../../../denops/@deps/denops_std.ts";
+import { is, u } from "../../../denops/@deps/unknownutil.ts";
+import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
 
 /* main section */

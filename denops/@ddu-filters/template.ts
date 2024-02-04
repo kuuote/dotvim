@@ -1,4 +1,4 @@
-import { BaseFilter, DduItem, FilterArguments } from "../deps/ddu.ts";
+import { BaseFilter, DduItem, FilterArguments } from "../@deps/ddu.ts";
 
 type Never = Record<PropertyKey, never>;
 

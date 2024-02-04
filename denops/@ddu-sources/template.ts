@@ -1,4 +1,4 @@
-import { BaseSource, GatherArguments, Item } from "../deps/ddu.ts";
+import { BaseSource, GatherArguments, Item } from "../@deps/ddu.ts";
 
 type Never = Record<PropertyKey, never>;
 

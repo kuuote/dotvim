@@ -1,11 +1,6 @@
-import {
-  generateDenopsCall,
-  GenerateDenopsCallOptions,
-} from "/data/newvim/new/denops/@vimrc/lib/denops.ts";
-import { Denops } from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/mod.ts";
+import { autocmd, Denops, lambda } from "../../../@deps/denops_std.ts";
 import { find } from "../ahocorasick.ts";
-import * as autocmd from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/autocmd/mod.ts";
-import * as lambda from "/data/vim/repos/github.com/vim-denops/deno-denops-std/denops_std/lambda/mod.ts";
+import { generateDenopsCall, GenerateDenopsCallOptions } from "../denops.ts";
 
 const dispatchName = "lambda.autocmd#" + performance.now();
 const dispatcher = new Map<string, lambda.Fn>();

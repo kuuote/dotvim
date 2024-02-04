@@ -4,7 +4,7 @@ import {
   DduOptions,
   GatherArguments,
   Item,
-} from "../deps/ddu.ts";
+} from "../@deps/ddu.ts";
 import { Callback } from "../@ddu-kinds/callback.ts";
 
 type Items = Array<string | DduItem>;

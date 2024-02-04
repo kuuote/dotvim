@@ -1,4 +1,4 @@
-import { BaseFilter, FilterArguments, Item } from "../deps/ddc.ts";
+import { BaseFilter, FilterArguments, Item } from "../@deps/ddc.ts";
 
 type Never = Record<PropertyKey, never>;
 
