@@ -66,3 +66,12 @@ function s:azik() abort
 endfunction
 command! SKKAzik call s:azik()
 call s:azik()
+
+function! s:tsuki() abort
+  lua require('vimrc.plug.skkeleton.tsuki2-263mod')()
+  tabedit
+  setlocal buftype=nofile bufhidden=hide noswapfile
+  call setline(1, readfile(expand('$VIMDIR/lua/vimrc/plug/skkeleton/tsukimod.txt')))
+  vsplit
+endfunction
+command! SKKTsuki call s:tsuki()

@@ -148,7 +148,7 @@ autocmd vimrc User skkeleton-initialize-post source $VIMDIR/conf/plug/skkeleton_
 repo = 'https://github.com/vim-skk/skkeleton'
 lazy = true
 denops_wait = false
-on_cmd = ['SKKAzik']
+on_cmd = ['SKKAzik', 'SKKTsuki']
 hook_add = '''
 noremap! ;<Space> <Cmd>call dpp#source('skkeleton')<CR><Plug>(skkeleton-enable)
 " ref: atusy: normal modeの `<C-J>`をskkeleton-enableにあてちゃうのアリな気がしてきた。特にmarkdownで日本語書きまくってる時とか。"
@@ -182,14 +182,6 @@ source $VIMDIR/conf/plug/skkeleton.vim
 #    lua require('vimrc.plug.cmp').change_sources('default')
 #  endif
 #endfunction
-#function! s:tsuki() abort
-#  lua require('vimrc.plug.skkeleton.tsuki2-263mod')()
-#  tabedit
-#  setlocal buftype=nofile bufhidden=hide noswapfile
-#  call setline(1, readfile(expand('$DOTVIM/lua/vimrc/plug/skkeleton/tsukimod.txt')))
-#  vsplit
-#endfunction
-#command! SKKTsuki call s:tsuki()
 #
 #'''
 
