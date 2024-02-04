@@ -23,13 +23,11 @@ function s:initialize() abort
 
   call skkeleton#register_kanatable('rom', s:kanatable)
 endfunction
-" 二回目以降はこっちを呼ぶ
-autocmd User skkeleton-initialize-pre call s:initialize()
-call s:initialize()
+autocmd vimrc User skkeleton-initialize-pre call s:initialize()
 
 " ddc.vim integration
-autocmd User skkeleton-enable-post call ddc#custom#set_buffer(#{sources: ['skkeleton'], specialBufferCompletion: v:true})
-autocmd User skkeleton-disable-post call ddc#custom#set_buffer({})
+autocmd vimrc User skkeleton-enable-post call ddc#custom#set_buffer(#{sources: ['skkeleton'], specialBufferCompletion: v:true})
+autocmd vimrc User skkeleton-disable-post call ddc#custom#set_buffer({})
 
 " 変換ポイント切ってる時だけcursorlineを表示する
 let s:cursorline_phase = {
@@ -47,8 +45,8 @@ function s:cursorline() abort
   endif
 endfunction
 
-autocmd User skkeleton-handled call s:cursorline()
-autocmd User skkeleton-disable-post setlocal nocursorline
+autocmd vimrc User skkeleton-handled call s:cursorline()
+autocmd vimrc User skkeleton-disable-post setlocal nocursorline
 
 function s:azik() abort
   call skkeleton#azik#add_table('us')
@@ -60,12 +58,11 @@ function s:azik() abort
 
   call skkeleton#register_kanatable('azik', {"n'": ['ん', '']})
   call skkeleton#register_kanatable('azik', {"n:": ['ん', '']})
+  call skkeleton#register_kanatable('azik', {"z\<Space>": ['　', '']})
   call skkeleton#register_kanatable('azik', {'l': ['っ', '']})
   call skkeleton#register_kanatable('azik', {'q': 'katakana'})
 
   call skkeleton#register_keymap('input', ';', 'henkanPoint')
 endfunction
 command! SKKAzik call s:azik()
-if get(g:, 'skkeleton_use_azik', v:true)
-  call s:azik()
-endif
+call s:azik()
