@@ -12,10 +12,9 @@ rm -rf "${dest}"
   git clone --progress --reference-if-able "${path}" --dissociate "${repo}" "${dest}" || exit 1
 
   if [[ "${rev}" != "" ]]; then
-    (
-      cd "${dest}"
-      git switch "${rev}" || git reset --hard "${rev}"
-    )
+    cd "${dest}"
+    git switch "${rev}" || git reset --hard "${rev}" || exit 1
+    cd -
   fi
 
   if [[ -e "${path}/.vimrc_hash" ]]; then
