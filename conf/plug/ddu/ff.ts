@@ -145,7 +145,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
           "<Cmd>let b:vimrc_view = winsaveview()<CR>",
           itemAction("applyPatch"),
           "<Cmd>call winrestview(b:vimrc_view)<CR>",
-          "<Cmd>unlet b:vimrc_cursor<CR>",
+          "<Cmd>unlet b:vimrc_view<CR>",
         ].join(""),
         nno,
       );
