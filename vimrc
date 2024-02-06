@@ -20,5 +20,6 @@ autocmd vimrc FileType * ++once ++nested syntax enable
 " デフォルトプラギンを無効化するやつ
 " 何かしらのプラギンが読まれるまでVIMRUNTIME抜くのでそれに依存するけど
 " うちはdenops.vim使ってるので問題Nothing!
+let s:save_rtp = &runtimepath
 set rtp-=$VIMRUNTIME
-au SourcePost */plugin/* ++once set rtp^=$VIMRUNTIME
+autocmd SourcePre */plugin/* ++once let &runtimepath = s:save_rtp
