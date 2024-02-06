@@ -136,6 +136,12 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
         action("toggleSelectItem") + action("cursorNext"),
         nno,
       );
+      await mapping.map(
+        denops,
+        "x",
+        action("toggleSelectItem") + action("cursorPrevious"),
+        nno,
+      );
     },
     git_diff: async () => {
       await mapping.map(
