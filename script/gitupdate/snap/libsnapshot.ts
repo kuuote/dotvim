@@ -1,4 +1,4 @@
-import { is, u } from "../../../denops/deps/unknownutil.ts";
+import { is, u } from "../../../denops/@deps/unknownutil.ts";
 
 export async function exec(cmd: string[], cwd?: string): Promise<string> {
   if (cwd == null) {

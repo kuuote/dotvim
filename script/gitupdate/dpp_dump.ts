@@ -1,5 +1,5 @@
-import { Denops } from "../../denops/deps/denops_std.ts";
-import { is, u } from "../../denops/deps/unknownutil.ts";
+import { Denops } from "../../denops/@deps/denops_std.ts";
+import { is, u } from "../../denops/@deps/unknownutil.ts";
 import { Task } from "./run.ts";
 
 // sort keys for JSON.stringify
