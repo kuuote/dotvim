@@ -105,6 +105,9 @@ function setupLocals(args: ConfigArguments) {
     args.contextBuilder.patchLocal(type, {
       sources: [{
         name: "mr",
+        options: {
+          converters: ["converter_hl_dir"],
+        },
         params: {
           kind: type,
         },
@@ -136,7 +139,7 @@ function setupLocals(args: ConfigArguments) {
       options: {
         matchers: ["matcher_substring"],
         sorters: ["sorter_mtime"],
-        converters: [],
+        converters: ["converter_hl_dir"],
       },
     }],
   });
