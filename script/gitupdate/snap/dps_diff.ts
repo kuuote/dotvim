@@ -79,6 +79,9 @@ export async function run(denops: Denops, args: unknown) {
       if (show.includes("renovate[bot]")) {
         continue;
       }
+      if (show.includes('Merge pull request #')) {
+        continue;
+      }
       await Deno.writeTextFile(
         dir + String(i + 1).padStart(pad, "0") + ".diff",
         show,
