@@ -56,10 +56,10 @@ function s:azik() abort
   call skkeleton#register_kanatable('azik', {"'": 'disable'})
   call skkeleton#register_kanatable('azik', {':': 'disable'})
 
-  call skkeleton#register_kanatable('azik', {"n'": ['ん', '']})
-  call skkeleton#register_kanatable('azik', {"n:": ['ん', '']})
-  call skkeleton#register_kanatable('azik', {"z\<Space>": ['　', '']})
-  call skkeleton#register_kanatable('azik', {'l': ['っ', '']})
+  call skkeleton#register_kanatable('azik', {"n'": ['ん']})
+  call skkeleton#register_kanatable('azik', {"n:": ['ん']})
+  call skkeleton#register_kanatable('azik', {"z\<Space>": ['　']})
+  call skkeleton#register_kanatable('azik', {'l': ['っ']})
   call skkeleton#register_kanatable('azik', {'q': 'katakana'})
 
   call skkeleton#register_keymap('input', ';', 'henkanPoint')
