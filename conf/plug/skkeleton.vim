@@ -62,6 +62,9 @@ function s:azik() abort
   call skkeleton#register_kanatable('azik', {'l': ['っ']})
   call skkeleton#register_kanatable('azik', {'q': 'katakana'})
 
+  " patched
+  call skkeleton#register_kanatable('azik', {'byo': ['びょ']})
+
   call skkeleton#register_keymap('input', ';', 'henkanPoint')
 endfunction
 command! SKKAzik call s:azik()
