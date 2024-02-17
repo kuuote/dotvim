@@ -37,7 +37,7 @@ function s:open(curwin) abort
   let t:gin_preview.index = win_getid()
   " resize status window
   call win_gotoid(t:gin_preview.status)
-  execute 'resize' &lines / 3
+  execute 'resize' &lines / 4
   " define handler
   autocmd gin-preview CursorMoved <buffer> ++nested call s:moved()
   doautocmd <nomodeline> User gin-preview:open
