@@ -26,7 +26,6 @@ function s:executor(cmd, opts) abort
 
   let s:cmd = a:cmd
   autocmd CmdlineEnter * ++once call setcmdline(s:cmd)
-  echomsg a:opts
   call feedkeys(":\<CR>", typed ? 'nt' : 'n')
 endfunction
 
