@@ -1,5 +1,5 @@
-import { TSSnippet } from "../denops/deps/denippet.ts";
-import { Denops } from "../denops/deps/denops_std.ts";
+import { TSSnippet } from "../denops/@deps/denippet.ts";
+import { Denops } from "../denops/@deps/denops_std.ts";
 
 export const snippets: Record<string, TSSnippet> = {
   autoload_function: {
