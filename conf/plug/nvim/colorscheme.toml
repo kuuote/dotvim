@@ -1,0 +1,3 @@
+[[plugins]]
+repo = 'https://github.com/rktjmp/lush.nvim'
+
