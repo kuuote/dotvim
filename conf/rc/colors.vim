@@ -6,7 +6,4 @@ try
   augroup END
   source /tmp/colors.vim
 catch
-  set background=light
-  colorscheme aomi-grayscale
-finally
 endtry
