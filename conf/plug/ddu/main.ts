@@ -7,7 +7,7 @@ import {
   DduOptions,
 } from "../../../denops/@deps/ddu.ts";
 import { stdpath } from "../../../denops/@deps/deno_std.ts";
-import { Denops } from "../../../denops/@deps/denops_std.ts";
+import { autocmd, Denops } from "../../../denops/@deps/denops_std.ts";
 import { is, u } from "../../../denops/@deps/unknownutil.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
@@ -386,5 +386,7 @@ export class Config extends BaseConfig {
   async config(args: ConfigArguments) {
     mainConfig(args);
     await selectorConfig(args);
+    await autocmd.define(args.denops, "User", "vimrc#ddu#ready", ":");
+    autocmd.emit(args.denops, "User", "vimrc#ddu#ready");
   }
 }
