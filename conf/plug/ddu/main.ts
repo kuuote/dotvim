@@ -193,6 +193,9 @@ function mainConfig(args: ConfigArguments) {
         matchers: defaultMatchers,
         sorters: defaultSorters,
       },
+      help: {
+        sorters: ["random_first"].concat(defaultSorters),
+      },
     },
     sourceParams: {
       file_external: {
