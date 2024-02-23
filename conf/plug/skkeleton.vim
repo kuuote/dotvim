@@ -52,6 +52,8 @@ function s:azik() abort
   call skkeleton#azik#add_table('us')
   call skkeleton#config(#{kanaTable: 'azik'})
   " base: https://github.com/NI57721/dotfiles/blob/79d2decf4b1e2bf5522c3af5f0ffdefd87b7ff50/.config/vim/vimrc#L378
+  " see also: https://zenn.dev/vim_jp/articles/my-azik-is-burning
+  
   " sticky keyが無いと生きていけない
   call skkeleton#register_kanatable('azik', {"'": 'disable'})
   call skkeleton#register_kanatable('azik', {':': 'disable'})
@@ -61,6 +63,18 @@ function s:azik() abort
   call skkeleton#register_kanatable('azik', {"z\<Space>": ['　']})
   call skkeleton#register_kanatable('azik', {'l': ['っ']})
   call skkeleton#register_kanatable('azik', {'q': 'katakana'})
+
+  " 小文字
+  call skkeleton#register_kanatable('azik', {'xxa': ['ぁ']})
+  call skkeleton#register_kanatable('azik', {'xxi': ['ぃ']})
+  call skkeleton#register_kanatable('azik', {'xxu': ['ぅ']})
+  call skkeleton#register_kanatable('azik', {'xxe': ['ぇ']})
+  call skkeleton#register_kanatable('azik', {'xxo': ['ぉ']})
+  call skkeleton#register_kanatable('azik', {'xxo': ['ぉ']})
+  call skkeleton#register_kanatable('azik', {'xxya': ['ゃ']})
+  call skkeleton#register_kanatable('azik', {'xxyu': ['ゅ']})
+  call skkeleton#register_kanatable('azik', {'xxyo': ['ょ']})
+  call skkeleton#register_kanatable('azik', {'xxwa': ['ゎ']})
 
   " patched
   call skkeleton#register_kanatable('azik', {'byo': ['びょ']})
