@@ -6,6 +6,10 @@ nnoremap <Space>j <PageDown>
 nnoremap <Space>k <PageUp>
 nnoremap Q <Cmd>confirm qa<CR>
 
+" shellのcd用ヘルパー
+""/tmp/vim_shell_cdにカレントファイルのディレクトリパスを書き込んでVimを落とす
+nnoremap <C-q> <Cmd>call writefile([expand('%:p:h')], '/tmp/vim_shell_cd')<CR><Cmd>confirm qa<CR>
+
 " sugoi undo
 nnoremap U <C-r>
 
