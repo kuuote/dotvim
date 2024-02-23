@@ -30,7 +30,7 @@ augroup gitupdate_denops_view
   autocmd User GitUpdatePost call vimrc#dpp#makestate_job()
   autocmd User GitUpdatePost call denops#plugin#wait(s:diff)
   autocmd User GitUpdatePost call denops#notify(s:diff, 'run', ['/data/vim/snapshot'])
-  " set ls=2 | nnoremap @ <pagedown> | nnoremap del <Cmd>DeleteIt<CR><Cmd>tabclose<CR> | eval glob('/data/vim/diff/**/*.diff', 1, 1)->map('execute("tabedit " .. v:val, "")')
+  " set laststatus=2 | nnoremap @ <pagedown> | nnoremap del <Cmd>DeleteIt<CR><Cmd>tabclose<CR> | eval glob('/data/vim/diff/**/*.diff', 1, 1)->map('execute("tabedit " .. v:val, "")')
 augroup END
 
 call denops#plugin#wait(s:runner)
