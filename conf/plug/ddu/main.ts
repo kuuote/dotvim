@@ -128,6 +128,9 @@ function setupLocals(args: ConfigArguments) {
   });
   // X<ddu-local-git_diff>
   args.contextBuilder.patchLocal("git_diff", {
+    actionOptions: {
+      applyPatch: { quit: false },
+    },
     sources: ["git_diff"],
     uiParams: {
       ff: {
