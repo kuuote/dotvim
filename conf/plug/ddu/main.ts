@@ -21,32 +21,7 @@ const defaultSorters = ["sorter_fzf"];
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
   args.contextBuilder.patchGlobal({
-    actionOptions: {
-      narrow: {
-        quit: false,
-      },
-    },
-    filterParams: {
-      // X<ddu-filter-converter_hl_dir>
-      converter_hl_dir: {
-        hlGroup: "String",
-      },
-      // X<ddu-filter-matcher_fzf>
-      matcher_fzf: {
-        highlightMatched: "DduMatch",
-      },
-    },
-    sourceOptions: {
-      // X<ddu-source-git_status>
-      git_status: {
-        converters: [
-          "converter_hl_dir",
-          "converter_git_status",
-        ],
-      },
-    },
     kindOptions: {
-      callback: { defaultAction: "call" },
       git_status: {
         actions: {
           commit: async () => {
@@ -84,7 +59,15 @@ function setupGitStatus(args: ConfigArguments) {
         },
         defaultAction: "open",
       },
-      tag: { defaultAction: "jump" },
+    },
+    sourceOptions: {
+      // X<ddu-source-git_status>
+      git_status: {
+        converters: [
+          "converter_hl_dir",
+          "converter_git_status",
+        ],
+      },
     },
   });
   args.contextBuilder.patchLocal("git_status", {
@@ -177,7 +160,23 @@ function setupLocals(args: ConfigArguments) {
 function mainConfig(args: ConfigArguments) {
   // X<ddu-global>
   args.contextBuilder.patchGlobal({
+    actionOptions: {
+      narrow: {
+        quit: false,
+      },
+    },
+    filterParams: {
+      // X<ddu-filter-converter_hl_dir>
+      converter_hl_dir: {
+        hlGroup: "String",
+      },
+      // X<ddu-filter-matcher_fzf>
+      matcher_fzf: {
+        highlightMatched: "DduMatch",
+      },
+    },
     kindOptions: {
+      callback: { defaultAction: "call" },
       // X<ddu-kind-file>
       file: {
         defaultAction: "open",
@@ -185,6 +184,7 @@ function mainConfig(args: ConfigArguments) {
       help: { defaultAction: "tabopen" },
       lsp: { defaultAction: "open" },
       lsp_codeAction: { defaultAction: "apply" },
+      tag: { defaultAction: "jump" },
     },
     postFilters: ["converter_normalize_hl"],
     sourceOptions: {
