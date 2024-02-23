@@ -42,7 +42,7 @@ nnoremap ;mrw <Cmd>Ddu -name=file_ext_mrw -source-option-_-path=`expand('%:p:h')
 repo = 'https://github.com/matsui54/ddu-source-help'
 # L<ddu-local-help>
 hook_add = '''
-nnoremap dh <Cmd>call denops#request('ddu', 'start', [{'name':'help'}])<CR>
+nnoremap dh <Cmd>call denops#plugin#wait('ddu')<CR><Cmd>call denops#request('ddu', 'start', [{'name':'help', 'uiParams': {'ff': {'startFilter': v:true}}}])<CR>
 '''
 
 [[plugins]]
@@ -72,7 +72,7 @@ repo = 'https://github.com/Shougo/ddu-source-file'
 repo = 'https://github.com/Shougo/ddu-source-line'
 # L<ddu-local-line>
 hook_add = '''
-nnoremap dl <Cmd>call denops#request('ddu', 'start', [{'name':'line'}])<CR>
+nnoremap dl <Cmd>call denops#plugin#wait('ddu')<CR><Cmd>call denops#request('ddu', 'start', [{'name':'line', 'uiParams': {'ff': {'startFilter': v:true}}}])<CR>
 '''
 
 [[plugins]]
