@@ -1,7 +1,7 @@
 import { generateDenopsCall } from "../../denops/@vimrc/lib/denops.ts";
-import { stdpath, TOML } from "../../denops/deps/deno_std.ts";
-import { Denops, lambda } from "../../denops/deps/denops_std.ts";
-import { is, u } from "../../denops/deps/unknownutil.ts";
+import { stdpath, TOML } from "../../denops/@deps/deno_std.ts";
+import { Denops, lambda } from "../../denops/@deps/denops_std.ts";
+import { is, u } from "../../denops/@deps/unknownutil.ts";
 import { encodeBase64 } from "/data/vim/repos/github.com/denoland/deno_std/encoding/base64.ts";
 
 // ビルドログ眺めてニヤニヤするやつ Version.2
