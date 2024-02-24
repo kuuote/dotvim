@@ -1,11 +1,12 @@
 import { BaseExtension, Client, LSP, Lspoints } from "../@deps/lspoints.ts";
+import { Denops, variable } from "../@deps/denops_std.ts";
 
 export class Extension extends BaseExtension {
   override async initialize(denops: Denops, lspoints: Lspoints) {
     lspoints.settings.patch({
       startOptions: {
         denols: {
-          cmd: ["deno", "lsp"],
+          cmd: [await variable.g.get(denops, "denops#deno", "deno"), "lsp"],
           initializationOptions: {
             enable: true,
             unstable: true,
