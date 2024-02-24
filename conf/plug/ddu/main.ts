@@ -40,6 +40,7 @@ function setupGitStatus(args: ConfigArguments) {
                   path,
                 },
                 params: {
+                  unifiedContext: 0,
                   ...u.maybe(args.actionParams, is.Record) ?? {},
                   onlyFile: true,
                 },
