@@ -76,10 +76,14 @@ export async function run(denops: Denops, args: unknown) {
         ["git", "show", hashes[i]],
         repo.path,
       );
-      if (show.includes("renovate[bot]")) {
+      const msg = show.split("diff --git")[0];
+      if (msg.includes("vim-patch")) {
         continue;
       }
-      if (show.includes('Merge pull request #')) {
+      if (msg.includes("renovate[bot]")) {
+        continue;
+      }
+      if (msg.includes("Merge pull request #")) {
         continue;
       }
       await Deno.writeTextFile(
