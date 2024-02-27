@@ -21,9 +21,12 @@ on_cmd = [
   'Gin',
 ]
 hook_source = '''
-autocmd FileType gin-status nnoremap <buffer> <nowait> c <Cmd>Gin commit<CR>
-autocmd FileType gin-status nnoremap <buffer> <nowait> h <Plug>(gin-action-stage)
-autocmd FileType gin-status nnoremap <buffer> <nowait> l <Plug>(gin-action-unstage)
+augroup vimrc
+  autocmd FileType gin-status nnoremap <buffer> <nowait> c <Cmd>Gin commit<CR>
+  autocmd FileType gin-status nnoremap <buffer> <nowait> h <Plug>(gin-action-stage)
+  autocmd FileType gin-status nnoremap <buffer> <nowait> l <Plug>(gin-action-unstage)
+  autocmd FileType gitcommit nnoremap <buffer> ZZ <Cmd>Apply<CR>
+augroup END
 '''
 
 [[plugins]]
