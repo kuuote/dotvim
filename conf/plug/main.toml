@@ -16,6 +16,10 @@ repo = 'https://github.com/kuuote/mydicts'
 if = false
 
 [[plugins]]
+repo = 'https://github.com/lambdalisue/fern.vim'
+on_cmd = 'Fern'
+
+[[plugins]]
 repo = 'https://github.com/lambdalisue/gin.vim'
 on_cmd = [
   'Gin',
