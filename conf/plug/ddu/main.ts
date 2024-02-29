@@ -14,9 +14,48 @@ import { dduHelper } from "./lib/helper.ts";
 
 /* main section */
 
-// default options
-const defaultMatchers = ["matcher_fzf"];
-const defaultSorters = ["sorter_fzf"];
+type Filters = {
+  matchers: string[];
+  sorters: string[];
+  converters: string[];
+};
+
+const Filters: Record<string, Filters> = {
+  fzf: {
+    matchers: ["matcher_fzf"],
+    sorters: ["sorter_fzf"],
+    converters: [],
+  },
+  fzf_random_first: {
+    matchers: ["matcher_fzf"],
+    sorters: ["random_first", "sorter_fzf"],
+    converters: [],
+  },
+  live_grep: {
+    matchers: [],
+    sorters: ["sorter_alpha_path"],
+    converters: [],
+  },
+  mtime_substring: {
+    matchers: ["matcher_substring"],
+    sorters: ["sorter_mtime"],
+    converters: [],
+  },
+};
+
+const FiltersLocal: Record<string, Filters> = {
+  file_hl_dir: {
+    ...Filters.fzf,
+    converters: ["converter_hl_dir"],
+  },
+  git_status: {
+    ...Filters.fzf,
+    converters: [
+      "converter_hl_dir",
+      "converter_git_status",
+    ],
+  },
+};
 
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
@@ -64,10 +103,7 @@ function setupGitStatus(args: ConfigArguments) {
     sourceOptions: {
       // X<ddu-source-git_status>
       git_status: {
-        converters: [
-          "converter_hl_dir",
-          "converter_git_status",
-        ],
+        ...FiltersLocal.git_status,
       },
     },
   });
@@ -103,7 +139,7 @@ function setupLocals(args: ConfigArguments) {
     sources: [{
       name: "dpp",
       options: {
-        sorters: ["sorter_alpha", "random_first"].concat(defaultSorters),
+        ...Filters.fzf_random_first,
       },
     }],
   });
@@ -111,9 +147,7 @@ function setupLocals(args: ConfigArguments) {
     sources: [{
       name: "file_external",
       options: {
-        matchers: ["matcher_substring"],
-        sorters: ["sorter_mtime"],
-        converters: [],
+        ...Filters.mtime_substring,
       },
     }],
   });
@@ -121,9 +155,7 @@ function setupLocals(args: ConfigArguments) {
     sources: [{
       name: "file_rec",
       options: {
-        matchers: ["matcher_substring"],
-        sorters: ["sorter_mtime"],
-        converters: ["converter_hl_dir"],
+        ...Filters.mtime_substring,
       },
     }],
   });
@@ -194,11 +226,10 @@ function mainConfig(args: ConfigArguments) {
     sourceOptions: {
       _: {
         ignoreCase: true,
-        matchers: defaultMatchers,
-        sorters: defaultSorters,
+        ...Filters.fzf,
       },
       help: {
-        sorters: ["random_first"].concat(defaultSorters),
+        ...Filters.fzf_random_first,
       },
     },
     sourceParams: {
@@ -231,9 +262,7 @@ async function ripgrepLive(
     sources: [{
       name: "rg",
       options: {
-        matchers: ["matcher_limit"],
-        sorters: ["sorter_alpha_path"],
-        converters: [],
+        ...Filters.live_grep,
         path: await findPath(denops),
         volatile: true,
       },
