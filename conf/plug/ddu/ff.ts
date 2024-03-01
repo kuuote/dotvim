@@ -123,6 +123,14 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   const itemAction = (name: string, params: unknown = {}) => {
     return action("itemAction", { name, params });
   };
+  const actionL = (name: string, params: unknown = {}) => {
+    return (denops: Denops) => {
+      return denops.call("ddu#ui#do_action", name, params);
+    };
+  };
+  const itemActionL = (name: string, params: unknown = {}) => {
+    return actionL("itemAction", { name, params });
+  };
   const setupTable: Record<string, lambda.Fn> = {
     _: async () => {
       await mapping.map(denops, "<CR>", action("itemAction"), nno);
@@ -144,17 +152,12 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       );
     },
     git_diff: async () => {
-      await mapping.map(
-        denops,
-        "p",
-        [
-          "<Cmd>let b:vimrc_view = winsaveview()<CR>",
-          itemAction("applyPatch"),
-          "<Cmd>call winrestview(b:vimrc_view)<CR>",
-          "<Cmd>unlet b:vimrc_view<CR>",
-        ].join(""),
-        nno,
-      );
+      const p = lambda.add(denops, async () => {
+        const view = await denops.call("winsaveview");
+        await itemActionL("applyPatch")(denops);
+        await denops.call("winrestview", view);
+      });
+      await mapping.map(denops, "p", `<Cmd>call ${p.request()}<CR>`, nno);
     },
     git_status: async () => {
       await mapping.map(denops, "c", itemAction("commit"), nno);
