@@ -224,7 +224,7 @@ export class Config extends BaseConfig {
           previewFloatingBorder: border as any, // そのうち直す
           previewFloatingZindex: 100,
           previewSplit: "vertical",
-          split: nvim ? "floating" : "no",
+          split: nvim ? "floating" : "horizontal",
         } satisfies Partial<DduUiFFParams>,
       },
       uiOptions: {
