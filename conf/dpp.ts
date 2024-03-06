@@ -112,6 +112,7 @@ export class Config extends BaseConfig {
           plugins[i] = {
             name: p.name,
             repo: p.repo,
+            rev: p.rev,
             if: false,
           };
         }
