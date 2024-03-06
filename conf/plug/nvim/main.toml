@@ -4,6 +4,9 @@ on_cmd = 'FzfLua'
 on_lua = 'fzf-lua'
 
 [[plugins]]
+repo = 'https://github.com/lewis6991/gitsigns.nvim'
+
+[[plugins]]
 repo = 'NeogitOrg/neogit'
 on_cmd = 'Neogit'
 lua_source = '''
