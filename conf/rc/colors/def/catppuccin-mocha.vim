@@ -3,6 +3,8 @@ set background=dark
 colorscheme catppuccin-mocha
 
 function s:on_color_scheme() abort
+  " Vimで反転するので防止
+  hi IncSearch cterm=NONE gui=NONE
   hi link DiffIndicator PmenuSbar
   if has('nvim')
     lua <<EOF
