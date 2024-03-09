@@ -51,8 +51,7 @@ function s:expandpath() abort
 endfunction
 
 function s:hook() abort
-  syntax enable
-  set syntax=vim
+  setfiletype vim
   inoremap <buffer> <expr> P <SID>expandpath()
   inoremap <buffer> E <Esc><Cmd>call operandi#execute({'typed': v:false})<CR>
   nnoremap <buffer> ;<Tab> <Cmd>call operandi#execute({'typed': v:false})<CR>
