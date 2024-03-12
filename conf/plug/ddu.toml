@@ -15,9 +15,9 @@ nnoremap gs <Cmd>call ddu#start({'name':'git_status','sourceOptions':{'_': {'pat
 repo = 'https://github.com/kuuote/ddu-source-mr'
 # L<ddu-local-mr>
 hook_add = '''
-nnoremap mru <Cmd>call ddu#start({'name':'mru'})<CR>
-nnoremap mrw <Cmd>call ddu#start({'name':'mrw'})<CR>
-nnoremap mrr <Cmd>call ddu#start({'name':'mrr'})<CR>
+nnoremap mru <Cmd>call ddu#start({'name':'mru'})<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:false)<CR>
+nnoremap mrw <Cmd>call ddu#start({'name':'mrw'})<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:false)<CR>
+nnoremap mrr <Cmd>call ddu#start({'name':'mrr'})<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:false)<CR>
 '''
 
 [[plugins]]
@@ -34,15 +34,15 @@ repo = 'https://github.com/kyoh86/ddu-filter-converter_hl_dir'
 [[plugins]]
 repo = 'https://github.com/matsui54/ddu-source-file_external'
 hook_add = '''
-nnoremap ;rw <Cmd>Ddu -name=file_ext_mrw -source-option-_-path=`gin#util#worktree()`<CR>
-nnoremap ;mrw <Cmd>Ddu -name=file_ext_mrw -source-option-_-path=`expand('%:p:h')`<CR>
+nnoremap ;rw <Cmd>Ddu -name=file_ext_mrw -source-option-_-path=`gin#util#worktree()`<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:false)<CR>
+nnoremap ;mrw <Cmd>Ddu -name=file_ext_mrw -source-option-_-path=`expand('%:p:h')`<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:false)<CR>
 '''
 
 [[plugins]]
 repo = 'https://github.com/matsui54/ddu-source-help'
 # L<ddu-local-help>
 hook_add = '''
-nnoremap dh <Cmd>call denops#plugin#wait('ddu')<CR><Cmd>call denops#request('ddu', 'start', [{'name':'help', 'uiParams': {'ff': {'startFilter': v:true}}}])<CR>
+nnoremap dh <Cmd>Ddu -name=help<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:true)<CR>
 '''
 
 [[plugins]]
@@ -72,7 +72,7 @@ repo = 'https://github.com/Shougo/ddu-source-file'
 repo = 'https://github.com/Shougo/ddu-source-line'
 # L<ddu-local-line>
 hook_add = '''
-nnoremap dl <Cmd>call denops#plugin#wait('ddu')<CR><Cmd>call denops#request('ddu', 'start', [{'name':'line', 'uiParams': {'ff': {'startFilter': v:true}}}])<CR>
+nnoremap dl <Cmd>Ddu -name=line<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:true)<CR>
 '''
 
 [[plugins]]
