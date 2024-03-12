@@ -1,4 +1,4 @@
-import { BaseExtension, Client, LSP, Lspoints } from "../@deps/lspoints.ts";
+import { BaseExtension, Lspoints } from "../@deps/lspoints.ts";
 import { Denops, variable } from "../@deps/denops_std.ts";
 
 export class Extension extends BaseExtension {
@@ -7,9 +7,11 @@ export class Extension extends BaseExtension {
       startOptions: {
         denols: {
           cmd: [await variable.g.get(denops, "denops#deno", "deno"), "lsp"],
-          initializationOptions: {
-            enable: true,
-            unstable: true,
+          settings: {
+            deno: {
+              enable: true,
+              unstable: true,
+            },
           },
         },
         rust_analyzer: {
