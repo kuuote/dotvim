@@ -1,3 +1,4 @@
+" tmuxでVim開いてるwindowにfocusするやつ
 if empty($TMUX_PANE)
   function vimrc#feat#tmux#focus()
   endfunction

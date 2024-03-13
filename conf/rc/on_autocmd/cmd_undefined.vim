@@ -10,20 +10,8 @@ command! -bar RTP echo substitute(&runtimepath, ',', "\n", 'g')
 command! DiffOrig tab split | vert new | set buftype=nofile | read ++edit # | 0d_
 \ | diffthis | wincmd p | diffthis
 
-" VIMEやるためのウィンドウを作る
-""スクラッチバッファ作ってInsertLeaveと同時にclipboardに押し込む
-function s:open_ime_window() abort
-  let buf = getline(1, '$')
-  tabnew
-  setlocal buftype=nofile bufhidden=wipe noswapfile
-  autocmd InsertLeave <buffer> let @+ = getline(1, '$')->join("\n")->trim()
-  " 違うバッファに打ち込んでから開くことがあるので元のバッファを転写してコピーする
-  call setline(1, buf)
-  let @+ = getline(1, '$')->join("\n")->trim()
-endfunction
-
-command! IMEWindow call s:open_ime_window()
-
 " 開いているファイルを削除
 command! DeleteIt :!trash-put "%"
 
+" tmuxでVim開いてるwindowにfocusするやつ
+command! TmuxFocus call vimrc#feat#tmux#focus()
