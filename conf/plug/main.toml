@@ -112,6 +112,9 @@ repo = 'https://github.com/thinca/vim-qfreplace'
 on_cmd = 'Qfreplace'
 
 [[plugins]]
+repo = 'https://github.com/tweekmonster/helpful.vim'
+
+[[plugins]]
 repo = 'https://github.com/tyru/capture.vim'
 on_cmd = 'Capture'
 
