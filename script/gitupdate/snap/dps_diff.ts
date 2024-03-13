@@ -100,6 +100,7 @@ export async function run(denops: Denops, args: unknown) {
   );
   await denops.call("setline", "1", "done");
   await denops.redraw();
+  await denops.cmd("doautocmd <nomodeline> User GitUpdateDiffPost");
 }
 
 export function main(denops: Denops) {
