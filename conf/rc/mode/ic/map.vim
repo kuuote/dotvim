@@ -2,13 +2,14 @@
 "" skkeletonは便利ですね本当に
 function s:caps()
   for mode in ['i', 'c']
+    call skkeleton#internal#map#save(mode)
     for key in 'abcdefghijklmnopqrstuvwxyz'->split('\zs')
-      call skkeleton#save_map(mode, key)
       execute printf('%snoremap <buffer> %s %s', mode, key, key->toupper())
     endfor
   endfor
   augroup vimrc_caps
-    autocmd InsertLeave <buffer> ++once call skkeleton#unmap()
+    autocmd! * <buffer>
+    autocmd InsertLeave <buffer> ++once call skkeleton#internal#map#restore()
   augroup END
 endfunction
 
