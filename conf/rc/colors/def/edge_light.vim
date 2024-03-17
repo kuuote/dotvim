@@ -19,9 +19,11 @@ function s:on_color_scheme() abort
   if has('nvim')
     hi @text.diff.indicator guibg=#e0e0ff
     hi @text.diff.add guibg=#e0ffe0 guifg=#608060
-    hi @text.diff.addsign guibg=#e0ffe0 guifg=#608060
+    hi link @text.diff.addsign @text.diff.add
+    hi @text.diff.addindicator guibg=#e0e0ff guifg=#40b040
     hi link @text.diff.delete PmenuSel
     hi link @text.diff.delsign PmenuSel
+    hi @text.diff.delindicator guibg=#e0e0ff guifg=#ff6060
   endif
 
   let s:palette = edge#get_palette('light', 0, {})

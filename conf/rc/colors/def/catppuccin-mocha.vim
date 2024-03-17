@@ -1,7 +1,3 @@
-call dpp#source('catppuccin')
-set background=dark
-colorscheme catppuccin-mocha
-
 function s:on_color_scheme() abort
   " Vimで反転するので防止
   hi IncSearch cterm=NONE gui=NONE
@@ -16,6 +12,8 @@ function s:on_color_scheme() abort
     vim.api.nvim_set_hl(0, 'FuzzyMotionChar', { fg = mocha.green })
     vim.api.nvim_set_hl(0, 'FuzzyMotionSubChar', { fg = mocha.peach })
     vim.api.nvim_set_hl(0, 'FuzzyMotionMatch', { fg = mocha.blue })
+    vim.api.nvim_set_hl(0, '@text.diff.delindicator', { fg = mocha.yellow, bg = mocha.surface1 })
+    vim.api.nvim_set_hl(0, '@text.diff.addindicator', { fg = mocha.peach, bg = mocha.surface1 })
     vim.cmd('hi link @text.diff.delsign diffOldFile')
     vim.cmd('hi link @text.diff.addsign diffNewFile')
     vim.cmd('hi link @text.diff.indicator PmenuSbar')
@@ -24,3 +22,7 @@ EOF
 endfunction
 
 autocmd persistent_colorscheme ColorScheme catppuccin-mocha call s:on_color_scheme()
+
+call dpp#source('catppuccin')
+set background=dark
+colorscheme catppuccin-mocha
