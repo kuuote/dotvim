@@ -12,33 +12,38 @@ function! s:get_type(type) abort
 endfunction
 
 function! operandi#execute(opts = {}) abort
-  if !exists('b:operandi_executor')
+  if !exists('b:operandi')
     return
   endif
+  let l:operandi = b:operandi
   let l:cmd = getline('.')
-  let l:Executor = b:operandi_executor
-  " TODO: openerに準じた閉じ方をする
-  let previous = max([1, tabpagenr() - 1])
-  tabclose
-  execute 'tabnext' previous
 
-  call l:Executor(l:cmd, a:opts)
+  " TODO: openerに準じた閉じ方をする
+  tabclose
+  if !win_gotoid(l:operandi.winid)
+    throw 'operandi: parent window is already closed'
+  endif
+
+  call l:operandi.executor(l:cmd, a:opts)
 endfunction
 
 function! operandi#open(type, opts = {}) abort
-  let l:type = s:get_type(a:type)
+  let l:operandi = {}
+  let l:operandi.winid = win_getid()
 
   " TODO: opener指定できるようにする
   tabnew
   setlocal buftype=nofile bufhidden=hide noswapfile
 
+  let l:type = s:get_type(a:type)
   call setline(2, l:type.source())
-  let b:operandi_executor = l:type.executor
+  let l:operandi.executor = l:type.executor
 
   " TODO: ユーザーにマッピングさせる
   nnoremap <buffer> <nowait> <CR> <Cmd>call operandi#execute()<CR>
   inoremap <buffer> <nowait> <CR> <Esc><Cmd>call operandi#execute()<CR>
 
+  let b:operandi = l:operandi
   execute 'doautocmd <nomodeline> User operandi#open#' .. a:type
 endfunction
 

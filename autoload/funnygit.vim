@@ -1,13 +1,17 @@
 function s:dowrite()
   if confirm("Commit changes?", "&Yes\n&No", 2) == 1
     Gin commit -F /tmp/funnygit
+    let winid = t:winid
     tabclose
+    call win_gotoid(winid)
   endif
 endfunction
 
 " X<funny-git-commit>
 function funnygit#commit() abort
-  execute '-tab split'
+  let winid = win_getid()
+  tab split
+  let t:winid = winid
   GinTcd
 
   GinDiff --cached
