@@ -18,3 +18,6 @@ call mkdir('/tmp/swp', 'p')
 
 " nullっとスクロール
 set mouse=nv
+
+" 文字無い所にもカーソル
+set virtualedit=all
