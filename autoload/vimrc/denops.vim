@@ -1,11 +1,8 @@
+let s:fragment_count = 0
+
 function vimrc#denops#load(name, path) abort
-  try
-    " < v6
-    call denops#plugin#load(a:name, a:path)
-  catch /^Vim\%((\a\+)\)\=:E117:/
-    " v5 <
-    call denops#plugin#register(a:name, a:path, #{ mode: 'skip' })
-  endtry
+  let s:fragment_count += 1
+  call denops#plugin#load(a:name, 'file://' .. a:path .. '#denops_loader' .. s:fragment_count)
 endfunction
 
 function vimrc#denops#autoload(name) abort
