@@ -6,7 +6,7 @@ if echo "$@" | grep -q rm; then
   rm -rf /tmp/dpp
 else
   shopt -s globstar
-  rm -rf /tmp/dpp/**/cache.vim
+  rm -rf /tmp/dpp/**/startup.vim
   rm -rf /tmp/dpp/**/state.vim
   find /tmp/dpp | grep 
 fi
