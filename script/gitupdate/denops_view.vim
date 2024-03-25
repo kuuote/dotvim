@@ -1,8 +1,8 @@
 " tabedit $VIMDIR/script/gitupdate/denops_view.vim
 
-let s:do_snapshot = v:true
+let s:do_diff = v:true
 
-if s:do_snapshot && !glob('/data/vim/diff/**/*.diff', 1, 1)->empty()
+if s:do_diff && !glob('/data/vim/diff/**/*.diff', 1, 1)->empty()
   throw 'diff残ってんぞ'
 endif
 
@@ -19,16 +19,19 @@ if getftype(a_json) == 'file'
 endif
 call add(s:tasks, '$VIMDIR/script/gitupdate/tasks.json'->expand())
 
-if s:do_snapshot
-  call denops#plugin#wait(s:shot)
-  call denops#request(s:shot, 'run', [s:tasks, '/data/vim/snapshot'])
-endif
+function s:diff_post() abort
+  if s:do_diff
+    call denops#plugin#wait(s:shot)
+    call denops#request(s:shot, 'run', [s:tasks, '/data/vim/snapshot'])
+  endif
+endfunction
 
 augroup gitupdate_denops_view
   autocmd!
   autocmd User GitUpdatePre :
   autocmd User GitUpdatePost call denops#plugin#wait(s:diff)
   autocmd User GitUpdatePost call denops#notify(s:diff, 'run', ['/data/vim/snapshot'])
+  autocmd User GitUpdateDiffPost call s:diff_post()
   autocmd User GitUpdateDiffPost call vimrc#feat#tmux#focus()
   " set laststatus=2 | nnoremap @ <pagedown> | nnoremap del <Cmd>DeleteIt<CR><Cmd>tabclose<CR> | eval glob('/data/vim/diff/**/*.diff', 1, 1)->map('execute("tabedit " .. v:val, "")')
 augroup END
