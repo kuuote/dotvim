@@ -4,7 +4,27 @@ on_cmd = 'FzfLua'
 on_lua = 'fzf-lua'
 
 [[plugins]]
+repo = 'https://github.com/monaqa/dial.nvim'
+on_map = '<Plug>(dial'
+lua_add = '''
+vim.keymap.set('n', '<C-a>', '<Plug>(dial-increment)')
+vim.keymap.set('n', '<C-x>', '<Plug>(dial-decrement)')
+'''
+hook_source = '''
+source $VIMDIR/conf/plug/nvim/dial.lua
+'''
+
+[[plugins]]
 repo = 'https://github.com/lewis6991/gitsigns.nvim'
+
+[[plugins]]
+repo = 'https://github.com/stevearc/oil.nvim'
+on_cmd = 'Oil'
+lua_source = '''
+require('oil').setup {
+  default_file_explorer = false,
+}
+'''
 
 [[plugins]]
 repo = 'NeogitOrg/neogit'
