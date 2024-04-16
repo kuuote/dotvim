@@ -352,7 +352,7 @@ const definition: Record<string, Collector> = {
   live_grep_git: (denops) =>
     ripgrepLive(
       denops,
-      async (denops) => String(await denops.call("gin#util#worktree")),
+      async (denops) => String(await denops.call("vimrc#git#find_root")),
     ),
   // X<ddu-config-selector-lsp>
   lsp_codeAction: () => ({
