@@ -31,7 +31,7 @@ const Filters: Record<string, Filters> = {
     sorters: ["random_first", "sorter_fzf"],
     converters: [],
   },
-  live_grep: {
+  sorter_alpha_path: {
     matchers: [],
     sorters: ["sorter_alpha_path"],
     converters: [],
@@ -262,7 +262,7 @@ async function ripgrepLive(
     sources: [{
       name: "rg",
       options: {
-        ...Filters.live_grep,
+        ...Filters.sorter_alpha_path,
         path: await findPath(denops),
         volatile: true,
       },
