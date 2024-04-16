@@ -1,7 +1,7 @@
-call vimrc#git#use('https://github.com/vim-denops/denops.vim')
-call vimrc#git#use('https://github.com/Shougo/dpp-ext-toml')
-call vimrc#git#use('https://github.com/Shougo/dpp-ext-lazy')
-call vimrc#git#use('https://github.com/Shougo/dpp-protocol-git')
+set runtimepath^=/data/vim/repos/github.com/vim-denops/denops.vim
+set runtimepath^=/data/vim/repos/github.com/Shougo/dpp-ext-toml
+set runtimepath^=/data/vim/repos/github.com/Shougo/dpp-ext-lazy
+set runtimepath^=/data/vim/repos/github.com/Shougo/dpp-protocol-git
 let s:denopsrc = expand('$VIMDIR/local/rc/denops.vim')
 if getftype(s:denopsrc) ==# 'file'
   " g:denops#deno等を設定するのを想定

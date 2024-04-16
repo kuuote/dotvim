@@ -1,4 +1,4 @@
-call vimrc#git#use('https://github.com/Shougo/dpp.vim')
+set runtimepath^=/data/vim/repos/github.com/Shougo/dpp.vim
 
 let g:vimrc#dpp_base = '/tmp/dpp'
 if dpp#min#load_state(g:vimrc#dpp_base)
