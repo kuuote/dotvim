@@ -67,6 +67,9 @@ repo = 'https://github.com/Shougo/ddu-source-file_rec'
 
 [[plugins]]
 repo = 'https://github.com/Shougo/ddu-source-file'
+hook_add = '''
+nnoremap ;f <Cmd>Ddu file -name=file -source-option-_-path=`expand('%:p:h')` -searchPath=`expand('%:p')`<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:false)<CR>z.
+'''
 
 [[plugins]]
 repo = 'https://github.com/Shougo/ddu-source-line'

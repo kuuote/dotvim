@@ -143,6 +143,7 @@ function setupLocals(args: ConfigArguments) {
       },
     }],
   });
+  // X<ddu-local-file_rec>
   args.contextBuilder.patchLocal("file_ext_mrw", {
     sources: [{
       name: "file_external",
@@ -190,6 +191,21 @@ function setupLocals(args: ConfigArguments) {
   args.contextBuilder.patchLocal("tags", {
     sources: ["tags"],
     sync: true,
+  });
+  // X<ddu-local-file>
+  args.contextBuilder.patchLocal("file", {
+    // sources: ["file"],
+    sourceOptions: {
+      "file": {
+        ...Filters.sorter_alpha_path,
+      },
+    },
+    sync: true,
+    uiParams: {
+      ff: {
+        maxDisplayItems: 10000,
+      },
+    },
   });
 }
 
@@ -280,15 +296,11 @@ async function ripgrepLive(
 const definition: Record<string, Collector> = {
   file: async (denops) => ({
     name: "file",
-    sources: [{
-      name: "file",
-      options: {
+    sourceOptions: {
+      file: {
         path: String(await denops.call("expand", "%:p:h")),
-        matchers: [],
-        sorters: ["sorter_alpha"],
-        converters: [],
       },
-    }],
+    },
     searchPath: String(await denops.call("expand", "%:p")),
     sync: true,
   }),
