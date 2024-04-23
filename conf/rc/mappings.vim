@@ -8,21 +8,35 @@ nnoremap Q <Cmd>confirm qa<CR>
 " HLとPageDown/PageUpを共用する
 function s:pagedown() abort
   let line = line('.')
+  let topline = winsaveview().topline
   normal! L
   if line == line('.')
+    " 末尾にいたらPageDown
     normal! ztL
   endif
   if line('.') == line('$')
+    " 行末に来たらウィンドウの末尾と最下行を合わせる
     normal! z-
+    if winsaveview().topline != topline
+      " サクラエディタ風の挙動
+      " 既に行末にいる場合以外は元の行末にカーソルを置く
+      execute line
+    else
+    endif
   endif
   normal! 0
 endfunction
 
 function s:pageup() abort
   let line = line('.')
+  let topline = winsaveview().topline
   normal! H
   if line == line('.')
     normal! zbH
+    if winsaveview().topline != topline
+      " 上と同じく
+      execute line
+    endif
   endif
   normal! 0
 endfunction
