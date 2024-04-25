@@ -13,3 +13,7 @@ fget https://github.com/Shougo/dpp-ext-toml /data/vim/repos/github.com/Shougo/dp
 fget https://github.com/Shougo/dpp-protocol-git /data/vim/repos/github.com/Shougo/dpp-protocol-git
 fget https://github.com/Shougo/dpp.vim /data/vim/repos/github.com/Shougo/dpp.vim
 fget https://github.com/vim-denops/denops.vim /data/vim/repos/github.com/vim-denops/denops.vim
+
+# link deno deps
+rm -rf /data/vim/deps
+ln -s $(realpath $(dirname $0))/denops/@deps /data/vim/deps
