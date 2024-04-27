@@ -1,0 +1,11 @@
+[[plugins]]
+repo = 'https://github.com/4513ECHO/vim-vimhelp-hoptag'
+on_ft = ['help']
+
+[plugins.ftplugin]
+help = '''
+nnoremap <buffer> <Tab> <Plug>(hoptag-next)
+nnoremap <buffer> <S-Tab> <Plug>(hoptag-prev)
+nnoremap <buffer> <C-n> <Plug>(hoptag-next)
+nnoremap <buffer> <C-p> <Plug>(hoptag-prev)
+'''

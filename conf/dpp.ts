@@ -63,6 +63,7 @@ export class Config extends BaseConfig {
     profiles.add("ddc");
     profiles.add("ddu");
     profiles.add("dpp");
+    profiles.add("filetype_help");
     profiles.add("filetype_vim");
     profiles.add("main");
     profiles.add("treesitter");
