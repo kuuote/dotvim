@@ -19,6 +19,7 @@ repo = 'https://github.com/lewis6991/gitsigns.nvim'
 
 [[plugins]]
 repo = 'https://github.com/stevearc/oil.nvim'
+on_lua = 'oil'
 on_cmd = 'Oil'
 lua_source = '''
 require('oil').setup {
