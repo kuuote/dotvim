@@ -22,6 +22,9 @@ rm -rf "${dest}"
   else
     rsync -a --delete-before "${dest}/" "${path}/"
   fi
+
+  cd "${path}"
+  /data/vim/repos/github.com/WayneD/rsync/support/git-set-file-times > /dev/null
 )
 
 rm -rf "${dest}"
