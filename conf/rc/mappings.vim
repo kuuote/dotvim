@@ -72,6 +72,46 @@ nnoremap <CR> <Cmd>call vimrc#denops#request('yank', 'yank', [getline(1, '$')])<
 " こまめなセーブは忘れずに
 nnoremap <Space>s <Cmd>update<CR>
 
+" スクロール位置をトップからのPageDown幅に合わせる
+"" function! s:align() abort
+""   let pos = getcurpos()[1:]
+""   let view = winsaveview()
+""   normal! gg
+""   while v:true
+""     let cl = line('.')
+""     if line('w0') <= pos[0] && pos[0] <= line('w$')
+""       call cursor(pos)
+""       return
+""     endif
+""     execute "normal! \<PageDown>"
+""     if cl == line('.')
+""       call winrestview(view)
+""       echomsg 'wtf?'
+""     endif
+""   endwhile
+"" endfunction
+
+"" HL PageDown対応版
+function! s:align() abort
+  let pos = getcurpos()[1:]
+  let view = winsaveview()
+  normal! gg
+  while v:true
+    let cl = line('.')
+    if line('w0') <= pos[0] && pos[0] <= line('w$')
+      call cursor(pos)
+      return
+    endif
+    normal! Lzt
+    if cl == line('.')
+      call winrestview(view)
+      echomsg 'wtf?'
+    endif
+  endwhile
+endfunction
+
+nnoremap <Space>a <Cmd>call <SID>align()<CR>
+
 " 開く前の方向に戻っていく
 nnoremap <expr> tq printf('<Cmd>tabclose <Bar> tabnext %d<CR>', max([1, tabpagenr() - 1]))
 
