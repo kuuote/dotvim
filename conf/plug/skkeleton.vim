@@ -26,7 +26,12 @@ endfunction
 autocmd vimrc User skkeleton-initialize-pre call s:initialize()
 
 " ddc.vim integration
-autocmd vimrc User skkeleton-enable-post call ddc#custom#set_buffer(#{sources: ['skkeleton'], specialBufferCompletion: v:true})
+autocmd vimrc User skkeleton-enable-post call ddc#custom#set_buffer(
+\ #{
+\   backspaceCompletion: v:true,
+\   sources: ['skkeleton', 'skkeleton_okuri'],
+\   specialBufferCompletion: v:true
+\ })
 autocmd vimrc User skkeleton-disable-post call ddc#custom#set_buffer({})
 
 " 変換ポイント切ってる時だけcursorlineを表示する

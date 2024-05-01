@@ -9,6 +9,8 @@ export {
 export {
   BaseSource,
   type GatherArguments,
+  type GetCompletePositionArguments,
   type OnCompleteDoneArguments,
+  type OnInitArguments,
 } from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/base/source.ts";
 export type * from "/data/vim/repos/github.com/Shougo/ddc.vim/denops/ddc/types.ts";

@@ -47,12 +47,19 @@ export class Config extends BaseConfig {
           },
           skkeleton: {
             converters: [],
-            isVolatile: true,
-            mark: "変",
             matchers: [],
+            sorters: [],
+            isVolatile: true,
             maxItems: 50,
             minAutoCompleteLength: 1,
+            mark: "変",
+          },
+          skkeleton_okuri: {
+            matchers: [],
             sorters: [],
+            converters: [],
+            isVolatile: true,
+            mark: "送",
           },
         },
         sourceParams: {
