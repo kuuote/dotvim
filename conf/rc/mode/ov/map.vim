@@ -4,5 +4,5 @@ xnoremap ae gg0oG$
 
 " yank operation
 "" L<denops-vimrc-yank>
-xnoremap <CR> <Cmd>call vimrc#denops#request('yank', 'yank', [getregion(getpos('v'), getpos('.'), #{type: mode()})])<CR>:<C-u><Esc>
+xnoremap <CR> <Cmd>call vimrc#denops#notify('yank', 'yank', [getregion(getpos('v'), getpos('.'), #{type: mode()})])<CR>:<Esc>
 

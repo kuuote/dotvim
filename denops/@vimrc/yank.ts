@@ -45,6 +45,7 @@ export async function main(denops: Denops) {
       } else {
         await oscyank(denops, trimText);
       }
+      await denops.cmd("echomsg msg", { msg: "yank text" });
     },
   };
   // await denops.cmd(
