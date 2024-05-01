@@ -17,3 +17,7 @@ fget https://github.com/vim-denops/denops.vim /data/vim/repos/github.com/vim-den
 # link deno deps
 rm -rf /data/vim/deps
 ln -s $(realpath $(dirname $0))/denops/@deps /data/vim/deps
+
+# update deno deps
+cd denops/@deps/molt
+./molt.sh
