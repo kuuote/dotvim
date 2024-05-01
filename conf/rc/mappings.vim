@@ -32,11 +32,13 @@ function s:pageup() abort
   let topline = winsaveview().topline
   normal! H
   if line == line('.')
+    " 先頭にいたらPageUp
     normal! zbH
-    if winsaveview().topline != topline
-      " 上と同じく
-      execute line
-    endif
+  endif
+  let newtopline = winsaveview().topline
+  if newtopline == 1 && topline != newtopline
+    " 上と同じく
+    execute line
   endif
   normal! 0
 endfunction
