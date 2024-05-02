@@ -110,6 +110,11 @@ repo = 'https://github.com/thinca/vim-partedit'
 on_cmd = 'Partedit'
 
 [[plugins]]
+repo = 'https://github.com/thinca/vim-prettyprint'
+on_cmd = ['PrettyPrint', 'PP']
+on_func = ['PrettyPrint', 'PP']
+
+[[plugins]]
 repo = 'https://github.com/thinca/vim-qfreplace'
 on_cmd = 'Qfreplace'
 
