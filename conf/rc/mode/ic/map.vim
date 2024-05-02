@@ -60,9 +60,34 @@ noremap! ,, <Cmd>call <SID>notation()<CR>
 
 " pum.vim
 "" X<mappings-pum_vim>
-noremap! <Tab> <Cmd>call pum#map#insert_relative(1)<CR>
-noremap! <C-n> <Cmd>call pum#map#select_relative(+1)<CR>
-noremap! <C-p> <Cmd>call pum#map#select_relative(-1)<CR>
+function s:pum_insert_by(reverse, callback)
+  let info = pum#complete_info()
+  if info.selected == -1
+    " 選択されていない場合は端から
+    if a:reverse
+      let index = len(info.items) - 1
+    else
+      let index = 0
+    endif
+  else
+    let index = info.selected
+  endif
+  let current = info.items[index]
+  " 現在位置から端まで舐める
+  for i in a:reverse ? range(index - 1, 0, -1) : range(index + 1, len(info.items) - 1) 
+    " マッチしたらそこまでカーソルを動かし
+    if a:callback(current, info.items[i])
+      call pum#map#insert_relative(i - info.selected)
+      return
+    endif
+  endfor
+  " そうじゃなければ選択を解除
+  call pum#map#insert_relative(-index - 1)
+endfunction
+
+noremap! <Tab> <Cmd>call pum#map#insert_relative(+1)<CR>
+noremap! <C-n> <Cmd>call <SID>pum_insert_by(v:false, {c, i -> c.__sourceName !=# i.__sourceName})<CR>
+noremap! <C-p> <Cmd>call <SID>pum_insert_by(v:true, {c, i -> c.__sourceName !=# i.__sourceName})<CR>
 noremap! <C-y> <Cmd>call pum#map#confirm()<CR>
 noremap! <C-e> <Cmd>call pum#map#cancel()<CR>
 noremap! N <Cmd>call pum#map#select_relative(+1)<CR>
