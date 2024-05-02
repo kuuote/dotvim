@@ -70,23 +70,46 @@ noremap! P <Cmd>call pum#map#select_relative(-1)<CR>
 noremap! Y <Cmd>call pum#map#confirm()<CR>
 noremap! E <Cmd>call pum#map#cancel()<CR>
 
+" single quoteをprefixにしてしまう
+"" 括弧補完みたいなことをする
+inoremap 'w <Cmd>call vsnip#anonymous("'$1'$0")<CR>
+inoremap 't <Cmd>call vsnip#anonymous("'''\n$1\n'''$0")<CR>
+inoremap "" <Cmd>call vsnip#anonymous('"$1"$0')<CR>
+
+inoremap 'g <Cmd>call vsnip#anonymous('<$1>$0')<CR>
+inoremap 'f <Cmd>call vsnip#anonymous('($1)$0')<CR>
+inoremap 'd <Cmd>call vsnip#anonymous('[$1]$0')<CR>
+inoremap 's <Cmd>call vsnip#anonymous('{$1}$0')<CR>
+"" endwise like
+inoremap 'e <Cmd>call vsnip#anonymous("\n\t$0\n")<CR>
+inoremap '<Space> <Cmd>call vsnip#anonymous(' $0 ')<CR>
+"" 一番上
+inoremap 'z <Cmd>normal! zt<C-y><C-y><C-y><CR>
+inoremap 'Z <Cmd>normal! zt<CR>
+"" JISキーボード用
+map! : '
+"" スニペットジャンプ
+function s:snipjump()
+  if vsnip#jumpable(1)
+    call vimrc#keycode#feedkeys('<Plug>(vsnip-jump-next)')
+  elseif denops#plugin#is_loaded('denippet') && denippet#jumpable(1)
+    call denippet#jump(1)
+  endif
+endfunction
+inoremap F <Cmd>call <SID>snipjump()<CR>
+
+" Tab
+function s:tab()
+  if pum#visible()
+    call pum#map#insert_relative(1)
+  else
+    call s:snipjump()
+  endif
+endfunction
+inoremap <Tab> <Cmd>call <SID>tab()<CR>
+
 "" sticky ;
 noremap! <expr> ; toupper(getcharstr()[0])
 noremap! ;<Tab> :
-
-" single quoteをprefixにしてしまう
-noremap! 'w ''
-noremap! 't '''
-inoremap '<Space> <Plug>(denippet-jump-next)
-"" 括弧補完みたいなことをする
-inoremap "" <Cmd>call denippet#anonymous('"$1"$0')<CR>
-inoremap '' <Cmd>call denippet#anonymous("'$1'$0")<CR>
-inoremap 'g <Cmd>call denippet#anonymous('<$1>$0')<CR>
-inoremap 'f <Cmd>call denippet#anonymous('($1)$0')<CR>
-inoremap 'd <Cmd>call denippet#anonymous('[$1]$0')<CR>
-inoremap 's <Cmd>call denippet#anonymous('{$1}$0')<CR>
-"" endwise like
-inoremap 'e <Cmd>call denippet#anonymous("\n\t$0\n")<CR>
-"" JISキーボード用
-map! : '
+noremap! ;<Tab><Tab> ::
 
