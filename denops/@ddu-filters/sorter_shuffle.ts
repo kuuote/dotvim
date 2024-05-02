@@ -4,13 +4,17 @@ import {
 } from "https://deno.land/x/ddu_vim@v3.5.0/base/filter.ts";
 import { Context, DduItem } from "https://deno.land/x/ddu_vim@v3.5.0/types.ts";
 
-type Never = Record<PropertyKey, never>;
+const defaultParams = {
+  disableAtNarrowing: false,
+};
 
-export class Filter extends BaseFilter<Never> {
+type Params = typeof defaultParams;
+
+export class Filter extends BaseFilter<Params> {
   #cache = new WeakMap<Context, Map<string, number>>();
 
-  filter(args: FilterArguments<Never>): DduItem[] {
-    if (args.input !== "") {
+  filter(args: FilterArguments<Params>): DduItem[] {
+    if (args.filterParams.disableAtNarrowing && args.input !== "") {
       return args.items;
     }
     const cache = this.#cache.get(args.context) ?? new Map();
@@ -24,7 +28,7 @@ export class Filter extends BaseFilter<Never> {
     });
   }
 
-  params(): Never {
-    return {};
+  params(): Params {
+    return defaultParams;
   }
 }

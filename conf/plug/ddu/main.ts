@@ -26,9 +26,9 @@ const Filters: Record<string, Filters> = {
     sorters: ["sorter_fzf"],
     converters: [],
   },
-  fzf_random_first: {
+  fzf_shuffle: {
     matchers: ["matcher_fzf"],
-    sorters: ["random_first", "sorter_fzf"],
+    sorters: ["sorter_shuffle", "sorter_fzf"],
     converters: [],
   },
   sorter_alpha_path: {
@@ -139,7 +139,7 @@ function setupLocals(args: ConfigArguments) {
     sources: [{
       name: "dpp",
       options: {
-        ...Filters.fzf_random_first,
+        ...Filters.fzf_shuffle,
       },
     }],
   });
@@ -245,7 +245,7 @@ function mainConfig(args: ConfigArguments) {
         ...Filters.fzf,
       },
       help: {
-        ...Filters.fzf_random_first,
+        ...Filters.fzf_shuffle,
       },
     },
     sourceParams: {
