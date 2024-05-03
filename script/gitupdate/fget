@@ -1,0 +1,6 @@
+#!/bin/bash -u
+if [[ ! -e /tmp/dpp/repos ]]; then
+  mkdir -p /tmp/dpp
+  ln -s /data/vim/repos /tmp/dpp/repos
+fi
+deno run -A run.ts task/fget.sh < tasks.json
