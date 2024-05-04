@@ -15,7 +15,7 @@ export class Config extends BaseConfig {
         cmdlineSources: {
           ":": ["cmdline"],
         },
-        sources: ["around"],
+        sources: ["yank", "around"],
         sourceOptions: {
           _: {
             matchers: ["matcher_fuzzy"],
@@ -60,6 +60,9 @@ export class Config extends BaseConfig {
             converters: [],
             isVolatile: true,
             mark: "送",
+          },
+          yank: {
+            mark: "貼",
           },
         },
         sourceParams: {

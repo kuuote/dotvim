@@ -1,4 +1,13 @@
 [[plugins]]
+repo = 'https://github.com/kuuote/ddc-source-yank'
+hook_add = '''
+nnoremap cd <Cmd>call ddc#source#yank#clear()<CR>
+nnoremap cy <Cmd>set operatorfunc=ddc#source#yank#register<CR>g@
+nnoremap cyy <Cmd>set operatorfunc=ddc#source#yank#register<CR>g@_
+xnoremap Y <Cmd>set operatorfunc=ddc#source#yank#register<CR>g@
+'''
+
+[[plugins]]
 repo = 'https://github.com/LumaKernel/ddc-source-file'
 
 [[plugins]]
