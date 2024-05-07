@@ -26,13 +26,15 @@ repo = 'https://github.com/lambdalisue/gin.vim'
 on_cmd = [
   'Gin',
 ]
-hook_source = '''
-augroup vimrc
-  autocmd FileType gin-status nnoremap <buffer> <nowait> c <Cmd>Gin commit<CR>
-  autocmd FileType gin-status nnoremap <buffer> <nowait> h <Plug>(gin-action-stage)
-  autocmd FileType gin-status nnoremap <buffer> <nowait> l <Plug>(gin-action-unstage)
-  autocmd FileType gitcommit nnoremap <buffer> ZZ <Cmd>Apply<CR>
-augroup END
+
+[plugins.ftplugin]
+gin-status = '''
+nnoremap <buffer> <nowait> c <Cmd>Gin commit<CR>
+nnoremap <buffer> <nowait> h <Plug>(gin-action-stage)
+nnoremap <buffer> <nowait> l <Plug>(gin-action-unstage)
+'''
+gitcommit = '''
+nnoremap <buffer> ZZ <Cmd>Apply<CR>
 '''
 
 [[plugins]]
@@ -94,6 +96,9 @@ autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_
 repo = 'https://github.com/rbtnn/vim-layout'
 on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = ['layout#']
+
+[[plugins]]
+repo = 'https://github.com/Shougo/cmdline.vim'
 
 [[plugins]]
 repo = 'https://github.com/skk-dev/dict'
