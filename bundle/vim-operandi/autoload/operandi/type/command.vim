@@ -1,4 +1,6 @@
-autocmd User operandi#open#command set syntax=vim
+augroup operandi#internal
+  autocmd User operandi#open#command set syntax=vim
+augroup END
 
 function! s:source() abort
   return range(histnr(':'), 0, -1)->map('histget(":", v:val)')->filter('!empty(v:val)')

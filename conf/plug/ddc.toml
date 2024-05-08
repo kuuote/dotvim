@@ -40,7 +40,7 @@ repo = 'https://github.com/Shougo/ddc-ui-pum'
 [[plugins]]
 repo = 'https://github.com/Shougo/ddc.vim'
 hook_add = '''
-autocmd CmdlineEnter,InsertEnter * ++once source $VIMDIR/conf/plug/ddc.vim
+autocmd vimrc CmdlineEnter,InsertEnter * ++once source $VIMDIR/conf/plug/ddc.vim
 '''
 
 [[plugins]]

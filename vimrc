@@ -22,4 +22,4 @@ autocmd vimrc FileType * ++once ++nested syntax enable
 " うちはdenops.vim使ってるので問題Nothing!
 let s:save_rtp = &runtimepath
 set rtp-=$VIMRUNTIME
-autocmd SourcePre */plugin/* ++once let &runtimepath = s:save_rtp
+autocmd vimrc SourcePre */plugin/* ++once let &runtimepath = s:save_rtp

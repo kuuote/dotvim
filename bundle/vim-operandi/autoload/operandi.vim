@@ -1,4 +1,6 @@
-autocmd User operandi#open#* :
+augroup operandi#internal
+  autocmd User operandi#open#* :
+augroup END
 
 let s:types = {}
 

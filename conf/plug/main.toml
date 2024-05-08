@@ -67,7 +67,7 @@ repo = 'https://github.com/machakann/vim-sandwich'
 on_map = {n = 's'}
 lazy = true
 hook_add = '''
-autocmd ModeChanged *:*[ovV\x16]* ++once ++nested call dpp#source('vim-sandwich')
+autocmd vimrc ModeChanged *:*[ovV\x16]* ++once ++nested call dpp#source('vim-sandwich')
 '''
 hook_source = '''
 " 改めてs殺しておく
@@ -75,8 +75,8 @@ nnoremap s <Nop>
 " https://github.com/yuki-yano/dotfiles/blob/f1b6ac0c2a178177cc546bab19a175a498192e1e/.vim/lua/plugins/coding.lua#L485-L487
 " saa( などで空白を含めないようにするやつ
 call operator#sandwich#set('add', 'char', 'skip_space', 1)
-autocmd ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)
-autocmd ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)
+autocmd vimrc ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)
+autocmd vimrc ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)
 '''
 # lua_post_source = '''
 # local vimx = require('artemis')
