@@ -1,6 +1,9 @@
 ["coc.nvim"]
 script = '$VIMDIR/script/build/build/coc.sh'
 
+[deno_std]
+script = '$VIMDIR/script/build/build/deno_std.ts'
+
 [tree-sitter-unifieddiff]
 script = '$VIMDIR/script/build/build/treesitter/unifieddiff.sh'
 

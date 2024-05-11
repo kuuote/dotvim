@@ -1,4 +1,4 @@
-import { abortable } from "https://deno.land/std@0.204.0/async/mod.ts";
+import { abortable } from "/data/vim/deps/deno_std/async/abortable.ts";
 import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
 
 type Never = Record<PropertyKey, never>;

@@ -1,5 +1,5 @@
 import { is, u } from "../../denops/@deps/unknownutil.ts";
-import { TextLineStream } from "/data/vim/repos/github.com/denoland/deno_std/streams/text_line_stream.ts";
+import { TextLineStream } from "/data/vim/deps/deno_std/streams/text_line_stream.ts";
 
 export type Task = {
   repo: string;

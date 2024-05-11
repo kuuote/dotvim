@@ -1,4 +1,3 @@
-import { stdpath } from "../../denops/@deps/deno_std.ts";
 import { autocmd, Denops } from "../../denops/@deps/denops_std.ts";
 import { is, u } from "../../denops/@deps/unknownutil.ts";
 import {
@@ -11,6 +10,7 @@ import {
   StartMessage,
 } from "./run.ts";
 import { loadTasks } from "./util.ts";
+import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
 
 type JobMsg = Omit<StartMessage, "type"> & {
   end: boolean;

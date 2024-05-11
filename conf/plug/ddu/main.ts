@@ -6,11 +6,11 @@ import {
   ConfigArguments,
   DduOptions,
 } from "../../../denops/@deps/ddu.ts";
-import { stdpath } from "../../../denops/@deps/deno_std.ts";
 import { autocmd, Denops } from "../../../denops/@deps/denops_std.ts";
 import { is, u } from "../../../denops/@deps/unknownutil.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
+import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
 
 /* main section */
 

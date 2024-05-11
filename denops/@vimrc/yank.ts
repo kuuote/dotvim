@@ -1,5 +1,5 @@
-import { encodeBase64 } from "../@deps/deno_std.ts";
 import { Denops } from "../@deps/denops_std.ts";
+import { encodeBase64 } from "/data/vim/deps/deno_std/encoding/base64.ts";
 
 async function yankDetachWayland(text: string) {
   const wlCopy = new Deno.Command("wl-copy", {
