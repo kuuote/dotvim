@@ -1,6 +1,6 @@
 " tabedit $VIMDIR/script/gitupdate/denops_view.vim
 
-let s:do_diff = v:true
+let s:do_diff = v:false
 
 if s:do_diff && !glob('/data/vim/diff/**/*.diff', 1, 1)->empty()
   throw 'diff残ってんぞ'
