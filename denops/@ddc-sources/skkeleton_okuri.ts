@@ -47,9 +47,19 @@ export class Source extends BaseSource<Never> {
       if (cands == null) {
         return [];
       }
-      return cands.map((c) => ({
-        word: c.replace(/;.*$/, "") + okuri,
-      }));
+      return cands.map((kana) => {
+        const kanaStrip = kana.replace(/;.*$/, "");
+        return {
+          word: kanaStrip + okuri,
+          data: {
+            skkeleton_okuri: {
+              kana,
+              kanaStrip,
+              okuri,
+            },
+          },
+        };
+      });
     });
     return candidates;
   }

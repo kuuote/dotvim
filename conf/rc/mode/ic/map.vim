@@ -60,7 +60,7 @@ noremap! ,, <Cmd>call <SID>notation()<CR>
 
 " pum.vim
 "" X<mappings-pum_vim>
-function s:pum_insert_by(reverse, callback)
+function s:pum_insert_by(reverse, callback) abort
   let info = pum#complete_info()
   if info.selected == -1
     " 選択されていない場合は端から
@@ -85,9 +85,21 @@ function s:pum_insert_by(reverse, callback)
   call pum#map#insert_relative(-index - 1)
 endfunction
 
+function s:pum_candidate_compare(a, b) abort
+  let a = a:a
+  let b = a:b
+  if a.__sourceName !=# b.__sourceName
+    return v:true
+  endif
+  if a.__sourceName ==# 'skkeleton_okuri'
+    return strchars(a.data.skkeleton_okuri.okuri) != strchars(b.data.skkeleton_okuri.okuri)
+  endif
+  return v:false
+endfunction
+
 noremap! <Tab> <Cmd>call pum#map#insert_relative(+1)<CR>
-noremap! <C-n> <Cmd>call <SID>pum_insert_by(v:false, {c, i -> c.__sourceName !=# i.__sourceName})<CR>
-noremap! <C-p> <Cmd>call <SID>pum_insert_by(v:true, {c, i -> c.__sourceName !=# i.__sourceName})<CR>
+noremap! <C-n> <Cmd>call <SID>pum_insert_by(v:false, function('<SID>pum_candidate_compare'))<CR>
+noremap! <C-p> <Cmd>call <SID>pum_insert_by(v:true, function('<SID>pum_candidate_compare'))<CR>
 noremap! <C-y> <Cmd>call pum#map#confirm()<CR>
 noremap! <C-e> <Cmd>call pum#map#cancel()<CR>
 noremap! N <Cmd>call pum#map#select_relative(+1)<CR>
