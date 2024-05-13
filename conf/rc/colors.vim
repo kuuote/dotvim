@@ -8,7 +8,7 @@ function s:persistent_colorscheme() abort
     augroup END
     source /tmp/colors.vim
   catch
-    let g:persistent_colorscheme_error = [v:exception, v:tracepoint]
+    let g:persistent_colorscheme_error = [v:exception, v:throwpoint]
   endtry
 endfunction
 
