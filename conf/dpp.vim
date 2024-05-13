@@ -8,15 +8,17 @@ if dpp#min#load_state(g:vimrc#dpp_base)
 endif
 
 " adhoc hook
-let s:hook_file = '/tmp/inline.vim/' .. ($VIMDIR .. 'dpp_hook.vim')->substitute('/', '_', 'g')
+let s:hook_file = '/tmp/inline.vim/' .. ('dpp_hook_' .. v:progpath .. '.vim')->substitute('/', '_', 'g')
 if getftype(s:hook_file) ==# 'file'
   execute 'source' s:hook_file
   finish
 else
   let s:sokutei = v:false
   let s:inline = s:sokutei ? ['let s:jikan = reltime()'] : []
-  for s:plugin in dpp#_plugins->values()
+  for [s:key, s:plugin] in dpp#_plugins->items()
     if s:plugin.sourced && has_key(s:plugin, 'hook_source')
+      call add(s:inline, printf('let s:plugin = dpp#get(%s)', string(s:key)))
+      call add(s:inline, 'unlet s:plugin.hook_source')
       call add(s:inline, s:plugin.hook_source->trim())
       if s:sokutei
         call add(s:inline, printf('echomsg "hook_source %s " .. reltimestr(reltime(s:jikan))', s:plugin.name))
