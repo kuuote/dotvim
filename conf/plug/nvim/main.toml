@@ -41,7 +41,7 @@ repo = 'nvim-lua/plenary.nvim'
 repo = 'tani/dmacro.nvim'
 lua_source = '''
 require('dmacro').setup {
-  dmacro_key = '<C-t>',
+  dmacro_key = '<C-y>',
 }
 '''
 
