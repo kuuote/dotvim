@@ -2,6 +2,9 @@
 repo = 'https://github.com/catppuccin/nvim'
 name = 'catppuccin'
 lazy = true
+hook_add = '''
+autocmd vimrc ColorSchemePre catppuccin* call dpp#source(['catppuccin'])
+'''
 lua_source = '''
 require('catppuccin').setup {
   integrations = {

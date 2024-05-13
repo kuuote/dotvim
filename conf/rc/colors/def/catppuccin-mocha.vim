@@ -23,6 +23,5 @@ endfunction
 
 autocmd persistent_colorscheme ColorScheme catppuccin-mocha call s:on_color_scheme()
 
-call dpp#source('catppuccin')
 set background=dark
 colorscheme catppuccin-mocha
