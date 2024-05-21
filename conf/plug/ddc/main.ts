@@ -31,6 +31,7 @@ export class Config extends BaseConfig {
             minAutoCompleteLength: 1,
           },
           file: {
+            sorters: ["sorter_file", "sorter_fuzzy"],
             forceCompletionPattern: "\\S/\\S*",
             mark: "F",
           },
