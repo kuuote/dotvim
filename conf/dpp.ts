@@ -66,6 +66,7 @@ export class Config extends BaseConfig {
     profiles.add("filetype_help");
     profiles.add("filetype_vim");
     profiles.add("main");
+    profiles.add("telescope");
     profiles.add("treesitter");
     profiles.add("x"); // 実験的に入れたいプラギン
 
