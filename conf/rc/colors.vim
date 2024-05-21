@@ -9,6 +9,10 @@ function s:persistent_colorscheme() abort
     source /tmp/colors.vim
   catch
     let g:persistent_colorscheme_error = [v:exception, v:throwpoint]
+    try
+      source $VIMDIR/conf/rc/colors/def/edge_light.vim
+    catch
+    endtry
   endtry
 endfunction
 
