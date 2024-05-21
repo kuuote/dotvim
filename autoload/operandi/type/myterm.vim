@@ -37,6 +37,7 @@ endfunction
 
 function s:hook() abort
   inoremap <buffer> <expr> P <SID>expandpath()
+  tcd #:p:h
 endfunction
 
 augroup operandi#open#myterm
