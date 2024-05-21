@@ -116,33 +116,36 @@ async function executermNvim(
     "tabnew | setlocal buftype=nofile bufhidden=hide noswapfile",
   );
   await denops.call("setline", 1, "all tasks are done.");
-  await denops.call("vimrc#dpp#makestate_job");
 }
 
-export async function main(denops: Denops) {
-  const plugins = u.ensure(
-    await denops.eval("g:dpp#_plugins"),
-    is.RecordOf(isPlugin),
-  );
-  const defPath = stdpath.join(
-    vimdir,
-    "script",
-    "build",
-    "build.toml",
-  );
-  const localPath = stdpath.join(
-    vimdir,
-    "local",
-    "build",
-    "build.toml",
-  );
-  const definitions = await load(defPath);
-  const local = await load(localPath).catch((e) => {
-    console.trace(e);
-    return {};
-  });
-  for (const [name, def] of Object.entries(local)) {
-    definitions[name] = def;
-  }
-  executermNvim(denops, definitions, plugins);
+export function main(denops: Denops) {
+  denops.dispatcher = {
+    async build() {
+      const plugins = u.ensure(
+        await denops.eval("g:dpp#_plugins"),
+        is.RecordOf(isPlugin),
+      );
+      const defPath = stdpath.join(
+        vimdir,
+        "script",
+        "build",
+        "build.toml",
+      );
+      const localPath = stdpath.join(
+        vimdir,
+        "local",
+        "build",
+        "build.toml",
+      );
+      const definitions = await load(defPath);
+      const local = await load(localPath).catch((e) => {
+        console.trace(e);
+        return {};
+      });
+      for (const [name, def] of Object.entries(local)) {
+        definitions[name] = def;
+      }
+      executermNvim(denops, definitions, plugins);
+    },
+  };
 }

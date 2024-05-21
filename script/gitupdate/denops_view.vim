@@ -11,6 +11,7 @@ call vimrc#denops_loader#load('$VIMDIR/script/gitupdate/dpp_dump.ts'->expand(), 
 let s:runner = vimrc#denops_loader#load('$VIMDIR/script/gitupdate/denops_view.ts'->expand())
 let s:shot = vimrc#denops_loader#load('$VIMDIR/script/gitupdate/snap/dps_shot.ts'->expand())
 let s:diff = vimrc#denops_loader#load('$VIMDIR/script/gitupdate/snap/dps_diff.ts'->expand())
+let s:build = vimrc#denops_loader#load('$VIMDIR/script/build/build.ts'->expand())
 
 let s:tasks = []
 let a_json = '$VIMDIR/script/gitupdate/a.json'->expand()
@@ -36,9 +37,11 @@ augroup gitupdate_denops_view
     autocmd User GitUpdateDiffPost call vimrc#denops#notify('tmux', 'focus', [])
   else
     autocmd User GitUpdatePost call vimrc#denops#notify('tmux', 'focus', [])
+    autocmd User GitUpdatePost call denops#notify(s:build, 'build', [])
   endif
   " set laststatus=2 | nnoremap @ <pagedown> | nnoremap del <Cmd>DeleteIt<CR><Cmd>tabclose<CR> | eval glob('/data/vim/diff/**/*.diff', 1, 1)->map('execute("tabedit " .. v:val, "")')
 augroup END
 
 call denops#plugin#wait(s:runner)
+call denops#plugin#wait(s:build)
 call denops#request(s:runner, 'run', [s:tasks, './task/fget.sh'])
