@@ -14,6 +14,7 @@ export class Config extends BaseConfig {
         ],
         cmdlineSources: {
           ":": ["cmdline"],
+          "@": [],
         },
         sources: ["yank", "around"],
         sourceOptions: {
