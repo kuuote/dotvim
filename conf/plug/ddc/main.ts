@@ -1,7 +1,7 @@
 import { BaseConfig, ConfigArguments } from "../../../denops/@deps/ddc.ts";
 
 export class Config extends BaseConfig {
-  override async config(args: ConfigArguments) {
+  override config(args: ConfigArguments): Promise<void> {
     args.contextBuilder.patchGlobal(
       {
         autoCompleteEvents: [
@@ -24,20 +24,21 @@ export class Config extends BaseConfig {
             ignoreCase: true,
           },
           around: {
-            mark: "A",
+            mark: "周",
           },
           cmdline: {
             isVolatile: true,
             minAutoCompleteLength: 1,
+            mark: "令",
           },
           file: {
             sorters: ["sorter_file", "sorter_fuzzy"],
             forceCompletionPattern: "\\S/\\S*",
-            mark: "F",
+            mark: "紙",
           },
           input: {
             isVolatile: true,
-            mark: "I",
+            mark: "入",
             minAutoCompleteLength: 0,
           },
           line: {
@@ -77,5 +78,6 @@ export class Config extends BaseConfig {
         ui: "pum",
       },
     );
+    return Promise.resolve();
   }
 }
