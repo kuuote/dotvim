@@ -81,11 +81,6 @@ nnoremap dl <Cmd>Ddu -name=line<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:true
 [[plugins]]
 repo = 'https://github.com/Shougo/ddu-ui-ff'
 
-[plugins.ftplugin]
-ddu-ff-filter = '''
-setlocal virtualedit=none
-'''
-
 [[plugins]]
 repo = 'https://github.com/Shougo/ddu-ui-filer'
 
