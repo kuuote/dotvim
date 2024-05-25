@@ -99,6 +99,14 @@ on_func = ['layout#']
 
 [[plugins]]
 repo = 'https://github.com/Shougo/cmdline.vim'
+# ddu-ui-ffに合わせる
+hook_add = '''
+call cmdline#set_option('border', ['+', '-', '+', '|', '+', '-', '+', '|']->map('[v:val, "DduBorder"]'))
+call cmdline#set_option('col', 4)
+call cmdline#set_option('row', 0)
+call cmdline#set_option('width', &columns - 8 - 2)
+autocmd vimrc WinResized * call cmdline#set_option('width', &columns - 8 - 2)
+'''
 
 [[plugins]]
 repo = 'https://github.com/skk-dev/dict'
