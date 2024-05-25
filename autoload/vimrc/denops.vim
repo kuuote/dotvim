@@ -24,6 +24,10 @@ function vimrc#denops#request(name, method, params) abort
 endfunction
 
 function vimrc#denops#notify(name, method, params) abort
+  if denops#server#status() !=# 'running'
+    call denops#server#wait_async({->vimrc#denops#notify(a:name, a:method, a:params)})
+    return
+  endif
   let plugin = 'vimrc_' .. a:name
   call vimrc#denops#autoload(a:name)
   let method = a:method
