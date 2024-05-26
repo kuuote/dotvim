@@ -36,3 +36,9 @@ function vimrc#feat#ddu#ff#wait_start(startfilter = v:false)
     call feedkeys(chars, 'it')
   endif
 endfunction
+
+function vimrc#feat#ddu#ff#start(options, startfilter = v:false)
+  call denops#plugin#wait('ddu')
+  call ddu#start(a:options)
+  call vimrc#feat#ddu#ff#wait_start(a:startfilter)
+endfunction
