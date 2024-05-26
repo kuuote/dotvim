@@ -110,7 +110,7 @@ function! s:align() abort
   endwhile
 endfunction
 
-nnoremap <Space>a <Cmd>call <SID>align()<CR>
+nnoremap gm <Cmd>call <SID>align()<CR>
 
 " 開く前の方向に戻っていく
 nnoremap <expr> tq printf('<Cmd>tabclose <Bar> tabnext %d<CR>', max([1, tabpagenr() - 1]))
