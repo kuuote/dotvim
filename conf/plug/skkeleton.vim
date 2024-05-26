@@ -1,8 +1,11 @@
 " /data/newvim/old/conf/plug/skkeleton.lua
 
 function s:initialize() abort
-  let s:dicts = [
-  \   ['/data/vim/repos/github.com/skk-dev/dict/SKK-JISYO.L', 'euc-jp'],
+  let local = expand('$VIMDIR/local/SKK-JISYO.local')
+  let s:dicts = getftype(local) ==# 'file' ? [[local, 'utf-8']] : []
+  let s:dicts += [
+  \   [printf('%s/SKK-JISYO.k', dpp#get('mydicts').path), 'utf-8'],
+  \   [printf('%s/SKK-JISYO.L', dpp#get('dict').path), 'euc-jp'],
   \ ]
   call skkeleton#config(#{
   \   eggLikeNewline: v:true,
