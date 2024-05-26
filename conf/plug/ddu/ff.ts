@@ -136,7 +136,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       await mapping.map(denops, "<CR>", action("itemAction"), nno);
       await mapping.map(denops, "a", action("inputAction"), nno);
       await mapping.map(denops, "A", action("toggleAutoAction"), nno);
-      await mapping.map(denops, "i", action("openFilterWindow"), nno);
+      await mapping.map(denops, "i", "<Cmd>call vimrc#feat#ddu#ff#filter()<CR>", nno);
       await mapping.map(denops, "q", action("quit"), nno);
       await mapping.map(
         denops,
