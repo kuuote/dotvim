@@ -43,6 +43,7 @@ function s:pageup() abort
   normal! 0
 endfunction
 
+"" ref: https://blog.atusy.net/2024/05/29/vim-hl-enhanced/
 nnoremap <Plug>(vimrc-page) <Nop>
 nnoremap <Plug>(vimrc-page)j <Cmd>call <SID>pagedown()<CR><Plug>(vimrc-page)
 nnoremap <Plug>(vimrc-page)k <Cmd>call <SID>pageup()<CR><Plug>(vimrc-page)
