@@ -140,7 +140,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       await mapping.map(
         denops,
         "i",
-        "<Cmd>call vimrc#feat#ddu#ff#filter()<CR>",
+        "<Cmd>call p#ddu#ff#filter()<CR>",
         nno,
       );
       await mapping.map(denops, "q", action("quit"), nno);

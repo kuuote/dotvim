@@ -17,6 +17,6 @@ repo = 'https://github.com/Shougo/dpp-protocol-git'
 repo = 'https://github.com/Shougo/dpp.vim'
 # L<ddu-local-dpp>
 hook_add = '''
-nnoremap ;d <Cmd>call ddu#start({'name':'dpp'})<CR><Cmd>call vimrc#feat#ddu#ff#wait_start(v:false)<CR>
+nnoremap ;d <Cmd>call p#ddu#ff#start({'name':'dpp'})<CR>
 '''
 

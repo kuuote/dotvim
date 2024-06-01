@@ -1,6 +1,6 @@
 let s:uiready = v:false
 
-function vimrc#feat#ddu#ff#filter(input = v:null)
+function p#ddu#ff#filter(input = v:null)
   if has('nvim')
     autocmd vimrc CmdlineEnter @ ++once call cmdline#enable()
   endif
@@ -8,9 +8,9 @@ function vimrc#feat#ddu#ff#filter(input = v:null)
   call ddu#ui#do_action('openFilterWindow', params)
 endfunction
 
-function vimrc#feat#ddu#ff#wait_start(startfilter = v:false)
+function p#ddu#ff#wait(startfilter = v:false)
   let s:uiready = v:false
-  augroup vimrc#feat#ddu#ff#wait_start
+  augroup p#ddu#ff#wait
     autocmd!
     autocmd User Ddu:uiReady let s:uiready = v:true
   augroup END
@@ -31,14 +31,14 @@ function vimrc#feat#ddu#ff#wait_start(startfilter = v:false)
   if startfilter
     " let chars = "\<Cmd>call ddu#ui#do_action('openFilterWindow')\<CR>" .. chars
     " 詰まってる処理の後に差し込む
-    call timer_start(1, {->vimrc#feat#ddu#ff#filter(chars)})
+    call timer_start(1, {->p#ddu#ff#filter(chars)})
   else
     call feedkeys(chars, 'it')
   endif
 endfunction
 
-function vimrc#feat#ddu#ff#start(options, startfilter = v:false)
+function p#ddu#ff#start(options, startfilter = v:false)
   call denops#plugin#wait('ddu')
   call ddu#start(a:options)
-  call vimrc#feat#ddu#ff#wait_start(a:startfilter)
+  call p#ddu#ff#wait(a:startfilter)
 endfunction
