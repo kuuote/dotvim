@@ -197,6 +197,7 @@ export class Config extends BaseConfig {
     const border = ["+", "-", "+", "|", "+", "-", "+", "|"]
       .map((c) => [c, "DduBorder"]);
     const nvim = args.denops.meta.host === "nvim";
+    const floating = nvim;
     args.contextBuilder.patchGlobal({
       ui: "ff",
       uiParams: {
@@ -205,11 +206,11 @@ export class Config extends BaseConfig {
             name: "preview",
           },
           floatingBorder: border as any, // そのうち直す
-          previewFloating: nvim,
+          previewFloating: floating,
           previewFloatingBorder: border as any, // そのうち直す
           previewFloatingZindex: 100,
           previewSplit: "vertical",
-          split: nvim ? "floating" : "horizontal",
+          split: floating ? "floating" : "tab",
         } satisfies Partial<DduUiFFParams>,
       },
       uiOptions: {
