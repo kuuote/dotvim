@@ -136,7 +136,12 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       await mapping.map(denops, "<CR>", action("itemAction"), nno);
       await mapping.map(denops, "a", action("inputAction"), nno);
       await mapping.map(denops, "A", action("toggleAutoAction"), nno);
-      await mapping.map(denops, "i", "<Cmd>call vimrc#feat#ddu#ff#filter()<CR>", nno);
+      await mapping.map(
+        denops,
+        "i",
+        "<Cmd>call vimrc#feat#ddu#ff#filter()<CR>",
+        nno,
+      );
       await mapping.map(denops, "q", action("quit"), nno);
       await mapping.map(
         denops,
@@ -166,14 +171,6 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       await mapping.map(denops, "l", itemAction("reset"), nno);
     },
   };
-  const setupFilterTable: Record<string, lambda.Fn> = {
-    _: async () => {
-      await mapping.map(denops, "<CR>", "<Esc>" + action("closeFilterWindow"), {
-        ...opt,
-        mode: ["n", "i"],
-      });
-    },
-  };
   const ddu_ff = register(denops, async (name: unknown) => {
     await setupTable["_"]?.();
     u.assert(name, is.String);
@@ -182,24 +179,11 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
       await setupTable[name]?.();
     }
   }, { args: "b:ddu_ui_name" });
-  const ddu_ff_filter = register(denops, async (name: unknown) => {
-    await setupFilterTable["_"]?.();
-    u.assert(name, is.String);
-    const names = (aliases[name] ?? name).split(/:/g);
-    for (const name of names) {
-      await setupFilterTable[name]?.();
-    }
-  }, { args: "b:ddu_ui_name" });
   await autocmd.group(denops, augroup, (helper) => {
     helper.define(
       "FileType",
       "ddu-ff",
       ddu_ff,
-    );
-    helper.define(
-      "FileType",
-      "ddu-ff-filter",
-      ddu_ff_filter,
     );
   });
 }
