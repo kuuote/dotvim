@@ -67,31 +67,32 @@ async function setUiSize(args: ConfigArguments) {
     args.contextBuilder.patchGlobal({
       uiParams: {
         ff: {
-          previewWidth: Math.floor(await option.columns.get(args.denops)),
+          previewWidth: Math.floor((await option.columns.get(args.denops)) / 2),
         },
       },
     });
+  } else {
+    const [winCol, winRow, winWidth, winHeight] = await calculateUiSize(
+      args.denops,
+    );
+    const halfWidth = Math.floor(winWidth / 2);
+    const pileBorder = true; // 外枠と重ねるか否か
+    args.contextBuilder.patchGlobal({
+      uiParams: {
+        ff: {
+          winCol,
+          winRow,
+          winWidth,
+          winHeight,
+          // fzf-previewやtelescopeみたいなpreviewの出し方をする
+          previewWidth: halfWidth,
+          previewCol: winCol + winWidth - halfWidth - (pileBorder ? 0 : 1),
+          previewRow: winRow + (pileBorder ? 0 : 1),
+          previewHeight: winHeight - (pileBorder ? 0 : 2),
+        } satisfies Partial<DduUiFFParams>,
+      },
+    });
   }
-  const [winCol, winRow, winWidth, winHeight] = await calculateUiSize(
-    args.denops,
-  );
-  const halfWidth = Math.floor(winWidth / 2);
-  const pileBorder = true; // 外枠と重ねるか否か
-  args.contextBuilder.patchGlobal({
-    uiParams: {
-      ff: {
-        winCol,
-        winRow,
-        winWidth,
-        winHeight,
-        // fzf-previewやtelescopeみたいなpreviewの出し方をする
-        previewWidth: halfWidth,
-        previewCol: winCol + winWidth - halfWidth - (pileBorder ? 0 : 1),
-        previewRow: winRow + (pileBorder ? 0 : 1),
-        previewHeight: winHeight - (pileBorder ? 0 : 2),
-      } satisfies Partial<DduUiFFParams>,
-    },
-  });
 }
 
 // patchLocalしてるnameをマッピングテーブル用の定義に直すためのテーブル
@@ -252,7 +253,7 @@ export class Config extends BaseConfig {
         "*",
         () => onColorScheme(args),
       );
-      // floatwinのサイズをセットするやつ
+      // previewとかfloatwinのサイズをセットするやつ
       helper.define(
         "VimResized",
         "*",
