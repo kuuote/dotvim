@@ -43,8 +43,11 @@ function s:pageup() abort
   normal! 0
 endfunction
 
-nnoremap <Space>j <Cmd>call <SID>pagedown()<CR>
-nnoremap <Space>k <Cmd>call <SID>pageup()<CR>
+nnoremap <Plug>(vimrc-page) <Nop>
+nnoremap <Plug>(vimrc-page)j <Cmd>call <SID>pagedown()<CR><Plug>(vimrc-page)
+nnoremap <Plug>(vimrc-page)k <Cmd>call <SID>pageup()<CR><Plug>(vimrc-page)
+nnoremap <Space>j <Plug>(vimrc-page)j
+nnoremap <Space>k <Plug>(vimrc-page)k
 
 " shellのcd用ヘルパー
 ""/tmp/vim_shell_cdにカレントファイルのディレクトリパスを書き込んでVimを落とす

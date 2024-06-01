@@ -21,3 +21,6 @@ set mouse=nv
 
 " 文字無い所にもカーソル
 set virtualedit=all
+
+" 疑似submodeにマッピングのtimeoutが邪魔
+set notimeout
