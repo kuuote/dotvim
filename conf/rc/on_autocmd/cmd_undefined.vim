@@ -14,4 +14,4 @@ command! DiffOrig tab split | vert new | set buftype=nofile | read ++edit # | 0d
 command! DeleteIt :!trash-put "%"
 
 " tmuxでVim開いてるwindowにfocusするやつ
-command! TmuxFocus call vimrc#feat#tmux#focus()
+command! TmuxFocus call vimrc#denops#notify('tmux', 'focus', [])

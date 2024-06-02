@@ -36,7 +36,7 @@ augroup gitupdate_denops_view
     autocmd User GitUpdateDiffPost call s:diff_post()
     autocmd User GitUpdateDiffPost call vimrc#denops#notify('tmux', 'focus', [])
   else
-    autocmd User GitUpdatePost call vimrc#denops#notify('tmux', 'focus', [])
+    autocmd User GitUpdatePost TmuxFocus
     autocmd User GitUpdatePost call denops#notify(s:build, 'build', [])
   endif
   " set laststatus=2 | nnoremap @ <pagedown> | nnoremap del <Cmd>DeleteIt<CR><Cmd>tabclose<CR> | eval glob('/data/vim/diff/**/*.diff', 1, 1)->map('execute("tabedit " .. v:val, "")')

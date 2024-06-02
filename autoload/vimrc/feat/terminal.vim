@@ -1,6 +1,6 @@
 function s:on_close(args)
   call win_gotoid(a:args.from_winid)
-  call vimrc#feat#tmux#focus()
+  TmuxFocus
 endfunction
 
 function vimrc#feat#terminal#open(cmd = $SHELL, cwd = expand('%:p:h')) abort
