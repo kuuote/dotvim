@@ -14,13 +14,7 @@ import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
 
 /* main section */
 
-type Filters = {
-  matchers: string[];
-  sorters: string[];
-  converters: string[];
-};
-
-const Filters: Record<string, Filters> = {
+const Filters = {
   fzf: {
     matchers: ["matcher_fzf"],
     sorters: ["sorter_fzf"],
@@ -43,7 +37,7 @@ const Filters: Record<string, Filters> = {
   },
 };
 
-const FiltersLocal: Record<string, Filters> = {
+const FiltersLocal = {
   file_hl_dir: {
     ...Filters.fzf,
     converters: ["converter_hl_dir"],
@@ -272,7 +266,7 @@ async function ripgrepLive(
   findPath: (denops: Denops) => Promise<string>,
 ): Promise<Awaited<POptions>> {
   // ddu-source-rg is set to lazy, load it.
-  await denops.call("dpp#source", "ddu-source-rg");
+  await denops.call("dpp#source", ["ddu-source-rg"]);
   return {
     name: "file:rg",
     sources: [{
