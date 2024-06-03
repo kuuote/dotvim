@@ -39,8 +39,9 @@ repo = 'https://github.com/Shougo/ddc-ui-pum'
 
 [[plugins]]
 repo = 'https://github.com/Shougo/ddc.vim'
-hook_add = '''
-autocmd vimrc CmdlineEnter,InsertEnter * ++once source $VIMDIR/conf/plug/ddc.vim
+on_event = ['CmdlineEnter', 'InsertEnter']
+hook_source = '''
+source $VIMDIR/conf/plug/ddc.vim
 '''
 
 [[plugins]]
