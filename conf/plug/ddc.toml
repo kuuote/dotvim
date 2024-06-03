@@ -45,7 +45,11 @@ autocmd vimrc CmdlineEnter,InsertEnter * ++once source $VIMDIR/conf/plug/ddc.vim
 
 [[plugins]]
 repo = 'https://github.com/Shougo/pum.vim'
+on_func = 'pum#'
 # L<mappings-pum_vim>
+hook_source = '''
+call pum#set_option('direction', 'below')
+'''
 
 [[plugins]]
 repo = 'https://github.com/tani/ddc-fuzzy'
