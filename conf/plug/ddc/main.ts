@@ -2,6 +2,23 @@ import { BaseConfig, ConfigArguments } from "../../../denops/@deps/ddc.ts";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
+    const filters = {
+      fuzzy: {
+        matchers: ["matcher_fuzzy"],
+        sorters: ["sorter_fuzzy"],
+        converters: ["converter_fuzzy"],
+      },
+      none: {
+        matchers: [],
+        sorters: [],
+        converters: [],
+      },
+      sorter_fzf: {
+        matchers: [],
+        sorters: ["sorter_fzf"],
+        converters: [],
+      },
+    };
     args.contextBuilder.patchGlobal(
       {
         autoCompleteEvents: [
@@ -19,9 +36,7 @@ export class Config extends BaseConfig {
         sources: ["yank", "around"],
         sourceOptions: {
           _: {
-            matchers: ["matcher_fuzzy"],
-            sorters: ["sorter_fuzzy"],
-            converters: ["converter_fuzzy"],
+            ...filters.sorter_fzf,
             ignoreCase: true,
           },
           around: {
@@ -33,7 +48,8 @@ export class Config extends BaseConfig {
             mark: "令",
           },
           file: {
-            sorters: ["sorter_file", "sorter_fuzzy"],
+            ...filters.none,
+            sorters: ["sorter_file", "sorter_fzf"],
             forceCompletionPattern: "\\S/\\S*",
             mark: "紙",
           },
@@ -49,22 +65,19 @@ export class Config extends BaseConfig {
             mark: "殻",
           },
           skkeleton: {
-            converters: [],
-            matchers: [],
-            sorters: [],
+            ...filters.none,
             isVolatile: true,
             maxItems: 50,
             minAutoCompleteLength: 1,
             mark: "変",
           },
           skkeleton_okuri: {
-            matchers: [],
-            sorters: [],
-            converters: [],
+            ...filters.none,
             isVolatile: true,
             mark: "送",
           },
           yank: {
+            ...filters.fuzzy,
             mark: "貼",
           },
         },

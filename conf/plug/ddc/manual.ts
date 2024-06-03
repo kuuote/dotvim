@@ -22,6 +22,15 @@ X<ddc-config-manual_complete>
 async function echomsg(denops: Denops, msg: string) {
   await denops.cmd("echomsg msg", { msg }).catch(console.log);
 }
+
+const filters = {
+  sorter_fzf: {
+    matchers: [],
+    sorters: ["sorter_fzf"],
+    converters: [],
+  },
+};
+
 const configSet: Record<
   string,
   (denops: Denops) => Promise<Partial<DdcOptions>>
@@ -62,13 +71,21 @@ const configSet: Record<
       }],
     };
   },
-
   snippet: async (denops) => {
     await denops.call("dpp#source", "denippet.vim");
     return {
       sources: ["denippet"],
     };
   },
+  yank: () =>
+    Promise.resolve({
+      sources: [{
+        name: "yank",
+        options: {
+          ...filters.sorter_fzf,
+        },
+      }],
+    }),
 };
 
 async function setConfig(args: ConfigArguments, name: string) {
@@ -98,6 +115,8 @@ const configMap: Record<string, string> = {
   F: "file",
   S: "lsp",
   T: "snippet",
+  Y: "yank",
+  y: "yank",
 };
 
 // configSetを指定させてマッピングする
