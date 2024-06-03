@@ -30,6 +30,8 @@ export async function main(denops: Denops) {
       path: is.String,
       repo: isRemoteRepo,
       rev: is.OptionalOf(is.String),
+      // trueとかにするとマッチしなくなるので弾ける
+      gitupdate_ignore: is.OptionalOf(is.LiteralOf(false)),
     }))
     .map((plugin) => ({
       repo: plugin.repo,
