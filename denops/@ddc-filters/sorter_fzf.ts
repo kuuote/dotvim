@@ -1,9 +1,10 @@
 import { BaseFilter, FilterArguments, Item } from "../@deps/ddc.ts";
-import { extendedMatch, Fzf } from "https://esm.sh/fzf@0.5.2";
+// @deno-types=./sorter_fzf/fzf_type.ts
+import { Fzf } from "npm:fzf@0.5.2";
 
 type Never = Record<PropertyKey, never>;
 
-export function commonString(haystack: string, needle: string): string {
+function commonString(haystack: string, needle: string): string {
   haystack = haystack.toLowerCase();
   needle = needle.toLowerCase();
   const matches: string[] = [];
@@ -18,10 +19,24 @@ export function commonString(haystack: string, needle: string): string {
   return matches.join("");
 }
 
+function commonString2(haystack: string, needle: string): string {
+  const found = [];
+  for (let offset = 0; offset < needle.length; offset++) {
+    const n = needle.slice(offset);
+    const matches = commonString(haystack, n);
+    found.push(matches);
+    if (matches.length == n.length) {
+      break;
+    }
+  }
+  found.sort((a, b) => b.length - a.length);
+  return found[0] ?? "";
+}
+
 export class Filter extends BaseFilter<Never> {
   filter(args: FilterArguments<Never>): Item[] {
     const a = args.items.map((item, index) => {
-      const common = commonString(item.word, args.completeStr);
+      const common = commonString2(item.word, args.completeStr);
       return {
         common,
         index,
@@ -31,7 +46,6 @@ export class Filter extends BaseFilter<Never> {
     const b = Map.groupBy(a, (e) => e.common);
     const c = [...b.entries()].map(([key, es]) => {
       const fzf = new Fzf(es, {
-        match: extendedMatch,
         selector: (e) => e.item.word,
         sort: false,
       });
@@ -55,7 +69,7 @@ export class Filter extends BaseFilter<Never> {
         .map((p) => ({
           name: "ddc-filter-sorter_fzf",
           type: "abbr",
-          hl_group: "String",
+          hl_group: "PumHighlight",
           col: p + 1,
           width: 1,
         }));
