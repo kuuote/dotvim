@@ -1,17 +1,21 @@
-function s:on_color_scheme() abort
+function s:on_colors() abort
   " Vimで反転するので防止
   hi IncSearch cterm=NONE gui=NONE
   hi link DiffIndicator PmenuSbar
+  lua <<EOF
+    local cmd = vim.cmd or vim.command
+    local mocha = require('catppuccin.palettes').get_palette('mocha')
+    cmd(('hi %s guifg=%s'):format('PumHighlight', mocha.green))
+    cmd(('hi %s guifg=%s guibg=%s'):format('Pmenu', mocha.mauve, '#2b2b3c'))
+    cmd(('hi %s guifg=%s guibg=%s'):format('PmenuSel', mocha.crust, mocha.red))
+    cmd(('hi %s guifg=%s'):format('FuzzyMotionChar', mocha.green))
+    cmd(('hi %s guifg=%s'):format('FuzzyMotionSubChar', mocha.peach))
+    cmd(('hi %s guifg=%s'):format('FuzzyMotionMatch', mocha.blue))
+EOF
   if has('nvim')
     lua <<EOF
     -- Capture lua =require('catppuccin.palettes').get_palette('mocha')
     local mocha = require('catppuccin.palettes').get_palette('mocha')
-    vim.api.nvim_set_hl(0, 'Pmenu', { fg = mocha.mauve, bg = '#2b2b3c' })
-    vim.api.nvim_set_hl(0, 'PmenuSel', { fg = mocha.crust, bg = mocha.red })
-    vim.api.nvim_set_hl(0, 'PumHighlight', { fg = mocha.green })
-    vim.api.nvim_set_hl(0, 'FuzzyMotionChar', { fg = mocha.green })
-    vim.api.nvim_set_hl(0, 'FuzzyMotionSubChar', { fg = mocha.peach })
-    vim.api.nvim_set_hl(0, 'FuzzyMotionMatch', { fg = mocha.blue })
     vim.api.nvim_set_hl(0, '@text.diff.delindicator', { fg = mocha.yellow, bg = mocha.surface1 })
     vim.api.nvim_set_hl(0, '@text.diff.addindicator', { fg = mocha.peach, bg = mocha.surface1 })
     vim.cmd('hi link @text.diff.delsign diffOldFile')
@@ -21,7 +25,7 @@ EOF
   endif
 endfunction
 
-autocmd persistent_colorscheme ColorScheme catppuccin-mocha call s:on_color_scheme()
+autocmd persistent_colorscheme ColorScheme catppuccin-mocha call s:on_colors()
 
 set background=dark
 colorscheme catppuccin-mocha
