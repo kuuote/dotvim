@@ -118,6 +118,71 @@ async function executermNvim(
   await denops.call("setline", 1, "all tasks are done.");
 }
 
+async function executermVim(
+  denops: Denops,
+  definitions: Definitions,
+  plugins: Plugins,
+) {
+  for (const [name, def] of Object.entries(definitions)) {
+    const plugin = plugins[name];
+    if (plugin == null) {
+      console.log("undefined plugin " + name);
+      continue;
+    }
+    const hashFile = stdpath.join(plugin.path, ".vimrc_hash");
+    const oldHash = await Deno.readTextFile(hashFile).catch(() => "");
+
+    const commit = await new Deno.Command("git", {
+      args: ["rev-parse", "@{u}"],
+      cwd: plugin.path,
+    }).output()
+      .then((o) => encodeBase64(o.stdout));
+
+    const deps = (await Promise.all(
+      (def.deps ?? [])
+        .concat([def.script])
+        .map((path) => glob(denops, path)),
+    )).flat();
+
+    const newHash = await calculateHash(commit, deps);
+    if (oldHash === newHash) {
+      continue;
+    }
+
+    const code = u.ensure(
+      await new Promise(async (resolve) => {
+        const id = lambda.register(denops, resolve, { once: true });
+        const notify = generateDenopsCall(denops, id, "[code]", {
+          async: true,
+        });
+        const cmd = [
+          `${Deno.env.get("VIMDIR")}/script/build/build.sh`,
+          plugin.path,
+          await denops.call("expand", def.script),
+        ];
+        denops.cmd("tabnew").then(() =>
+          denops.eval(
+            `term_start(${
+              JSON.stringify(cmd)
+            }, #{curwin: v:true, exit_cb: { _, code -> ${notify}}})`,
+          )
+        );
+      }),
+      is.Number,
+    );
+
+    if (code === 0) {
+      await Deno.writeTextFile(hashFile, newHash);
+    }
+  }
+  // 全て終わった暁には…
+  await denops.cmd(
+    "tabnew | setlocal buftype=nofile bufhidden=hide noswapfile",
+  );
+  await denops.call("setline", 1, "all tasks are done.");
+  await denops.redraw();
+}
+
 export function main(denops: Denops) {
   denops.dispatcher = {
     async build() {
@@ -145,7 +210,11 @@ export function main(denops: Denops) {
       for (const [name, def] of Object.entries(local)) {
         definitions[name] = def;
       }
-      executermNvim(denops, definitions, plugins);
+      if (denops.meta.host === "nvim") {
+        executermNvim(denops, definitions, plugins);
+      } else {
+        executermVim(denops, definitions, plugins);
+      }
     },
   };
 }
