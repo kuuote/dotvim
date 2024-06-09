@@ -1,13 +1,19 @@
 import { BaseFilter, DduItem, FilterArguments } from "../@deps/ddu.ts";
 
-type Never = Record<PropertyKey, never>;
+const params = {
+  _: null,
+};
 
-export class Filter extends BaseFilter<Never> {
-  filter(args: FilterArguments<Never>): Promise<DduItem[]> {
+type Params = typeof params;
+// type Params = Record<PropertyKey, never>;
+
+export class Filter extends BaseFilter<Params> {
+  filter(args: FilterArguments<Params>): Promise<DduItem[]> {
     return Promise.resolve(args.items);
   }
 
-  params(): Never {
-    return {};
+  params(): Params {
+    return params;
+    // return {};
   }
 }
