@@ -232,7 +232,12 @@ function mainConfig(args: ConfigArguments) {
       lsp_codeAction: { defaultAction: "apply" },
       tag: { defaultAction: "jump" },
     },
-    postFilters: ["converter_normalize_hl"],
+    postFilters: [{
+      name: "converter_color",
+      params: {
+        group: "DduNormal",
+      },
+    }, "converter_normalize_hl"],
     sourceOptions: {
       _: {
         ignoreCase: true,

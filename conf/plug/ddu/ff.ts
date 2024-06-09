@@ -27,6 +27,7 @@ async function onColorScheme(args: ConfigArguments) {
       await args.denops.cmd("hi DduEnd guifg=#e0e0ff");
       await args.denops.cmd("hi DduFloat guifg=#6060ff");
     }
+    await args.denops.cmd("hi DduNormal guifg=#6060ff");
     await args.denops.cmd("hi DduBorder guibg=#f0f0ff guifg=#6060ff");
     await args.denops.cmd(
       "hi DduMatch ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE",
