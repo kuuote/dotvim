@@ -94,4 +94,4 @@ export function getOkuriStr(word: string, okuri: string): string {
   }
   const alpha = okuriTable[okuri.match(/[^っ]/)?.[0] ?? ""];
   return word + alpha;
-} 
+}

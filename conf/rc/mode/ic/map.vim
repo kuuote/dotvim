@@ -74,7 +74,7 @@ function s:pum_insert_by(reverse, callback) abort
   endif
   let current = info.items[index]
   " 現在位置から端まで舐める
-  for i in a:reverse ? range(index - 1, 0, -1) : range(index + 1, len(info.items) - 1) 
+  for i in a:reverse ? range(index - 1, 0, -1) : range(index + 1, len(info.items) - 1)
     " マッチしたらそこまでカーソルを動かし
     if a:callback(current, info.items[i])
       call pum#map#insert_relative(i - info.selected)
