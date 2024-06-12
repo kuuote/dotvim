@@ -1,6 +1,6 @@
 [[plugins]]
 repo = '$VIMDIR/bundle/gin-preview.vim'
-depends = 'gin.vim'
+depends = 'vim-gin'
 on_cmd = 'GinPreview'
 
 [[plugins]]
