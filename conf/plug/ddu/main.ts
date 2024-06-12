@@ -58,7 +58,7 @@ function setupGitStatus(args: ConfigArguments) {
       git_status: {
         actions: {
           commit: async () => {
-            await args.denops.call("funnygit#commit");
+            await args.denops.call("p#gin#komitto");
             // await args.denops.cmd("Gin commit");
             return ActionFlags.None;
           },
