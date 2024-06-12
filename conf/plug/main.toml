@@ -93,6 +93,11 @@ autocmd vimrc ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 
 # '''
 
 [[plugins]]
+repo = 'https://github.com/mattn/vim-molder'
+# サブ環境で使ってるだけなので切っておく
+if = false
+
+[[plugins]]
 repo = 'https://github.com/rbtnn/vim-layout'
 on_cmd = ['LayoutLoad', 'LayoutSave']
 on_func = ['layout#']
