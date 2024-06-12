@@ -1,5 +1,5 @@
-function s:dowrite()
-  if confirm("Commit changes?", "&Yes\n&No", 2) == 1
+function s:dowrite(confirm = v:false)
+  if a:confirm || confirm("Commit changes?", "&Yes\n&No", 2) == 1
     Gin commit -F /tmp/komitto
     let winid = t:winid
     tabclose
@@ -23,4 +23,5 @@ function p#gin#komitto() abort
     autocmd!
     autocmd BufWritePost <buffer> call s:dowrite()
   augroup END
+  nnoremap <buffer> ZZ <Cmd>autocmd! p.gin.komitto<CR><Cmd>update<CR><Cmd>call <SID>dowrite(v:true)<CR>
 endfunction 
