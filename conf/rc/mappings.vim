@@ -51,8 +51,8 @@ nnoremap <Space>j <Plug>(vimrc-page)j
 nnoremap <Space>k <Plug>(vimrc-page)k
 
 " shellのcd用ヘルパー
-""/tmp/vim_shell_cdにカレントファイルのディレクトリパスを書き込んでVimを落とす
-nnoremap <C-q> <Cmd>call writefile([expand('%:p:h')], '/tmp/vim_shell_cd')<CR><Cmd>confirm qa<CR>
+""/tmp/fish_cdにカレントファイルのディレクトリパスを書き込んでVimを落とす
+nnoremap <C-q> <Cmd>call writefile([expand('%:p:h')], '/tmp/fish_cd')<CR><Cmd>confirm qa<CR>
 
 " sugoi undo
 nnoremap U <C-r>
