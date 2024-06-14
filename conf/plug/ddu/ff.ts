@@ -184,6 +184,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
         action("toggleSelectItem") + action("cursorPrevious"),
         nno,
       );
+      await mapping.map(denops, "uk", action("useKensaku"), nno);
     },
     git_diff: async () => {
       const p = lambda.add(denops, async () => {
