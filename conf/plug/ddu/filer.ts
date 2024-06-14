@@ -1,7 +1,7 @@
-import { BaseConfig, ConfigArguments } from "../../../denops/@deps/ddu.ts";
-import { autocmd, lambda, mapping } from "../../../denops/@deps/denops_std.ts";
-import { is, u } from "../../../denops/@deps/unknownutil.ts";
 import { register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import { BaseConfig, ConfigArguments } from "/data/vim/deps/ddu.ts";
+import { autocmd, lambda, mapping } from "/data/vim/deps/denops_std.ts";
+import { is, u } from "/data/vim/deps/unknownutil.ts";
 
 const augroup = "vimrc#ddu-ui-filer";
 

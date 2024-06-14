@@ -1,21 +1,21 @@
-import { ConfigArguments } from "../../../denops/@deps/ddu.ts";
+import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+import {
+  ActionFlags,
+  BaseConfig,
+  BaseUiParams,
+  type ConfigArguments,
+  type SourceOptions,
+  type UiActionArguments,
+} from "/data/vim/deps/ddu.ts";
 import {
   autocmd,
   type Denops,
   lambda,
   mapping,
   option,
-} from "../../../denops/@deps/denops_std.ts";
-import { is, u } from "../../../denops/@deps/unknownutil.ts";
-import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+} from "/data/vim/deps/denops_std.ts";
+import { is, u } from "/data/vim/deps/unknownutil.ts";
 import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
-import {
-  ActionFlags,
-  BaseConfig,
-  BaseUiParams,
-  type SourceOptions,
-  type UiActionArguments,
-} from "/data/vim/deps/ddu.ts";
 
 type Filter = {
   matchers: SourceOptions["matchers"];

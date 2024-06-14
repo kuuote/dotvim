@@ -1,17 +1,17 @@
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
 import { type KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
+import { is, u } from "../../../denops/@deps/unknownutil.ts";
+import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
+import { dduHelper } from "./lib/helper.ts";
 import {
   ActionFlags,
   BaseConfig,
   type ConfigArguments,
   type DduOptions,
   type SourceOptions,
-} from "../../../denops/@deps/ddu.ts";
-import { autocmd, type Denops } from "../../../denops/@deps/denops_std.ts";
-import { is, u } from "../../../denops/@deps/unknownutil.ts";
-import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
-import { dduHelper } from "./lib/helper.ts";
+} from "/data/vim/deps/ddu.ts";
 import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
+import { autocmd, type Denops } from "/data/vim/deps/denops_std.ts";
 
 /* main section */
 
