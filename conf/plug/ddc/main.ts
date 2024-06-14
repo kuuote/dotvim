@@ -1,4 +1,14 @@
-import { BaseConfig, ConfigArguments } from "../../../denops/@deps/ddc.ts";
+import {
+  BaseConfig,
+  type ConfigArguments,
+  type SourceOptions,
+} from "../../../denops/@deps/ddc.ts";
+
+type Filters = Record<string, {
+  matchers: SourceOptions["matchers"];
+  sorters: SourceOptions["sorters"];
+  converters: SourceOptions["converters"];
+}>;
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): Promise<void> {
@@ -18,7 +28,8 @@ export class Config extends BaseConfig {
         sorters: ["sorter_fzf"],
         converters: [],
       },
-    };
+    } satisfies Filters;
+
     args.contextBuilder.patchGlobal(
       {
         autoCompleteEvents: [

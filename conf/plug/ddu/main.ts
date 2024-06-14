@@ -1,12 +1,13 @@
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
-import { KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
+import { type KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
 import {
   ActionFlags,
   BaseConfig,
-  ConfigArguments,
-  DduOptions,
+  type ConfigArguments,
+  type DduOptions,
+  type SourceOptions,
 } from "../../../denops/@deps/ddu.ts";
-import { autocmd, Denops } from "../../../denops/@deps/denops_std.ts";
+import { autocmd, type Denops } from "../../../denops/@deps/denops_std.ts";
 import { is, u } from "../../../denops/@deps/unknownutil.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
@@ -14,6 +15,13 @@ import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
 
 /* main section */
 
+type Filters = Record<string, {
+  matchers: SourceOptions["matchers"];
+  sorters: SourceOptions["sorters"];
+  converters: SourceOptions["converters"];
+}>;
+
+// satisfiesしておくとRecordにはならないので便利
 const Filters = {
   fzf: {
     matchers: ["matcher_fzf"],
@@ -35,7 +43,7 @@ const Filters = {
     sorters: ["sorter_mtime"],
     converters: [],
   },
-};
+} satisfies Filters;
 
 const FiltersLocal = {
   file_hl_dir: {
@@ -49,7 +57,7 @@ const FiltersLocal = {
       "converter_git_status",
     ],
   },
-};
+} satisfies Filters;
 
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
