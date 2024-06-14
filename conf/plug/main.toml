@@ -14,6 +14,9 @@ xnoremap <Space><Space> <Esc><Cmd>call operandi#open('mycommand')<CR><Cmd>call s
 '''
 
 [[plugins]]
+repo = 'https://github.com/kawarimidoll/autoplay.vim'
+
+[[plugins]]
 repo = 'https://github.com/kuuote/mydicts'
 if = false
 
