@@ -228,6 +228,10 @@ function mainConfig(args: ConfigArguments) {
       matcher_fzf: {
         highlightMatched: "DduMatch",
       },
+      // X<ddu-filter-matcher_kensaku>
+      matcher_kensaku: {
+        highlightMatched: "DduMatch",
+      },
     },
     kindOptions: {
       callback: { defaultAction: "call" },

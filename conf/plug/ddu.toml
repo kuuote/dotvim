@@ -46,6 +46,9 @@ nnoremap dh <Cmd>call p#ddu#ff#start({'name': 'help'}, v:true)<CR>
 '''
 
 [[plugins]]
+repo = 'https://github.com/Milly/ddu-filter-kensaku'
+
+[[plugins]]
 repo = 'https://github.com/Shougo/ddu-column-filename'
 
 [[plugins]]

@@ -219,7 +219,7 @@ export class Config extends BaseConfig {
           actions: {
             useKensaku: async (args) => {
               // L<dpp-lazy-kensaku_vim>
-              await args.denops.call("dpp#source", "kensaku.vim");
+              await args.denops.call("dpp#source", ["vim-kensaku"]);
               const sources = args.options.sources.map((s) => {
                 if (is.String(s)) {
                   s = { name: s };
