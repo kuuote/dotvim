@@ -41,7 +41,9 @@ export class Config extends BaseConfig {
           "CmdlineChanged",
         ],
         cmdlineSources: {
+          "/": [],
           ":": ["cmdline"],
+          "?": [],
           "@": [],
         },
         sources: ["yank", "around"],
