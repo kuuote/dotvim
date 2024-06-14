@@ -1,3 +1,29 @@
+[bfswalk]
+body = '''
+type WalkEntry = Deno.DirEntry & {
+  path: string;
+};
+
+function* walk(initialPath: string): Generator<WalkEntry> {
+  const queue = [initialPath];
+  for (let cursor = 0; cursor < queue.length; cursor++) {
+    const path = queue[cursor];
+    const es = [...Deno.readDirSync(path)]
+      .sort((a, b) => a.name.localeCompare(b.name));
+    for (const e of es) {
+      const newPath = path + "/" + e.name;
+      yield {
+        ...e,
+        path: newPath,
+      };
+      if (e.isDirectory) {
+        queue.push(newPath);
+      }
+    }
+  }
+}
+'''
+
 [filternull]
 description = "null reducer for Array.filter()"
 body = ".filter(<T>(x: T): x is NonNullable<T> => x != null)"
