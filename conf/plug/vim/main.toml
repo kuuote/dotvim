@@ -1,0 +1,8 @@
+[[plugins]]
+repo = '4513ECHO/registerm.vim'
+on_event = 'TerminalOpen'
+hook_source = '''
+autocmd vimrc TerminalOpen * nmap <buffer> p i<Plug>(registerm)
+autocmd vimrc TerminalOpen * nnoremap <buffer> p i<Plug>(registerm)<C-\><C-n>
+'''
+
