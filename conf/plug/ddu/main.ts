@@ -15,11 +15,13 @@ import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
 
 /* main section */
 
-type Filters = Record<string, {
+type Filter = {
   matchers: SourceOptions["matchers"];
   sorters: SourceOptions["sorters"];
   converters: SourceOptions["converters"];
-}>;
+};
+
+type Filters = Record<string, Filter>;
 
 // satisfiesしておくとRecordにはならないので便利
 const Filters = {

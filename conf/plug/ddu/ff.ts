@@ -1,7 +1,7 @@
 import { ConfigArguments } from "../../../denops/@deps/ddu.ts";
 import {
   autocmd,
-  Denops,
+  type Denops,
   lambda,
   mapping,
   option,
@@ -12,7 +12,34 @@ import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-u
 import {
   ActionFlags,
   BaseConfig,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/types.ts";
+  BaseUiParams,
+  type SourceOptions,
+  type UiActionArguments,
+} from "/data/vim/deps/ddu.ts";
+
+type Filter = {
+  matchers: SourceOptions["matchers"];
+  sorters: SourceOptions["sorters"];
+  converters: SourceOptions["converters"];
+};
+
+function updateFilter(args: UiActionArguments<BaseUiParams>, filter: Filter) {
+  const sources = args.options.sources.map((s) => {
+    if (is.String(s)) {
+      s = { name: s };
+    }
+    return {
+      ...s,
+      options: {
+        ...s.options,
+        ...filter,
+      },
+    };
+  });
+  args.ddu.updateOptions({
+    sources,
+  });
+}
 
 const augroup = "vimrc#ddu-ui-ff";
 
@@ -220,22 +247,10 @@ export class Config extends BaseConfig {
             useKensaku: async (args) => {
               // L<dpp-lazy-kensaku_vim>
               await args.denops.call("dpp#source", ["vim-kensaku"]);
-              const sources = args.options.sources.map((s) => {
-                if (is.String(s)) {
-                  s = { name: s };
-                }
-                return {
-                  ...s,
-                  options: {
-                    ...s.options,
-                    matchers: ["matcher_kensaku"],
-                    sorters: [],
-                    converters: [],
-                  },
-                };
-              });
-              args.ddu.updateOptions({
-                sources,
+              updateFilter(args, {
+                matchers: ["matcher_kensaku"],
+                sorters: [],
+                converters: [],
               });
               await args.denops.cmd("echomsg 'change to kensaku matcher'");
               return ActionFlags.Persist;
