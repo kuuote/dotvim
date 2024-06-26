@@ -65,6 +65,7 @@ async function onColorScheme(args: ConfigArguments) {
     highlights.floating = "DduFloat,EndOfBuffer:DduEnd";
     highlights.floatingCursorLine = "DduCursorLine";
   } else {
+    await args.denops.cmd("hi def link DduNormal Normal");
     await args.denops.cmd("hi def link DduMatch Search");
     highlights.floating = "Normal,DduBorder:Normal,DduMatch:Search";
   }
