@@ -191,9 +191,9 @@ lazy = true
 denops_wait = false
 on_cmd = ['SKKAzik', 'SKKTsuki']
 hook_add = '''
-noremap! ;<Space> <Cmd>call dpp#source('skkeleton')<CR><Plug>(skkeleton-enable)
+noremap! ;<Space> <Cmd>call dpp#source(['skkeleton'])<CR><Plug>(skkeleton-enable)
 " ref: atusy: normal modeの `<C-J>`をskkeleton-enableにあてちゃうのアリな気がしてきた。特にmarkdownで日本語書きまくってる時とか。"
-nnoremap ;<Space> <Cmd>call dpp#source('skkeleton')<CR>i<Plug>(skkeleton-enable)
+nnoremap ;<Space> <Cmd>call dpp#source(['skkeleton'])<CR>i<Plug>(skkeleton-enable)
 '''
 hook_source = '''
 source $VIMDIR/conf/plug/skkeleton.vim
