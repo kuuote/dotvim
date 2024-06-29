@@ -1,3 +1,11 @@
+[augroup]
+body = """\
+augroup $1
+\tautocmd!
+\t$0
+augroup END\
+"""
+
 [function]
 body = '''
 function $1($2) abort
