@@ -81,6 +81,8 @@ end
 
 -- various functions
 
+local unpack = unpack or table.unpack
+
 function M.call(fn, ...)
   local tbl = {...}
   for k, v in pairs(tbl) do
