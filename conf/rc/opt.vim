@@ -24,3 +24,6 @@ set virtualedit=all
 
 " 疑似submodeにマッピングのtimeoutが邪魔
 set notimeout
+
+" tabを閉じた際に開く前の方向に戻っていく
+set tabclose=left
