@@ -5,7 +5,7 @@ endfunction
 
 function vimrc#feat#terminal#open(cmd = $SHELL, cwd = expand('%:p:h')) abort
   tabnew
-  execute 'tcd' a:cwd
+  execute 'tcd' fnameescape(a:cwd)
   let args = {
   \   'from_winid': win_getid(),
   \ }

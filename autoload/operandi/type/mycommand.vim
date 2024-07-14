@@ -44,13 +44,14 @@ function s:expandpath() abort
   let left = line[pos - 2]
 
   if left ==# '/'
-    return expand('#:p:t')
+    return fnameescape(expand('#:p:t'))
   else
-    return expand('#:p:h') .. '/'
+    return fnameescape(expand('#:p:h')) .. '/'
   endif
 endfunction
 
 function s:hook() abort
+  tcd #:p:h
   setfiletype vim
   inoremap <buffer> <expr> P <SID>expandpath()
   inoremap <buffer> E <Esc><Cmd>call operandi#execute({'typed': v:false})<CR>
