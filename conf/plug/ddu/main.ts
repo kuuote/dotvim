@@ -280,9 +280,10 @@ type Promisify<T> = T | Promise<T>;
 type POptions = Promisify<Partial<DduOptions>>;
 type Collector = (denops: Denops) => POptions;
 
-async function ripgrepLive(
+async function ripgrep(
   denops: Denops,
   findPath: (denops: Denops) => Promise<string>,
+  live: boolean,
 ): Promise<Awaited<POptions>> {
   // ddu-source-rg is set to lazy, load it.
   await denops.call("dpp#source", ["ddu-source-rg"]);
@@ -293,8 +294,11 @@ async function ripgrepLive(
       options: {
         ...Filters.sorter_alpha_path,
         path: await findPath(denops),
-        volatile: true,
+        volatile: live,
       },
+      params: live
+        ? {}
+        : { input: String(await denops.call("input", "Pattern: ")) },
     }],
     uiParams: {
       ff: {
@@ -369,15 +373,29 @@ const definition: Record<string, Collector> = {
       }],
     };
   },
-  live_grep: (denops) =>
-    ripgrepLive(
+  grep: (denops) =>
+    ripgrep(
       denops,
       async (denops) => String(await denops.call("expand", "%:p:h")),
+      false,
     ),
-  live_grep_git: (denops) =>
-    ripgrepLive(
+  grep_git: (denops) =>
+    ripgrep(
       denops,
       async (denops) => String(await denops.call("vimrc#git#find_root")),
+      false,
+    ),
+  live_grep: (denops) =>
+    ripgrep(
+      denops,
+      async (denops) => String(await denops.call("expand", "%:p:h")),
+      true,
+    ),
+  live_grep_git: (denops) =>
+    ripgrep(
+      denops,
+      async (denops) => String(await denops.call("vimrc#git#find_root")),
+      true,
     ),
   // X<ddu-config-selector-lsp>
   lsp_codeAction: () => ({
