@@ -60,6 +60,7 @@ nnoremap U <C-r>
 " tab
 nnoremap H <Cmd>tabprevious<CR>
 nnoremap L <Cmd>tabnext<CR>
+nnoremap tq <Cmd>tabclose<CR>
 nnoremap tt <Cmd>tab split<CR>
 
 " window movement
@@ -116,6 +117,4 @@ endfunction
 
 nnoremap gm <Cmd>call <SID>align()<CR>
 
-" 開く前の方向に戻っていく
-nnoremap <expr> tq printf('<Cmd>tabclose <Bar> tabnext %d<CR>', max([1, tabpagenr() - 1]))
 
