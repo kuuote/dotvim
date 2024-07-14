@@ -23,6 +23,17 @@ if = false
 [[plugins]]
 repo = 'https://github.com/lambdalisue/vim-fern'
 on_cmd = 'Fern'
+hook_source = '''
+let g:fern#disable_default_mappings = 1
+'''
+
+[plugins.ftplugin]
+fern = '''
+nnoremap <buffer> <nowait> a <Plug>(fern-action-choice)
+nnoremap <buffer> <nowait> d <Plug>(fern-action-leave)
+nnoremap <buffer> <nowait> h <Plug>(fern-action-collapse)
+nnoremap <buffer> <nowait> l <Plug>(fern-action-open-or-expand)
+'''
 
 [[plugins]]
 repo = 'https://github.com/lambdalisue/vim-gin'
