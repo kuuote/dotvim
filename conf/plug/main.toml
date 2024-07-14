@@ -70,6 +70,7 @@ hook_source = '''
 let g:mr#mru#filename = '/data/mr/mru'
 let g:mr#mrw#filename = '/data/mr/mrw'
 let g:mr#mrr#filename = '/data/mr/mrr'
+let g:mr#mrd#filename = '/data/mr/mrd'
 '''
 
 [[plugins]]

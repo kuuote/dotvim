@@ -125,7 +125,7 @@ function setupGitStatus(args: ConfigArguments) {
 // L<ddu-ui-ff-aliases> も直す
 function setupLocals(args: ConfigArguments) {
   // X<ddu-local-mr>
-  for (const type of ["mru", "mrw", "mrr"]) {
+  for (const type of ["mru", "mrw", "mrr", "mrd"]) {
     args.contextBuilder.patchLocal(type, {
       sources: [{
         name: "mr",
