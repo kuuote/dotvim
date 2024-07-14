@@ -1,4 +1,4 @@
-import { assertEquals } from "/data/vim/repos/github.com/denoland/deno_std/assert/assert_equals.ts";
+import { assertEquals } from "/data/vim/repos/github.com/denoland/deno_std/assert/equals.ts";
 import { split } from "./split.ts";
 
 Deno.test({
