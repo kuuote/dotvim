@@ -60,7 +60,7 @@ noremap! ,, <Cmd>call <SID>notation()<CR>
 
 " pum.vim
 "" X<mappings-pum_vim>
-function s:pum_insert_by(reverse, callback) abort
+function s:pum_select_by(reverse, callback) abort
   let info = pum#complete_info()
   if info.selected == -1
     " 選択されていない場合は端から
@@ -77,12 +77,12 @@ function s:pum_insert_by(reverse, callback) abort
   for i in a:reverse ? range(index - 1, 0, -1) : range(index + 1, len(info.items) - 1)
     " マッチしたらそこまでカーソルを動かし
     if a:callback(current, info.items[i])
-      call pum#map#insert_relative(i - info.selected)
+      call pum#map#select_relative(i - info.selected)
       return
     endif
   endfor
   " そうじゃなければ選択を解除
-  call pum#map#insert_relative(-index - 1)
+  call pum#map#select_relative(-index - 1)
 endfunction
 
 function s:pum_candidate_compare(a, b) abort
@@ -97,15 +97,43 @@ function s:pum_candidate_compare(a, b) abort
   return v:false
 endfunction
 
-noremap! <Tab> <Cmd>call pum#map#insert_relative(+1)<CR>
-noremap! <C-n> <Cmd>call <SID>pum_insert_by(v:false, function('<SID>pum_candidate_compare'))<CR>
-noremap! <C-p> <Cmd>call <SID>pum_insert_by(v:true, function('<SID>pum_candidate_compare'))<CR>
-noremap! <C-y> <Cmd>call pum#map#confirm()<CR>
-noremap! <C-e> <Cmd>call pum#map#cancel()<CR>
-noremap! N <Cmd>call pum#map#select_relative(+1)<CR>
-noremap! P <Cmd>call pum#map#select_relative(-1)<CR>
-noremap! Y <Cmd>call pum#map#confirm()<CR>
-noremap! E <Cmd>call pum#map#cancel()<CR>
+function s:pum_mode() abort
+  if !pum#visible()
+    return
+  endif
+  call pum#map#select_relative(+1)
+  let cont = v:true
+  while cont
+    let cont = v:false
+    redraw
+    let c = getcharstr()
+    if c ==# "\<Tab>"
+      call pum#map#select_relative(+1)
+      let cont = v:true
+    elseif c ==# "\<S-tab>"
+      call pum#map#select_relative(-1)
+      let cont = v:true
+    elseif c ==# 'E'
+      call pum#map#cancel()
+    elseif c ==# 'N'
+      call s:pum_select_by(v:false, function('s:pum_candidate_compare'))
+      let cont = v:true
+    elseif c ==# 'P'
+      call s:pum_select_by(v:true, function('s:pum_candidate_compare'))
+      let cont = v:true
+    elseif c ==# "\<CR>"
+      " do egg like
+      call pum#map#confirm()
+    else
+      call pum#map#confirm()
+      call feedkeys(c)
+    endif
+  endwhile
+endfunction
+
+noremap! <Tab> <Cmd>call <SID>pum_mode()<CR>
+noremap! <C-n> <Cmd>call <SID>pum_select_by(v:false, function('<SID>pum_candidate_compare'))<CR>
+noremap! <C-p> <Cmd>call <SID>pum_select_by(v:true, function('<SID>pum_candidate_compare'))<CR>
 
 " single quoteをprefixにしてしまう
 "" 括弧補完みたいなことをする
@@ -134,16 +162,6 @@ function s:snipjump()
   endif
 endfunction
 inoremap F <Cmd>call <SID>snipjump()<CR>
-
-" Tab
-function s:tab()
-  if pum#visible()
-    call pum#map#insert_relative(1)
-  else
-    call s:snipjump()
-  endif
-endfunction
-inoremap <Tab> <Cmd>call <SID>tab()<CR>
 
 "" sticky ;
 noremap! <expr> ; toupper(getcharstr()[0])
