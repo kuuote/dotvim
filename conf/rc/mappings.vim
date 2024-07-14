@@ -117,4 +117,7 @@ endfunction
 
 nnoremap gm <Cmd>call <SID>align()<CR>
 
+" ファイルを介したクリップボードもどき
+nnoremap <Space>p <Cmd>call vimrc#feat#clipboard#load()<CR>
+nnoremap <Space>y <Cmd>call vimrc#feat#clipboard#save()<CR>
 
