@@ -18,7 +18,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   const action = (name: string, params?: unknown) => {
     const paramsStr = params == null ? "" : ", " +
       JSON.stringify(params, (_, v) => is.Boolean(v) ? "__ddu__" + v : v)
-        .replaceAll(/__ddu__/g, "v:");
+        .replaceAll(/"__ddu__(\w+)"/g, "v:$1");
     return `<Cmd>call ddu#ui#do_action('${name}'${paramsStr})<CR>`;
   };
   const itemAction = (name: string, params: unknown = {}) => {
