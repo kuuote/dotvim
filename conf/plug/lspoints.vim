@@ -26,7 +26,16 @@ function s:attach_denols() abort
   if name =~# ':/' && name !~# '^\v(file|deno)'
     return
   endif
-  call lspoints#attach('denols')
+  let deno_json = findfile('deno.json', '.;')
+  if empty(deno_json)
+    let deno_json = findfile('deno.jsonc', '.;')
+  endif
+  if empty(deno_json)
+    call lspoints#attach('denols')
+  else
+    let options = #{rootPath: deno_json->fnamemodify(':p:h')}
+    call lspoints#attach('denols', options)
+  endif
 endfunction
 
 function s:attach() abort
