@@ -15,3 +15,9 @@ command! DeleteIt :!trash-put "%"
 
 " tmuxでVim開いてるwindowにfocusするやつ
 command! TmuxFocus call vimrc#denops#notify('tmux', 'focus', [])
+
+" DduSelectorCallの遅延
+if exists(':DduSelectorCall') != 2
+  command! -nargs=1 DduSelectorCall autocmd User vimrc#ddu#ready ++once DduSelectorCall <args>
+endif
+
