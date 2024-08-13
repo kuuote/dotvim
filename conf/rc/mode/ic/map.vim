@@ -97,11 +97,11 @@ function s:pum_candidate_compare(a, b) abort
   return v:false
 endfunction
 
-function s:pum_mode() abort
+function s:pum_mode(key) abort
   if !pum#visible()
     return
   endif
-  call pum#map#select_relative(+1)
+  call feedkeys(a:key, 'it')
   let cont = v:true
   while cont
     let cont = v:false
@@ -115,10 +115,10 @@ function s:pum_mode() abort
       let cont = v:true
     elseif c ==# 'E'
       call pum#map#cancel()
-    elseif c ==# 'N'
+    elseif c ==# 'N' || c ==# "\<C-n>"
       call s:pum_select_by(v:false, function('s:pum_candidate_compare'))
       let cont = v:true
-    elseif c ==# 'P'
+    elseif c ==# 'P' || c ==# "\<C-p>"
       call s:pum_select_by(v:true, function('s:pum_candidate_compare'))
       let cont = v:true
     elseif c ==# "\<CR>"
@@ -131,9 +131,13 @@ function s:pum_mode() abort
   endwhile
 endfunction
 
-noremap! <Tab> <Cmd>call <SID>pum_mode()<CR>
-noremap! <C-n> <Cmd>call <SID>pum_select_by(v:false, function('<SID>pum_candidate_compare'))<CR>
-noremap! <C-p> <Cmd>call <SID>pum_select_by(v:true, function('<SID>pum_candidate_compare'))<CR>
+noremap! <Tab> <Cmd>call <SID>pum_mode('<Tab>')<CR>
+noremap! N <Cmd>call <SID>pum_mode('N')<CR>
+noremap! P <Cmd>call <SID>pum_mode('P')<CR>
+noremap! <C-n> <Cmd>call <SID>pum_mode('<C-n>')<CR>
+noremap! <C-p> <Cmd>call <SID>pum_mode('<C-p>')<CR>
+" noremap! <C-n> <Cmd>call <SID>pum_select_by(v:false, function('<SID>pum_candidate_compare'))<CR>
+" noremap! <C-p> <Cmd>call <SID>pum_select_by(v:true, function('<SID>pum_candidate_compare'))<CR>
 
 " single quoteをprefixにしてしまう
 "" 括弧補完みたいなことをする
