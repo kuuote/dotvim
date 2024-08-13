@@ -51,7 +51,7 @@ function s:expandpath() abort
 endfunction
 
 function s:hook() abort
-  tcd #:p:h
+  silent! tcd #:p:h
   setfiletype vim
   inoremap <buffer> <expr> P <SID>expandpath()
   inoremap <buffer> E <Esc><Cmd>call operandi#execute({'typed': v:false})<CR>
