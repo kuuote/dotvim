@@ -92,6 +92,16 @@ nnoremap s <Nop>
 call operator#sandwich#set('add', 'char', 'skip_space', 1)
 autocmd vimrc ModeChanged [vV\x16]*:* call operator#sandwich#set('add', 'char', 'skip_space', 1)
 autocmd vimrc ModeChanged *:[vV\x16]* call operator#sandwich#set('add', 'char', 'skip_space', 0)
+
+" from https://github.com/nekowasabi/dotfiles/blob/2a06ecd2ef3d0bfed92099b14baa60fbf97bc658/vim_integrate/rc/plugins/vim-sandwich.vim?plain=1#L18-L24
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+let g:sandwich#recipes += [
+\   {'buns': ['（', '）'], 'nesting': 1, 'input': ['j(', 'j)', 'jp']},
+\   {'buns': ['「', '」'], 'nesting': 1, 'input': ['j[', 'j]', 'jB']},
+\   {'buns': ['『', '』'], 'nesting': 1, 'input': ['j{', 'j}', 'jb']},
+\   {'buns': ['【', '】'], 'nesting': 1, 'input': ['j<', 'j>', 'jk']},
+\ ]
+
 '''
 # lua_post_source = '''
 # local vimx = require('artemis')
