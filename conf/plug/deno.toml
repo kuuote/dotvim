@@ -7,3 +7,6 @@ repo = 'https://github.com/lambdalisue/deno-unknownutil'
 [[plugins]]
 repo = 'https://github.com/uga-rosa/deno-denops-lsputil'
 
+[[plugins]]
+repo = 'https://github.com/vim-denops/deno-denops-std'
+
