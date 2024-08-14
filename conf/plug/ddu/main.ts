@@ -1,6 +1,7 @@
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
 import { type KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
 import { is, u } from "../../../denops/@deps/unknownutil.ts";
+import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
 import {
@@ -12,6 +13,8 @@ import {
 } from "/data/vim/deps/ddu.ts";
 import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
 import { autocmd, type Denops } from "/data/vim/deps/denops_std.ts";
+
+const augroup = "vimrc#ddu";
 
 /* main section */
 
@@ -60,6 +63,25 @@ const FiltersLocal = {
     ],
   },
 } satisfies Filters;
+
+async function setupPathPatch(args: ConfigArguments) {
+  await group(args.denops, augroup, (helper) => {
+    helper.define("BufEnter", "*", async () => {
+      const [buftype, path] = await args.denops.eval(
+        '[&l:buftype, expand("%:p:h")]',
+      ) as [string, string];
+      if (buftype == "") {
+        args.contextBuilder.patchGlobal({
+          sourceOptions: {
+            _: {
+              path,
+            },
+          },
+        });
+      }
+    });
+  });
+}
 
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
@@ -213,7 +235,7 @@ function setupLocals(args: ConfigArguments) {
   });
 }
 
-function mainConfig(args: ConfigArguments) {
+async function mainConfig(args: ConfigArguments) {
   // X<ddu-global>
   args.contextBuilder.patchGlobal({
     actionOptions: {
@@ -268,6 +290,7 @@ function mainConfig(args: ConfigArguments) {
     },
   });
 
+  await setupPathPatch(args);
   setupGitStatus(args);
   setupLocals(args);
 }
@@ -463,9 +486,12 @@ async function selectorConfig(args: ConfigArguments) {
 
 export class Config extends BaseConfig {
   async config(args: ConfigArguments) {
+    await autocmd.group(args.denops, augroup, (helper) => {
+      helper.remove("*");
+      helper.define("User", "vimrc#ddu#ready", ":", { once: true });
+    });
     mainConfig(args);
     await selectorConfig(args);
-    await autocmd.define(args.denops, "User", "vimrc#ddu#ready", ":");
     autocmd.emit(args.denops, "User", "vimrc#ddu#ready");
   }
 }
