@@ -37,11 +37,3 @@ require('neogit').setup {}
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
-[[plugins]]
-repo = 'tani/dmacro.nvim'
-lua_add = '''
-require('dmacro').setup {
-  dmacro_key = '<C-y>',
-}
-'''
-

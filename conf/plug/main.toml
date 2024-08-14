@@ -248,3 +248,11 @@ source $VIMDIR/conf/plug/skkeleton.vim
 #
 #'''
 
+[[plugins]]
+repo = 'tani/dmacro.vim'
+if = 'has("nvim-0.10") || has("patch-9.1.0597")'
+hook_add = '''
+inoremap <C-y> <Plug>(dmacro-play-macro)
+nnoremap <C-y> <Plug>(dmacro-play-macro)
+'''
+
