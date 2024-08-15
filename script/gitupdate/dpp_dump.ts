@@ -1,5 +1,5 @@
 import { Denops } from "../../denops/@deps/denops_std.ts";
-import { is, u } from "../../denops/@deps/unknownutil.ts";
+import { as, ensure, is } from "../../denops/@deps/unknownutil.ts";
 import { Task } from "./run.ts";
 
 // sort keys for JSON.stringify
@@ -20,7 +20,7 @@ function isRemoteRepo(repo: unknown): repo is string {
 }
 
 export async function main(denops: Denops) {
-  const recordPlugins = u.ensure(
+  const recordPlugins = ensure(
     await denops.eval("g:dpp#_plugins"),
     is.Record,
   );
@@ -29,9 +29,9 @@ export async function main(denops: Denops) {
       name: is.String,
       path: is.String,
       repo: isRemoteRepo,
-      rev: is.OptionalOf(is.String),
+      rev: as.Optional(is.String),
       // trueとかにするとマッチしなくなるので弾ける
-      gitupdate_ignore: is.OptionalOf(is.LiteralOf(false)),
+      gitupdate_ignore: as.Optional(is.LiteralOf(false)),
     }))
     .map((plugin) => ({
       repo: plugin.repo,

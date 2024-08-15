@@ -1,5 +1,5 @@
 import { autocmd, Denops } from "../../denops/@deps/denops_std.ts";
-import { is, u } from "../../denops/@deps/unknownutil.ts";
+import { assert, is } from "../../denops/@deps/unknownutil.ts";
 import {
   isDoneMessage,
   isEndMessage,
@@ -132,7 +132,7 @@ class Buffer {
 }
 
 export async function run(denops: Denops, args: unknown[]) {
-  u.assert(
+  assert(
     args,
     is.TupleOf(
       [

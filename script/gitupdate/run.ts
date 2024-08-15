@@ -1,4 +1,4 @@
-import { is, u } from "../../denops/@deps/unknownutil.ts";
+import { as, assert, is, Predicate } from "../../denops/@deps/unknownutil.ts";
 import { TextLineStream } from "/data/vim/deps/deno_std/streams/text_line_stream.ts";
 
 export type Task = {
@@ -8,11 +8,11 @@ export type Task = {
   rev?: string;
 };
 
-export const isTask: u.Predicate<Task> = is.ObjectOf({
+export const isTask: Predicate<Task> = is.ObjectOf({
   repo: is.String,
   path: is.String,
-  label: is.OptionalOf(is.String),
-  rev: is.OptionalOf(is.String),
+  label: as.Optional(is.String),
+  rev: as.Optional(is.String),
 });
 
 export type InitializeMessage = {
@@ -21,7 +21,7 @@ export type InitializeMessage = {
   maxJobs: number;
 };
 
-export const isInitializeMessage: u.Predicate<InitializeMessage> = is.ObjectOf({
+export const isInitializeMessage: Predicate<InitializeMessage> = is.ObjectOf({
   type: is.LiteralOf("initialize"),
   jobs: is.Number,
   maxJobs: is.Number,
@@ -31,7 +31,7 @@ export type DoneMessage = {
   type: "done";
 };
 
-export const isDoneMessage: u.Predicate<DoneMessage> = is.ObjectOf({
+export const isDoneMessage: Predicate<DoneMessage> = is.ObjectOf({
   type: is.LiteralOf("done"),
 });
 
@@ -42,7 +42,7 @@ export type StartMessage = {
   hash: string;
 };
 
-export const isStartMessage: u.Predicate<StartMessage> = is.ObjectOf({
+export const isStartMessage: Predicate<StartMessage> = is.ObjectOf({
   type: is.LiteralOf("start"),
   jobnr: is.Number,
   label: is.String,
@@ -56,7 +56,7 @@ export type EndMessage = {
   success: boolean;
 };
 
-export const isEndMessage: u.Predicate<EndMessage> = is.ObjectOf({
+export const isEndMessage: Predicate<EndMessage> = is.ObjectOf({
   type: is.LiteralOf("end"),
   jobnr: is.Number,
   hash: is.String,
@@ -69,8 +69,8 @@ export type TextMessage = {
   text: string;
 };
 
-export const isTextMessage: u.Predicate<TextMessage> = is.ObjectOf({
-  type: is.OneOf([
+export const isTextMessage: Predicate<TextMessage> = is.ObjectOf({
+  type: is.UnionOf([
     is.LiteralOf("stdout"),
     is.LiteralOf("stderr"),
   ]),
@@ -190,7 +190,7 @@ export function newTaskRunner(tasks: Task[], script: string, maxJobs = 8) {
 
 if (import.meta.main) {
   const tasks: unknown = await (new Response(Deno.stdin.readable).json());
-  u.assert(tasks, is.ArrayOf(isTask));
+  assert(tasks, is.ArrayOf(isTask));
   const taskRunner = newTaskRunner(tasks, Deno.args[0]);
   for await (const output of taskRunner) {
     console.log(output);

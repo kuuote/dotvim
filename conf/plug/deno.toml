@@ -2,7 +2,7 @@
 repo = 'https://github.com/denoland/deno_std'
 
 [[plugins]]
-repo = 'https://github.com/lambdalisue/deno-unknownutil'
+repo = 'https://github.com/jsr-core/unknownutil'
 
 [[plugins]]
 repo = 'https://github.com/uga-rosa/deno-denops-lsputil'

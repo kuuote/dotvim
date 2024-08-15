@@ -1,5 +1,10 @@
 import { Denops, lambda } from "../../denops/@deps/denops_std.ts";
-import { is, u } from "../../denops/@deps/unknownutil.ts";
+import {
+  as,
+  ensure,
+  is,
+  PredicateType,
+} from "../../denops/@deps/unknownutil.ts";
 import { generateDenopsCall } from "../../denops/@vimrc/lib/denops.ts";
 import { encodeBase64 } from "/data/vim/deps/deno_std/encoding/base64.ts";
 import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
@@ -12,15 +17,15 @@ const vimdir = String(Deno.env.get("VIMDIR"));
 
 const isDefinitions = is.RecordOf(is.ObjectOf({
   script: is.String,
-  deps: is.OptionalOf(is.ArrayOf(is.String)),
+  deps: as.Optional(is.ArrayOf(is.String)),
 }));
 
-type Definitions = u.PredicateType<typeof isDefinitions>;
+type Definitions = PredicateType<typeof isDefinitions>;
 
 async function load(
   path: string,
 ): Promise<Definitions> {
-  return u.ensure(
+  return ensure(
     TOML.parse(await Deno.readTextFile(path)),
     isDefinitions,
   );
@@ -31,13 +36,13 @@ const isPlugin = is.ObjectOf({
   path: is.String,
 });
 
-type Plugin = u.PredicateType<typeof isPlugin>;
+type Plugin = PredicateType<typeof isPlugin>;
 type Plugins = Record<string, Plugin>;
 
 const isStringArray = is.ArrayOf(is.String);
 
 async function glob(denops: Denops, path: string): Promise<string[]> {
-  return u.ensure(
+  return ensure(
     await denops.call("glob", path, 1, 1),
     isStringArray,
   );
@@ -92,7 +97,7 @@ async function executermNvim(
     }
 
     await denops.cmd("autocmd TermOpen * normal! G");
-    const code = u.ensure(
+    const code = ensure(
       await new Promise((resolve) => {
         const id = lambda.register(denops, resolve, { once: true });
         const notify = generateDenopsCall(denops, id, "[code]", {
@@ -149,7 +154,7 @@ async function executermVim(
       continue;
     }
 
-    const code = u.ensure(
+    const code = ensure(
       await new Promise(async (resolve) => {
         const id = lambda.register(denops, resolve, { once: true });
         const notify = generateDenopsCall(denops, id, "[code]", {
@@ -186,7 +191,7 @@ async function executermVim(
 export function main(denops: Denops) {
   denops.dispatcher = {
     async build() {
-      const plugins = u.ensure(
+      const plugins = ensure(
         await denops.eval("g:dpp#_plugins"),
         is.RecordOf(isPlugin),
       );
