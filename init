@@ -1,19 +1,25 @@
 #!/bin/bash -u
 
+shopt -s globstar
+
 VIMDIR=$(dirname $(realpath $0))
 
 # install dpp.vim
 
 fget () {
   rm -rf /tmp/fget
+  echo "$1"
   git clone --reference-if-able "$2" --dissociate "$1" /tmp/fget || exit 1
-  rsync -a --delete-before /tmp/fget/ "$2/"
+  rsync --mkpath -a --delete-before /tmp/fget/ "$2/"
 }
 
+fget https://github.com/Omochice/importmap-expand /data/vim/repos/github.com/Omochice/importmap-expand
 fget https://github.com/Shougo/dpp-ext-lazy /data/vim/repos/github.com/Shougo/dpp-ext-lazy
 fget https://github.com/Shougo/dpp-ext-toml /data/vim/repos/github.com/Shougo/dpp-ext-toml
 fget https://github.com/Shougo/dpp-protocol-git /data/vim/repos/github.com/Shougo/dpp-protocol-git
 fget https://github.com/Shougo/dpp.vim /data/vim/repos/github.com/Shougo/dpp.vim
+fget https://github.com/jsr-core/unknownutil /data/vim/repos/github.com/jsr-core/unknownutil
+fget https://github.com/vim-denops/deno-denops-std /data/vim/repos/github.com/vim-denops/deno-denops-std
 fget https://github.com/vim-denops/denops.vim /data/vim/repos/github.com/vim-denops/denops.vim
 
 # link deno deps
@@ -24,4 +30,7 @@ ln -s $(realpath $(dirname $0))/denops/@deps /data/vim/deps
 fget https://github.com/denoland/deno_std /data/vim/repos/github.com/denoland/deno_std
 cd /data/vim/repos/github.com/denoland/deno_std
 $VIMDIR/script/build/build/deno_std.ts
+cd -
+cd /data/vim/repos/github.com/vim-denops/deno-denops-std
+deno run -A /data/vim/repos/github.com/Omochice/importmap-expand/cli.ts **/*.ts --option deno.jsonc
 cd -

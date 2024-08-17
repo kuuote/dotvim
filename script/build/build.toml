@@ -4,6 +4,12 @@ script = '$VIMDIR/script/build/build/coc.sh'
 [deno_std]
 script = '$VIMDIR/script/build/build/deno_std.ts'
 
+["deno-denops-lsputil"]
+script = '$VIMDIR/script/build/build/importmap-expand.sh'
+
+["deno-denops-std"]
+script = '$VIMDIR/script/build/build/importmap-expand.sh'
+
 ["telescope-fzf-native.nvim"]
 script = '$VIMDIR/script/build/build/telescope-fzf-native.sh'
 
