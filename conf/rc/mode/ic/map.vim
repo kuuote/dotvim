@@ -7,13 +7,13 @@ function s:handle()
 endfunction
 
 function s:caps()
-  augroup capslock
-    if exists('#capslock#KeyInputPre')
+  augroup vimrc_capslock
+    if exists('#vimrc_capslock#KeyInputPre')
       autocmd!
     else
       autocmd!
       autocmd KeyInputPre * call s:handle()
-      autocmd CmdlineLeave,InsertLeave * autocmd! capslock
+      autocmd CmdlineLeave,InsertLeave * autocmd! vimrc_capslock
     endif
   augroup END
 endfunction
