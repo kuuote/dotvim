@@ -37,3 +37,12 @@ require('neogit').setup {}
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
+[[plugins]]
+repo = 'https://github.com/hrsh7th/nvim-insx'
+on_event = 'InsertEnter'
+lua_source = '''
+require('insx').add('<C-]>', require('insx.recipe.fast_wrap')({
+  close = ')'
+}))
+'''
+
