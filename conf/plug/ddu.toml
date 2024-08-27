@@ -5,6 +5,9 @@ repo = 'https://github.com/flow6852/ddu-source-qf'
 repo = 'https://github.com/kuuote/ddu-filter-converter_normalize_hl'
 
 [[plugins]]
+repo = 'https://github.com/kuuote/ddu-filter-sorter_mtime'
+
+[[plugins]]
 repo = 'https://github.com/kuuote/ddu-source-git_diff'
 
 [[plugins]]
