@@ -1,4 +1,4 @@
-#!/bin/bash -u
+#!/usr/bin/env -S bash -u
 
 cd $(dirname $0) || exit 1
 deno run -A f.ts

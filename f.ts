@@ -30,8 +30,16 @@ Deno.env.set("DPP_BASE", dppBase);
 await Deno.remove("/tmp/inline.vim", { recursive: true }).catch(String);
 await Deno.remove(dppBase, { recursive: true }).catch(String);
 
-await new Deno.Command("vim", { args: ["-u", "vimrc"] }).spawn().status;
-await new Deno.Command("nvim", { args: ["-u", "vimrc"] }).spawn().status;
+try {
+  await new Deno.Command("vim", { args: ["-u", "vimrc"] }).spawn().status;
+} catch {
+  // ignore
+}
+try {
+  await new Deno.Command("nvim", { args: ["-u", "vimrc"] }).spawn().status;
+} catch {
+  // ignore
+}
 
 for (const e of walk(dppBase)) {
   if (e.isSymlink) {
