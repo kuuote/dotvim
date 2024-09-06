@@ -1,6 +1,6 @@
 " 1 common
 nnoremap ' :
-nnoremap <Space>. <Cmd>edit $VIMDIR/vimrc<CR>
+nnoremap <Space>. <Cmd>edit $MYVIMDIR/vimrc<CR>
 nnoremap <Space>d <Cmd>DduSelectorCall filer<CR>
 " nnoremap <Space>d <Cmd>Fern %:h -reveal=%<CR>
 nnoremap Q <Cmd>confirm qa<CR>

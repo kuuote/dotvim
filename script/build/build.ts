@@ -11,9 +11,9 @@ import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
 import * as TOML from "/data/vim/deps/deno_std/toml/mod.ts";
 
 // ビルドログ眺めてニヤニヤするやつ Version.2
-// call vimrc#denops_loader#load(expand('$VIMDIR/script/build/build.ts'), v:true)
+// call vimrc#denops_loader#load(expand('$MYVIMDIR/script/build/build.ts'), v:true)
 
-const vimdir = String(Deno.env.get("VIMDIR"));
+const MYVIMDIR = String(Deno.env.get("MYVIMDIR"));
 
 const isDefinitions = is.RecordOf(is.ObjectOf({
   script: is.String,
@@ -104,7 +104,7 @@ async function executermNvim(
           async: true,
         });
         const cmd =
-          `$VIMDIR/script/build/build.sh ${plugin.path} ${def.script}`;
+          `$MYVIMDIR/script/build/build.sh ${plugin.path} ${def.script}`;
         denops.cmd("tabnew").then(() =>
           denops.eval(`termopen('${cmd}', #{on_exit: { _, code -> ${notify}}})`)
         );
@@ -161,7 +161,7 @@ async function executermVim(
           async: true,
         });
         const cmd = [
-          `${Deno.env.get("VIMDIR")}/script/build/build.sh`,
+          `${Deno.env.get("MYVIMDIR")}/script/build/build.sh`,
           plugin.path,
           await denops.call("expand", def.script),
         ];

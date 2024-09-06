@@ -10,6 +10,6 @@ hook_add = '''
 nnoremap <Space>ll <Cmd>LspointsStart<CR>
 '''
 hook_source = '''
-source $VIMDIR/conf/plug/lspoints.vim
+source $MYVIMDIR/conf/plug/lspoints.vim
 '''
 

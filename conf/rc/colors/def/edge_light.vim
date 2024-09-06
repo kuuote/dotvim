@@ -13,7 +13,7 @@ function s:on_color_scheme() abort
   hi diffOldFile guifg=#ff6060 guibg=#ffe8e8
 
   " こっちで勝手に追加したやつ
-  " see $VIMDIR/after/syntax/diff.vim
+  " see $MYVIMDIR/after/syntax/diff.vim
   hi diffIndicator guibg=#e0e0ff
 
   if has('nvim')

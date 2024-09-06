@@ -1,10 +1,10 @@
 [[plugins]]
-repo = '$VIMDIR/bundle/gin-preview.vim'
+repo = '$MYVIMDIR/bundle/gin-preview.vim'
 depends = 'vim-gin'
 on_cmd = 'GinPreview'
 
 [[plugins]]
-repo = '$VIMDIR/bundle/vim-operandi'
+repo = '$MYVIMDIR/bundle/vim-operandi'
 on_func = 'operandi#'
 hook_add = '''
 nnoremap ti <Cmd>call operandi#open('myterm')<CR>
@@ -176,7 +176,7 @@ repo = 'https://github.com/uga-rosa/denippet.vim'
 lazy = true
 denops_wait = false
 hook_source = '''
-source $VIMDIR/conf/plug/denippet.vim
+source $MYVIMDIR/conf/plug/denippet.vim
 '''
 
 [[plugins]]
@@ -203,7 +203,7 @@ on_source = 'skkeleton'
 # sort_repo = 'skkeleton'
 repo = 'https://github.com/NI57721/skkeleton-state-popup'
 hook_add = '''
-autocmd vimrc User skkeleton-initialize-post source $VIMDIR/conf/plug/skkeleton_state_popup.vim
+autocmd vimrc User skkeleton-initialize-post source $MYVIMDIR/conf/plug/skkeleton_state_popup.vim
 '''
 
 [[plugins]]
@@ -218,7 +218,7 @@ noremap! ;<Space> <Cmd>call dpp#source(['skkeleton'])<CR><Plug>(skkeleton-enable
 nnoremap ;<Space> <Cmd>call dpp#source(['skkeleton'])<CR>i<Plug>(skkeleton-enable)
 '''
 hook_source = '''
-source $VIMDIR/conf/plug/skkeleton.vim
+source $MYVIMDIR/conf/plug/skkeleton.vim
 '''
 # /data/newvim/old/conf/plug/skkeleton.lua
 #hook_source = '''

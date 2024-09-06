@@ -1,4 +1,4 @@
-source $VIMDIR/conf/rc/colors/def/common/transparent.vim
+source $MYVIMDIR/conf/rc/colors/def/common/transparent.vim
 
 function s:on_colorscheme() abort
   hi Constant guibg=NONE
@@ -9,5 +9,5 @@ function s:on_colorscheme() abort
 endfunction
 autocmd persistent_colorscheme ColorScheme aomi-grayscale call s:on_colorscheme()
 
-source $VIMDIR/conf/rc/colors/def/aomi-grayscale_dark.vim
+source $MYVIMDIR/conf/rc/colors/def/aomi-grayscale_dark.vim
 

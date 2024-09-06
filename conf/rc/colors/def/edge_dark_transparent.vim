@@ -1,4 +1,4 @@
-source $VIMDIR/conf/rc/colors/def/common/transparent.vim
+source $MYVIMDIR/conf/rc/colors/def/common/transparent.vim
 
 function s:setup() abort
   let palette = edge#get_palette('default', 0, {})
@@ -8,4 +8,4 @@ function s:setup() abort
 endfunction
 autocmd persistent_colorscheme ColorScheme edge call s:setup()
 
-source $VIMDIR/conf/rc/colors/def/edge_dark.vim
+source $MYVIMDIR/conf/rc/colors/def/edge_dark.vim

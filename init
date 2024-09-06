@@ -2,7 +2,7 @@
 
 shopt -s globstar
 
-VIMDIR=$(dirname $(realpath $0))
+MYVIMDIR=$(dirname $(realpath $0))
 
 # install dpp.vim
 
@@ -29,7 +29,7 @@ ln -s $(realpath $(dirname $0))/denops/@deps /data/vim/deps
 # update deno deps
 fget https://github.com/denoland/deno_std /data/vim/repos/github.com/denoland/deno_std
 cd /data/vim/repos/github.com/denoland/deno_std
-$VIMDIR/script/build/build/deno_std.ts
+$MYVIMDIR/script/build/build/deno_std.ts
 cd -
 cd /data/vim/repos/github.com/vim-denops/deno-denops-std
 deno run -A /data/vim/repos/github.com/Omochice/importmap-expand/cli.ts **/*.ts --option deno.jsonc

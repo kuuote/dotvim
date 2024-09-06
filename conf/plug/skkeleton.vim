@@ -1,7 +1,7 @@
 " /data/newvim/old/conf/plug/skkeleton.lua
 
 function s:initialize() abort
-  let local = expand('$VIMDIR/local/SKK-JISYO.local')
+  let local = expand('$MYVIMDIR/local/SKK-JISYO.local')
   let s:dicts = getftype(local) ==# 'file' ? [[local, 'utf-8']] : []
   let s:dicts += [
   \   [printf('%s/SKK-JISYO.k', dpp#get('mydicts').path), 'utf-8'],
@@ -96,7 +96,7 @@ function! s:tsuki() abort
   lua require('vimrc.plug.skkeleton.tsuki2-263mod')()
   tabedit
   setlocal buftype=nofile bufhidden=hide noswapfile
-  call setline(1, readfile(expand('$VIMDIR/lua/vimrc/plug/skkeleton/tsukimod.txt')))
+  call setline(1, readfile(expand('$MYVIMDIR/lua/vimrc/plug/skkeleton/tsukimod.txt')))
   vsplit
 endfunction
 command! SKKTsuki call s:tsuki()

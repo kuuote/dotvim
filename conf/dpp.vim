@@ -3,6 +3,6 @@ set runtimepath^=/data/vim/repos/github.com/Shougo/dpp.vim
 let g:vimrc#dpp_base = $DPP_BASE ?? '/tmp/dpp'
 if dpp#min#load_state(g:vimrc#dpp_base)
   autocmd vimrc User Dpp:makeStatePost quit!
-  source $VIMDIR/conf/makestate.vim
+  source $MYVIMDIR/conf/makestate.vim
   finish
 endif

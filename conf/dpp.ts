@@ -42,10 +42,10 @@ export class Config extends BaseConfig {
     const nvim = args.denops.meta.host === "nvim";
     // X<dpp-inline_vimrcs>
     const inlineVimrcs = [
-      await glob(args.denops, "$VIMDIR/conf/rc/*"),
-      await glob(args.denops, "$VIMDIR/local/rc/*"),
-      vim ? await glob(args.denops, "$VIMDIR/conf/rc/vim/*") : [],
-      nvim ? await glob(args.denops, "$VIMDIR/conf/rc/nvim/*") : [],
+      await glob(args.denops, "$MYVIMDIR/conf/rc/*"),
+      await glob(args.denops, "$MYVIMDIR/local/rc/*"),
+      vim ? await glob(args.denops, "$MYVIMDIR/conf/rc/vim/*") : [],
+      nvim ? await glob(args.denops, "$MYVIMDIR/conf/rc/nvim/*") : [],
     ].flat()
       .filter((path) => path.match(/\.(?:vim|lua)$/));
 
@@ -76,7 +76,7 @@ export class Config extends BaseConfig {
     profiles.add("nvim_lsp");
     // profiles.add("vim_lsp");
 
-    const tomls = await glob(args.denops, "$VIMDIR/conf/plug/**/*.toml");
+    const tomls = await glob(args.denops, "$MYVIMDIR/conf/plug/**/*.toml");
     for (const tomlPath of tomls) {
       console.log("load toml: " + tomlPath);
       const toml = await args.dpp.extAction(

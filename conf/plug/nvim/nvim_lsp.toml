@@ -5,5 +5,5 @@ hook_add = '''
 nnoremap <Space>ln <Cmd>LspStart<CR>
 '''
 hook_source = '''
-source $VIMDIR/conf/plug/nvim/lspconfig.lua
+source $MYVIMDIR/conf/plug/nvim/lspconfig.lua
 '''

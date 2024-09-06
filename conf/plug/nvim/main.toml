@@ -14,7 +14,7 @@ vim.keymap.set('n', '<C-a>', '<Plug>(dial-increment)')
 vim.keymap.set('n', '<C-x>', '<Plug>(dial-decrement)')
 '''
 hook_source = '''
-source $VIMDIR/conf/plug/nvim/dial.lua
+source $MYVIMDIR/conf/plug/nvim/dial.lua
 '''
 
 [[plugins]]

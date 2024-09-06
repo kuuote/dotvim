@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 hook_add = '''
-let g:coc_config_home = '$VIMDIR'
+let g:coc_config_home = '$MYVIMDIR'
 " L<toml-ddu_source_lsp>
 let g:ddu_source_lsp_clientName = 'coc.nvim'
 '''

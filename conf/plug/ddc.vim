@@ -1,5 +1,5 @@
-call ddc#custom#load_config(expand('$VIMDIR/conf/plug/ddc/main.ts'))
-call ddc#custom#load_config(expand('$VIMDIR/conf/plug/ddc/manual.ts'))
+call ddc#custom#load_config(expand('$MYVIMDIR/conf/plug/ddc/main.ts'))
+call ddc#custom#load_config(expand('$MYVIMDIR/conf/plug/ddc/manual.ts'))
 call ddc#enable()
 autocmd vimrc CmdlineEnter : call ddc#enable_cmdline_completion()
 autocmd vimrc User DenopsPluginPost:ddc call ddc#enable_cmdline_completion()

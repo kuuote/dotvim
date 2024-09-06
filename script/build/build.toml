@@ -1,18 +1,18 @@
 ["coc.nvim"]
-script = '$VIMDIR/script/build/build/coc.sh'
+script = '$MYVIMDIR/script/build/build/coc.sh'
 
 [deno_std]
-script = '$VIMDIR/script/build/build/deno_std.ts'
+script = '$MYVIMDIR/script/build/build/deno_std.ts'
 
 ["deno-denops-lsputil"]
-script = '$VIMDIR/script/build/build/importmap-expand.sh'
+script = '$MYVIMDIR/script/build/build/importmap-expand.sh'
 
 ["deno-denops-std"]
-script = '$VIMDIR/script/build/build/importmap-expand.sh'
+script = '$MYVIMDIR/script/build/build/importmap-expand.sh'
 
 ["telescope-fzf-native.nvim"]
-script = '$VIMDIR/script/build/build/telescope-fzf-native.sh'
+script = '$MYVIMDIR/script/build/build/telescope-fzf-native.sh'
 
 [tree-sitter-unifieddiff]
-script = '$VIMDIR/script/build/build/treesitter/unifieddiff.sh'
+script = '$MYVIMDIR/script/build/build/treesitter/unifieddiff.sh'
 

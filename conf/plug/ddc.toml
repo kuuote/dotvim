@@ -41,7 +41,7 @@ repo = 'https://github.com/Shougo/ddc-ui-pum'
 repo = 'https://github.com/Shougo/ddc.vim'
 on_event = ['CmdlineEnter', 'InsertEnter']
 hook_source = '''
-source $VIMDIR/conf/plug/ddc.vim
+source $MYVIMDIR/conf/plug/ddc.vim
 '''
 
 [[plugins]]
