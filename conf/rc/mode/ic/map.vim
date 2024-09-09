@@ -131,7 +131,7 @@ function s:pum_mode(key) abort
       call pum#map#confirm()
     else
       call pum#map#confirm()
-      call feedkeys(c)
+      call feedkeys(c, 'i')
     endif
   endwhile
 endfunction
