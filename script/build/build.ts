@@ -13,7 +13,7 @@ import * as TOML from "/data/vim/deps/deno_std/toml/mod.ts";
 // ビルドログ眺めてニヤニヤするやつ Version.2
 // call vimrc#denops_loader#load(expand('$MYVIMDIR/script/build/build.ts'), v:true)
 
-const MYVIMDIR = String(Deno.env.get("MYVIMDIR"));
+const vimdir = String(Deno.env.get("MYVIMDIR"));
 
 const isDefinitions = is.RecordOf(is.ObjectOf({
   script: is.String,
