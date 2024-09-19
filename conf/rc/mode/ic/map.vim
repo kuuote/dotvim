@@ -131,7 +131,7 @@ function s:pum_mode(key) abort
       call pum#map#confirm()
     else
       call pum#map#confirm()
-      call feedkeys(c)
+      call timer_start(1, {->feedkeys(c)})
     endif
   endwhile
 endfunction
@@ -175,7 +175,11 @@ noremap! <expr> ; toupper(getcharstr()[0])
 noremap! ;<Tab> :
 noremap! ;<Tab><Tab> ::
 
+" 単語ジャンプ by kawarimidoll
+inoremap <expr> W getline('.')->len() == col('.') ? "\<right>" : "\<c-o>e\<right>"
+
 " 括弧とかから抜けるやつ
+"" original idea from @hrsh7th
 function s:searchend()
   call search('\("\|''\|;\|>\|)\|]\|}\)\zs', 'cWz')
   " pum.vim hack
@@ -183,4 +187,7 @@ function s:searchend()
 endfunction
 
 inoremap E <Cmd>call <SID>searchend()<CR>
+"" 括弧を抜けた後にセミコロンを打ちたいパターンがそれなりにある
+inoremap '' <Cmd>call <SID>searchend()<CR>;
+inoremap ': <Cmd>call <SID>searchend()<CR>;
 
