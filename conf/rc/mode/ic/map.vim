@@ -130,8 +130,10 @@ function s:pum_mode(key) abort
       " do egg like
       call pum#map#confirm()
     else
+      " pum.vimのconfirm->吸った文字->残りの入力の順番で並ぶ必要がある
+      " pum.vimはconfirmをするとi付きでfeedkeysをするのでこの順番で処理をすると上手く行く
+      call feedkeys(c, 'i')
       call pum#map#confirm()
-      call timer_start(1, {->feedkeys(c)})
     endif
   endwhile
 endfunction
