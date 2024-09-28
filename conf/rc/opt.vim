@@ -27,3 +27,7 @@ set notimeout
 
 " tabを閉じた際に開く前の方向に戻っていく
 set tabclose=left
+
+" たまーに判定に失敗する環境があって面倒
+" システム側のロケール情報読めないとだめそう
+set encoding=utf-8
