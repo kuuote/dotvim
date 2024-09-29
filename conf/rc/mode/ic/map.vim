@@ -148,7 +148,8 @@ noremap! <C-p> <Cmd>call <SID>pum_mode('<C-p>')<CR>
 "" 括弧補完みたいなことをする
 inoremap 'w <Cmd>call vsnip#anonymous("'$0'")<CR>
 inoremap 't <Cmd>call vsnip#anonymous("'''\n$0\n'''")<CR>
-inoremap "" <Cmd>call vsnip#anonymous('"$0"')<CR>
+inoremap 'b <Cmd>call vsnip#anonymous('`$0`')<CR>
+inoremap 'q <Cmd>call vsnip#anonymous('"$0"')<CR>
 
 inoremap 'g <Cmd>call vsnip#anonymous('<$0>')<CR>
 inoremap 'f <Cmd>call vsnip#anonymous('($0)')<CR>
@@ -183,12 +184,13 @@ inoremap <expr> W getline('.')->len() == col('.') ? "\<right>" : "\<c-o>e\<right
 " 括弧とかから抜けるやつ
 "" original idea from @hrsh7th
 function s:searchend()
-  call search('\("\|''\|;\|>\|)\|]\|}\)\zs', 'cWz')
+  call search('\("\|''\|;\|>\|)\|]\|`\|}\)\zs', 'cWz')
   " pum.vim hack
   doautocmd <nomodeline> TextChangedI
 endfunction
 
 inoremap E <Cmd>call <SID>searchend()<CR>
+inoremap 'n <Cmd>call <SID>searchend()<CR>
 "" 括弧を抜けた後にセミコロンを打ちたいパターンがそれなりにある
 inoremap '' <Cmd>call <SID>searchend()<CR>;
 inoremap ': <Cmd>call <SID>searchend()<CR>;
