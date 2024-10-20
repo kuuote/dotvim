@@ -51,6 +51,47 @@ gin-status = '''
 nnoremap <buffer> <nowait> c <Cmd>call p#gin#komitto()<CR>
 nnoremap <buffer> <nowait> h <Plug>(gin-action-stage)
 nnoremap <buffer> <nowait> l <Plug>(gin-action-unstage)
+
+function s:open_diff() abort
+  if !exists('w:gin_interactive_diff')
+    return
+  endif
+  let data = w:gin_interactive_diff
+  if bufnr() != data.bufnr
+    unlet w:gin_interactive_diff
+    autocmd! gin_interactive_diff
+    execute 'close' data.diff
+    return
+  endif
+  let view = winsaveview()
+  if view.lnum == data.lnum
+    return
+  endif
+  let data.lnum = view.lnum
+  let worktree = gin#util#worktree()
+  let path = printf('%s/%s', gin#util#worktree(), getline('.')[3:])
+  call win_gotoid(data.diff)
+  execute 'GinDiff --' path
+  call win_gotoid(data.status)
+endfunction
+
+function s:interactive_diff() abort
+  " 私はtab切ってるから他のウィンドウを雑に始末する
+  silent! only!
+  let bufnr = bufnr()
+  let status = win_getid()
+  botright vsplit
+  let diff = win_getid()
+  call win_gotoid(status)
+  let w:gin_interactive_diff = #{bufnr: bufnr, status: status, diff: diff, lnum: -1}
+  augroup gin_interactive_diff
+    autocmd!
+    autocmd CursorMoved * ++nested call s:open_diff()
+  augroup END
+  call s:open_diff()
+endfunction
+
+nnoremap <buffer> D <Cmd>call <SID>interactive_diff()<CR>
 '''
 gitcommit = '''
 nnoremap <buffer> ZZ <Cmd>Apply<CR>
