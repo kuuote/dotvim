@@ -14,7 +14,7 @@ repo = 'https://github.com/kuuote/ddu-source-git_diff'
 repo = 'https://github.com/kuuote/ddu-source-git_status'
 # L<ddu-source-git_status>
 hook_add = '''
-nnoremap gs <Cmd>call p#ddu#ff#start({'name':'git_status','sourceOptions':{'_': {'path': expand('%:p')}}})<CR>
+nnoremap ;g <Cmd>call p#ddu#ff#start({'name':'git_status','sourceOptions':{'_': {'path': expand('%:p')}}})<CR>
 '''
 
 [[plugins]]

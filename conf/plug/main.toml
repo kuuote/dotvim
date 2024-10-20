@@ -40,6 +40,11 @@ repo = 'https://github.com/lambdalisue/vim-gin'
 on_cmd = [
   'Gin',
 ]
+hook_add = '''
+nnoremap gb <Cmd>tab split<CR><Cmd>GinBranch -a<CR>
+nnoremap gl <Cmd>tab split<CR><Cmd>GinLog --oneline<CR>
+nnoremap gs <Cmd>tab split<CR><Cmd>GinStatus<CR>
+'''
 
 [plugins.ftplugin]
 gin-status = '''
