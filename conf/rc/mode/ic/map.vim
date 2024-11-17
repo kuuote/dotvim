@@ -112,18 +112,18 @@ function s:pum_mode(key) abort
     let cont = v:false
     redraw
     let c = getcharstr()
-    if c ==# "\<Tab>"
+    if c ==# "\<C-n>"
       call pum#map#select_relative(+1)
       let cont = v:true
-    elseif c ==# "\<S-tab>"
+    elseif c ==# "\<C-p>"
       call pum#map#select_relative(-1)
       let cont = v:true
     elseif c ==# 'E'
       call pum#map#cancel()
-    elseif c ==# 'N' || c ==# "\<C-n>"
+    elseif c ==# 'N'
       call s:pum_select_by(v:false, function('s:pum_candidate_compare'))
       let cont = v:true
-    elseif c ==# 'P' || c ==# "\<C-p>"
+    elseif c ==# 'P'
       call s:pum_select_by(v:true, function('s:pum_candidate_compare'))
       let cont = v:true
     elseif c ==# "\<CR>"
@@ -138,7 +138,6 @@ function s:pum_mode(key) abort
   endwhile
 endfunction
 
-noremap! <Tab> <Cmd>call <SID>pum_mode('<Tab>')<CR>
 noremap! N <Cmd>call <SID>pum_mode('N')<CR>
 noremap! P <Cmd>call <SID>pum_mode('P')<CR>
 noremap! <C-n> <Cmd>call <SID>pum_mode('<C-n>')<CR>
