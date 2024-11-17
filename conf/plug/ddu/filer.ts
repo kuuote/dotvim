@@ -66,7 +66,7 @@ export class Config extends BaseConfig {
     args.contextBuilder.patchGlobal({
       uiParams: {
         filer: {
-          split: nvim ? "floating" : "horizontal",
+          split: nvim ? "floating" : "tab",
           sort: "filename",
           sortTreesFirst: true,
         },
