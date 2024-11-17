@@ -47,6 +47,14 @@ nnoremap gs <Cmd>tab split<CR><Cmd>GinStatus<CR>
 '''
 
 [plugins.ftplugin]
+gin-log = '''
+function s:push_confirm() abort
+  if confirm('Do :Gin push?', "&Yes\n&No", 2) == 1
+    Gin push
+  endif
+endfunction
+nnoremap <buffer> <nowait> p <Cmd>call <SID>push_confirm()<CR>
+'''
 gin-status = '''
 nnoremap <buffer> <nowait> c <Cmd>call p#gin#komitto()<CR>
 nnoremap <buffer> <nowait> h <Plug>(gin-action-stage)
