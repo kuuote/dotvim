@@ -2,6 +2,11 @@ import { Denops } from "../@deps/denops_std.ts";
 
 export function main(denops: Denops) {
   denops.dispatcher = {
+    async detach() {
+      await new Deno.Command("tmux", {
+        args: ["detach-client"],
+      }).output();
+    },
     async focus() {
       const pane = Deno.env.get("TMUX_PANE");
       if (pane == null) {

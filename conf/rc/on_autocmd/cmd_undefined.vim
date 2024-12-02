@@ -21,3 +21,13 @@ if exists(':DduSelectorCall') != 2
   command! -nargs=1 DduSelectorCall autocmd User vimrc#ddu#ready ++once DduSelectorCall <args>
 endif
 
+" VIMEするやつ
+function s:vime() abort
+  augroup vimrc.vime
+    autocmd!
+    autocmd User vimrc.yank call vimrc#denops#request('tmux', 'detach', [])
+  augroup END
+  nnoremap e <Cmd>%d<CR>i
+endfunction
+
+command! VIME call s:vime()
