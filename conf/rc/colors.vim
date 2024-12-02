@@ -10,7 +10,7 @@ function s:persistent_colorscheme() abort
   catch
     let g:persistent_colorscheme_error = [v:exception, v:throwpoint]
     try
-      source $MYVIMDIR/conf/rc/colors/def/edge_light.vim
+      source $MYVIMDIR/conf/rc/colors/def/catppuccin-mocha_transparent.vim
     catch
     endtry
   endtry
