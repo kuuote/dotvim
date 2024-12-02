@@ -74,6 +74,9 @@ export class Config extends BaseConfig {
           line: {
             mark: "行",
           },
+          lsp: {
+            mark: "語",
+          },
           "shell-native": {
             mark: "殻",
           },
