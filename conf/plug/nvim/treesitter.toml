@@ -1,24 +1,19 @@
 [[plugins]]
-repo = 'https://github.com/monaqa/tree-sitter-unifieddiff'
-
-[[plugins]]
-repo = 'https://github.com/nvim-treesitter/nvim-treesitter'
+repo = '~/.config/nvim-nix/nvim-treesitter'
 on_cmd = ['TSUpdate']
 on_ft = [
   'diff',
+  'nix',
+  'toml',
+  'typescript',
 ]
 lua_source = '''
-require('nvim-treesitter.configs').setup {
+local nvim_treesitter = require('nvim-treesitter.configs')
+nvim_treesitter.setup {
   highlight = {
     enable = true,
-    disable = function(lang)
-      return lang ~= 'unifieddiff'
-    end,
   },
-  parser_install_dir = '/data/vim/treesitter',
 }
-vim.opt.runtimepath:append('/data/vim/treesitter')
-
 -- local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
 -- parser_config.unifieddiff = {
 --   install_info = {},
@@ -26,4 +21,7 @@ vim.opt.runtimepath:append('/data/vim/treesitter')
 -- }
 vim.treesitter.language.register('unifieddiff', 'diff')
 '''
+
+[[plugins]]
+repo = 'https://github.com/monaqa/tree-sitter-unifieddiff'
 
