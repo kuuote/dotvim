@@ -15,7 +15,7 @@ if !v:vim_did_enter
 endif
 
 filetype plugin indent on
-autocmd vimrc FileType * ++once ++nested syntax enable
+syntax enable
 
 " デフォルトプラギンを無効化するやつ
 " 何かしらのプラギンが読まれるまでVIMRUNTIME抜くのでそれに依存するけど
