@@ -2,6 +2,15 @@ function s:on_colors() abort
   " Vimで反転するので防止
   hi IncSearch cterm=NONE gui=NONE
   hi link DiffIndicator PmenuSbar
+  if !has('nvim')
+    let g:terminal_ansi_colors = ['#000000']->repeat(16)
+    for k in keys(g:)
+      let m = matchstr(k, 'terminal_color_\zs\d\+')
+      if !empty(m)
+        let g:terminal_ansi_colors[m] = g:[k]
+      endif
+    endfor
+  endif
   lua <<EOF
     local cmd = vim.cmd or vim.command
     local mocha = require('catppuccin.palettes').get_palette('mocha')
