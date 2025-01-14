@@ -31,3 +31,7 @@ function s:vime() abort
 endfunction
 
 command! VIME call s:vime()
+
+" 裏にあるファイルのバッファを全削除するやつ
+command! BWipeoutAll echo getbufinfo()->filter('getbufvar(v:val.bufnr, "&buftype")->empty() && v:val.windows->empty()')->map('[execute("bwipeout! " .. v:val.bufnr), v:val.name][1]')
+
