@@ -188,8 +188,7 @@ function s:searchend()
   doautocmd <nomodeline> TextChangedI
 endfunction
 
-inoremap E <Cmd>call <SID>searchend()<CR>
-inoremap 'n <Cmd>call <SID>searchend()<CR>
+inoremap <Tab> <Cmd>call <SID>searchend()<CR>
 "" 括弧を抜けた後にセミコロンを打ちたいパターンがそれなりにある
 inoremap '' <Cmd>call <SID>searchend()<CR>;
 inoremap ': <Cmd>call <SID>searchend()<CR>;
