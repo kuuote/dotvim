@@ -5,6 +5,21 @@ nnoremap <Space>d <Cmd>DduSelectorCall filer<CR>
 " nnoremap <Space>d <Cmd>Fern %:h -reveal=%<CR>
 nnoremap Q <Cmd>confirm qa<CR>
 
+" source current file
+"" 評価中の関数は上書きできないのでfeedkeysを使ってexprっぽいことをする
+function s:source() abort
+  let cmdcr = "\<Cmd>%s\<CR>"
+  let echo = printf(cmdcr, "echo 'sourced'")
+  if !has('nvim') && &filetype ==# 'lua'
+    " in vim, can't source lua file directly
+    call feedkeys(printf(cmdcr, 'luafile %') .. echo)
+  else
+    call feedkeys(printf(cmdcr, 'source %') .. echo)
+  endif
+endfunction
+
+nnoremap so <Cmd>call <SID>source()<CR>
+
 " based from https://github.com/habamax/.vim/blob/5ae879ffa91aa090efedc9f43b89c78cf748fb01/plugin/mappings.vim?plain=1#L152
 " HLとPageDown/PageUpを共用する
 function s:pagedown() abort
