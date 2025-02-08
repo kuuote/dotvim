@@ -1,4 +1,11 @@
 [[plugins]]
+repo = 'https://github.com/hrsh7th/nvim-insx'
+on_event = 'InsertEnter'
+hook_source = '''
+source $MYVIMDIR/conf/plug/nvim/insx.lua
+'''
+
+[[plugins]]
 repo = 'https://github.com/ibhagwan/fzf-lua'
 on_cmd = 'FzfLua'
 on_lua = 'fzf-lua'
@@ -36,13 +43,4 @@ require('neogit').setup {}
 
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
-
-[[plugins]]
-repo = 'https://github.com/hrsh7th/nvim-insx'
-on_event = 'InsertEnter'
-lua_source = '''
-require('insx').add('<C-]>', require('insx.recipe.fast_wrap')({
-  close = ')'
-}))
-'''
 

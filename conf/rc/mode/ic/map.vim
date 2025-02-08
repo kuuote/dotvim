@@ -144,24 +144,9 @@ noremap! <C-n> <Cmd>call <SID>pum_mode('<C-n>')<CR>
 noremap! <C-p> <Cmd>call <SID>pum_mode('<C-p>')<CR>
 
 " single quoteをprefixにしてしまう
-"" 括弧補完みたいなことをする
-inoremap 'w <Cmd>call vsnip#anonymous("'$0'")<CR>
-inoremap 't <Cmd>call vsnip#anonymous("'''\n$0\n'''")<CR>
-inoremap 'b <Cmd>call vsnip#anonymous('`$0`')<CR>
-inoremap 'q <Cmd>call vsnip#anonymous('"$0"')<CR>
-
-inoremap 'g <Cmd>call vsnip#anonymous('<$0>')<CR>
-inoremap 'f <Cmd>call vsnip#anonymous('($0)')<CR>
-inoremap 'd <Cmd>call vsnip#anonymous('[$0]')<CR>
-inoremap 's <Cmd>call vsnip#anonymous('{$0}')<CR>
-"" endwise like
-inoremap 'e <Cmd>call vsnip#anonymous("\n\t$0\n")<CR>
-inoremap '<Space> <Cmd>call vsnip#anonymous(' $0 ')<CR>
 "" 一番上
 inoremap 'z <Cmd>normal! zt<C-y><C-y><C-y><CR>
 inoremap 'Z <Cmd>normal! zt<CR>
-"" JISキーボード用
-map! : '
 "" スニペットジャンプ
 function s:snipjump()
   if vsnip#jumpable(1)
@@ -180,15 +165,6 @@ noremap! ;<Tab><Tab> ::
 " 単語ジャンプ by kawarimidoll
 inoremap <expr> W getline('.')->len() == col('.') ? "\<right>" : "\<c-o>e\<right>"
 
-" 括弧とかから抜けるやつ
-"" original idea from @hrsh7th
-function s:searchend()
-  call search('\("\|''\|;\|>\|)\|]\|`\|}\)\zs', 'cWz')
-  " pum.vim hack
-  doautocmd <nomodeline> TextChangedI
-endfunction
-
-inoremap <Tab> <Cmd>call <SID>searchend()<CR>
 "" 括弧を抜けた後にセミコロンを打ちたいパターンがそれなりにある
 inoremap '' <Cmd>call <SID>searchend()<CR>;
 inoremap ': <Cmd>call <SID>searchend()<CR>;
