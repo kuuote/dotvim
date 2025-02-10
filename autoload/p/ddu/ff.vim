@@ -38,7 +38,7 @@ function p#ddu#ff#wait(startfilter = v:false)
 endfunction
 
 function p#ddu#ff#start(options, startfilter = v:false)
-  call denops#plugin#wait('ddu')
+  call p#ddu#wait()
   call ddu#start(a:options)
   call p#ddu#ff#wait(a:startfilter)
 endfunction

@@ -488,7 +488,12 @@ export class Config extends BaseConfig {
   async config(args: ConfigArguments) {
     await autocmd.group(args.denops, augroup, (helper) => {
       helper.remove("*");
-      helper.define("User", "vimrc#ddu#ready", ":", { once: true });
+      helper.define(
+        "User",
+        "vimrc#ddu#ready",
+        "let g:vimrc#ddu#ready = v:true",
+        { once: true },
+      );
     });
     mainConfig(args);
     await selectorConfig(args);
