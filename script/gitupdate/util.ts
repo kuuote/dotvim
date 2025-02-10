@@ -1,5 +1,5 @@
-import { is, u } from "../../denops/@deps/unknownutil.ts";
 import { isTask, Task } from "./run.ts";
+import { assert, is } from "jsr:@core/unknownutil";
 
 export async function loadTasks(pathes: string[]): Promise<Task[]> {
   const tasks = [];
@@ -7,7 +7,7 @@ export async function loadTasks(pathes: string[]): Promise<Task[]> {
     try {
       const data = await Deno.readTextFile(path);
       const json = JSON.parse(data);
-      u.assert(json, is.ArrayOf(isTask));
+      assert(json, is.ArrayOf(isTask));
       tasks.push(...json);
     } catch (e) {
       console.log("skip " + path);

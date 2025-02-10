@@ -1,11 +1,6 @@
-import {
-  BaseSource,
-  DduItem,
-  DduOptions,
-  GatherArguments,
-  Item,
-} from "../@deps/ddu.ts";
 import { Callback } from "../@ddu-kinds/callback.ts";
+import { BaseSource, GatherArguments } from "jsr:@shougo/ddu-vim/source";
+import { DduItem, DduOptions, Item } from "jsr:@shougo/ddu-vim/types";
 
 type Items = Array<string | DduItem>;
 

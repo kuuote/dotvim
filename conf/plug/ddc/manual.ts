@@ -1,12 +1,11 @@
 // import { Params as BufParams } from "../../../denops/@ddc-sources/buf.ts";
 import { Params as ListParams } from "../../../denops/@ddc-sources/list.ts";
-import { Denops, mapping, option } from "../../../denops/@deps/denops_std.ts";
 import { map } from "../../../denops/@vimrc/lib/lambda/map.ts";
-import {
-  BaseConfig,
-  ConfigArguments,
-  DdcOptions,
-} from "../../../denops/@deps/ddc.ts";
+import { Denops } from "jsr:@denops/std";
+import * as mapping from "jsr:@denops/std/mapping";
+import * as option from "jsr:@denops/std/option";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim/config";
+import { DdcOptions } from "jsr:@shougo/ddc-vim/types";
 
 /*
 X<ddc-config-manual_complete>

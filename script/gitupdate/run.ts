@@ -1,5 +1,5 @@
-import { as, assert, is, Predicate } from "../../denops/@deps/unknownutil.ts";
-import { TextLineStream } from "/data/vim/deps/deno_std/streams/text_line_stream.ts";
+import { TextLineStream } from "jsr:@std/streams/text-line-stream";
+import { as, assert, is, type Predicate } from "jsr:@core/unknownutil";
 
 export type Task = {
   repo: string;

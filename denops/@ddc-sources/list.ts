@@ -1,10 +1,10 @@
+import { is, maybe } from "jsr:@core/unknownutil";
 import {
   BaseSource,
   GatherArguments,
-  Item,
   OnCompleteDoneArguments,
-} from "../@deps/ddc.ts";
-import { is, u } from "../@deps/unknownutil.ts";
+} from "jsr:@shougo/ddc-vim/source";
+import { Item } from "jsr:@shougo/ddc-vim/types";
 
 export type Params = {
   candidates: Array<string | Item>;
@@ -25,7 +25,7 @@ export class Source extends BaseSource<Params> {
         } else {
           return {
             ...candidate,
-            user_data: u.maybe(candidate.user_data, is.Record) ?? {},
+            user_data: maybe(candidate.user_data, is.Record) ?? {},
           };
         }
       }),

@@ -1,4 +1,5 @@
-import { BaseFilter, FilterArguments, Item } from "../@deps/ddc.ts";
+import { BaseFilter, FilterArguments } from "jsr:@shougo/ddc-vim/filter";
+import { Item } from "jsr:@shougo/ddc-vim/types";
 // @deno-types=./sorter_fzf/fzf_type.ts
 import { Fzf } from "npm:fzf@0.5.2";
 

@@ -1,9 +1,6 @@
-import {
-  BaseFilter,
-  FilterArguments,
-} from "https://deno.land/x/ddc_vim@v4.1.0/base/filter.ts";
-import { Item } from "https://deno.land/x/ddc_vim@v4.1.0/types.ts";
 import { makeTrie, match } from "./ngram/ngram.ts";
+import { BaseFilter, FilterArguments } from "jsr:@shougo/ddc-vim/filter";
+import { Item } from "jsr:@shougo/ddc-vim/types";
 
 function byteLength(input: string): number {
   return new TextEncoder().encode(input).length;

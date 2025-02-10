@@ -1,18 +1,17 @@
 import * as sourceList from "../../../denops/@ddu-sources/list.ts";
-import { type KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
-import { is, u } from "../../../denops/@deps/unknownutil.ts";
-import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
+// import { KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
+import { is } from "jsr:@core/unknownutil";
+import { Denops } from "jsr:@denops/std";
+import * as autocmd from "jsr:@denops/std/autocmd";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
 import {
   ActionFlags,
-  BaseConfig,
-  type ConfigArguments,
-  type DduOptions,
-  type SourceOptions,
-} from "/data/vim/deps/ddu.ts";
-import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
-import { autocmd, type Denops } from "/data/vim/deps/denops_std.ts";
+  DduOptions,
+  SourceOptions,
+} from "jsr:@shougo/ddu-vim/types";
+import * as stdpath from "jsr:@std/path";
 
 const augroup = "vimrc#ddu";
 
@@ -465,7 +464,7 @@ async function selectorConfig(args: ConfigArguments) {
 }
 
 export class Config extends BaseConfig {
-  async config(args: ConfigArguments) {
+  override async config(args: ConfigArguments) {
     await autocmd.group(args.denops, augroup, (helper) => {
       helper.remove("*");
       helper.define(
@@ -477,6 +476,7 @@ export class Config extends BaseConfig {
     });
     mainConfig(args);
     await selectorConfig(args);
-    autocmd.emit(args.denops, "User", "vimrc#ddu#ready");
+    await new (await import("./ff.ts")).Config().config(args);
+    await autocmd.emit(args.denops, "User", "vimrc#ddu#ready");
   }
 }

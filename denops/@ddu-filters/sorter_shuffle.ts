@@ -1,8 +1,5 @@
-import {
-  BaseFilter,
-  FilterArguments,
-} from "https://deno.land/x/ddu_vim@v3.5.0/base/filter.ts";
-import { Context, DduItem } from "https://deno.land/x/ddu_vim@v3.5.0/types.ts";
+import { BaseFilter, FilterArguments } from "jsr:@shougo/ddu-vim/filter";
+import { Context, DduItem } from "jsr:@shougo/ddu-vim/types";
 
 const defaultParams = {
   disableAtNarrowing: false,

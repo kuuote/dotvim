@@ -1,6 +1,8 @@
-import { autocmd, Denops, lambda } from "../../../@deps/denops_std.ts";
 import { find } from "../ahocorasick.ts";
 import { generateDenopsCall, GenerateDenopsCallOptions } from "../denops.ts";
+import { Denops } from "jsr:@denops/std";
+import * as autocmd from "jsr:@denops/std/autocmd";
+import * as lambda from "jsr:@denops/std/lambda";
 
 const dispatchName = "lambda.autocmd#" + performance.now();
 const dispatcher = new Map<string, lambda.Fn>();

@@ -1,8 +1,5 @@
-import {
-  DduItem,
-  DduOptions,
-} from "../../../../denops/@deps/ddu.ts";
-import { Denops } from "../../../../denops/@deps/denops_std.ts";
+import { Denops } from "jsr:@denops/std";
+import { DduItem, DduOptions } from "jsr:@shougo/ddu-vim/types";
 
 // 型wrapper
 // いるものしか定義してないので適宜増やすこと

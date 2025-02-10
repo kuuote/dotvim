@@ -1,4 +1,4 @@
- const okuriTable: Record<string, string> = {
+const okuriTable: Record<string, string> = {
   "ぁ": "x",
   "あ": "a",
   "ぃ": "x",

@@ -1,21 +1,20 @@
 import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
 import {
-  ActionFlags,
-  BaseConfig,
-  BaseUiParams,
-  type ConfigArguments,
-  type SourceOptions,
-  type UiActionArguments,
-} from "/data/vim/deps/ddu.ts";
+  Denops,
+} from "jsr:@denops/std";
+import * as autocmd from "jsr:@denops/std/autocmd"
+import * as lambda from "jsr:@denops/std/lambda"
+import * as mapping from "jsr:@denops/std/mapping"
+import * as option from "jsr:@denops/std/option"
+import { assert, is } from "jsr:@core/unknownutil";
+import { Params as DduUiFFParams } from "jsr:@shougo/ddu-ui-ff";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
 import {
-  autocmd,
-  type Denops,
-  lambda,
-  mapping,
-  option,
-} from "/data/vim/deps/denops_std.ts";
-import { is, u } from "/data/vim/deps/unknownutil.ts";
-import { Params as DduUiFFParams } from "/data/vim/repos/github.com/Shougo/ddu-ui-ff/denops/@ddu-uis/ff.ts";
+  ActionFlags,
+  SourceOptions,
+  UiActionArguments,
+} from "jsr:@shougo/ddu-vim/types";
+import { BaseParams } from "jsr:@shougo/ddu-vim/types";
 
 type Filter = {
   matchers: SourceOptions["matchers"];
@@ -23,7 +22,7 @@ type Filter = {
   converters: SourceOptions["converters"];
 };
 
-function updateFilter(args: UiActionArguments<BaseUiParams>, filter: Filter) {
+function updateFilter(args: UiActionArguments<BaseParams>, filter: Filter) {
   const sources = args.options.sources.map((s) => {
     if (is.String(s)) {
       s = { name: s };
@@ -36,9 +35,9 @@ function updateFilter(args: UiActionArguments<BaseUiParams>, filter: Filter) {
       },
     };
   });
-  args.ddu.updateOptions({
-    sources,
-  });
+  // args.ddu.updateOptions({
+  //   sources,
+  // });
 }
 
 const augroup = "vimrc#ddu-ui-ff";
@@ -204,7 +203,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   };
   const ddu_ff = register(denops, async (name: unknown) => {
     await setupTable["_"]?.();
-    u.assert(name, is.String);
+    assert(name, is.String);
     const names = (aliases[name] ?? name).split(/:/g);
     for (const name of names) {
       await setupTable[name]?.();

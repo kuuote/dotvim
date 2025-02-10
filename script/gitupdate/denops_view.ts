@@ -1,5 +1,3 @@
-import { autocmd, Denops } from "../../denops/@deps/denops_std.ts";
-import { assert, is } from "../../denops/@deps/unknownutil.ts";
 import {
   isDoneMessage,
   isEndMessage,
@@ -7,10 +5,13 @@ import {
   isStartMessage,
   isTextMessage,
   newTaskRunner,
-  StartMessage,
+  type StartMessage,
 } from "./run.ts";
 import { loadTasks } from "./util.ts";
-import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
+import { assert, is } from "jsr:@core/unknownutil";
+import { type Denops } from "jsr:@denops/std";
+import * as autocmd from "jsr:@denops/std/autocmd";
+import * as stdpath from "jsr:@std/path";
 
 type JobMsg = Omit<StartMessage, "type"> & {
   end: boolean;

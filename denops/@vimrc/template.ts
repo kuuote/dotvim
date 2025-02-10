@@ -1,4 +1,4 @@
-import { Denops } from "/data/vim/deps/denops_std.ts";
+import { Denops } from "jsr:@denops/std";
 
 export async function main(denops: Denops) {
   denops.dispatcher = {

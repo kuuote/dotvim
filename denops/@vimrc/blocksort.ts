@@ -1,5 +1,5 @@
-import { Denops } from "../@deps/denops_std.ts";
-import { is, u } from "../@deps/unknownutil.ts";
+import { assert, is } from "jsr:@core/unknownutil";
+import { Denops } from "jsr:@denops/std";
 
 // 例えば↑のimportを整理するにはvip<Esc>後に
 // call vimrc#denops#request('blocksort', 'do', [line("'<"), line("'>"), 'import', ' from .*'])
@@ -15,10 +15,10 @@ export function main(denops: Denops) {
       findRegExpStr: unknown,
       keyRegExpStr: unknown,
     ) {
-      u.assert(start, is.Number);
-      u.assert(end, is.Number);
-      u.assert(findRegExpStr, is.String);
-      u.assert(keyRegExpStr, is.String);
+      assert(start, is.Number);
+      assert(end, is.Number);
+      assert(findRegExpStr, is.String);
+      assert(keyRegExpStr, is.String);
       const findRegExp = new RegExp(findRegExpStr);
       // 複数行に跨るのでdotAllを入れておく
       const keyRegExp = new RegExp(keyRegExpStr, "s");

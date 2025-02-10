@@ -1,9 +1,9 @@
 import {
   BaseConfig,
   ConfigArguments,
-} from "/data/vim/repos/github.com/Shougo/ddu.vim/denops/ddu/base/config.ts";
+} from "jsr:@shougo/ddu-vim/config";
 
 export class Config extends BaseConfig {
-  async config(args: ConfigArguments) {
+  override async config(args: ConfigArguments) {
   }
 }

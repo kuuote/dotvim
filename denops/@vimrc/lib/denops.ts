@@ -1,4 +1,4 @@
-import { Denops } from "../../@deps/denops_std.ts";
+import { Denops } from "jsr:@denops/std";
 
 export type GenerateDenopsCallOptions = {
   async?: boolean;

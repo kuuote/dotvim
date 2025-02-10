@@ -1,5 +1,6 @@
-import { abortable } from "/data/vim/deps/deno_std/async/abortable.ts";
-import { BaseSource, Item } from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
+import { BaseSource } from "jsr:@shougo/ddu-vim/source";
+import { Item } from "jsr:@shougo/ddu-vim/types";
+import { abortable } from "jsr:@std/async";
 
 type Never = Record<PropertyKey, never>;
 

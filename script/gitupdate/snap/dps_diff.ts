@@ -1,9 +1,9 @@
-import { Denops } from "../../../denops/@deps/denops_std.ts";
-import { is, u } from "../../../denops/@deps/unknownutil.ts";
 import { exec, isRepo } from "./libsnapshot.ts";
+import { assert, ensure, is } from "jsr:@core/unknownutil";
+import { type Denops } from "jsr:@denops/std";
 
 export async function run(denops: Denops, args: unknown) {
-  u.assert(
+  assert(
     args,
     is.TupleOf(
       [
@@ -13,7 +13,7 @@ export async function run(denops: Denops, args: unknown) {
   );
   const [snapshotPath] = args;
 
-  const repos = u.ensure(
+  const repos = ensure(
     JSON.parse(
       await Deno.readTextFile(snapshotPath),
     ),

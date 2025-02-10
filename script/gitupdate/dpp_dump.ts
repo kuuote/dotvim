@@ -1,6 +1,6 @@
-import { Denops } from "../../denops/@deps/denops_std.ts";
-import { as, ensure, is } from "../../denops/@deps/unknownutil.ts";
 import { Task } from "./run.ts";
+import { as, ensure, is } from "jsr:@core/unknownutil";
+import { type Denops } from "jsr:@denops/std";
 
 // sort keys for JSON.stringify
 export function stringifyReplacer(_key: string, value: unknown): unknown {

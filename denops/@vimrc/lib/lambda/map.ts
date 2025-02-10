@@ -1,5 +1,8 @@
-import { Denops, fn, lambda, mapping } from "../../../@deps/denops_std.ts";
-import { is, u } from "../../../@deps/unknownutil.ts";
+import { is, maybe } from "jsr:@core/unknownutil";
+import { Denops } from "jsr:@denops/std";
+import * as fn from "jsr:@denops/std/function";
+import * as lambda from "jsr:@denops/std/lambda";
+import * as mapping from "jsr:@denops/std/mapping";
 
 const { bufnr } = fn;
 
@@ -15,8 +18,8 @@ export async function map(
   denops.dispatcher[dispatchName] = (functionName: unknown) =>
     dispatcher.get(String(functionName))?.() ?? Promise.resolve();
   const mode = options.mode;
-  const modeStr = u.maybe(mode, is.Array)?.join("") ??
-    u.maybe(mode, is.String) ??
+  const modeStr = maybe(mode, is.Array)?.join("") ??
+    maybe(mode, is.String) ??
     "";
   const bufNr = options.buffer ? await bufnr(denops) : -1;
   const lhsEscaped = lhs.replaceAll(/</g, "[less]");

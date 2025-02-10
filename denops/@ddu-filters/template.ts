@@ -1,4 +1,5 @@
-import { BaseFilter, DduItem, FilterArguments } from "../@deps/ddu.ts";
+import { BaseFilter, FilterArguments } from "jsr:@shougo/ddu-vim/filter";
+import { DduItem } from "jsr:@shougo/ddu-vim/types";
 
 const params = {
   _: null,

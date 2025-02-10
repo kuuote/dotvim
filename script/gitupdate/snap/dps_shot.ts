@@ -1,7 +1,7 @@
-import { Denops } from "../../../denops/@deps/denops_std.ts";
-import { assert, is } from "../../../denops/@deps/unknownutil.ts";
 import { loadTasks } from "../util.ts";
 import { getSnapshot } from "./libsnapshot.ts";
+import { assert, is } from "jsr:@core/unknownutil";
+import { type Denops } from "jsr:@denops/std";
 
 export async function run(args: unknown) {
   assert(

@@ -1,25 +1,21 @@
+import { ensure, is } from "jsr:@core/unknownutil";
+import { Denops } from "jsr:@denops/std";
 import {
-  ensure,
-  is,
-} from "/data/vim/repos/github.com/lambdalisue/deno-unknownutil/mod.ts";
+  Ext as LazyExt,
+  LazyMakeStateResult,
+  Params as LazyParams,
+} from "jsr:@shougo/dpp-ext-lazy";
+import { Ext as TomlExt, Params as TomlParams } from "jsr:@shougo/dpp-ext-toml";
 import {
   BaseConfig,
+  ConfigArguments,
   ConfigReturn,
-} from "/data/vim/repos/github.com/Shougo/dpp.vim/denops/dpp/base/config.ts";
-import { Denops } from "/data/vim/repos/github.com/Shougo/dpp.vim/denops/dpp/deps.ts";
-import {
-  ContextBuilder,
-  Dpp,
-  Plugin,
-} from "/data/vim/repos/github.com/Shougo/dpp.vim/denops/dpp/types.ts";
+} from "jsr:@shougo/dpp-vim/config";
+import { Protocol } from "jsr:@shougo/dpp-vim/protocol";
+import { ExtOptions, Plugin } from "jsr:@shougo/dpp-vim/types";
 
 type Toml = {
   plugins: Plugin[];
-};
-
-type LazyMakeStateResult = {
-  plugins: Plugin[];
-  stateLines: string[];
 };
 
 const isStringArray = is.ArrayOf(is.String);
@@ -32,12 +28,7 @@ async function glob(denops: Denops, path: string): Promise<string[]> {
 }
 
 export class Config extends BaseConfig {
-  override async config(args: {
-    contextBuilder: ContextBuilder;
-    denops: Denops;
-    basePath: string;
-    dpp: Dpp;
-  }): Promise<ConfigReturn> {
+  override async config(args: ConfigArguments): Promise<ConfigReturn> {
     const vim = args.denops.meta.host === "vim";
     const nvim = args.denops.meta.host === "nvim";
     // X<dpp-inline_vimrcs>
@@ -55,6 +46,10 @@ export class Config extends BaseConfig {
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
+    const protocols = await args.denops.dispatcher.getProtocols() as Record<
+      string,
+      Protocol
+    >;
     const plugins: Plugin[] = [];
 
     const profiles = new Set<string>();
@@ -76,19 +71,26 @@ export class Config extends BaseConfig {
     profiles.add("nvim_lsp");
     // profiles.add("vim_lsp");
 
+    const [tomlExt, tomlOptions, tomlParams]: [
+      TomlExt | undefined,
+      ExtOptions,
+      TomlParams,
+    ] = await args.denops.dispatcher.getExt(
+      "toml",
+    ) as [TomlExt | undefined, ExtOptions, TomlParams];
     const tomls = await glob(args.denops, "$MYVIMDIR/conf/plug/**/*.toml");
     for (const tomlPath of tomls) {
-      console.log("load toml: " + tomlPath);
-      const toml = await args.dpp.extAction(
-        args.denops,
+      const toml = await tomlExt!.actions.load.callback({
+        denops: args.denops,
         context,
         options,
-        "toml",
-        "load",
-        {
+        protocols,
+        extOptions: tomlOptions,
+        extParams: tomlParams,
+        actionParams: {
           path: tomlPath,
         },
-      ) as Toml;
+      }) as Toml;
 
       const profileVim = tomlPath.match(/\/vim\//) != null;
       const profileNvim = tomlPath.match(/\/nvim\//) != null;
@@ -127,16 +129,25 @@ export class Config extends BaseConfig {
         p.path = p.repo;
       }
     }
-    const lazyResult = await args.dpp.extAction(
-      args.denops,
+
+    const [lazyExt, lazyOptions, lazyParams]: [
+      LazyExt | undefined,
+      ExtOptions,
+      LazyParams,
+    ] = await args.denops.dispatcher.getExt(
+      "lazy",
+    ) as [LazyExt | undefined, ExtOptions, LazyParams];
+    const lazyResult = await lazyExt!.actions.makeState.callback({
+      denops: args.denops,
       context,
       options,
-      "lazy",
-      "makeState",
-      {
+      protocols,
+      extOptions: lazyOptions,
+      extParams: lazyParams,
+      actionParams: {
         plugins,
       },
-    ) as LazyMakeStateResult;
+    }) as LazyMakeStateResult;
 
     // プラギン置き場として/data/vimを使う
     const repos = args.basePath + "/repos";

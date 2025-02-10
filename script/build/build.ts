@@ -1,14 +1,10 @@
-import { Denops, lambda } from "../../denops/@deps/denops_std.ts";
-import {
-  as,
-  ensure,
-  is,
-  PredicateType,
-} from "../../denops/@deps/unknownutil.ts";
 import { generateDenopsCall } from "../../denops/@vimrc/lib/denops.ts";
-import { encodeBase64 } from "/data/vim/deps/deno_std/encoding/base64.ts";
-import * as stdpath from "/data/vim/deps/deno_std/path/mod.ts";
-import * as TOML from "/data/vim/deps/deno_std/toml/mod.ts";
+import { as, ensure, is, PredicateType } from "jsr:@core/unknownutil";
+import { Denops } from "jsr:@denops/std";
+import * as lambda from "jsr:@denops/std/lambda";
+import { encodeBase64 } from "jsr:@std/encoding/base64";
+import * as stdpath from "jsr:@std/path";
+import * as TOML from "jsr:@std/toml";
 
 // ビルドログ眺めてニヤニヤするやつ Version.2
 // call vimrc#denops_loader#load(expand('$MYVIMDIR/script/build/build.ts'), v:true)

@@ -1,4 +1,4 @@
-import { is, u } from "../../../denops/@deps/unknownutil.ts";
+import { is, type Predicate } from "jsr:@core/unknownutil";
 
 export async function exec(cmd: string[], cwd?: string): Promise<string> {
   if (cwd == null) {
@@ -18,7 +18,7 @@ export type Repo = {
   date: number;
 };
 
-export const isRepo: u.Predicate<Repo> = is.ObjectOf({
+export const isRepo: Predicate<Repo> = is.ObjectOf({
   path: is.String,
   hash: is.String,
   date: is.Number,

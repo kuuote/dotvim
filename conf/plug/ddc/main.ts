@@ -1,8 +1,5 @@
-import {
-  BaseConfig,
-  type ConfigArguments,
-  type SourceOptions,
-} from "../../../denops/@deps/ddc.ts";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim/config";
+import { SourceOptions } from "jsr:@shougo/ddc-vim/types";
 
 type Filters = Record<string, {
   matchers: SourceOptions["matchers"];

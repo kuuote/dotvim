@@ -1,4 +1,5 @@
-import { BaseFilter, Item } from "../@deps/ddc.ts";
+import { BaseFilter } from "jsr:@shougo/ddc-vim/filter";
+import { Item } from "jsr:@shougo/ddc-vim/types";
 
 const rank: Record<string, number> = {
   dir: 1,

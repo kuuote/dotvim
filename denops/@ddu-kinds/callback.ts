@@ -1,9 +1,9 @@
+import { BaseKind } from "jsr:@shougo/ddu-vim/kind";
 import {
   ActionArguments,
   ActionFlags,
-  BaseKind,
   DduItem,
-} from "../@deps/ddu.ts";
+} from "jsr:@shougo/ddu-vim/types";
 
 export type Callback = string | ((items: DduItem[]) => Promise<ActionFlags>);
 

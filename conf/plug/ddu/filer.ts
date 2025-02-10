@@ -1,7 +1,9 @@
 import { register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
-import { BaseConfig, ConfigArguments, DduItem } from "/data/vim/deps/ddu.ts";
-import { autocmd, lambda, mapping } from "/data/vim/deps/denops_std.ts";
-import { is, u } from "/data/vim/deps/unknownutil.ts";
+import * as autocmd from "jsr:@denops/std/autocmd"
+import * as lambda from "jsr:@denops/std/lambda"
+import * as mapping from "jsr:@denops/std/mapping"
+import { assert, is } from "jsr:@core/unknownutil";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
 
 const augroup = "vimrc#ddu-ui-filer";
 
@@ -46,7 +48,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   };
   const ddu_filer = register(denops, async (name: unknown) => {
     await setupTable["_"]?.();
-    u.assert(name, is.String);
+    assert(name, is.String);
     // const names = (aliases[name] ?? name).split(/:/g);
     // for (const name of names) {
     //   await setupTable[name]?.();
@@ -61,7 +63,7 @@ async function setupFileTypeAutocmd(args: ConfigArguments) {
   });
 }
 export class Config extends BaseConfig {
-  async config(args: ConfigArguments) {
+  override async config(args: ConfigArguments) {
     const nvim = args.denops.meta.host === "nvim";
     args.contextBuilder.patchGlobal({
       uiParams: {

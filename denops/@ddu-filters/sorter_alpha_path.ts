@@ -1,5 +1,6 @@
-import { ActionData } from "../@deps/ddu-kind-file.ts";
-import { BaseFilter, DduItem } from "../@deps/ddu.ts";
+import { ActionData } from "jsr:@shougo/ddu-kind-file";
+import { BaseFilter } from "jsr:@shougo/ddu-vim/filter";
+import { DduItem } from "jsr:@shougo/ddu-vim/types";
 
 type Params = Record<PropertyKey, never>;
 

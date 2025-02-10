@@ -1,4 +1,5 @@
-import { BaseSource, GatherArguments, Item } from "../@deps/ddu.ts";
+import { BaseSource, GatherArguments } from "jsr:@shougo/ddu-vim/source";
+import { Item } from "jsr:@shougo/ddu-vim/types";
 
 type Never = Record<PropertyKey, never>;
 

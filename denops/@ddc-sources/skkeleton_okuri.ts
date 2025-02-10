@@ -1,12 +1,12 @@
+import { parse } from "./skk_okuri/dict.ts";
+import { getOkuriStr } from "./skk_okuri/okuri.ts";
+import { split } from "./skk_okuri/split.ts";
 import {
   BaseSource,
   GatherArguments,
   GetCompletePositionArguments,
-  Item,
-} from "../@deps/ddc.ts";
-import { parse } from "./skk_okuri/dict.ts";
-import { getOkuriStr } from "./skk_okuri/okuri.ts";
-import { split } from "./skk_okuri/split.ts";
+} from "jsr:@shougo/ddc-vim/source";
+import { Item } from "jsr:@shougo/ddc-vim/types";
 
 type Never = Record<PropertyKey, never>;
 
