@@ -64,25 +64,6 @@ const FiltersLocal = {
   },
 } satisfies Filters;
 
-async function setupPathPatch(args: ConfigArguments) {
-  await group(args.denops, augroup, (helper) => {
-    helper.define("BufEnter", "*", async () => {
-      const [buftype, path] = await args.denops.eval(
-        '[&l:buftype, expand("%:p:h")]',
-      ) as [string, string];
-      if (buftype == "") {
-        args.contextBuilder.patchGlobal({
-          sourceOptions: {
-            _: {
-              path,
-            },
-          },
-        });
-      }
-    });
-  });
-}
-
 function setupGitStatus(args: ConfigArguments) {
   const ddu = dduHelper(args.denops);
   args.contextBuilder.patchGlobal({
@@ -290,7 +271,6 @@ async function mainConfig(args: ConfigArguments) {
     },
   });
 
-  await setupPathPatch(args);
   setupGitStatus(args);
   setupLocals(args);
 }
