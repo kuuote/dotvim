@@ -274,33 +274,6 @@ nnoremap ;<Space> <Cmd>call dpp#source(['skkeleton'])<CR>i<Plug>(skkeleton-enabl
 hook_source = '''
 source $MYVIMDIR/conf/plug/skkeleton.vim
 '''
-# /data/newvim/old/conf/plug/skkeleton.lua
-#hook_source = '''
-#autocmd User DenopsPluginPost:skkeleton call skkeleton#initialize()
-#autocmd User skkeleton-enable-pre call s:skkeleton_pre()
-#function! s:skkeleton_pre() abort
-#  if dein#is_sourced('ddc.vim')
-#    let b:skkeleton_ddc_backup = ddc#custom#get_buffer()
-#    let sources = get(b:, 'skkeleton_ddc_sources', ['skkeleton'])
-#    call ddc#custom#patch_buffer('sources', sources)
-#    call ddc#custom#patch_buffer('specialBufferCompletion', v:true)
-#  endif
-#  if dein#is_sourced('nvim-cmp')
-#    lua require('vimrc.plug.cmp').change_sources('skkeleton')
-#  endif
-#endfunction
-#autocmd User skkeleton-disable-pre call s:skkeleton_post()
-#function! s:skkeleton_post() abort
-#  " Restore current sources
-#  if exists('b:skkeleton_ddc_backup')
-#    call ddc#custom#set_buffer(b:skkeleton_ddc_backup)
-#  endif
-#  if dein#is_sourced('nvim-cmp')
-#    lua require('vimrc.plug.cmp').change_sources('default')
-#  endif
-#endfunction
-#
-#'''
 
 [[plugins]]
 repo = 'tani/dmacro.vim'
