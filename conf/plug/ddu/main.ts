@@ -246,6 +246,7 @@ async function mainConfig(args: ConfigArguments) {
       help: { defaultAction: "tabopen" },
       lsp: { defaultAction: "open" },
       lsp_codeAction: { defaultAction: "apply" },
+      nixpkgs: { defaultAction: "open" },
       tag: { defaultAction: "jump" },
     },
     postFilters: [{
