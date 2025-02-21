@@ -56,6 +56,7 @@ export class Config extends BaseConfig {
 
     profiles.add("colorscheme");
     profiles.add("ddc");
+    profiles.add("ddt");
     profiles.add("ddu");
     profiles.add("dpp");
     profiles.add("filetype_help");

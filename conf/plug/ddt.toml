@@ -1,0 +1,40 @@
+[[plugins]]
+repo = 'https://github.com/Shougo/ddt.vim'
+hook_add = '''
+nnoremap ms <Cmd>call ddt#start(#{
+      \   name: t:->get('ddt_ui_shell_last_name',
+      \                 'shell-' .. win_getid()),
+      \   ui: 'shell',
+      \ })<CR>
+let s:rustlibdir = expand('~/.config/vim-nix/deno-pty-ffi/lib')
+if isdirectory(s:rustlibdir)
+  " let $RUST_LIB_PATH = s:rustlibdir
+endif
+'''
+hook_source = '''
+call ddt#custom#patch_global(#{
+      \   nvimServer: '~/.cache/nvim/server.pipe',
+      \   uiParams: #{
+      \     shell: #{
+      \       noSaveHistoryCommands: ['history'],
+      \       prompt: '%',
+      \       promptPattern: '\w*% \?',
+      \       shellHistoryPath: '~/.cache/ddt-shell-history'->expand(),
+      \     },
+      \     terminal: #{
+      \       command: ['zsh'],
+      \       promptPattern: has('win32') ? '\f\+>' : '\w*% \?',
+      \     },
+      \   },
+      \ })
+'''
+
+[[plugins]]
+repo = 'https://github.com/Shougo/ddt-ui-shell'
+
+[plugins.ftplugin]
+ddt-shell = '''
+nnoremap <buffer> <CR>
+      \ <Cmd>call ddt#ui#do_action('executeLine')<CR>
+'''
+
