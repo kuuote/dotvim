@@ -76,6 +76,7 @@ nnoremap U <C-r>
 " tab
 nnoremap H <Cmd>tabprevious<CR>
 nnoremap L <Cmd>tabnext<CR>
+nnoremap to <Cmd>tabonly<CR>
 nnoremap tq <Cmd>tabclose<CR>
 nnoremap tt <Cmd>tab split<CR>
 
