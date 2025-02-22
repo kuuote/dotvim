@@ -1,6 +1,6 @@
 " syntax大事
 " getline hack from https://github.com/4513ECHO/dotfiles/blob/c0a0bff2186d38aca9674ac30615c672b1b96c92/config/nvim/dein/ftplugin.toml?plain=1#L104
-if getline(1) =~# '\v^(\[\[plugins]]|hook_)'
+if !has('nvim') && getline(1) =~# '\v^(\[\[plugins]]|hook_)'
   call timer_start(1, {->dpp#ext#toml#syntax()})
 endif
 
