@@ -29,6 +29,8 @@ function! operandi#execute(opts = {}) abort
   call l:operandi.executor(l:cmd, a:opts)
 endfunction
 
+let s:bufs = []
+
 function! operandi#open(type, opts = {}) abort
   let l:operandi = {}
   let l:operandi.winid = win_getid()
@@ -36,6 +38,13 @@ function! operandi#open(type, opts = {}) abort
   " TODO: opener指定できるようにする
   tabnew
   setlocal buftype=nofile bufhidden=hide noswapfile
+
+  let to_remove = s:bufs->copy()->filter('empty(win_findbuf(v:val))')
+  for b in to_remove
+    silent! execute 'bwipeout!' b
+  endfor
+  eval s:bufs->filter('!empty(getbufinfo(v:val))')
+  eval s:bufs->add(bufnr())
 
   let l:type = s:get_type(a:type)
   call setline(2, l:type.source())
