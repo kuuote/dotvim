@@ -478,6 +478,7 @@ export class Config extends BaseConfig {
     mainConfig(args);
     await selectorConfig(args);
     await new (await import("./ff.ts")).Config().config(args);
-    await autocmd.emit(args.denops, "User", "vimrc#ddu#ready");
+    // このタイミングでddu呼び出しするとロックかかるのでawaitしない
+    autocmd.emit(args.denops, "User", "vimrc#ddu#ready");
   }
 }
