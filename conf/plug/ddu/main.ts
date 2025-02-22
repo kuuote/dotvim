@@ -5,9 +5,15 @@ import { dduHelper } from "./lib/helper.ts";
 import { is, maybe } from "jsr:@core/unknownutil";
 import { Denops } from "jsr:@denops/std";
 import * as autocmd from "jsr:@denops/std/autocmd";
+import {
+  ActionData as KindFileActionData,
+  FileActions,
+} from "jsr:@shougo/ddu-kind-file";
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
 import {
+  Action,
   ActionFlags,
+  BaseParams,
   DduOptions,
   SourceOptions,
 } from "jsr:@shougo/ddu-vim/types";
@@ -241,7 +247,43 @@ async function mainConfig(args: ConfigArguments) {
       callback: { defaultAction: "call" },
       // X<ddu-kind-file>
       file: {
-        defaultAction: "open",
+        actions: {
+          fern: async ({ items }) => {
+            for (const item of items) {
+              const action = item.action as KindFileActionData;
+              await args.denops.cmd(`Fern ${action.path}`);
+            }
+            return ActionFlags.None;
+          },
+          smartopen: async (args) => {
+            for (const item of args.items) {
+              const isDirectory = (_item: typeof item): boolean => {
+                const data = _item.action as KindFileActionData;
+                try {
+                  const stat = Deno.statSync(data.path!);
+                  return stat.isDirectory;
+                } catch {
+                  return false;
+                }
+              };
+              if (isDirectory(item)) {
+                // deno-lint-ignore no-explicit-any
+                await (FileActions as any).cd.callback({
+                  ...args,
+                  items: [item],
+                });
+              } else {
+                // deno-lint-ignore no-explicit-any
+                await (FileActions as any).open.callback({
+                  ...args,
+                  items: [item],
+                });
+              }
+            }
+            return ActionFlags.None;
+          },
+        },
+        defaultAction: "smartopen",
       },
       help: { defaultAction: "tabopen" },
       lsp: { defaultAction: "open" },
