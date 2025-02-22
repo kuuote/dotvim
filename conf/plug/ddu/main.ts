@@ -2,7 +2,7 @@ import * as sourceList from "../../../denops/@ddu-sources/list.ts";
 // import { KindGitStatusActionData } from "../../../denops/@deps/ddu-kinds.ts";
 import { cmd, map } from "../../../denops/@vimrc/lib/lambda/map.ts";
 import { dduHelper } from "./lib/helper.ts";
-import { is } from "jsr:@core/unknownutil";
+import { is, maybe } from "jsr:@core/unknownutil";
 import { Denops } from "jsr:@denops/std";
 import * as autocmd from "jsr:@denops/std/autocmd";
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
@@ -86,7 +86,7 @@ function setupGitStatus(args: ConfigArguments) {
                 },
                 params: {
                   unifiedContext: 0,
-                  ...u.maybe(args.actionParams, is.Record) ?? {},
+                  ...maybe(args.actionParams, is.Record) ?? {},
                   onlyFile: true,
                 },
               }],
