@@ -7,9 +7,9 @@ import * as stdpath from "jsr:@std/path";
 import * as TOML from "jsr:@std/toml";
 
 // ビルドログ眺めてニヤニヤするやつ Version.2
-// call vimrc#denops_loader#load(expand('$MYVIMDIR/script/build/build.ts'), v:true)
+// call vimrc#denops_loader#load(expand('$VIMCONF/script/build/build.ts'), v:true)
 
-const vimdir = String(Deno.env.get("MYVIMDIR"));
+const vimdir = String(Deno.env.get("VIMCONF"));
 
 const isDefinitions = is.RecordOf(is.ObjectOf({
   script: is.String,
@@ -100,7 +100,7 @@ async function executermNvim(
           async: true,
         });
         const cmd =
-          `$MYVIMDIR/script/build/build.sh ${plugin.path} ${def.script}`;
+          `$VIMCONF/script/build/build.sh ${plugin.path} ${def.script}`;
         denops.cmd("tabnew").then(() =>
           denops.eval(`termopen('${cmd}', #{on_exit: { _, code -> ${notify}}})`)
         );
@@ -157,7 +157,7 @@ async function executermVim(
           async: true,
         });
         const cmd = [
-          `${Deno.env.get("MYVIMDIR")}/script/build/build.sh`,
+          `${Deno.env.get("VIMCONF")}/script/build/build.sh`,
           plugin.path,
           await denops.call("expand", def.script),
         ];

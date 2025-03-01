@@ -97,7 +97,7 @@ repo = 'https://github.com/Shougo/ddu-ui-filer'
 repo = 'https://github.com/Shougo/ddu.vim'
 # L<ddu-global>
 hook_add = '''
-autocmd vimrc User DenopsReady call ddu#custom#load_config(expand('$MYVIMDIR/conf/plug/ddu/main.ts'))
+autocmd vimrc User DenopsReady call ddu#custom#load_config(expand('$VIMCONF/conf/plug/ddu/main.ts'))
 " ddu.vim自体のロードがDenopsReadyで行われるため再呼び出ししておく
 autocmd vimrc User DenopsReady ++once call timer_start(0, {->execute('doautocmd <nomodeline> User DenopsReady', '')})
 '''

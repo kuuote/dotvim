@@ -1,4 +1,4 @@
-" tabedit $MYVIMDIR/script/gitupdate/denops_view.vim
+" tabedit $VIMCONF/script/gitupdate/denops_view.vim
 
 let s:do_diff = 0
 
@@ -6,19 +6,19 @@ if s:do_diff && !glob('/data/vim/diff/**/*.diff', 1, 1)->empty()
   throw 'diff残ってんぞ'
 endif
 
-call vimrc#denops_loader#load('$MYVIMDIR/script/gitupdate/dpp_dump.ts'->expand(), v:true)
+call vimrc#denops_loader#load('$VIMCONF/script/gitupdate/dpp_dump.ts'->expand(), v:true)
 
-let s:runner = vimrc#denops_loader#load('$MYVIMDIR/script/gitupdate/denops_view.ts'->expand())
-let s:shot = vimrc#denops_loader#load('$MYVIMDIR/script/gitupdate/snap/dps_shot.ts'->expand())
-let s:diff = vimrc#denops_loader#load('$MYVIMDIR/script/gitupdate/snap/dps_diff.ts'->expand())
-let s:build = vimrc#denops_loader#load('$MYVIMDIR/script/build/build.ts'->expand())
+let s:runner = vimrc#denops_loader#load('$VIMCONF/script/gitupdate/denops_view.ts'->expand())
+let s:shot = vimrc#denops_loader#load('$VIMCONF/script/gitupdate/snap/dps_shot.ts'->expand())
+let s:diff = vimrc#denops_loader#load('$VIMCONF/script/gitupdate/snap/dps_diff.ts'->expand())
+let s:build = vimrc#denops_loader#load('$VIMCONF/script/build/build.ts'->expand())
 
 let s:tasks = []
-let a_json = '$MYVIMDIR/script/gitupdate/a.json'->expand()
+let a_json = '$VIMCONF/script/gitupdate/a.json'->expand()
 if getftype(a_json) == 'file'
   call add(s:tasks, a_json)
 endif
-call add(s:tasks, '$MYVIMDIR/script/gitupdate/tasks.json'->expand())
+call add(s:tasks, '$VIMCONF/script/gitupdate/tasks.json'->expand())
 
 function s:diff_post() abort
   if s:do_diff

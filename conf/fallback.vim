@@ -1,1 +1,1 @@
-source $MYVIMDIR/conf/rc/mappings.vim
+source $VIMCONF/conf/rc/mappings.vim

@@ -1,5 +1,5 @@
 let s:loaded_ft = {}
-let s:dir = expand('$MYVIMDIR/snippets/')
+let s:dir = expand('$VIMCONF/snippets/')
 
 function s:load()
   let ft = &filetype

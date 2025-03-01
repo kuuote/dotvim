@@ -1,4 +1,4 @@
-nnoremap cs <Cmd>source $MYVIMDIR/conf/rc/colors/select.vim<CR>
+nnoremap cs <Cmd>source $VIMCONF/conf/rc/colors/select.vim<CR>
 set termguicolors
 
 function s:persistent_colorscheme() abort
@@ -10,7 +10,7 @@ function s:persistent_colorscheme() abort
   catch
     let g:persistent_colorscheme_error = [v:exception, v:throwpoint]
     try
-      source $MYVIMDIR/conf/rc/colors/def/catppuccin-mocha_transparent.vim
+      source $VIMCONF/conf/rc/colors/def/catppuccin-mocha_transparent.vim
     catch
     endtry
   endtry

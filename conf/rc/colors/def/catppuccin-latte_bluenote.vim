@@ -16,4 +16,4 @@ endfunction
 
 autocmd persistent_colorscheme ColorScheme catppuccin-latte call s:on_colors()
 
-source $MYVIMDIR/conf/rc/colors/def/catppuccin-latte.vim
+source $VIMCONF/conf/rc/colors/def/catppuccin-latte.vim

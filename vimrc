@@ -3,15 +3,15 @@ augroup vimrc
   autocmd!
 augroup END
 
-let $MYVIMDIR = expand('<sfile>:p:h')
+let $VIMCONF = expand('<sfile>:p:h')
 " vimrcを指定するかしないかでruntimepath変わって面倒なので固定値で上書き
 " システムの設定などないし多分行けるでしょ(適当)
-set runtimepath=$MYVIMDIR,$MYVIMDIR/local,$VIMRUNTIME,$MYVIMDIR/after,$MYVIMDIR/local/after
+set runtimepath=$VIMCONF,$VIMCONF/local,$VIMRUNTIME,$VIMCONF/after,$VIMCONF/local/after
 
 " dpp.vim内でconf/rcやlocal/rc以下から設定を読んでいる
 " L<dpp-inline_vimrcs>
 if !v:vim_did_enter
-  source $MYVIMDIR/conf/dpp.vim
+  source $VIMCONF/conf/dpp.vim
 endif
 
 filetype plugin indent on

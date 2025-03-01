@@ -1,6 +1,6 @@
 " 1 common
 nnoremap ' :
-nnoremap <Space>. <Cmd>cd $MYVIMDIR<CR><Cmd>echo 'change directory to ' $MYVIMDIR<CR>
+nnoremap <Space>. <Cmd>cd $VIMCONF<CR><Cmd>echo 'change directory to ' $VIMCONF<CR>
 nnoremap <Space>d <Cmd>DduSelectorCall filer<CR>
 " nnoremap <Space>d <Cmd>Fern %:h -reveal=%<CR>
 nnoremap Q <Cmd>confirm qa<CR>

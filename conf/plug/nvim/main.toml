@@ -2,7 +2,7 @@
 repo = 'https://github.com/hrsh7th/nvim-insx'
 on_event = 'InsertEnter'
 hook_source = '''
-source $MYVIMDIR/conf/plug/nvim/insx.lua
+source $VIMCONF/conf/plug/nvim/insx.lua
 '''
 
 [[plugins]]
@@ -21,7 +21,7 @@ vim.keymap.set('n', '<C-a>', '<Plug>(dial-increment)')
 vim.keymap.set('n', '<C-x>', '<Plug>(dial-decrement)')
 '''
 hook_source = '''
-source $MYVIMDIR/conf/plug/nvim/dial.lua
+source $VIMCONF/conf/plug/nvim/dial.lua
 '''
 
 [[plugins]]

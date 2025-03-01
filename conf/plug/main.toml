@@ -1,10 +1,10 @@
 [[plugins]]
-repo = '$MYVIMDIR/bundle/gin-preview.vim'
+repo = '$VIMCONF/bundle/gin-preview.vim'
 depends = 'vim-gin'
 on_cmd = 'GinPreview'
 
 [[plugins]]
-repo = '$MYVIMDIR/bundle/vim-operandi'
+repo = '$VIMCONF/bundle/vim-operandi'
 on_func = 'operandi#'
 hook_add = '''
 nnoremap ti <Cmd>call operandi#open('myterm')<CR>
@@ -230,7 +230,7 @@ repo = 'https://github.com/uga-rosa/denippet.vim'
 lazy = true
 denops_wait = false
 hook_source = '''
-source $MYVIMDIR/conf/plug/denippet.vim
+source $VIMCONF/conf/plug/denippet.vim
 '''
 
 [[plugins]]
@@ -272,7 +272,7 @@ noremap! ;<Space> <Cmd>call dpp#source(['skkeleton'])<CR><Plug>(skkeleton-enable
 nnoremap ;<Space> <Cmd>call dpp#source(['skkeleton'])<CR>i<Plug>(skkeleton-enable)
 '''
 hook_source = '''
-source $MYVIMDIR/conf/plug/skkeleton.vim
+source $VIMCONF/conf/plug/skkeleton.vim
 '''
 
 [[plugins]]
