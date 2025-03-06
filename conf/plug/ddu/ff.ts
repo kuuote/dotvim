@@ -1,11 +1,9 @@
 import { group, register } from "../../../denops/@vimrc/lib/lambda/autocmd.ts";
-import {
-  Denops,
-} from "jsr:@denops/std";
-import * as autocmd from "jsr:@denops/std/autocmd"
-import * as lambda from "jsr:@denops/std/lambda"
-import * as mapping from "jsr:@denops/std/mapping"
-import * as option from "jsr:@denops/std/option"
+import { Denops } from "jsr:@denops/std";
+import * as autocmd from "jsr:@denops/std/autocmd";
+import * as lambda from "jsr:@denops/std/lambda";
+import * as mapping from "jsr:@denops/std/mapping";
+import * as option from "jsr:@denops/std/option";
 import { assert, is } from "jsr:@core/unknownutil";
 import { Params as DduUiFFParams } from "jsr:@shougo/ddu-ui-ff";
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
