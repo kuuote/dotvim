@@ -31,3 +31,9 @@ set tabclose=left
 " たまーに判定に失敗する環境があって面倒
 " システム側のロケール情報読めないとだめそう
 set encoding=utf-8
+
+" diffopt
+"" git diffと同じコンテキスト量でいい
+set diffopt+=context:3
+"" histogramにしてみる
+set diffopt+=algorithm:histogram
