@@ -263,7 +263,7 @@ on_source = 'skkeleton'
 # sort_repo = 'skkeleton'
 repo = 'https://github.com/NI57721/skkeleton-state-popup'
 hook_add = '''
-autocmd vimrc User skkeleton-initialize-post source $MYVIMDIR/conf/plug/skkeleton_state_popup.vim
+autocmd vimrc User skkeleton-initialize-post source $VIMCONF/conf/plug/skkeleton_state_popup.vim
 '''
 
 [[plugins]]
