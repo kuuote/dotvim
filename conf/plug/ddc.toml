@@ -50,6 +50,7 @@ on_func = 'pum#'
 # L<mappings-pum_vim>
 hook_source = '''
 call pum#set_option('direction', 'below')
+call pum#set_option('highlight_matches', '')
 '''
 
 [[plugins]]
