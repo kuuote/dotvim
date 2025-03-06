@@ -29,6 +29,7 @@ if = false
 repo = 'https://github.com/lambdalisue/vim-fern'
 on_cmd = 'Fern'
 hook_source = '''
+let g:fern#default_hidden = 1
 let g:fern#disable_default_mappings = 1
 '''
 
