@@ -20,8 +20,7 @@ function! operandi#execute(opts = {}) abort
   let l:operandi = b:operandi
   let l:cmd = getline('.')
 
-  " TODO: openerに準じた閉じ方をする
-  tabclose
+  call operandi#opener#{l:operandi.opener}#close()
   if !win_gotoid(l:operandi.winid)
     throw 'operandi: parent window is already closed'
   endif
@@ -34,9 +33,9 @@ let s:bufs = []
 function! operandi#open(type, opts = {}) abort
   let l:operandi = {}
   let l:operandi.winid = win_getid()
+  let l:operandi.opener = get(a:opts, 'opener', 'tab')
 
-  " TODO: opener指定できるようにする
-  tabnew
+  call operandi#opener#{l:operandi.opener}#open()
   setlocal buftype=nofile bufhidden=hide noswapfile
 
   let to_remove = s:bufs->copy()->filter('empty(win_findbuf(v:val))')
@@ -49,10 +48,6 @@ function! operandi#open(type, opts = {}) abort
   let l:type = s:get_type(a:type)
   call setline(2, l:type.source())
   let l:operandi.executor = l:type.executor
-
-  " TODO: ユーザーにマッピングさせる
-  nnoremap <buffer> <nowait> <CR> <Cmd>call operandi#execute()<CR>
-  inoremap <buffer> <nowait> <CR> <Esc><Cmd>call operandi#execute()<CR>
 
   let b:operandi = l:operandi
   execute 'doautocmd <nomodeline> User operandi#open#' .. a:type

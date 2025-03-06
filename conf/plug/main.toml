@@ -17,6 +17,13 @@ nnoremap <Space>; <Cmd>call operandi#open('mycommand')<CR>
 nnoremap <Space><Space> <Cmd>call operandi#open('mycommand')<CR>
 xnoremap <Space><Space> <Esc><Cmd>call operandi#open('mycommand')<CR><Cmd>call setline(1, "'<,'>")<CR>
 '''
+hook_source = '''
+function s:operandi_map()
+  nnoremap <buffer> <nowait> <CR> <Cmd>call operandi#execute()<CR>
+  inoremap <buffer> <nowait> <CR> <Esc><Cmd>call operandi#execute()<CR>
+endfunction
+autocmd vimrc User operandi#open#* call s:operandi_map()
+'''
 
 [[plugins]]
 repo = 'https://github.com/kawarimidoll/autoplay.vim'
