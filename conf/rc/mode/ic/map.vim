@@ -1,20 +1,15 @@
 " CAPS LOCK
-"" KeyInputPreは便利ですね本当に
-function s:handle()
-  if v:char =~# '^[a-z]'
-    let v:char = toupper(v:char)
-  endif
-endfunction
-
+"" skkeletonは便利ですね本当に
 function s:caps()
-  augroup vimrc_capslock
-    if exists('#vimrc_capslock#KeyInputPre')
-      autocmd!
-    else
-      autocmd!
-      autocmd KeyInputPre * call s:handle()
-      autocmd CmdlineLeave,InsertLeave * autocmd! vimrc_capslock
-    endif
+  for mode in ['i', 'c']
+    call skkeleton#internal#map#save(mode)
+    for key in 'abcdefghijklmnopqrstuvwxyz'->split('\zs')
+      execute printf('%snoremap <buffer> <nowait> %s %s', mode, key, key->toupper())
+    endfor
+  endfor
+  augroup vimrc_caps
+    autocmd!
+    autocmd ModeChanged *:n* ++once call skkeleton#internal#map#restore()
   augroup END
 endfunction
 
