@@ -71,9 +71,8 @@ const configSet: Record<
     };
   },
   snippet: async (denops) => {
-    await denops.call("dpp#source", "denippet.vim");
     return {
-      sources: ["denippet"],
+      sources: ["lsnippet"],
     };
   },
   yank: () =>
