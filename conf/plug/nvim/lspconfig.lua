@@ -27,6 +27,10 @@ lspconfig.denols.setup {
   },
 }
 
+lspconfig.ruff.setup {
+  autostart = false,
+}
+
 lspconfig.rust_analyzer.setup {
   autostart = false,
 }
