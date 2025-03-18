@@ -308,7 +308,7 @@ async function mainConfig(args: ConfigArguments) {
     },
     sourceParams: {
       file_external: {
-        cmd: ["fd", ".", "-H", "-I", "-E", ".git", "-t", "f"],
+        cmd: ["rg", "--files"],
       },
     },
   });
