@@ -2,23 +2,8 @@
 nnoremap ' :
 nnoremap <Space>. <Cmd>cd $VIMCONF<CR><Cmd>echo 'change directory to ' $VIMCONF<CR>
 nnoremap <Space>d <Cmd>DduSelectorCall filer<CR>
-" nnoremap <Space>d <Cmd>Fern %:h -reveal=%<CR>
+"" nnoremap <Space>d <Cmd>Fern %:h -reveal=%<CR>
 nnoremap Q <Cmd>confirm qa<CR>
-
-" source current file
-"" 評価中の関数は上書きできないのでfeedkeysを使ってexprっぽいことをする
-function s:source() abort
-  let cmdcr = "\<Cmd>%s\<CR>"
-  let echo = printf(cmdcr, "echo 'sourced'")
-  if !has('nvim') && &filetype ==# 'lua'
-    " in vim, can't source lua file directly
-    call feedkeys(printf(cmdcr, 'luafile %') .. echo)
-  else
-    call feedkeys(printf(cmdcr, 'source %') .. echo)
-  endif
-endfunction
-
-nnoremap so <Cmd>call <SID>source()<CR>
 
 " based from https://github.com/habamax/.vim/blob/5ae879ffa91aa090efedc9f43b89c78cf748fb01/plugin/mappings.vim?plain=1#L152
 " HLとPageDown/PageUpを共用する
@@ -69,6 +54,21 @@ nnoremap <Space>k <Plug>(vimrc-page)k
 " shellのcd用ヘルパー
 ""/tmp/fish_cdにカレントファイルのディレクトリパスを書き込んでVimを落とす
 nnoremap <C-q> <Cmd>call writefile([expand('%:p:h')], '/tmp/fish_cd')<CR><Cmd>confirm qa<CR>
+
+" source current file
+"" 評価中の関数は上書きできないのでfeedkeysを使ってexprっぽいことをする
+function s:source() abort
+  let cmdcr = "\<Cmd>%s\<CR>"
+  let echo = printf(cmdcr, "echo 'sourced'")
+  if !has('nvim') && &filetype ==# 'lua'
+    " in vim, can't source lua file directly
+    call feedkeys(printf(cmdcr, 'luafile %') .. echo)
+  else
+    call feedkeys(printf(cmdcr, 'source %') .. echo)
+  endif
+endfunction
+
+nnoremap so <Cmd>call <SID>source()<CR>
 
 " sugoi undo
 nnoremap U <C-r>
@@ -137,4 +137,7 @@ nnoremap gm <Cmd>call <SID>align()<CR>
 " ファイルを介したクリップボードもどき
 nnoremap <Space>p <Cmd>call vimrc#feat#clipboard#load()<CR>
 nnoremap <Space>y <Cmd>call vimrc#feat#clipboard#save()<CR>
+
+" フォーマットかけるやつ
+nnoremap mf <Cmd>call vimrc#feat#format#execute_filetype()<CR>
 

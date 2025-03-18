@@ -12,4 +12,3 @@ if !exists('*s:gf')
 endif
 
 nnoremap <buffer> gf <Cmd>call <SID>gf()<CR>
-nnoremap <buffer> mf <Cmd>call vimrc#feat#format#execute('nixfmt')<CR>

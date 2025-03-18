@@ -17,3 +17,11 @@ function! vimrc#feat#format#execute(cmd) abort
     let &shell = shell
   endtry
 endfunction
+
+let s:ft = {}
+let s:ft['lua'] = 'stylua -'
+let s:ft['nix'] = 'nixfmt'
+
+function vimrc#feat#format#execute_filetype() abort
+  call vimrc#feat#format#execute(s:ft[&filetype])
+endfunction
