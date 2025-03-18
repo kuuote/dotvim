@@ -99,12 +99,15 @@ export class Source extends BaseSource<Never> {
       return;
     }
     const lam = lambda.add(denops, async () => {
-      if (denops.meta.host === "vim") {
-        await denops.call("vsnip#anonymous", snippet);
-      } else {
-        await denops.call("luaeval", "vim.snippet.expand(_A)", snippet);
+      try {
+        if (denops.meta.host === "vim") {
+          await denops.call("vsnip#anonymous", snippet);
+        } else {
+          await denops.call("luaeval", "vim.snippet.expand(_A)", snippet);
+        }
+      } finally {
+        lam.dispose();
       }
-      lam.dispose();
     });
     await denops.eval(
       `feedkeys("\\<C-w>\\<Cmd>call ${lam.notify()}\\<CR>", "n")`,
