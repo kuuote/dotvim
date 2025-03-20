@@ -160,7 +160,9 @@ noremap! ;<Tab><Tab> ::
 " 単語ジャンプ by kawarimidoll
 inoremap <expr> W getline('.')->len() == col('.') ? "\<right>" : "\<c-o>e\<right>"
 
-"" 括弧を抜けた後にセミコロンを打ちたいパターンがそれなりにある
-inoremap '' <Cmd>call <SID>searchend()<CR>;
-inoremap ': <Cmd>call <SID>searchend()<CR>;
-
+" 無変換と変換
+"" xremapかけてる前提の配置
+noremap! <Left> <Plug>(muhenkan)
+noremap! <Right> <Plug>(henkan)
+silent! noremap! <unique> <Plug>(muhenkan) <Nop>
+silent! noremap! <unique> <Plug>(henkan) <Nop>
