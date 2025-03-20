@@ -11,9 +11,7 @@ import {
 } from "jsr:@shougo/ddu-kind-file";
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
 import {
-  Action,
   ActionFlags,
-  BaseParams,
   DduOptions,
   SourceOptions,
 } from "jsr:@shougo/ddu-vim/types";
@@ -308,7 +306,7 @@ async function mainConfig(args: ConfigArguments) {
     },
     sourceParams: {
       file_external: {
-        cmd: ["rg", "--files"],
+        cmd: ["rg", "--files", "--no-ignore"],
       },
     },
   });
