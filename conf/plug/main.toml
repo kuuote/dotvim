@@ -26,6 +26,16 @@ autocmd vimrc User operandi#open#* call s:operandi_map()
 '''
 
 [[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+on_func = 'vsnip#'
+hook_add = '''
+inoremap <C-f> <Plug>(vsnip-jump-next)
+'''
+hook_source = '''
+runtime autoload/vsnip.vim
+'''
+
+[[plugins]]
 repo = 'https://github.com/kawarimidoll/autoplay.vim'
 
 [[plugins]]
