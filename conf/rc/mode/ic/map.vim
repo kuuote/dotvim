@@ -121,6 +121,10 @@ function s:pum_mode(key) abort
     elseif c ==# 'P'
       call s:pum_select_by(v:true, function('s:pum_candidate_compare'))
       let cont = v:true
+    elseif c ==# "\<C-y>"
+      " keyword単位でreplaceすると便利らしいので仕込んでみた
+      call search('\%#\k*\zs')
+      call pum#map#confirm()
     elseif c ==# "\<CR>"
       " do egg like
       call pum#map#confirm()
