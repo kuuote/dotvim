@@ -1,6 +1,5 @@
 [[plugins]]
 repo = '~/.config/nvim-nix/nvim-treesitter'
-on_cmd = ['TSUpdate']
 on_ft = [
   'diff',
   'nix',
@@ -8,20 +7,29 @@ on_ft = [
   'typescript',
 ]
 lua_source = '''
-local nvim_treesitter = require("nvim-treesitter.configs")
-nvim_treesitter.setup({
-	highlight = {
-		enable = true,
-	},
-})
+local nvim_treesitter = require('nvim-treesitter.configs')
+nvim_treesitter.setup {
+  highlight = {
+    enable = true,
+  },
+}
 -- local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
 -- parser_config.unifieddiff = {
 --   install_info = {},
 --   filetype = 'diff', -- if filetype does not agrees with parser name
 -- }
-vim.treesitter.language.register("unifieddiff", "diff")
+vim.treesitter.language.register('unifieddiff', 'diff')
 '''
 
 [[plugins]]
 repo = 'https://github.com/monaqa/tree-sitter-unifieddiff'
+
+[[plugins]]
+repo = 'https://github.com/atusy/treemonkey.nvim'
+on_map = {o = 'm', x = 'm'}
+lua_source = '''
+vim.keymap.set({ 'x', 'o' }, 'm', function()
+  require('treemonkey').select { ignore_injections = false }
+end)
+'''
 
