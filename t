@@ -1,4 +1,5 @@
-#!/bin/bash -u
+#!/usr/bin/env bash
+set -euo pipefail
 
 deno run -A script/time/time.ts script/time/time.sh
 rm -f /tmp/profile
