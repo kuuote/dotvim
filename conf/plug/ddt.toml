@@ -8,7 +8,7 @@ nnoremap ms <Cmd>call ddt#start(#{
       \ })<CR>
 let s:rustlibdir = expand('~/.config/vim-nix/deno-pty-ffi/lib')
 if isdirectory(s:rustlibdir)
-  " let $RUST_LIB_PATH = s:rustlibdir
+  let $RUST_LIB_PATH = s:rustlibdir
 endif
 '''
 hook_source = '''
