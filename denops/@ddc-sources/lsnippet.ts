@@ -32,13 +32,34 @@ export class Source extends BaseSource<Never> {
         body: [
           "#!/usr/bin/env bash",
           "set -euo pipefail",
-          "\n$0",
+          "$0",
         ].join("\n"),
+      });
+    }
+
+    if (filetype === "ai") {
+      snippets.push({
+        word: "translate",
+        body:
+          "以下の文章を日本語に翻訳してください。結果だけを出力してください",
       });
     }
 
     if (filetype === "nix") {
       if (head) {
+        snippets.push({
+          word: "mkshell",
+          body: [
+            "{",
+            "\tpkgs ? import <nixpkgs> { },",
+            "}:",
+            "pkgs.mkShell {",
+            "\tpackages = with pkgs; [",
+            "\t\t$0",
+            "\t];",
+            "}",
+          ].join("\n"),
+        });
         snippets.push({
           word: "nixpkgs",
           body: [
