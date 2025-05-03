@@ -6,3 +6,10 @@ autocmd vimrc TerminalOpen * nmap <buffer> p i<Plug>(registerm)
 autocmd vimrc TerminalOpen * nnoremap <buffer> p i<Plug>(registerm)<C-\><C-n>
 '''
 
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_event = 'InsertEnter'
+hook_source = '''
+source $VIMCONF/conf/plug/vim/lexima.vim
+'''
+
