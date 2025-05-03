@@ -27,6 +27,10 @@ lspconfig.denols.setup {
   },
 }
 
+lspconfig.lua_ls.setup {
+  autostart = false,
+}
+
 lspconfig.ruff.setup {
   autostart = false,
 }
