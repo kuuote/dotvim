@@ -22,6 +22,11 @@ cnoremap <Esc> <C-u><C-c>
 "" thanks monaqa and tsuyoshicho
 inoremap <C-v>u <C-r>=nr2char(0x)<Left>
 
+" from https://github.com/kat0h/dotfiles/blob/7c371cd16f39e66f0960d3c847085ff64d19881d/dot_vim/keymap.vim#L51-L54
+""Undoポイントを貼り付ける
+inoremap <silent> <C-w> <C-g>u<C-w>
+inoremap <silent> <C-u> <C-g>u<C-u>
+
 " kigou utiyasuku suru
 noremap! ,q <Bar>
 noremap! ,a \
@@ -144,8 +149,7 @@ noremap! <C-p> <Cmd>call <SID>pum_mode('<C-p>')<CR>
 
 " single quoteをprefixにしてしまう
 "" 一番上
-inoremap 'z <Cmd>normal! zt<C-y><C-y><C-y><CR>
-inoremap 'Z <Cmd>normal! zt<CR>
+inoremap 'z <Cmd>eval winsaveview()->extend({'topline': line('.') - 3})->winrestview()<CR>
 "" スニペットジャンプ
 function s:snipjump()
   if vsnip#jumpable(1)
