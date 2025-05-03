@@ -1,4 +1,16 @@
 [[plugins]]
+repo = 'https://github.com/folke/snacks.nvim'
+lazy = true
+lua_add = '''
+_G.Snacks = setmetatable({}, {
+	__index = function(_, k)
+		vim.call("dpp#source", { "snacks.nvim" })
+		return _G.Snacks[k]
+	end,
+})
+'''
+
+[[plugins]]
 repo = 'https://github.com/hrsh7th/nvim-insx'
 on_event = 'InsertEnter'
 hook_source = '''
@@ -9,6 +21,13 @@ source $VIMCONF/conf/plug/nvim/insx.lua
 repo = 'https://github.com/ibhagwan/fzf-lua'
 on_cmd = 'FzfLua'
 on_lua = 'fzf-lua'
+
+[[plugins]]
+repo = 'https://github.com/j-hui/fidget.nvim'
+on_event = ['LspAttach']
+lua_source = '''
+require('fidget').setup {}
+'''
 
 [[plugins]]
 repo = 'https://github.com/lewis6991/gitsigns.nvim'
