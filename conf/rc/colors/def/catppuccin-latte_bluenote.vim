@@ -6,6 +6,7 @@ function s:on_colors() abort
   hi CmpItemAbbr guifg=#6060ff
   hi CmpItemKindText guifg=#6060ff
   hi PumHighlight ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE
+  hi Search ctermfg=205 ctermbg=225 guifg=#ff60c0 guibg=#ffd0ff cterm=NONE gui=NONE"
 
   hi DduFloat guibg=NONE
   hi DduEnd guibg=NONE
