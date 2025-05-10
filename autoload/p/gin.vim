@@ -24,4 +24,4 @@ function p#gin#komitto() abort
     autocmd BufWritePost <buffer> call s:dowrite()
   augroup END
   nnoremap <buffer> ZZ <Cmd>autocmd! p.gin.komitto<CR><Cmd>update<CR><Cmd>call <SID>dowrite(v:true)<CR>
-endfunction 
+endfunction
