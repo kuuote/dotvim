@@ -3,6 +3,7 @@ import { encodeBase64 } from "jsr:@std/encoding/base64";
 
 async function yankWayland(text: string) {
   const wlCopy = new Deno.Command("wl-copy", {
+    args: ["--type", "text/plain"],
     stdin: "piped",
     stdout: "null",
     stderr: "null",
