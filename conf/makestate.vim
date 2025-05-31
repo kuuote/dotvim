@@ -1,3 +1,6 @@
+if has('nvim')
+  colorscheme vim
+endif
 set runtimepath^=/data/vim/repos/github.com/vim-denops/denops.vim
 set runtimepath^=/data/vim/repos/github.com/Shougo/dpp-ext-toml
 set runtimepath^=/data/vim/repos/github.com/Shougo/dpp-ext-lazy
