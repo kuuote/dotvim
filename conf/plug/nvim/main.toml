@@ -31,6 +31,12 @@ require('fidget').setup {}
 
 [[plugins]]
 repo = 'https://github.com/lewis6991/gitsigns.nvim'
+on_cmd = 'Gitsigns'
+lua_source = '''
+require("gitsigns").setup({
+	signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
+})
+'''
 
 [[plugins]]
 repo = 'https://github.com/monaqa/dial.nvim'
