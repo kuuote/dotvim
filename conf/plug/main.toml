@@ -3,6 +3,9 @@ repo = '$VIMCONF/bundle/gin-preview.vim'
 depends = 'vim-gin'
 on_cmd = 'GinPreview'
 
+[[plugins]]
+repo = 'https://github.com/thinca/vim-quickrun'
+
 [plugins.ftplugin]
 gin-status = '''
 nnoremap <buffer> gs <Cmd>GinPreview!<CR>
