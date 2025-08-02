@@ -32,3 +32,6 @@ repo = 'https://github.com/sainnhe/edge'
 [[plugins]]
 repo = 'https://github.com/yuttie/hydrangea-vim'
 
+[[plugins]]
+repo = 'https://github.com/futsuuu/vim-robot'
+
