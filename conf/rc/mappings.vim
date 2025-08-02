@@ -89,7 +89,7 @@ nnoremap sl <C-w>l
 
 " yank operation
 "" L<denops-vimrc-yank>
-nnoremap <CR> <Cmd>call vimrc#denops#request('yank', 'yank', [getline(1, '$')])<CR>
+nnoremap <CR> <Cmd>call vimrc#denops#request('yank', 'yank', [getline('.')])<CR>
 
 " こまめなセーブは忘れずに
 nnoremap <Space>s <Cmd>update<CR>
