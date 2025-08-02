@@ -28,6 +28,8 @@ function s:vime() abort
     autocmd User vimrc.yank call vimrc#denops#request('tmux', 'detach', [])
   augroup END
   nnoremap e <Cmd>%d<CR>i
+  nnoremap w ggVG
+  xnoremap w ggoG
 endfunction
 
 command! VIME call s:vime()
