@@ -5,7 +5,7 @@ import * as mapping from "jsr:@denops/std/mapping"
 import { assert, is } from "jsr:@core/unknownutil";
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim/config";
 
-const augroup = "vimrc#ddu-ui-filer";
+const augroup = "vimrc.ddu-ui-filer";
 
 async function setupFileTypeAutocmd(args: ConfigArguments) {
   const { denops } = args;

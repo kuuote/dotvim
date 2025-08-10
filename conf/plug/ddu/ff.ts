@@ -38,7 +38,7 @@ function updateFilter(args: UiActionArguments<BaseParams>, filter: Filter) {
   // });
 }
 
-const augroup = "vimrc#ddu-ui-ff";
+const augroup = "vimrc.ddu-ui-ff";
 
 async function onColorScheme(args: ConfigArguments) {
   const hlbg = false;

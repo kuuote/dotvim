@@ -17,7 +17,7 @@ import {
 } from "jsr:@shougo/ddu-vim/types";
 import * as stdpath from "jsr:@std/path";
 
-const augroup = "vimrc#ddu";
+const augroup = "vimrc.ddu";
 
 /* main section */
 
@@ -510,7 +510,7 @@ export class Config extends BaseConfig {
       helper.remove("*");
       helper.define(
         "User",
-        "vimrc#ddu#ready",
+        "vimrc.ddu.ready",
         "let g:vimrc#ddu#ready = v:true",
         { once: true },
       );
@@ -519,6 +519,6 @@ export class Config extends BaseConfig {
     await selectorConfig(args);
     await new (await import("./ff.ts")).Config().config(args);
     // このタイミングでddu呼び出しするとロックかかるのでawaitしない
-    autocmd.emit(args.denops, "User", "vimrc#ddu#ready");
+    autocmd.emit(args.denops, "User", "vimrc.ddu.ready");
   }
 }
