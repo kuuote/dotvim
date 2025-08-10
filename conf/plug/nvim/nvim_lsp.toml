@@ -1,9 +1,14 @@
 [[plugins]]
 repo = 'https://github.com/neovim/nvim-lspconfig'
-on_cmd = 'LspStart'
-hook_add = '''
-nnoremap <Space>ln <Cmd>LspStart<CR>
+lazy = true
+lua_add = '''
+function LspStart()
+	vim.call('dpp#source', { 'nvim-lspconfig' })
+  _LspStart()
+end
+vim.keymap.set('n', '<Space>ln', LspStart)
 '''
 hook_source = '''
 source $VIMCONF/conf/plug/nvim/lspconfig.lua
 '''
+
