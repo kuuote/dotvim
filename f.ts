@@ -43,9 +43,13 @@ try {
 
 for (const e of walk(dppBase)) {
   if (e.isSymlink) {
-    const real = Deno.realPathSync(e.path);
-    Deno.removeSync(e.path);
-    Deno.symlinkSync(real, e.path);
+    try {
+      const real = Deno.realPathSync(e.path);
+      Deno.removeSync(e.path);
+      Deno.symlinkSync(real, e.path);
+    } catch {
+      // ignore
+    }
   }
   if (e.isFile) {
     const data = Deno.readTextFileSync(e.path);
