@@ -54,5 +54,38 @@ export function main(denops: Denops) {
 
       await denops.call("setbufline", "%", start, sorted);
     },
+    async shuf(
+      start: unknown,
+      end: unknown,
+      findRegExpStr: unknown,
+    ) {
+      assert(start, is.Number);
+      assert(end, is.Number);
+      assert(findRegExpStr, is.String);
+      const findRegExp = new RegExp(findRegExpStr);
+      // 複数行に跨るのでdotAllを入れておく
+      const lines = await denops.call(
+        "getbufline",
+        "%",
+        start,
+        end,
+      ) as string[];
+
+      // findRegExpにマッチする物を見出しとして与えられた行をブロックにバラす
+      const blocks: string[][] = [];
+      let lineStart = 0;
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].match(findRegExp) && lineStart !== i) {
+          blocks.push(lines.slice(lineStart, i));
+          lineStart = i;
+        }
+      }
+      blocks.push(lines.slice(lineStart, lines.length));
+      for (let i = blocks.length - 1; i >= 1; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [blocks[i], blocks[j]] = [blocks[j], blocks[i]];
+      }
+      await denops.call("setbufline", "%", start, blocks.flat());
+    },
   };
 }
