@@ -101,7 +101,7 @@ function setupGitStatus(args: ConfigArguments) {
             for (const item of args.items) {
               const action = item.action as KindGitStatusActionData;
               await args.denops.cmd("tabnew");
-              await args.denops.cmd("tcd " + action.worktree);
+              await args.denops.call("chdir", action.worktree, "tabpage");
               await args.denops.cmd("GinPatch ++no-head " + action.path);
             }
             return ActionFlags.None;
