@@ -149,7 +149,7 @@ noremap! <C-p> <Cmd>call <SID>pum_mode('<C-p>')<CR>
 
 " single quoteをprefixにしてしまう
 "" 一番上
-inoremap 'z <Cmd>eval winsaveview()->extend({'topline': line('.') - 3})->winrestview()<CR>
+inoremap 'z <Cmd>eval winsaveview()->extend({'topline': line('.') - 5})->winrestview()<CR>
 "" スニペットジャンプ
 function s:snipjump()
   if vsnip#jumpable(1)
