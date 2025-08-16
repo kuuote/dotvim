@@ -1,10 +1,11 @@
 " /data/newvim/old/conf/plug/skkeleton.lua
 
+
 function s:initialize() abort
-  let local = expand('$VIMCONF/local/SKK-JISYO.local')
-  let s:dicts = getftype(local) ==# 'file' ? [[local, 'utf-8']] : []
+  silent! source $VIMCONF/local/feat/skkeleton/jisyo.vim
+  let s:dicts = get(g:, 'skkeleton#local_jisyo', [])
   let s:dicts += [
-  \   [printf('%s/SKK-JISYO.k', dpp#get('mydicts').path), 'utf-8'],
+  \   [printf('%s/SKK-JISYO.sort', dpp#get('mydicts').path), 'utf-8'],
   \   [printf('%s/SKK-JISYO.L', dpp#get('dict').path), 'euc-jp'],
   \ ]
   call skkeleton#config(#{
